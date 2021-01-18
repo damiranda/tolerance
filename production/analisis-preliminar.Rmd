@@ -1,0 +1,6 @@
+---
+title: "analisis-preliminar"
+author: "Anais Herrera Leighton"
+date: "18-01-2021"
+output: html_document
+---
