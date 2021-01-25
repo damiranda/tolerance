@@ -18,6 +18,7 @@ pacman::p_load(lavaan, # pacman para instalar / cargar
                h2o,
                polycor,
                car,
+               sjlabelled,
                sjmisc,
                dplyr)
 ```
@@ -332,8 +333,11 @@ est_cfa2_disc_sco = cbind(est_cfa_disc, scores_est_disc)
 # Check
 stargazer(est_cfa2_disc_sco[, 9], type = "text")
 
+# Promedio por aula
+est_cfa2_disc_sco = est_cfa2_disc_sco %>% group_by(RBD) %>% mutate(mean_discusion=mean(ap_discusion, na.rm = T))
+
 # Save  factor scores
-est_cfa_disc_sco = est_cfa2_disc_sco %>% select(ap_discusion,FOLIO) %>% as.data.frame()
+est_cfa_disc_sco = est_cfa2_disc_sco %>% select(mean_discusion,ap_discusion,FOLIO) %>% as.data.frame()
 ```
 
 ### Proporción de niñas en el aula
@@ -343,15 +347,15 @@ est_data = est_data %>% group_by(RBD) %>% mutate(num_fem=mean(Sexo==2, na.rm = T
 
 ## Guardar base de datos procesada
 ```{r}
-est_cfa_sco <- left_join(x = est_data,y = est_cfa_sco,by ="FOLIO",suffix=c(" ",".y"))
-est_cfa_sco = est_cfa_sco[,1:32]
-est_data_sco <- left_join(x = est_cfa_sco,y = est_cfa_disc_sco,by ="FOLIO")
+est_cfa_sco2 <- left_join(x = est_data,y = est_cfa_sco,by ="FOLIO",suffix=c(" ",".y"))
+est_data_sco <- left_join(x = est_cfa_sco2,y = est_cfa_disc_sco,by ="FOLIO",suffix=c(" ",".y"))
+est_data_sco = est_data_sco %>% select(-RBD.y) %>% as.data.frame()
 save(est_data_sco, file = "../input/data-proc/est_data_sco.rda")
 ```
 
 # Base de datos conjunta
 ```{r}
-data <- left_join(x = est_cfa_sco, y = apod_cfa_sco, by=c("FOLIO"="FOLIO_EST"), suffix=c(".est",".pad"))
+data <- left_join(x = est_data_sco, y = apod_cfa_sco, by=c("FOLIO"="FOLIO_EST"), suffix=c(".est",".pad"))
 data = data %>% select(-FOLIO.pad) %>% as.data.frame()
 save(data, file = "../input/data-proc/data.rda")
 ```
