@@ -1,0 +1,362 @@
+---
+title: "preparacion"
+author: "Anais Herrera Leighton"
+date: "18-01-2021"
+output: html_document
+---
+
+```{r}
+pacman::p_load(lavaan, # pacman para instalar / cargar 
+               psych, # para funcion lowerMat
+               Hmisc, # rcorr
+               stargazer,
+               xtable,
+               semPlot,
+               semTools,
+               remedy,
+               haven,
+               h2o,
+               polycor,
+               car,
+               sjlabelled,
+               sjmisc,
+               dplyr)
+```
+
+```{r}
+apod_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_apoderadosv2.dta?raw=true"))
+apod_data1 <- filter(apod_data0, P2==1)
+apod_data = apod_data1 %>% dplyr::select("Igualdad1"=P5A, "Igualdad2"=P5B, "Igualdad3"=P5C, "Igualdad4"=P5D, "Igualdad5"=P5E, "Igualdad6"=P5F, "Igualdad7"=P5G, "Igualdad8"=P5H, "Igualdad9"=P5I, "Educacion"=P45, "Libros_apod"=P47, "Ingresos"=P55, FOLIO, FOLIO_EST, pond_apoderado_reg_dep_tens) %>% as.data.frame()
+
+est_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_estudiantesv2.dta?raw=true"))
+est_data = est_data0 %>% dplyr::select("Igualdad1"=P18A, "Igualdad2"=P18B, "Igualdad3"=P18C, "Igualdad4"=P18D, "Igualdad5"=P18E, "Igualdad6"=P18F, "Igualdad7"=P18G, "Igualdad8"=P18H, "Igualdad9"=P18I, "Ap_discusion1"=P49A, "Ap_discusion2"=P49B, "Ap_discusion3"=P49C, "Ap_discusion4"=P49D, "Ap_discusion5"=P49E, "Ap_discusion6"=P49F, "Ap_discusion7"=P49G, "Sexo"=P58, "Ed_madre"=P66, "Ed_padre"=P67, "Libros_est"=P68, RBD, FOLIO, pond_estudiante_reg_dep_tens) %>% as.data.frame()
+```
+# Preparación base de datos de los apoderados 
+## Actitudes hacia la igualdad de género (AFC)
+### Indicar valores perdidos, dar vuelta algunos indicadores para que la interpretación sea más simple y crear una base de datos con menos variables
+```{r}
+apod_data$Igualdad1 <- set_na(apod_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad2 <- set_na(apod_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad3 <- set_na(apod_data$Igualdad3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad4 <- set_na(apod_data$Igualdad4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad5 <- set_na(apod_data$Igualdad5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad6 <- set_na(apod_data$Igualdad6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad7 <- set_na(apod_data$Igualdad7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad8 <- set_na(apod_data$Igualdad8, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad9 <- set_na(apod_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_cfa = apod_data %>% dplyr::select(Igualdad1,Igualdad2,Igualdad3,Igualdad4,Igualdad5,Igualdad6,Igualdad7,Igualdad8,Igualdad9,FOLIO,FOLIO_EST) %>% as.data.frame()
+```
+#### Análisis de supuestos
+```{r}
+## Correlaciones
+corMat  <- cor(apod_cfa, use="na.or.complete", method="spearman")  # estimar matriz pearson
+options(digits=3) # decimales
+print(corMat)
+stargazer(corMat, title="correlaciones", type = "text") #Latex table
+
+## Factorizabilidad
+KMO(corMat)
+
+## Esfericidad
+cortest.bartlett(corMat, n = 681)
+
+## Normalidad (univariada)
+shapiro.test(apod_cfa$Igualdad1)
+shapiro.test(apod_cfa$Igualdad2)
+shapiro.test(apod_cfa$Igualdad3)
+shapiro.test(apod_cfa$Igualdad4)
+shapiro.test(apod_cfa$Igualdad5)
+shapiro.test(apod_cfa$Igualdad6)
+shapiro.test(apod_cfa$Igualdad7)
+shapiro.test(apod_cfa$Igualdad8)
+shapiro.test(apod_cfa$Igualdad9)
+```
+#### Estimación del modelo
+```{r}
+apod_cfa$Igualdad1 <- as.numeric(apod_cfa$Igualdad1)
+apod_cfa$Igualdad2 <- as.numeric(apod_cfa$Igualdad2)
+apod_cfa$Igualdad3 <- as.numeric(apod_cfa$Igualdad3)
+apod_cfa$Igualdad4 <- as.numeric(apod_cfa$Igualdad4)
+apod_cfa$Igualdad5 <- as.numeric(apod_cfa$Igualdad5)
+apod_cfa$Igualdad6 <- as.numeric(apod_cfa$Igualdad6)
+apod_cfa$Igualdad7 <- as.numeric(apod_cfa$Igualdad7)
+apod_cfa$Igualdad8 <- as.numeric(apod_cfa$Igualdad8)
+apod_cfa$Igualdad9 <- as.numeric(apod_cfa$Igualdad9)
+
+cfa_1a <- '
+igualdad =~ Igualdad1 + Igualdad5 + Igualdad7
+esp_publico =~ Igualdad3 + Igualdad4 + Igualdad6
+esp_privado =~ Igualdad2 + Igualdad8 + Igualdad9
+'
+fit_1a <- cfa(cfa_1a,data=apod_cfa,missing="ML",estimator="MLR")
+show(fit_1a) # Resumen ajuste general
+fitMeasures(fit_1a, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+summary(fit_1a, fit.measures=T, standardized=T)
+
+cfa_1b <- '
+general =~ Igualdad1 + Igualdad5 + Igualdad7 + Igualdad3 + Igualdad4 + Igualdad6 + Igualdad2 + Igualdad8 + Igualdad9
+'
+fit_1b <- cfa(cfa_1b,data=apod_cfa,missing="ML",estimator="MLR")
+show(fit_1b) # Resumen ajuste general
+fitMeasures(fit_1b, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+summary(fit_1b, fit.measures=T, standardized=T)
+```
+#### Estimación puntuaciones factoriales
+```{r}
+p1a <- predict(fit_1a)
+
+scores_apod = as.data.frame(p1a)
+
+# Merge with factor scores
+apod_cfa2_sco = cbind(apod_cfa, scores_apod)
+
+# Check
+stargazer(apod_cfa2_sco[, 12:14], type = "text")
+
+# Save  factor scores
+apod_cfa_sco = apod_cfa2_sco %>% dplyr::select(igualdad, esp_publico, esp_privado,FOLIO,FOLIO_EST) %>% as.data.frame()
+```
+
+## Recursos de la familia
+### Nivel educacional de los padres
+```{r}
+apod_data$Educacion <- set_label(x = apod_data$Educacion,label = "Nivel educacional apoderado/a") # Etiquetar variable
+apod_data$Educacion <- set_na(apod_data$Educacion, na = 9, drop.levels = TRUE, as.tag = FALSE) # Indicar valores perdidos y eliminar etiquetas de dichas categorías 
+```
+#### Cantidad de libros en el hogar
+```{r}
+apod_data$Libros_apod <- set_label(x = apod_data$Libros_apod,label = "Cantidad de libros en el hogar")
+apod_data$Libros_apod <- set_na(apod_data$Libros_apod, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
+```
+#### Ingresos del hogar
+```{r}
+apod_data$Ingresos <- set_label(x = apod_data$Ingresos,label = "Ingresos del hogar")
+apod_data$Ingresos <- set_na(apod_data$Ingresos, na = c(12,13), drop.levels = TRUE, as.tag = FALSE)
+```
+## Guardar base de datos procesada
+```{r}
+apod_cfa_sco <- left_join(x = apod_data,y = apod_cfa_sco,by ="FOLIO")
+apod_cfa_sco = apod_cfa_sco %>% dplyr::select(-FOLIO_EST.y,"FOLIO_EST"=FOLIO_EST.x) %>% as.data.frame()
+save(apod_cfa_sco, file = "../input/data-proc/apod_data_sco.rda")
+```
+
+# Preparación base de datos de los estudiantes
+## Variable dependiente
+### Indicar valores perdidos y crear una base de datos con menos variables
+```{r}
+est_data$Igualdad1 <- set_na(est_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad2 <- set_na(est_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad3 <- set_na(est_data$Igualdad3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad4 <- set_na(est_data$Igualdad4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad5 <- set_na(est_data$Igualdad5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad6 <- set_na(est_data$Igualdad6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad7 <- set_na(est_data$Igualdad7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad8 <- set_na(est_data$Igualdad8, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad9 <- set_na(est_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_cfa = est_data %>% dplyr::select(Igualdad1,Igualdad2,Igualdad3,Igualdad4,Igualdad5,Igualdad6,Igualdad7,Igualdad8,Igualdad9,FOLIO) %>% as.data.frame()
+```
+### AFC
+#### Análisis de supuestos
+```{r}
+## Correlaciones
+corMat  <- cor(est_cfa, use="na.or.complete", method="spearman")
+options(digits=3) # decimales
+print(corMat)
+stargazer(corMat, title="correlaciones", type = "text") #Latex table
+
+## Factorizabilidad
+KMO(corMat)
+
+## Esfericidad
+cortest.bartlett(corMat, n = 1635)
+
+## Normalidad (univariada)
+shapiro.test(est_cfa$Igualdad1)
+shapiro.test(est_cfa$Igualdad2)
+shapiro.test(est_cfa$Igualdad3)
+shapiro.test(est_cfa$Igualdad4)
+shapiro.test(est_cfa$Igualdad5)
+shapiro.test(est_cfa$Igualdad6)
+shapiro.test(est_cfa$Igualdad7)
+shapiro.test(est_cfa$Igualdad8)
+shapiro.test(est_cfa$Igualdad9)
+```
+#### Estimación del modelo
+```{r}
+est_cfa$Igualdad1 <- as.numeric(est_cfa$Igualdad1)
+est_cfa$Igualdad2 <- as.numeric(est_cfa$Igualdad2)
+est_cfa$Igualdad3 <- as.numeric(est_cfa$Igualdad3)
+est_cfa$Igualdad4 <- as.numeric(est_cfa$Igualdad4)
+est_cfa$Igualdad5 <- as.numeric(est_cfa$Igualdad5)
+est_cfa$Igualdad6 <- as.numeric(est_cfa$Igualdad6)
+est_cfa$Igualdad7 <- as.numeric(est_cfa$Igualdad7)
+est_cfa$Igualdad8 <- as.numeric(est_cfa$Igualdad8)
+est_cfa$Igualdad9 <- as.numeric(est_cfa$Igualdad9)
+
+cfa_2a <- '
+igualdad =~ Igualdad1 + Igualdad5 + Igualdad7
+esp_publico =~ Igualdad3 + Igualdad4 + Igualdad6
+esp_privado =~ Igualdad2 + Igualdad8 + Igualdad9
+'
+fit_2a <- cfa(cfa_2a,data=est_cfa,missing="ML",estimator="MLR")
+show(fit_2a) # Resumen ajuste general
+fitMeasures(fit_2a, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+summary(fit_2a, fit.measures=T, standardized=T)
+
+
+cfa_2b <- '
+general =~ Igualdad1 + Igualdad5 + Igualdad7 + Igualdad3 + Igualdad4 + Igualdad6 + Igualdad2 + Igualdad8 + Igualdad9
+'
+fit_2b <- cfa(cfa_2b,data=est_cfa,missing="ML",estimator="MLR")
+show(fit_2b) # Resumen ajuste general
+fitMeasures(fit_2b, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+summary(fit_2b, fit.measures=T, standardized=T)
+```
+#### Estimación puntuaciones factoriales
+```{r}
+# predict scores for all models
+p1b <- predict(fit_2a)
+
+scores_est = as.data.frame(p1b)
+
+# Merge with factor scores
+est_cfa2_sco = cbind(est_cfa, scores_est)
+
+# Check
+stargazer(est_cfa2_sco[, 11:13], type = "text")
+
+# Save  factor scores
+est_cfa_sco = est_cfa2_sco %>% dplyr::select(igualdad, esp_publico, esp_privado,FOLIO) %>% as.data.frame()
+```
+
+## Variables independientes
+### Sexo
+```{r}
+est_data$Sexo <- set_label(x = est_data$Sexo,label = "Sexo del estudiante")
+est_data$Sexo <- set_na(est_data$Sexo, na = c(3,4,9), drop.levels = TRUE, as.tag = FALSE)
+```
+
+### Recursos de la familia
+#### Nivel educacional de los padres
+```{r}
+est_data$Ed_madre <- set_label(x = est_data$Ed_madre,label = "Nivel educacional de la madre")
+est_data$Ed_padre <- set_label(x = est_data$Ed_padre,label = "Nivel educacional del padre")
+
+est_data$Ed_madre <- set_na(est_data$Ed_madre, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Ed_padre <- set_na(est_data$Ed_padre, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
+
+est_data$Ed_madre <- ifelse((est_data$Ed_madre==1), 1,
+                      ifelse((est_data$Ed_madre==2), 1,
+                             ifelse((est_data$Ed_madre==3), 2,
+                                    ifelse((est_data$Ed_madre==4), 3,
+                                           ifelse((est_data$Ed_madre==5), 4, NA)))))
+est_data$Ed_padre <- ifelse((est_data$Ed_padre==1), 1,
+                      ifelse((est_data$Ed_padre==2), 1,
+                             ifelse((est_data$Ed_padre==3), 2,
+                                    ifelse((est_data$Ed_padre==4), 3,
+                                           ifelse((est_data$Ed_padre==5), 4, NA)))))
+
+## Creación variable "Nivel educacional más alto de los padres"
+est_data$Ed_padres <- ifelse(est_data$Ed_madre>est_data$Ed_padre,est_data$Ed_madre,est_data$Ed_padre)
+est_data$Ed_padres <- set_label(x = est_data$Ed_padres,label = "Nivel educacional más alto de los padres")
+```
+#### Cantidad de libros en el hogar
+```{r}
+est_data$Libros_est <- set_label(x = est_data$Libros_est,label = "Cantidad de libros en el hogar")
+est_data$Libros_est <- set_na(est_data$Libros_est, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
+```
+
+### Apertura a la discusión en el aula
+```{r}
+# Datos perdidos
+est_data$Ap_discusion1 <- set_na(est_data$Ap_discusion1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Ap_discusion2 <- set_na(est_data$Ap_discusion2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Ap_discusion3 <- set_na(est_data$Ap_discusion3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Ap_discusion4 <- set_na(est_data$Ap_discusion4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Ap_discusion5 <- set_na(est_data$Ap_discusion5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Ap_discusion6 <- set_na(est_data$Ap_discusion6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Ap_discusion7 <- set_na(est_data$Ap_discusion7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+
+est_data$Ap_discusion1 <- as.numeric(est_data$Ap_discusion1)
+est_data$Ap_discusion2 <- as.numeric(est_data$Ap_discusion2)
+est_data$Ap_discusion3 <- as.numeric(est_data$Ap_discusion3)
+est_data$Ap_discusion4 <- as.numeric(est_data$Ap_discusion4)
+est_data$Ap_discusion5 <- as.numeric(est_data$Ap_discusion5)
+est_data$Ap_discusion6 <- as.numeric(est_data$Ap_discusion6)
+est_data$Ap_discusion7 <- as.numeric(est_data$Ap_discusion7)
+
+# Promedios por grupo
+est_data <- est_data %>%
+  group_by(RBD) %>%
+  mutate(m_discusion1 = mean(Ap_discusion1,na.rm = T))
+est_data <- est_data %>%
+  group_by(RBD) %>%
+  mutate(m_discusion2 = mean(Ap_discusion2,na.rm = T))
+est_data <- est_data %>%
+  group_by(RBD) %>%
+  mutate(m_discusion3 = mean(Ap_discusion3,na.rm = T))
+est_data <- est_data %>%
+  group_by(RBD) %>%
+  mutate(m_discusion4 = mean(Ap_discusion4,na.rm = T))
+est_data <- est_data %>%
+  group_by(RBD) %>%
+  mutate(m_discusion5 = mean(Ap_discusion5,na.rm = T))
+est_data <- est_data %>%
+  group_by(RBD) %>%
+  mutate(m_discusion6 = mean(Ap_discusion6,na.rm = T))
+est_data <- est_data %>%
+  group_by(RBD) %>%
+  mutate(m_discusion7 = mean(Ap_discusion7,na.rm = T))
+
+est_cfa_disc = est_data %>% dplyr::select(Ap_discusion2, Ap_discusion3, Ap_discusion4, Ap_discusion5, Ap_discusion6, Ap_discusion7, RBD, FOLIO) %>% as.data.frame()
+
+# AFC
+cfa_3 <- '
+ap_discusion =~ Ap_discusion2 + Ap_discusion3 + Ap_discusion4 + Ap_discusion5 + Ap_discusion6 + Ap_discusion7
+'
+fit_3 <- cfa(cfa_3,data=est_cfa_disc,missing="ML",estimator="MLR")
+show(fit_3) # Resumen ajuste general
+fitMeasures(fit_3, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+summary(fit_3, fit.measures=T, standardized=T)
+modificationindices(fit_3)
+```
+#### Estimación puntuaciones factoriales
+```{r}
+# predict scores for all models
+p1c <- predict(fit_3)
+
+scores_est_disc = as.data.frame(p1c)
+
+# Merge with factor scores
+est_cfa2_disc_sco = cbind(est_cfa_disc, scores_est_disc)
+
+# Check
+stargazer(est_cfa2_disc_sco[, 9], type = "text")
+
+# Promedio por aula
+est_cfa2_disc_sco = est_cfa2_disc_sco %>% group_by(RBD) %>% mutate(mean_discusion=mean(ap_discusion, na.rm = T))
+
+# Save  factor scores
+est_cfa_disc_sco = est_cfa2_disc_sco %>% dplyr::select(mean_discusion,ap_discusion,FOLIO) %>% as.data.frame()
+```
+
+### Proporción de niñas en el aula
+```{r}
+est_data = est_data %>% group_by(RBD) %>% mutate(num_fem=mean(Sexo==2, na.rm = T))
+```
+
+## Guardar base de datos procesada
+```{r}
+est_cfa_sco2 <- left_join(x = est_data,y = est_cfa_sco,by ="FOLIO",suffix=c(" ",".y"))
+est_data_sco <- left_join(x = est_cfa_sco2,y = est_cfa_disc_sco,by ="FOLIO",suffix=c(" ",".y"))
+est_data_sco = est_data_sco %>% dplyr::select(-RBD.y) %>% as.data.frame()
+save(est_data_sco, file = "../input/data-proc/est_data_sco.rda")
+```
+
+# Base de datos conjunta
+```{r}
+data <- left_join(x = est_data_sco, y = apod_cfa_sco, by=c("FOLIO"="FOLIO_EST"), suffix=c(".est",".pad"))
+data = data %>% dplyr::select(-FOLIO.pad) %>% as.data.frame()
+save(data, file = "../input/data-proc/data.rda")
+```
+
