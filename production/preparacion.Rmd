@@ -25,13 +25,22 @@ pacman::p_load(lavaan, # pacman para instalar / cargar
 
 ```{r}
 apod_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_apoderadosv2.dta?raw=true"))
-apod_data1 <- filter(apod_data0, P2==1)
-apod_data = apod_data1 %>% dplyr::select("Igualdad1"=P5A, "Igualdad2"=P5B, "Igualdad3"=P5C, "Igualdad4"=P5D, "Igualdad5"=P5E, "Igualdad6"=P5F, "Igualdad7"=P5G, "Igualdad8"=P5H, "Igualdad9"=P5I, "Educacion"=P45, "Libros_apod"=P47, "Ingresos"=P55, FOLIO, FOLIO_EST, pond_apoderado_reg_dep_tens) %>% as.data.frame()
+apod_data = apod_data0 %>% dplyr::select("Igualdad1"=P5A, "Igualdad2"=P5B, "Igualdad3"=P5C, "Igualdad4"=P5D, "Igualdad5"=P5E, "Igualdad6"=P5F, "Igualdad7"=P5G, "Igualdad8"=P5H, "Igualdad9"=P5I, "Educacion"=P45, "Libros_apod"=P47, "Ingresos"=P55, FOLIO, FOLIO_EST, pond_apoderado_reg_dep_tens, "Sexo_apod"=P39, "Relacion_con_est"=P2, "Preg_apoderado"=P1) %>% as.data.frame()
 
 est_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_estudiantesv2.dta?raw=true"))
 est_data = est_data0 %>% dplyr::select("Igualdad1"=P18A, "Igualdad2"=P18B, "Igualdad3"=P18C, "Igualdad4"=P18D, "Igualdad5"=P18E, "Igualdad6"=P18F, "Igualdad7"=P18G, "Igualdad8"=P18H, "Igualdad9"=P18I, "Ap_discusion1"=P49A, "Ap_discusion2"=P49B, "Ap_discusion3"=P49C, "Ap_discusion4"=P49D, "Ap_discusion5"=P49E, "Ap_discusion6"=P49F, "Ap_discusion7"=P49G, "Sexo"=P58, "Ed_madre"=P66, "Ed_padre"=P67, "Libros_est"=P68, RBD, FOLIO, pond_estudiante_reg_dep_tens) %>% as.data.frame()
 ```
 # Preparación base de datos de los apoderados 
+## Variables de caracterización
+```{r}
+apod_data$Sexo_apod <- set_label(x = apod_data$Sexo_apod,label = "Sexo del apoderado")
+apod_data$Sexo_apod <- set_na(apod_data$Sexo_apod, na = 3, drop.levels = TRUE, as.tag = FALSE)
+apod_data$Relacion_con_est <- set_label(x = apod_data$Relacion_con_est,label = "Relación con el estudiante")
+apod_data$Relacion_con_est <- set_na(apod_data$Relacion_con_est, na = 9, drop.levels = TRUE, as.tag = FALSE)
+apod_data$Preg_apoderado <- set_label(x = apod_data$Preg_apoderado,label = "¿Es el apoderado del estudiante?")
+apod_data$Preg_apoderado <- set_na(apod_data$Preg_apoderado, na = 9, drop.levels = TRUE, as.tag = FALSE)
+```
+
 ## Actitudes hacia la igualdad de género (AFC)
 ### Indicar valores perdidos, dar vuelta algunos indicadores para que la interpretación sea más simple y crear una base de datos con menos variables
 ```{r}
@@ -58,7 +67,7 @@ stargazer(corMat, title="correlaciones", type = "text") #Latex table
 KMO(corMat)
 
 ## Esfericidad
-cortest.bartlett(corMat, n = 681)
+cortest.bartlett(corMat, n = 744)
 
 ## Normalidad (univariada)
 shapiro.test(apod_cfa$Igualdad1)
@@ -100,6 +109,17 @@ fit_1b <- cfa(cfa_1b,data=apod_cfa,missing="ML",estimator="MLR")
 show(fit_1b) # Resumen ajuste general
 fitMeasures(fit_1b, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_1b, fit.measures=T, standardized=T)
+
+cfa_1c <- '
+igualdad =~ Igualdad1 + Igualdad5 + Igualdad7
+sup.masculina =~ Igualdad2 + Igualdad3 + Igualdad4 + Igualdad6 + Igualdad8 + Igualdad9
+'
+fit_1c <- cfa(cfa_1c,data=apod_cfa,missing="ML",estimator="MLR")
+show(fit_1c) # Resumen ajuste general
+fitMeasures(fit_1c, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+summary(fit_1c, fit.measures=T, standardized=T)
+
+anova(fit_1a, fit_1c)
 ```
 #### Estimación puntuaciones factoriales
 ```{r}
@@ -211,6 +231,18 @@ fit_2b <- cfa(cfa_2b,data=est_cfa,missing="ML",estimator="MLR")
 show(fit_2b) # Resumen ajuste general
 fitMeasures(fit_2b, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_2b, fit.measures=T, standardized=T)
+
+
+cfa_2c <- '
+igualdad =~ Igualdad1 + Igualdad5 + Igualdad7
+sup.masculina =~ Igualdad2 + Igualdad3 + Igualdad4 + Igualdad6 + Igualdad8 + Igualdad9
+'
+fit_2c <- cfa(cfa_2c,data=est_cfa,missing="ML",estimator="MLR")
+show(fit_2c) # Resumen ajuste general
+fitMeasures(fit_2c, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
+summary(fit_2c, fit.measures=T, standardized=T)
+
+anova(fit_2a, fit_2c)
 ```
 #### Estimación puntuaciones factoriales
 ```{r}
