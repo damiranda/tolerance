@@ -1,0 +1,448 @@
+---
+title: "analisis-preliminar"
+author: "Kevin Carrasco"
+date: "26-01-2021"
+output: html_document
+---
+
+```{r}
+pacman::p_load(stargazer, dplyr, ggplot2, sjmisc, car, sjlabelled, haven,
+               sjPlot, summarytools, kableExtra, corrplot, coefplot, ltm, polycor,
+               psych, lme4, ppcor)
+```
+
+# Cargar base desde github
+```{r}
+
+load(url("https://raw.githubusercontent.com/damiranda/tolerance/main/input/data-proc/data.rda?token=AOPGEXB7R7A7CZ2PC2PZOO3ACC5TQ"))
+
+```
+# Descriptivos
+## Igualdad de género estudiantes
+```{r}
+#Seleccionar variables
+est_igualdad=data %>% dplyr::select(Igualdad1.est, Igualdad2.est, Igualdad3.est, Igualdad4.est, Igualdad5.est, Igualdad6.est, Igualdad7.est, Igualdad8.est, Igualdad9.est) %>% as.data.frame()
+# Cambiar etiquetas
+est_igualdad$Igualdad1.est <- set_label(x = est_igualdad$Igualdad1.est, label = "Hombres y mujeres deberían tener las mismas oportunidades de participar en el gobierno")
+est_igualdad$Igualdad2.est <- set_label(x = est_igualdad$Igualdad2.est, label = "La primera prioridad de las mujeres debería ser criar hijos")
+est_igualdad$Igualdad3.est <- set_label(x = est_igualdad$Igualdad3.est, label = "Mujeres deberían permanecer alejadas de la política")
+est_igualdad$Igualdad4.est <- set_label(x = est_igualdad$Igualdad4.est, label = "Hombres deberían tener más derecho a un trabajo que mujeres")
+est_igualdad$Igualdad5.est <- set_label(x = est_igualdad$Igualdad5.est, label = "Hombres y mujeres deberían recibir el mismo pago cuando hacen los mismos trabajos")
+est_igualdad$Igualdad6.est <- set_label(x = est_igualdad$Igualdad6.est, label = "Hombres están mejor preparados para ser líderes políticos que mujeres")
+est_igualdad$Igualdad7.est <- set_label(x = est_igualdad$Igualdad7.est, label = "Hombres y mujeres deberían tener los mismos derechos en todos los aspectos")
+est_igualdad$Igualdad8.est <- set_label(x = est_igualdad$Igualdad8.est, label = "El rol más importante de una mujer es cuidar su hogar y cocinar para su familia")
+est_igualdad$Igualdad9.est <- set_label(x = est_igualdad$Igualdad9.est, label = "Hombres deben tener última palabra sobre decisiones del hogar")
+#Crear gráfico
+graf_igualdad_est <- plot_likert(est_igualdad,
+  groups = NULL,
+  groups.titles = "auto",
+  title = "Existen diferentes visiones sobre el papel de las mujeres y los hombres en la sociedad. ¿Cuán de acuerdo o en desacuerdo estás con las siguientes afirmaciones?",
+  legend.labels = c("Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"),
+  axis.titles = NULL,
+  axis.labels = NULL,
+  catcount = 4,
+  cat.neutral = NULL,
+  sort.frq = "neg.asc",
+  weight.by = data$pond_estudiante_reg_dep_tens,
+  title.wtd.suffix = NULL,
+  wrap.title = 50,
+  wrap.labels = 36,
+  wrap.legend.title = 30,
+  wrap.legend.labels = 13,
+  geom.size = 0.8,
+  geom.colors ="PuBu",
+  cat.neutral.color = "grey70",
+  intercept.line.color = "grey50",
+  reverse.colors = FALSE,
+  values = "show",
+  show.n = F,
+  show.legend = TRUE,
+  show.prc.sign = F,
+  grid.range = 1,
+  grid.breaks = 0.5,
+  expand.grid = FALSE,
+  digits = 0,
+  reverse.scale = FALSE,
+  coord.flip = TRUE,
+  sort.groups = TRUE,
+  legend.pos = "bottom",
+  rel_heights = 1,
+  group.legend.options = list(nrow = NULL, byrow = TRUE),
+  cowplot.options = list(label_x = 0.01, hjust = 0, align = "v"))
+graf_igualdad_est
+#Guardar gráfico
+ggsave(graf_igualdad_est, file = "../output/igualdad de genero estudiantes.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+```
+## Igualdad de género apoderados
+```{r}
+#Seleccionar variables
+apod_igualdad=data %>% dplyr::select(Igualdad1.pad, Igualdad2.pad, Igualdad3.pad, Igualdad4.pad, Igualdad5.pad, Igualdad6.pad, Igualdad7.pad, Igualdad8.pad, Igualdad9.pad) %>% as.data.frame()
+# Cambiar etiquetas
+apod_igualdad$Igualdad1.pad <- set_label(x = apod_igualdad$Igualdad1.pad, label = "Hombres y mujeres deberían tener las mismas oportunidades de participar en el gobierno")
+apod_igualdad$Igualdad2.pad <- set_label(x = apod_igualdad$Igualdad2.pad, label = "La primera prioridad de las mujeres debería ser criar hijos")
+apod_igualdad$Igualdad3.pad <- set_label(x = apod_igualdad$Igualdad3.pad, label = "Mujeres deberían permanecer alejadas de la política")
+apod_igualdad$Igualdad4.pad <- set_label(x = apod_igualdad$Igualdad4.pad, label = "Hombres deberían tener más derecho a un trabajo que mujeres")
+apod_igualdad$Igualdad5.pad <- set_label(x = apod_igualdad$Igualdad5.pad, label = "Hombres y mujeres deberían recibir el mismo pago cuando hacen los mismos trabajos")
+apod_igualdad$Igualdad6.pad <- set_label(x = apod_igualdad$Igualdad6.pad, label = "Hombres están mejor preparados para ser líderes políticos que mujeres")
+apod_igualdad$Igualdad7.pad <- set_label(x = apod_igualdad$Igualdad7.pad, label = "Hombres y mujeres deberían tener los mismos derechos en todos los aspectos")
+apod_igualdad$Igualdad8.pad <- set_label(x = apod_igualdad$Igualdad8.pad, label = "El rol más importante de una mujer es cuidar su hogar y cocinar para su familia")
+apod_igualdad$Igualdad9.pad <- set_label(x = apod_igualdad$Igualdad9.pad, label = "Hombres deben tener última palabra sobre decisiones del hogar")
+# Crear Gráfico
+graf_igualdad_apod <- plot_likert(apod_igualdad,
+  groups = NULL,
+  groups.titles = "auto",
+  title = "Existen diferentes visiones sobre el papel de las mujeres y los hombres en la sociedad. ¿Cuán de acuerdo o en desacuerdo estás con las siguientes afirmaciones",
+  legend.labels = c("Muy en desacuerdo", "En desacuerdo", "De acuerdo", "Muy de acuerdo"),
+  axis.titles = NULL,
+  axis.labels = NULL,
+  catcount = 4,
+  cat.neutral = NULL,
+  sort.frq = "neg.asc",
+  weight.by = data$pond_apoderado_reg_dep_tens,
+  title.wtd.suffix = NULL,
+  wrap.title = 50,
+  wrap.labels = 36,
+  wrap.legend.title = 30,
+  wrap.legend.labels = 13,
+  geom.size = 0.8,
+  geom.colors ="PuBu",
+  cat.neutral.color = "grey70",
+  intercept.line.color = "grey50",
+  reverse.colors = FALSE,
+  values = "show",
+  show.n = F,
+  show.legend = TRUE,
+  show.prc.sign = F,
+  grid.range = 1,
+  grid.breaks = 0.5,
+  expand.grid = FALSE,
+  digits = 0,
+  reverse.scale = FALSE,
+  coord.flip = TRUE,
+  sort.groups = TRUE,
+  legend.pos = "bottom",
+  rel_heights = 1,
+  group.legend.options = list(nrow = NULL, byrow = TRUE),
+  cowplot.options = list(label_x = 0.01, hjust = 0, align = "v"))
+graf_igualdad_apod
+# Guardar gráfico
+ggsave(graf_igualdad_apod, file = "../output/igualdad de genero apoderados.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+```
+## Perceción de aula abierta a la discusión estudiantes
+```{r}
+#Seleccionar variables
+est_apdis=data %>% dplyr::select(Ap_discusion1, Ap_discusion2, Ap_discusion3, Ap_discusion4, Ap_discusion5, Ap_discusion6, Ap_discusion7) %>% as.data.frame()
+# Cambiar etiquetas
+est_apdis$Ap_discusion1 <- set_label(x = est_apdis$Ap_discusion1, label = "Los estudiantes pueden manifestar abiertamente su desacuerdo con sus profesores(as)")
+est_apdis$Ap_discusion2 <- set_label(x = est_apdis$Ap_discusion2, label = "Los(as) profesores(as) estimulan a los estudiantes a expresar sus opiniones")
+est_apdis$Ap_discusion3 <- set_label(x = est_apdis$Ap_discusion3, label = "Los estudiantes plantean hechos políticos de actualidad para ser discutidos en clases")
+est_apdis$Ap_discusion4 <- set_label(x = est_apdis$Ap_discusion4, label = "Los estudiantes expresan sus opiniones en clases, aun cuando sean distintas a las de los demás")
+est_apdis$Ap_discusion5 <- set_label(x = est_apdis$Ap_discusion5, label = "Los(as) profesores(as) estimulan a los estudiantes a conversar los temas con gente que opina distinto")
+est_apdis$Ap_discusion6 <- set_label(x = est_apdis$Ap_discusion6, label = "Los(as) profesores(as) exponen los temas desde distintos puntos de vista al explicarlos en clases")
+est_apdis$Ap_discusion7 <- set_label(x = est_apdis$Ap_discusion7, label = "Los(as) profesores(as) fomentan la reflexión y la crítica")
+# Crear Gráfico
+graf_est_apdis <- plot_likert(est_apdis,
+  groups = NULL,
+  groups.titles = "auto",
+  title = "Cuando se discuten temas políticos y sociales durante las clases, ¿Con qué frecuencia suceden las siguientes situaciones?",
+  legend.labels = c("Nunca", "Casi nunca", "A veces", "Siempre"),
+  axis.titles = NULL,
+  axis.labels = NULL,
+  catcount = 4,
+  cat.neutral = NULL,
+  sort.frq = "neg.asc",
+  weight.by = data$pond_estudiante_reg_dep_tens,
+  title.wtd.suffix = NULL,
+  wrap.title = 50,
+  wrap.labels = 36,
+  wrap.legend.title = 30,
+  wrap.legend.labels = 13,
+  geom.size = 0.8,
+  geom.colors ="PuBu",
+  cat.neutral.color = "grey70",
+  intercept.line.color = "grey50",
+  reverse.colors = FALSE,
+  values = "show",
+  show.n = F,
+  show.legend = TRUE,
+  show.prc.sign = F,
+  grid.range = 1,
+  grid.breaks = 0.5,
+  expand.grid = FALSE,
+  digits = 0,
+  reverse.scale = FALSE,
+  coord.flip = TRUE,
+  sort.groups = TRUE,
+  legend.pos = "bottom",
+  rel_heights = 1,
+  group.legend.options = list(nrow = NULL, byrow = TRUE),
+  cowplot.options = list(label_x = 0.01, hjust = 0, align = "v"))
+graf_est_apdis
+ggsave(graf_est_apdis, file = "../output/percepcion apertura a la discusion estudiantes.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+```
+## Otros descriptivos
+```{r}
+view(dfSummary(dplyr::select(data, Sexo, Ed_madre, Ed_padre, Ed_padres, Educacion, Libros_est, Libros_apod, Ingresos), headings=FALSE))
+
+#file="../output/descriptivos recursos de la familia.png"
+```
+# Correlaciones
+## Igualdad de género estudiantes
+```{r}
+corrplot.mixed(cor(dplyr::select(data,Igualdad1.est, Igualdad2.est, Igualdad3.est, Igualdad4.est, Igualdad5.est, Igualdad6.est, Igualdad7.est, Igualdad8.est, Igualdad9.est),
+                   use = "complete.obs"))
+```
+## Correlaciones puntuaciones factoriales estudiantes
+```{r}
+corrplot.mixed(cor(dplyr::select(data, igualdad.est, esp_publico.est, esp_privado.est),
+                   use = "complete.obs"))
+```
+## Igualdad de género apoderados
+```{r}
+corrplot.mixed(cor(dplyr::select(data,Igualdad1.pad, Igualdad2.pad, Igualdad3.pad, Igualdad4.pad, Igualdad5.pad, Igualdad6.pad, Igualdad7.pad, Igualdad8.pad, Igualdad9.pad),
+                   use = "complete.obs"))
+```
+## Correlaciones puntuaciones factoriales apoderados
+```{r}
+corrplot.mixed(cor(dplyr::select(data, igualdad.pad, esp_publico.pad, esp_privado.pad),
+                   use = "complete.obs"))
+```
+## Educación padres (estudiantes y apoderados) con corrplot spearman
+```{r}
+
+corrplot.mixed(cor(dplyr::select(data,Ed_madre, Ed_padre, Ed_padres, Educacion),
+                   use = "complete.obs", method="spearman"))
+
+```
+
+## Educación padres (estudiantes y apoderados) con polychoric de psych
+```{r}
+educ=data %>% dplyr::select("Educ. madre"=Ed_madre, "Educ. padre"=Ed_padre, "Educ padres"=Ed_padres, "Educación padres"=Educacion) %>% as.data.frame()
+polychoric(educ,smooth=TRUE,global=TRUE,polycor=FALSE, ML = FALSE,
+       std.err=FALSE,weight=NULL,progress=TRUE,na.rm=TRUE, delete=TRUE)
+```
+
+## Igualdad de género y sexo
+```{r}
+# level = 1 es la categoría de referencia, en este caso mujer (1)
+biserial.cor(data$igualdad.est,data$Sexo, use = c("complete.obs"), level = 1) 
+
+biserial.cor(data$esp_publico.est,data$Sexo, use = c("complete.obs"), level = 1)
+
+biserial.cor(data$esp_privado.est,data$Sexo, use = c("complete.obs"), level = 1)
+```
+
+## Tabla correlaciones biseriales igualdad de género y sexo
+
+| Variable                                     	| Sexo  	|
+|----------------------------------------------	|-------	|
+| Igualdad de derechos entre hombres y mujeres 	| -0.16 	|
+| Distribución de poder en el espacio público  	| 0.21  	|
+| Distribución de poder en el espacio privado  	| 0.21  	|
+
+## Igualdad de género estudiantes y recursos de la familia
+```{r}
+corrplot.mixed(cor(dplyr::select(data, igualdad.est, esp_publico.est, esp_privado.est, Ed_padres, Educacion, Libros_est, Libros_apod, Ingresos),
+                   use = "complete.obs"))
+```
+
+## Igualdad de género estudiantes y apoderados (puntuaciones factoriales)
+```{r}
+corrplot.mixed(cor(dplyr::select(data, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
+                   use = "complete.obs"))
+```
+## Igualdad de género apoderados y recursos de la familia
+```{r}
+corrplot.mixed(cor(dplyr::select(data, igualdad.pad, esp_publico.pad, esp_privado.pad, Ed_padres, Educacion, Libros_est, Libros_apod, Ingresos),
+                   use = "complete.obs"))
+```
+## Correlación parcial entre igualdad de género estudiantes, apoderados y recursos de la familia
+```{r}
+#Primero correlación directa
+cor(dplyr::select(data, igualdad.est, Ed_padres), use = "complete.obs")
+```
+
+```{r}
+# después correlación parcializada
+partial.r(data=data, x=c("igualdad.est","Ed_padres"), y="igualdad.pad")
+
+```
+## Igualdad de género estudiantes, Apertura a la discusion en el aula Y proporción de niñas
+```{r}
+corrplot.mixed(cor(dplyr::select(data, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
+                   use = "complete.obs"))
+```
+#Gráficos de interacciones
+## Cantidad de libros en el hogar sobre igualdad de derechos moderado por apertura a la discusión
+```{r}
+data$igualdad.est<-sjlabelled::remove_all_labels(data$igualdad.est)
+data$esp_publico.est<-sjlabelled::remove_all_labels(data$esp_publico.est)
+data$esp_privado.est<-sjlabelled::remove_all_labels(data$esp_privado.est)
+data$Libros_est<-sjlabelled::remove_all_labels(data$Libros_est)
+data$mean_discusion<-sjlabelled::remove_all_labels(data$mean_discusion)
+data$Ingresos<-sjlabelled::remove_all_labels(data$Ingresos)
+data$Ed_padres<-sjlabelled::remove_all_labels(data$Ed_padres)
+
+
+reg_igualdad_libros = lmer(igualdad.est ~ 1 + Libros_est + mean_discusion +
+                   Libros_est*mean_discusion +
+                   (1 + Libros_est | `RBD `), data=data)
+
+stargazer(reg_igualdad_libros, type="text")
+```
+```{r}
+plot_model(reg_igualdad_libros, type = "int", mdrt.values="meansd")
+```
+## Ingresos sobre igualdad de derechos moderado por apertura a la discusión
+```{r}
+reg_igualdad_ingresos = lmer(igualdad.est ~ 1 + Ingresos + mean_discusion +
+                   Ingresos*mean_discusion +
+                   (1 + Ingresos | `RBD `), data=data)
+
+stargazer(reg_igualdad_ingresos, type="text")
+```
+```{r}
+plot_model(reg_igualdad_ingresos, type = "int", mdrt.values="meansd")
+```
+## Educacion padres sobre igualdad de derechos moderado por apertura a la discusión
+
+```{r}
+reg_igualdad_educ = lmer(igualdad.est ~ 1 + Ed_padres + mean_discusion +
+                   Ed_padres*mean_discusion +
+                   (1 + Ed_padres | `RBD `), data=data)
+
+stargazer(reg_igualdad_educ, type="text")
+```
+```{r}
+plot_model(reg_igualdad_educ, type = "int", mdrt.values="meansd")
+```
+## Cantidad de libros en el hogar sobre distribucion de poder esp privado moderado por apertura a la discusión
+
+```{r}
+reg_esppriv_libros = lmer(esp_privado.est ~ 1 + Libros_est + mean_discusion +
+                   Libros_est*mean_discusion +
+                   (1 + Libros_est | `RBD `), data=data)
+
+plot_model(reg_esppriv_libros, type = "int", mdrt.values="meansd")
+```
+## Ingresos sobre distribucion de poder esp privado moderado por apertura a la discusión
+
+```{r}
+reg_esppriv_ingresos = lmer(esp_privado.est ~ 1 + Ingresos + mean_discusion +
+                    Ingresos*mean_discusion +
+                   (1 + Ingresos | `RBD `), data=data)
+
+plot_model(reg_esppriv_ingresos, type = "int", mdrt.values="meansd")
+```
+## Educacion padres sobre distribucion de poder esp privado moderado por apertura a la discusión
+
+```{r}
+reg_esppriv_educ = lmer(esp_privado.est ~ 1 + Ed_padres + mean_discusion +
+                    Ed_padres*mean_discusion +
+                   (1 + Ed_padres | `RBD `), data=data)
+
+plot_model(reg_esppriv_educ, type = "int", mdrt.values="meansd")
+```
+## Cantidad de libros en el hogar sobre distribucion de poder esp publico moderado por apertura a la discusión
+
+```{r}
+reg_esppub_libros = lmer(esp_publico.est ~ 1 + Libros_est + mean_discusion +
+                   Libros_est*mean_discusion +
+                   (1 + Libros_est | `RBD `), data=data)
+
+plot_model(reg_esppub_libros, type = "int", mdrt.values="meansd")
+```
+## Ingresos sobre distribucion de poder esp privado moderado por apertura a la discusión
+
+```{r}
+reg_esppub_ingresos = lmer(esp_publico.est ~ 1 + Ingresos + mean_discusion +
+                    Ingresos*mean_discusion +
+                   (1 + Ingresos | `RBD `), data=data)
+
+plot_model(reg_esppub_ingresos, type = "int", mdrt.values="meansd")
+```
+## Educacion padres sobre distribucion de poder esp privado moderado por apertura a la discusión
+
+```{r}
+reg_esppub_educ = lmer(esp_publico.est ~ 1 + Ed_padres + mean_discusion +
+                    Ed_padres*mean_discusion +
+                   (1 + Ed_padres | `RBD `), data=data)
+
+plot_model(reg_esppub_educ, type = "int", mdrt.values="meansd")
+```
+## Cantidad de libros sobre igualdad de derechos moderado por Proporción de niñas
+```{r}
+data$num_fem<-sjlabelled::remove_all_labels(data$num_fem)
+
+
+reg_igualdad_libros2 = lmer(igualdad.est ~ 1 + Libros_est + num_fem +
+                   Libros_est*num_fem +
+                   (1 + Libros_est | `RBD `), data=data)
+
+plot_model(reg_igualdad_libros2, type = "int", mdrt.values="meansd")
+```
+## Ingresos sobre igualdad de derechos moderado por Proporción de niñas
+```{r}
+
+reg_igualdad_ingresos2 = lmer(igualdad.est ~ 1 + Ingresos + num_fem +
+                   Ingresos*num_fem +
+                   (1 + Ingresos | `RBD `), data=data)
+
+plot_model(reg_igualdad_ingresos2, type = "int", mdrt.values="meansd")
+```
+## Educacion padres sobre igualdad de derechos moderado por Proporción de niñas
+```{r}
+reg_igualdad_educ2 = lmer(igualdad.est ~ 1 + Ed_padres + num_fem +
+                   Ed_padres*num_fem +
+                   (1 + Ed_padres | `RBD `), data=data)
+
+plot_model(reg_igualdad_educ2, type = "int", mdrt.values="meansd")
+```
+## Cantidad de libros sobre distribucion poder esp priv moderado por Proporción de niñas
+```{r}
+reg_esppriv_libros2 = lmer(esp_privado.est ~ 1 + Libros_est + num_fem +
+                   Libros_est*num_fem +
+                   (1 + Libros_est | `RBD `), data=data)
+
+plot_model(reg_esppriv_libros2, type = "int", mdrt.values="meansd")
+```
+## Ingresos sobre distribucion poder esp priv moderado por Proporción de niñas
+```{r}
+reg_esppriv_ingresos2 = lmer(esp_privado.est ~ 1 + Ingresos + num_fem +
+                   Ingresos*num_fem +
+                   (1 + Ingresos | `RBD `), data=data)
+
+plot_model(reg_esppriv_ingresos2, type = "int", mdrt.values="meansd")
+```
+## Educacion padres sobre distribucion poder esp priv moderado por Proporción de niñas
+```{r}
+reg_esppriv_educ2 = lmer(esp_privado.est ~ 1 + Ed_padres + num_fem +
+                   Ed_padres*num_fem +
+                   (1 + Ed_padres | `RBD `), data=data)
+
+plot_model(reg_esppriv_educ2, type = "int", mdrt.values="meansd")
+```
+## Cantidad de libros sobre distribucion poder esp publico moderado por Proporción de niñas
+```{r}
+reg_esppub_libros2 = lmer(esp_publico.est ~ 1 + Libros_est + num_fem +
+                   Libros_est*num_fem +
+                   (1 + Libros_est | `RBD `), data=data)
+
+plot_model(reg_esppub_libros2, type = "int", mdrt.values="meansd")
+```
+## Ingresos sobre distribucion poder esp publico moderado por Proporción de niñas
+```{r}
+reg_esppub_ingresos2 = lmer(esp_publico.est ~ 1 + Ingresos + num_fem +
+                   Ingresos*num_fem +
+                   (1 + Ingresos | `RBD `), data=data)
+
+plot_model(reg_esppub_ingresos2, type = "int", mdrt.values="meansd")
+```
+## Educacion padres sobre distribucion poder esp publico moderado por Proporción de niñas
+```{r}
+reg_esppub_educ2 = lmer(esp_publico.est ~ 1 + Ed_padres + num_fem +
+                   Ed_padres*num_fem +
+                   (1 + Ed_padres | `RBD `), data=data)
+
+plot_model(reg_esppub_educ2, type = "int", mdrt.values="meansd")
+```
