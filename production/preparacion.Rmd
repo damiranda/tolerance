@@ -392,3 +392,57 @@ data = data %>% dplyr::select(-FOLIO.pad) %>% as.data.frame()
 save(data, file = "../input/data-proc/data.rda")
 ```
 
+# Modificación nivel educacional de los padres
+## Nivel educacional de los padres priorizando información reportada por apoderados
+```{r}
+# Nivel educacional reportado por apoderados
+summary(data$Educacion)
+```
+```{r}
+# Nivel educacional más alto reportado por estudiantes
+summary(data$Ed_padres)
+```
+```{r}
+# Guardar respuestas del nivel educacional de los padres. Si no respondió, se incluye la respuesta más alta reportada por los estudiantes.
+data$Ed_apod <- ifelse(is.na(data$Educacion), data$Ed_padres, data$Educacion)
+data$Ed_apod <- set_label(x = data$Ed_apod,label = "Nivel educacional de los apoderados")
+```
+```{r}
+summary(data$Ed_apod)
+```
+## Nivel educacional de los padres priorizando información reportada por apoderados y diferenciando por género del apoderado
+```{r}
+## Filtrar base de datos por sexo del apoderado (padre)
+data_pad = data %>%  filter(Sexo_apod==1) %>% as.data.frame()
+## Guardar las respuestas nivel educativo de los padres que respondieron la encuesta; si no la respondió, se incluye lo reportado por alumno
+data_pad$Educ_padre <- ifelse((is.na(data_pad$Educacion)), data_pad$Ed_padre, data_pad$Educacion)
+data_pad = data_pad %>% dplyr::select(FOLIO, Educ_padre) %>% as.data.frame()
+data <- left_join(x = data, y = data_pad, by=c("FOLIO"))
+```
+```{r}
+#Padre
+data$Educ_padre <- ifelse(is.na(data$Educ_padre), data$Ed_padre, data$Educ_padre)
+data$Educ_padre <- set_label(x = data$Educ_padre,label = "Nivel educacional del padre")
+
+summary(data$Educ_padre)
+```
+```{r}
+## Filtrar base de datos por sexo del apoderado (madre)
+data_mad = data %>%  filter(Sexo_apod==2) %>% as.data.frame()
+## Guardar las respuestas nivel educativo de las madres que respondieron la encuesta; si no la respondió, se incluye lo reportado por alumno
+data_mad$Educ_madre <- ifelse((is.na(data_mad$Educacion)), data_mad$Ed_madre, data_mad$Educacion)
+data_mad = data_mad %>% dplyr::select(FOLIO, Educ_madre) %>% as.data.frame()
+data <- left_join(x = data, y = data_mad, by=c("FOLIO"))
+```
+
+```{r}
+#Madre
+data$Educ_madre <- ifelse(is.na(data$Educ_madre), data$Ed_madre, data$Educ_madre)
+data$Educ_madre <- set_label(x = data$Educ_madre,label = "Nivel educacional de la madre")
+
+summary(data$Educ_madre)
+```
+# Guardar base de datos
+```{r}
+save(data, file = "../input/data-proc/data.rda")
+```
