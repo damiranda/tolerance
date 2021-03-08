@@ -2,7 +2,9 @@
 title: "preparacion"
 author: "Anais Herrera Leighton"
 date: "18-01-2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r}
@@ -442,6 +444,48 @@ data$Educ_madre <- set_label(x = data$Educ_madre,label = "Nivel educacional de l
 
 summary(data$Educ_madre)
 ```
+
+# Ingresos del hogar divididos en tramos
+
+```{r}
+# Ingresos tramos
+data$Ingresos[data$Ingresos == 12 | data$Ingresos == 13] <- 99
+# Etiquetar
+data$Ingresos <-set_label(x=data$Ingresos,label = c("Menos de $101.000 mensuales líquidos" = 1,
+                                                    "De $101.001 a $134.000 mensuales líquidos" = 2,
+                                                    "De $134.001 a $179.000 mensuales líquidos" = 3,
+                                                    "De $179.001 a $224.000 mensuales líquidos" = 4,
+                                                    "De $224.001 a $291.000 mensuales líquidos" = 5,
+                                                    "De $291.001 a $358.000 mensuales líquidos" = 6,
+                                                    "De $358.001 a $448.000 mensuales líquidos" = 7,
+                                                    "De $448.001 a $1.000.000 mensuales líquidos" = 8,
+                                                    "De $1.000.001 a $2.000.000 mensuales líquidos" = 9,
+                                                    "De $2.000.001 a $3.000.000 mensuales líquidos" = 10,
+                                                    "Ns/Nr"=99))
+# Drop levels
+data$Ingresos <- set_na(data$Ingresos, na = c(12,13), drop.levels = TRUE, as.tag = FALSE)
+```
+
+# Cantidad de libros en el hogar priorizando respuestas de los apoderados
+```{r}
+# Respuestas apoderados
+summary(data$Libros_apod)
+```
+```{r}
+# Respuestas estudiantes
+summary(data$Libros_est)
+```
+
+```{r}
+# Cantidad de libros en el hogar priorizando respuestas de apoderados, si no hay respuesta se utiliza lo reportado por estudiantes
+data$Libros <- ifelse(is.na(data$Libros_apod), data$Libros_est, data$Libros_apod)
+data$Libros <- set_label(x = data$Libros,label = "Cantidad de libros en el hogar")
+```
+```{r}
+# Cantidad de libros en el hogar ambas respuestas
+summary(data$Libros)
+```
+
 # Guardar base de datos
 ```{r}
 save(data, file = "../input/data-proc/data.rda")
