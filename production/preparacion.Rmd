@@ -463,7 +463,7 @@ data$Ingresos <-set_label(x=data$Ingresos,label = c("Menos de $101.000 mensuales
                                                     "De $2.000.001 a $3.000.000 mensuales líquidos" = 10,
                                                     "Ns/Nr"=99))
 # Drop levels
-data$Ingresos <- set_na(data$Ingresos, na = c(12,13), drop.levels = TRUE, as.tag = FALSE)
+data$Ingresos <- set_na(data$Ingresos, na = c(99), drop.levels = TRUE, as.tag = FALSE)
 ```
 
 # Cantidad de libros en el hogar priorizando respuestas de los apoderados

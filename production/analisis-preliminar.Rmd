@@ -2,7 +2,9 @@
 title: "analisis-preliminar"
 author: "Kevin Carrasco"
 date: "26-01-2021"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r}
@@ -14,7 +16,7 @@ pacman::p_load(stargazer, ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
 # Cargar base desde github
 ```{r}
 
-load(url("https://raw.githubusercontent.com/damiranda/tolerance/main/input/data-proc/data.rda?token=AQC2NONTJECJJAYB7T3HGSDAIYRJO"))
+load("../input/data-proc/data.rda")
 
 ```
 # Descriptivos
@@ -174,7 +176,7 @@ ggsave(graf_est_apdis, file = "../output/percepcion_apertura_a_la_discusion_estu
 ```
 ## Otros descriptivos
 ```{r}
-view(dfSummary(dplyr::select(data, Sexo, Ed_madre, Ed_padre, Ed_padres, Educacion, Libros_est, Libros_apod, Ingresos), headings=FALSE))
+view(dfSummary(dplyr::select(data, Sexo, Ed_madre, Ed_padre, Ed_padres, Educacion, Libros_est, Libros_apod), headings=FALSE))
 
 #file="../output/descriptivos recursos de la familia.png"
 ```
@@ -370,7 +372,7 @@ screenreg(list(reg0_igualdad,reg0_pub, reg0_priv))
 data$Ed.madre.cat = as.factor(data$Educ_madre)
 data$Ed.padre.cat = as.factor(data$Educ_padre)
 # Ponerle nombre a las categorías
-data$Ed.madre.cat <- set_labels(data$Ed.madre.cat, labels=c("1" ="8vo básico o menos", 
+data$Ed.madre.cat <- set_labels(data$Ed.madre.cat, labels=c("8vo básico o menos" = 1, 
                                                             "Educación media" = 2,
                                                             "Educación técnica superior" = 3, 
                                                             "Educación Universitaria o más" = 4))
@@ -380,14 +382,15 @@ data$Ed.padre.cat <- set_labels(data$Ed.padre.cat, labels=c("8vo básico o menos
                                                             "Educación técnica superior" = 3, 
                                                             "Educación Universitaria o más" = 4))
 
+
 # Var dep igualdad de derechos estudiantes
 reg1_igualdad <- lmer(igualdad.est ~ 1 + Sexo + (1 | RBD), data=data)
 
-reg2_igualdad <- lmer(igualdad.est ~ 1 + Ed.madre.cat + Ed.padre.cat + Libros + Ingresos + (1 | RBD), data=data)
+reg2_igualdad <- lmer(igualdad.est ~ 1 + Ed.madre.cat + Ed.padre.cat + factor(Libros) + Ingresos + (1 | RBD), data=data)
 
 reg3_igualdad <- lmer(igualdad.est ~ 1 + igualdad.pad + (1 | RBD), data=data)
 
-reg4_igualdad <- lmer(igualdad.est ~ 1 + Sexo + Ed.madre.cat + Ed.padre.cat + Libros + Ingresos + igualdad.pad + (1 | RBD), data=data)
+reg4_igualdad <- lmer(igualdad.est ~ 1 + Sexo + Ed.madre.cat + Ed.padre.cat + factor(Libros) + Ingresos + igualdad.pad + (1 | RBD), data=data)
 
 stargazer(reg1_igualdad, reg2_igualdad, reg3_igualdad, reg4_igualdad,
   column.labels=c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4"),
@@ -395,6 +398,37 @@ stargazer(reg1_igualdad, reg2_igualdad, reg3_igualdad, reg4_igualdad,
 
 screenreg(list(reg1_igualdad, reg2_igualdad, reg3_igualdad, reg4_igualdad))
 ```
+```{r}
+# Recursos de la familia por separado
+reg1_rec <- lmer(igualdad.est ~ 1 + Educ_madre + (1 | RBD), data=data)
+reg2_rec <- lmer(igualdad.est ~ 1 + Educ_padre + (1 | RBD), data=data)
+reg3_rec <- lmer(igualdad.est ~ 1 + Libros + (1 | RBD), data=data)
+reg4_rec <- lmer(igualdad.est ~ 1 + Ingresos + (1 | RBD), data=data)
+reg5_rec <- lmer(igualdad.est ~ 1 + Educ_madre + Educ_padre + Libros + (1 | RBD), data=data)
+
+screenreg(list(reg1_rec, reg2_rec, reg3_rec,reg4_rec,reg5_rec))
+```
+```{r}
+reg1_rec <- lmer(esp_publico.est ~ 1 + Educ_madre + (1 | RBD), data=data)
+reg2_rec <- lmer(esp_publico.est ~ 1 + Educ_padre + (1 | RBD), data=data)
+reg3_rec <- lmer(esp_publico.est ~ 1 + Libros + (1 | RBD), data=data)
+reg4_rec <- lmer(esp_publico.est ~ 1 + Ingresos + (1 | RBD), data=data)
+reg5_rec <- lmer(esp_publico.est ~ 1 + Educ_madre + Educ_padre + Libros + (1 | RBD), data=data)
+
+screenreg(list(reg1_rec, reg2_rec, reg3_rec,reg4_rec,reg5_rec))
+```
+
+```{r}
+data$Ed_padres = as.factor(data$Ed_padres)
+
+reg1_educ <- lmer(igualdad.est ~ 1 + Ed_padres + (1 | RBD), data=data)
+reg2_educ <- lmer(esp_publico.est ~ 1 + Ed_padres + (1 | RBD), data=data)
+reg3_educ <- lmer(esp_privado.est ~ 1 + Ed_padres + (1 | RBD), data=data)
+
+screenreg(list(reg1_educ, reg2_educ, reg3_educ))
+```
+
+
 ```{r}
 ## Modelo alternativo con las tres actitudes de apoderados
 # Var dep igualdad de derechos estudiantes
@@ -419,7 +453,7 @@ reg1_igualdad.ing <- lmer(igualdad.est ~ 1 + Sexo + (1 | RBD), data=data)
 
 reg2_igualdad.ing <- lmer(igualdad.est ~ 1 + Ed.madre.cat + Ed.padre.cat + Libros + (1 | RBD), data=data)
 
-reg3_igualdad.ing <- lmer(igualdad.est ~ 1 + igualdad.pad + esp_publico.pad + esp_privado.pad + (1 | RBD), data=data)
+reg3_igualdad.ing <- lmer(igualdad.est ~ 1  + esp_publico.pad + esp_privado.pad + (1 | RBD), data=data)
 
 reg4_igualdad.ing <- lmer(igualdad.est ~ 1 + Sexo + Ed.madre.cat + Ed.padre.cat + Libros + igualdad.pad + esp_publico.pad + esp_privado.pad + (1 | RBD), data=data)
 
@@ -429,6 +463,15 @@ stargazer(reg1_igualdad.ing, reg2_igualdad.ing, reg3_igualdad.ing, reg4_igualdad
 
 screenreg(list(reg1_igualdad.ing, reg2_igualdad.ing, reg3_igualdad.ing, reg4_igualdad.ing))
 ```
+```{r}
+reg3a_igualdad.ing <- lmer(igualdad.est ~ 1  + igualdad.pad + (1 | RBD), data=data)
+
+reg3b_igualdad.ing <- lmer(igualdad.est ~ 1  + esp_publico.pad  + (1 | RBD), data=data)
+reg3c_igualdad.ing <- lmer(igualdad.est ~ 1  +  esp_privado.pad + (1 | RBD), data=data)
+
+screenreg(list(reg3a_igualdad.ing,reg3b_igualdad.ing,reg3c_igualdad.ing))
+```
+
 
 
 ```{r}
