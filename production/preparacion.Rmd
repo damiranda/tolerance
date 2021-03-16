@@ -22,12 +22,13 @@ pacman::p_load(lavaan, # pacman para instalar / cargar
                car,
                sjlabelled,
                sjmisc,
+               misty,
                dplyr)
 ```
 
 ```{r}
 apod_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_apoderadosv2.dta?raw=true"))
-apod_data = apod_data0 %>% dplyr::select("Igualdad1"=P5A, "Igualdad2"=P5B, "Igualdad3"=P5C, "Igualdad4"=P5D, "Igualdad5"=P5E, "Igualdad6"=P5F, "Igualdad7"=P5G, "Igualdad8"=P5H, "Igualdad9"=P5I, "Educacion"=P45, "Libros_apod"=P47, "Ingresos"=P55, FOLIO, FOLIO_EST, pond_apoderado_reg_dep_tens, "Sexo_apod"=P39, "Relacion_con_est"=P2, "Preg_apoderado"=P1) %>% as.data.frame()
+apod_data = apod_data0 %>% dplyr::select("Igualdad1"=P5A, "Igualdad2"=P5B, "Igualdad3"=P5C, "Igualdad4"=P5D, "Igualdad5"=P5E, "Igualdad6"=P5F, "Igualdad7"=P5G, "Igualdad8"=P5H, "Igualdad9"=P5I, "personas_hogar" = P41, "Educacion"=P45, "Libros_apod"=P47, "ingresos_tramos"=P55, FOLIO, FOLIO_EST, pond_apoderado_reg_dep_tens, "Sexo_apod"=P39, "Relacion_con_est"=P2, "Preg_apoderado"=P1) %>% as.data.frame()
 
 est_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_estudiantesv2.dta?raw=true"))
 est_data = est_data0 %>% dplyr::select("Igualdad1"=P18A, "Igualdad2"=P18B, "Igualdad3"=P18C, "Igualdad4"=P18D, "Igualdad5"=P18E, "Igualdad6"=P18F, "Igualdad7"=P18G, "Igualdad8"=P18H, "Igualdad9"=P18I, "Ap_discusion1"=P49A, "Ap_discusion2"=P49B, "Ap_discusion3"=P49C, "Ap_discusion4"=P49D, "Ap_discusion5"=P49E, "Ap_discusion6"=P49F, "Ap_discusion7"=P49G, "Sexo"=P58, "Ed_madre"=P66, "Ed_padre"=P67, "Libros_est"=P68, RBD, FOLIO, pond_estudiante_reg_dep_tens) %>% as.data.frame()
@@ -150,10 +151,77 @@ apod_data$Educacion <- set_na(apod_data$Educacion, na = 9, drop.levels = TRUE, a
 apod_data$Libros_apod <- set_label(x = apod_data$Libros_apod,label = "Cantidad de libros en el hogar")
 apod_data$Libros_apod <- set_na(apod_data$Libros_apod, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
 ```
-#### Ingresos del hogar
+#### Ingresos del hogar en tramos
 ```{r}
-apod_data$Ingresos <- set_label(x = apod_data$Ingresos,label = "Ingresos del hogar")
-apod_data$Ingresos <- set_na(apod_data$Ingresos, na = c(12,13), drop.levels = TRUE, as.tag = FALSE)
+apod_data$ingresos_tramos[apod_data$ingresos_tramos == 12 | apod_data$ingresos_tramos == 13] <- 99
+apod_data$ingresos_tramos <- set_labels(x = apod_data$ingresos_tramos, labels = c("Menos de $101.000 mensuales líquidos" = 1,
+                                                                              "De $101.001 a $134.000 mensuales líquidos" = 2,
+                                                                              "De $134.001 a $179.000 mensuales líquidos" = 3,
+                                                                              "De $179.001 a $224.000 mensuales líquidos" = 4,
+                                                                              "De $224.001 a $291.000 mensuales líquidos" = 5,
+                                                                              "De $291.001 a $358.000 mensuales líquidos" = 6,
+                                                                              "De $358.001 a $448.000 mensuales líquidos" = 7,
+                                                                              "De $448.001 a $1.000.000 mensuales líquidos" = 8,
+                                                                              "De $1.000.001 a $2.000.000 mensuales líquidos" = 9,
+                                                                              "De $2.000.001 a $3.000.000 mensuales líquidos" = 10,
+                                                                              "Más de $3.000.000 mensuales líquidos" = 11,
+                                                                              "Ns/Nr" = 99))
+apod_data$ingresos_tramos <- set_na(apod_data$ingresos_tramos, na = c(12,13), drop.levels = TRUE, as.tag = FALSE)
+apod_data$ingresos_tramos <- set_label(x = apod_data$ingresos_tramos,label = "Ingresos del hogar")
+```
+# Ajustes variable "Ingresos del hogar"
+Se construyen cuatro variables nuevas. La primera es el ingreso a partir de las marcas de clase de los tramos de ingreso. La segunda es el ingreso per capita. La tercera se construye una variable en tramos tipo factor y la cuarta serán los quintiles de ingreso per capita en su version numerica y factor.
+```{r}
+# Construcción ingresos numerico
+apod_data$ingresos[apod_data$ingresos_tramos == 1] <- 50500 
+apod_data$ingresos[apod_data$ingresos_tramos == 2] <- 117500
+apod_data$ingresos[apod_data$ingresos_tramos == 3] <- 156500
+apod_data$ingresos[apod_data$ingresos_tramos == 4] <- 201500
+apod_data$ingresos[apod_data$ingresos_tramos == 5] <- 257500
+apod_data$ingresos[apod_data$ingresos_tramos == 6] <- 324500
+apod_data$ingresos[apod_data$ingresos_tramos == 7] <- 403000
+apod_data$ingresos[apod_data$ingresos_tramos == 8] <- 724000
+apod_data$ingresos[apod_data$ingresos_tramos == 9] <- 1500000
+apod_data$ingresos[apod_data$ingresos_tramos == 10] <- 2500000
+apod_data$ingresos[apod_data$ingresos_tramos == 11] <- 3500000
+# Construcción ingreso per capita
+apod_data$ingresos_pc <- apod_data$ingresos/apod_data$personas_hogar
+apod_data$ingresos_pc <- trunc(apod_data$ingresos_pc)
+# Construcción ingreso tramos como factor
+apod_data$ingresos_tramos_factor <- factor(apod_data$ingresos_tramos, levels = c(1,2,3,4,5,6,7,8,9,10,11,99), labels = c("Menos de $101.000 mensuales líquidos",
+                                                                                              "De $101.001 a $134.000 mensuales líquidos",
+                                                                                              "De $134.001 a $179.000 mensuales líquidos",
+                                                                                              "De $179.001 a $224.000 mensuales líquidos",
+                                                                                              "De $224.001 a $291.000 mensuales líquidos",
+                                                                                              "De $291.001 a $358.000 mensuales líquidos",
+                                                                                              "De $358.001 a $448.000 mensuales líquidos",
+                                                                                              "De $448.001 a $1.000.000 mensuales líquidos",
+                                                                                              "De $1.000.001 a $2.000.000 mensuales líquidos",
+                                                                                              "De $2.000.001 a $3.000.000 mensuales líquidos",
+                                                                                              "Más de $3.000.000 mensuales líquidos",
+                                                                                              "Ns/Nr"))
+# Construccion ingresos per capita quintiles
+apod_data <- apod_data %>% mutate(quintiles_ingresos_pc = ntile(ingresos_pc,5))
+## Recuperar NA
+apod_data$quintiles_ingresos_pc[is.na(apod_data$quintiles_ingresos_pc)] <- 99
+# Construcción ingresos per capita quintiles factor
+apod_data$quintiles_ingresos_pc_factor <- factor(apod_data$quintiles_ingresos_pc, levels = c(1,2,3,4,5,99), labels = c("Quintil 1", "Quintil 2", "Quintil 3", "Quintil 4", "Quintil 5", "Ns/Nr"))
+## Eliminar 99 de la variable numerica
+apod_data$quintiles_ingresos_pc[apod_data$quintiles_ingresos_pc == 99] <- NA
+ # ---- Descripción variables nuevas ----
+# ingresos
+summary(apod_data$ingresos)
+# ingresos per capita
+summary(apod_data$ingresos_pc)
+# ingresos tramos factor
+frq(apod_data$ingresos_tramos_factor)
+#---- Etiquetado variables nuevas ----
+#ingreso
+apod_data$ingresos <- set_label(x = apod_data$ingresos, label = "Ingresos del hogar")
+# ingreso per capita
+apod_data$ingresos_pc <- set_label(x = apod_data$ingresos_pc, label = "Ingreso per capita")
+# ingreso factor
+apod_data$ingresos_tramos_factor <- set_label(x = apod_data$ingresos_tramos_factor, label = "Ingresos del hogar en tramos factor")
 ```
 ## Guardar base de datos procesada
 ```{r}
@@ -367,11 +435,8 @@ est_cfa2_disc_sco = cbind(est_cfa_disc, scores_est_disc)
 # Check
 stargazer(est_cfa2_disc_sco[, 9], type = "text")
 
-# Promedio por aula
-est_cfa2_disc_sco = est_cfa2_disc_sco %>% group_by(RBD) %>% mutate(mean_discusion=mean(ap_discusion, na.rm = T))
-
 # Save  factor scores
-est_cfa_disc_sco = est_cfa2_disc_sco %>% dplyr::select(mean_discusion,ap_discusion,FOLIO) %>% as.data.frame()
+est_cfa_disc_sco = est_cfa2_disc_sco %>% dplyr::select(ap_discusion,FOLIO) %>% as.data.frame()
 ```
 
 ### Proporción de niñas en el aula
@@ -383,7 +448,7 @@ est_data = est_data %>% group_by(RBD) %>% mutate(num_fem=mean(Sexo==2, na.rm = T
 ```{r}
 est_cfa_sco2 <- left_join(x = est_data,y = est_cfa_sco,by ="FOLIO",suffix=c(" ",".y"))
 est_data_sco <- left_join(x = est_cfa_sco2,y = est_cfa_disc_sco,by ="FOLIO",suffix=c(" ",".y"))
-est_data_sco = est_data_sco %>% dplyr::select(-RBD.y) %>% as.data.frame()
+#est_data_sco = est_data_sco %>% dplyr::select(-RBD.y) %>% as.data.frame()
 save(est_data_sco, file = "../input/data-proc/est_data_sco.rda")
 ```
 
@@ -445,27 +510,6 @@ data$Educ_madre <- set_label(x = data$Educ_madre,label = "Nivel educacional de l
 summary(data$Educ_madre)
 ```
 
-# Ingresos del hogar divididos en tramos
-
-```{r}
-# Ingresos tramos
-data$Ingresos[data$Ingresos == 12 | data$Ingresos == 13] <- 99
-# Etiquetar
-data$Ingresos <-set_label(x=data$Ingresos,label = c("Menos de $101.000 mensuales líquidos" = 1,
-                                                    "De $101.001 a $134.000 mensuales líquidos" = 2,
-                                                    "De $134.001 a $179.000 mensuales líquidos" = 3,
-                                                    "De $179.001 a $224.000 mensuales líquidos" = 4,
-                                                    "De $224.001 a $291.000 mensuales líquidos" = 5,
-                                                    "De $291.001 a $358.000 mensuales líquidos" = 6,
-                                                    "De $358.001 a $448.000 mensuales líquidos" = 7,
-                                                    "De $448.001 a $1.000.000 mensuales líquidos" = 8,
-                                                    "De $1.000.001 a $2.000.000 mensuales líquidos" = 9,
-                                                    "De $2.000.001 a $3.000.000 mensuales líquidos" = 10,
-                                                    "Ns/Nr"=99))
-# Drop levels
-data$Ingresos <- set_na(data$Ingresos, na = c(99), drop.levels = TRUE, as.tag = FALSE)
-```
-
 # Cantidad de libros en el hogar priorizando respuestas de los apoderados
 ```{r}
 # Respuestas apoderados
@@ -484,6 +528,38 @@ data$Libros <- set_label(x = data$Libros,label = "Cantidad de libros en el hogar
 ```{r}
 # Cantidad de libros en el hogar ambas respuestas
 summary(data$Libros)
+```
+# Centrado de las variables
+```{r}
+# Promedio por aula
+data = data %>% group_by(RBD) %>% mutate(mean_discusion=mean(ap_discusion, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_edpad=mean(Educ_padre, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_edmad=mean(Educ_madre, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_edapod=mean(Ed_apod, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_libros=mean(Libros, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_ig_est=mean(igualdad.est, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_pub_est=mean(esp_publico.est, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_priv_est=mean(esp_privado.est, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_ig_pad=mean(igualdad.pad, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_pub_pad=mean(esp_publico.pad, na.rm = T))
+data = data %>% group_by(RBD) %>% mutate(mean_priv_pad=mean(esp_privado.pad, na.rm = T))
+
+# Centrado
+## Nivel 1: al promedio del grupo
+data$ap_discusion = center(data$ap_discusion, type = c("CWC"), group = data$RBD)
+data$Educ_padre_c = center(data$Educ_padre, type = c("CWC"), group = data$RBD)
+data$Educ_madre_c = center(data$Educ_madre, type = c("CWC"), group = data$RBD)
+data$Ed_apod_c = center(data$Ed_apod, type = c("CWC"), group = data$RBD)
+data$Libros_c = center(data$Libros, type = c("CWC"), group = data$RBD)
+data$igualdad.est_c = center(data$igualdad.est, type = c("CWC"), group = data$RBD)
+data$esp_publico.est_c = center(data$esp_publico.est, type = c("CWC"), group = data$RBD)
+data$esp_privado.est_c = center(data$esp_privado.est, type = c("CWC"), group = data$RBD)
+data$igualdad.pad_c = center(data$igualdad.pad, type = c("CWC"), group = data$RBD)
+data$esp_publico.pad_c = center(data$esp_publico.pad, type = c("CWC"), group = data$RBD)
+data$esp_privado.pad_c = center(data$esp_privado.pad, type = c("CWC"), group = data$RBD)
+
+## Nivel 2: al gran promedio
+data$mean_discusion = center(data$mean_discusion, type = c("CGM"))
 ```
 
 # Guardar base de datos
