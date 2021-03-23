@@ -3376,11 +3376,11 @@ dev.off()</code></pre>
 <pre class="r"><code>data_proc=data %&gt;% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod,ingresos_tramos,dependencia) %&gt;% as.data.frame() #,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod
 view(dfSummary(data_proc))</code></pre>
 <pre><code>## Switching method to &#39;browser&#39;</code></pre>
-<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpWawGYU\file1f28b7b338d.html</code></pre>
+<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpyoK0Gx\file2d4c62a832ab.html</code></pre>
 <pre class="r"><code>data_proc &lt;- na.omit(data_proc)
 view(dfSummary(data_proc))</code></pre>
 <pre><code>## Switching method to &#39;browser&#39;</code></pre>
-<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpWawGYU\file1f2860e72c5.html</code></pre>
+<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpyoK0Gx\file2d4c73c93a4.html</code></pre>
 <pre class="r"><code>data_proc1=data %&gt;% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod,ingresos_tramos,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod,dependencia) %&gt;% as.data.frame()
 data_proc1 &lt;- na.omit(data_proc1)</code></pre>
 <div id="modelo-nulo-1" class="section level2">
@@ -3515,7 +3515,7 @@ screenreg(list(reg_igualdad,reg_esp.pub,h1_esp.priv))</code></pre>
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 <div id="h1-las-niñas-presentarán-actitudes-más-positivas-hacia-la-igualdad-de-género-que-los-niños.-1" class="section level3">
 <h3>H1: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.</h3>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Igualdad de género&quot;, &quot;Sexismo en la distribución de roles en el espacio público&quot;, &quot;Sexismo en la distribución de roles en el espacio privado&quot;), omit.coef = &quot;(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo (Ref. niño)&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo (Ref. Niño)&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -3526,13 +3526,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Igualdad de género
+Actitudes del estudiante hacia la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio público
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio privado
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -3567,7 +3567,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Sexo (Ref. niño)
+Sexo (Ref. Niño)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.08<sup>*</sup>
@@ -3705,7 +3705,7 @@ Var: Residual
 <h3>H2: Estudiantes que provienen de familias con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.</h3>
 <div id="educación-1" class="section level4">
 <h4>Educación</h4>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Igualdad de género&quot;, &quot;Sexismo en la distribución de roles en el espacio público&quot;, &quot;Sexismo en la distribución de roles en el espacio privado&quot;), omit.coef = &quot;(Sexo)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Educación Media&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o estudios de Posgrado&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Educación Media &lt;br&gt; (Ref. 8vo básico o menos)&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o estudios de Posgrado&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -3716,13 +3716,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Igualdad de género
+Actitudes del estudiante hacia la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio público
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio privado
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -3757,7 +3757,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Educación Media
+Educación Media <br> (Ref. 8vo básico o menos)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.01
@@ -3949,7 +3949,7 @@ Var: Residual
 </div>
 <div id="cantidad-de-libros-en-el-hogar-1" class="section level4">
 <h4>Cantidad de libros en el hogar</h4>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Igualdad de género&quot;, &quot;Sexismo en la distribución de roles en el espacio público&quot;, &quot;Sexismo en la distribución de roles en el espacio privado&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Entre 11 y 25 libros&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Entre 101 y 200 libros&quot;, &quot;Entre 201 y 500 libros&quot;, &quot;Más de 500 libros&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; (Ref. Entre 0 y 10 libros)&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Entre 101 y 200 libros&quot;, &quot;Entre 201 y 500 libros&quot;, &quot;Más de 500 libros&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -3960,13 +3960,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Igualdad de género
+Actitudes del estudiante hacia la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio público
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio privado
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -4001,7 +4001,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Entre 11 y 25 libros
+Entre 11 y 25 libros <br> (Ref. Entre 0 y 10 libros)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.09<sup>*</sup>
@@ -4249,7 +4249,7 @@ Var: Residual
 </div>
 <div id="ingresos" class="section level4">
 <h4>Ingresos</h4>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Igualdad de género&quot;, &quot;Sexismo en la distribución de roles en el espacio público&quot;, &quot;Sexismo en la distribución de roles en el espacio privado&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;De $101.001 a $134.000 mensuales líquidos&quot;, &quot;De $134.001 a $179.000 mensuales líquidos&quot;, &quot;De $179.001 a $224.000 mensuales líquidos&quot;, &quot;De $224.001 a $291.000 mensuales líquidos&quot;, &quot;De $291.001 a $358.000 mensuales líquidos&quot;, &quot;De $358.001 a $448.000 mensuales líquidos&quot;, &quot;De $448.001 a $1.000.000 mensuales líquidos&quot;, &quot;De $1.000.001 a $2.000.000 mensuales líquidos&quot;, &quot;De $2.000.001 a $3.000.000 mensuales líquidos&quot;, &quot;Más de $3.000.000 mensuales líquidos&quot;, &quot;No sabe / No responde&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;De $101.001 a $134.000 mensuales líquidos &lt;br&gt; (Ref. Menos de $101.000 mensuales líquidos)&quot;, &quot;De $134.001 a $179.000 mensuales líquidos&quot;, &quot;De $179.001 a $224.000 mensuales líquidos&quot;, &quot;De $224.001 a $291.000 mensuales líquidos&quot;, &quot;De $291.001 a $358.000 mensuales líquidos&quot;, &quot;De $358.001 a $448.000 mensuales líquidos&quot;, &quot;De $448.001 a $1.000.000 mensuales líquidos&quot;, &quot;De $1.000.001 a $2.000.000 mensuales líquidos&quot;, &quot;De $2.000.001 a $3.000.000 mensuales líquidos&quot;, &quot;Más de $3.000.000 mensuales líquidos&quot;, &quot;No sabe / No responde&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -4260,13 +4260,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Igualdad de género
+Actitudes del estudiante hacia la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio público
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio privado
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -4301,7 +4301,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $101.001 a $134.000 mensuales líquidos
+De $101.001 a $134.000 mensuales líquidos <br> (Ref. Menos de $101.000 mensuales líquidos)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.19
@@ -4563,7 +4563,7 @@ Más de <span class="math inline">\(3.000.000 mensuales líquidos&lt;/td&gt; &lt
 </div>
 <div id="h3-estudiantes-con-apoderados-que-poseen-actitudes-más-positivas-hacia-la-igualdad-de-género-presentarán-actitudes-más-positivas-hacia-la-igualdad-de-género.-1" class="section level2">
 <h2>H3: Estudiantes con apoderados que poseen actitudes más positivas hacia la igualdad de género presentarán actitudes más positivas hacia la igualdad de género.</h2>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Igualdad de género&quot;, &quot;Sexismo en la distribución de roles en el espacio público&quot;, &quot;Sexismo en la distribución de roles en el espacio privado&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Actitudes del apoderado hacia la igualdad de género&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles de género en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles de género en la esfera privada&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Actitudes del apoderado hacia la igualdad de derechos y oportunidades entre hombres y mujeres&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -4574,13 +4574,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Igualdad de género
+Actitudes del estudiante hacia la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio público
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio privado
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -4615,7 +4615,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Actitudes del apoderado hacia la igualdad de género
+Actitudes del apoderado hacia la igualdad de derechos y oportunidades entre hombres y mujeres
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.07
@@ -4643,7 +4643,7 @@ Actitudes del apoderado hacia la igualdad de género
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles de género en la esfera pública
+Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
  
@@ -4671,7 +4671,7 @@ Actitudes sexistas del apoderado hacia la distribución de roles de género en l
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles de género en la esfera privada
+Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
  
@@ -4807,66 +4807,67 @@ Var: Residual
 </div>
 <div id="h4-apoderados-con-mayores-recursos-socioeconómicos-presentarán-actitudes-más-positivas-hacia-la-igualdad-de-género.-1" class="section level2">
 <h2>H4: Apoderados con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.</h2>
-<pre class="r"><code>h4.1_igualdad.apod &lt;- lmer(igualdad.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
-h4.2_igualdad.apod &lt;- lmer(igualdad.pad ~ 1 + factor(Libros_apod) + (1 | RBD), data=data_proc)
-h4.3_igualdad.apod &lt;- lmer(igualdad.pad ~ 1 + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
-h4.4_igualdad.apod &lt;- lmer(igualdad.pad ~ 1 + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
-screenreg(list(h4.1_igualdad.apod, h4.2_igualdad.apod, h4.3_igualdad.apod, h4.4_igualdad.apod))</code></pre>
+<pre class="r"><code>h4_igualdad.apod &lt;- lmer(igualdad.pad ~ 1 + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
+h4_esp_pub.apod &lt;- lmer(esp_publico.pad ~ 1 + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
+h4_esp_priv.apod &lt;- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
+screenreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod))</code></pre>
 <pre><code>## 
-## ==========================================================================
-##                            Model 1      Model 2      Model 3   Model 4    
-## --------------------------------------------------------------------------
-## (Intercept)                  -0.14 **     -0.12 ***    -0.10     -0.26 *  
-##                              (0.04)       (0.03)       (0.10)    (0.10)   
-## factor(Educacion)2            0.13 **                             0.11 *  
-##                              (0.05)                              (0.05)   
-## factor(Educacion)3            0.16 **                             0.12 *  
-##                              (0.05)                              (0.05)   
-## factor(Educacion)4            0.21 ***                            0.13 *  
-##                              (0.05)                              (0.06)   
-## factor(Libros_apod)2                       0.11 **                0.09 *  
-##                                           (0.04)                 (0.04)   
-## factor(Libros_apod)3                       0.16 ***               0.14 ***
-##                                           (0.04)                 (0.04)   
-## factor(Libros_apod)4                       0.22 ***               0.20 ***
-##                                           (0.05)                 (0.05)   
-## factor(Libros_apod)5                       0.21 **                0.19 *  
-##                                           (0.07)                 (0.08)   
-## factor(Libros_apod)6                       0.32 *                 0.28 *  
-##                                           (0.13)                 (0.13)   
-## factor(ingresos_tramos)2                               -0.06     -0.07    
-##                                                        (0.14)    (0.14)   
-## factor(ingresos_tramos)3                                0.01     -0.02    
-##                                                        (0.14)    (0.14)   
-## factor(ingresos_tramos)4                                0.04      0.01    
-##                                                        (0.12)    (0.12)   
-## factor(ingresos_tramos)5                                0.05      0.04    
-##                                                        (0.11)    (0.11)   
-## factor(ingresos_tramos)6                                0.08      0.06    
-##                                                        (0.10)    (0.10)   
-## factor(ingresos_tramos)7                                0.04     -0.01    
-##                                                        (0.10)    (0.10)   
-## factor(ingresos_tramos)8                                0.13      0.07    
-##                                                        (0.10)    (0.10)   
-## factor(ingresos_tramos)9                                0.18      0.10    
-##                                                        (0.11)    (0.11)   
-## factor(ingresos_tramos)10                               0.20      0.11    
-##                                                        (0.13)    (0.13)   
-## factor(ingresos_tramos)11                               0.10     -0.02    
-##                                                        (0.11)    (0.12)   
-## factor(ingresos_tramos)99                               0.15      0.10    
-##                                                        (0.10)    (0.10)   
-## --------------------------------------------------------------------------
-## AIC                         444.16       444.53       485.15    505.98    
-## BIC                         470.80       480.06       547.32    603.68    
-## Log Likelihood             -216.08      -214.27      -228.57   -230.99    
-## Num. obs.                   627          627          627       627       
-## Num. groups: RBD             60           60           60        60       
-## Var: RBD (Intercept)          0.01         0.01         0.01      0.00    
-## Var: Residual                 0.11         0.11         0.11      0.11    
-## ==========================================================================
+## ================================================================
+##                            Model 1      Model 2      Model 3    
+## ----------------------------------------------------------------
+## (Intercept)                  -0.26 *       0.38 **      0.35 ** 
+##                              (0.10)       (0.13)       (0.13)   
+## factor(Educacion)2            0.11 *      -0.12 *      -0.13 *  
+##                              (0.05)       (0.06)       (0.06)   
+## factor(Educacion)3            0.12 *      -0.19 **     -0.20 ** 
+##                              (0.05)       (0.06)       (0.07)   
+## factor(Educacion)4            0.13 *      -0.22 **     -0.23 ** 
+##                              (0.06)       (0.07)       (0.08)   
+## factor(Libros_apod)2          0.09 *      -0.12 *      -0.12 *  
+##                              (0.04)       (0.05)       (0.05)   
+## factor(Libros_apod)3          0.14 ***    -0.21 ***    -0.23 ***
+##                              (0.04)       (0.05)       (0.05)   
+## factor(Libros_apod)4          0.20 ***    -0.26 ***    -0.26 ***
+##                              (0.05)       (0.07)       (0.07)   
+## factor(Libros_apod)5          0.19 *      -0.17        -0.17    
+##                              (0.08)       (0.09)       (0.10)   
+## factor(Libros_apod)6          0.28 *      -0.38 *      -0.38 *  
+##                              (0.13)       (0.16)       (0.17)   
+## factor(ingresos_tramos)2     -0.07         0.02         0.08    
+##                              (0.14)       (0.18)       (0.18)   
+## factor(ingresos_tramos)3     -0.02        -0.24        -0.23    
+##                              (0.14)       (0.17)       (0.18)   
+## factor(ingresos_tramos)4      0.01        -0.05        -0.01    
+##                              (0.12)       (0.14)       (0.15)   
+## factor(ingresos_tramos)5      0.04        -0.07         0.02    
+##                              (0.11)       (0.14)       (0.14)   
+## factor(ingresos_tramos)6      0.06        -0.14        -0.12    
+##                              (0.10)       (0.13)       (0.13)   
+## factor(ingresos_tramos)7     -0.01        -0.03        -0.00    
+##                              (0.10)       (0.12)       (0.13)   
+## factor(ingresos_tramos)8      0.07        -0.11        -0.04    
+##                              (0.10)       (0.12)       (0.13)   
+## factor(ingresos_tramos)9      0.10        -0.10        -0.06    
+##                              (0.11)       (0.13)       (0.13)   
+## factor(ingresos_tramos)10     0.11        -0.20        -0.16    
+##                              (0.13)       (0.16)       (0.16)   
+## factor(ingresos_tramos)11    -0.02        -0.02         0.00    
+##                              (0.12)       (0.14)       (0.15)   
+## factor(ingresos_tramos)99     0.10        -0.09        -0.05    
+##                              (0.10)       (0.13)       (0.13)   
+## ----------------------------------------------------------------
+## AIC                         505.98       761.64       791.47    
+## BIC                         603.68       859.34       889.17    
+## Log Likelihood             -230.99      -358.82      -373.73    
+## Num. obs.                   627          627          627       
+## Num. groups: RBD             60           60           60       
+## Var: RBD (Intercept)          0.00         0.01         0.01    
+## Var: Residual                 0.11         0.16         0.17    
+## ================================================================
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Igualdad de género&quot;, &quot;Sexismo en la distribución de roles en el espacio público&quot;, &quot;Sexismo en la distribución de roles en el espacio privado&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Actitudes del apoderado hacia la igualdad de género&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles de género en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles de género en la esfera privada&quot;))</code></pre>
+<div id="educación-2" class="section level3">
+<h3>Educación</h3>
+<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia la igualdad de género&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Libros_apod)|(ingresos_tramos)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Educación Media &lt;br&gt; (Ref. 8vo básico o menos)&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o estudios de Posgrado&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -4877,13 +4878,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Igualdad de género
+Actitudes del apoderado hacia la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio público
+Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Sexismo en la distribución de roles en el espacio privado
+Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -4893,13 +4894,13 @@ Sexismo en la distribución de roles en el espacio privado
 Intercepto
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.50<sup>***</sup>
+-0.26<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.67<sup>***</sup>
+0.38<sup>**</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.67<sup>***</sup>
+0.35<sup>**</sup>
 </td>
 </tr>
 <tr>
@@ -4907,97 +4908,97 @@ Intercepto
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.14)
+(0.10)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.17)
+(0.13)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.20)
+(0.13)
 </td>
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Actitudes del apoderado hacia la igualdad de género
+Educación Media <br> (Ref. 8vo básico o menos)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.07
+0.11<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
- 
+-0.12<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
- 
+-0.13<sup>*</sup>
 </td>
 </tr>
 <tr>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.04)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles de género en la esfera pública
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.15<sup>***</sup>
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-(0.04)
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles de género en la esfera privada
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.24<sup>***</sup>
-</td>
-</tr>
-<tr>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
- 
-</td>
 <td style="padding-left: 5px;padding-right: 5px;">
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 (0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educación Técnica Superior (IP o CFT)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.19<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.20<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Una carrera en la Universidad o estudios de Posgrado
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.22<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.23<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
 </td>
 </tr>
 <tr style="border-top: 1px solid #000000;">
@@ -5005,13 +5006,13 @@ Actitudes sexistas del apoderado hacia la distribución de roles de género en l
 AIC
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-610.41
+505.98
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-846.22
+761.64
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1004.44
+791.47
 </td>
 </tr>
 <tr>
@@ -5019,13 +5020,13 @@ AIC
 BIC
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-734.75
+603.68
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-970.57
+859.34
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-1128.79
+889.17
 </td>
 </tr>
 <tr>
@@ -5033,13 +5034,13 @@ BIC
 Log Likelihood
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--277.20
+-230.99
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--395.11
+-358.82
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--474.22
+-373.73
 </td>
 </tr>
 <tr>
@@ -5075,13 +5076,13 @@ Num. groups: RBD
 Var: RBD (Intercept)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.02
+0.00
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.02
+0.01
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.03
+0.01
 </td>
 </tr>
 <tr style="border-bottom: 2px solid #000000;">
@@ -5089,146 +5090,641 @@ Var: RBD (Intercept)
 Var: Residual
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.12
+0.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.16
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.17
-</td>
-<td style="padding-left: 5px;padding-right: 5px;">
-0.22
 </td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
 <td style="font-size: 0.8em;" colspan="4">
-<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.
 </td>
 </tr>
 </tfoot>
 </table>
-<pre class="r"><code>h4.1_esp_pub.apod &lt;- lmer(esp_publico.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
-h4.2_esp_pub.apod &lt;- lmer(esp_publico.pad ~ 1 + factor(Libros_apod) + (1 | RBD), data=data_proc)
-h4.3_esp_pub.apod &lt;- lmer(esp_publico.pad ~ 1 + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
-h4.4_esp_pub.apod &lt;- lmer(esp_publico.pad ~ 1 + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
-screenreg(list(h4.1_esp_pub.apod, h4.2_esp_pub.apod, h4.3_esp_pub.apod, h4.4_esp_pub.apod))</code></pre>
-<pre><code>## 
-## ===========================================================================
-##                            Model 1      Model 2      Model 3    Model 4    
-## ---------------------------------------------------------------------------
-## (Intercept)                   0.18 ***     0.17 ***     0.16       0.38 ** 
-##                              (0.05)       (0.04)       (0.12)     (0.13)   
-## factor(Educacion)2           -0.15 **                             -0.12 *  
-##                              (0.06)                               (0.06)   
-## factor(Educacion)3           -0.23 ***                            -0.19 ** 
-##                              (0.06)                               (0.06)   
-## factor(Educacion)4           -0.31 ***                            -0.22 ** 
-##                              (0.07)                               (0.07)   
-## factor(Libros_apod)2                      -0.14 **                -0.12 *  
-##                                           (0.05)                  (0.05)   
-## factor(Libros_apod)3                      -0.23 ***               -0.21 ***
-##                                           (0.05)                  (0.05)   
-## factor(Libros_apod)4                      -0.30 ***               -0.26 ***
-##                                           (0.06)                  (0.07)   
-## factor(Libros_apod)5                      -0.21 *                 -0.17    
-##                                           (0.09)                  (0.09)   
-## factor(Libros_apod)6                      -0.46 **                -0.38 *  
-##                                           (0.16)                  (0.16)   
-## factor(ingresos_tramos)2                                0.02       0.02    
-##                                                        (0.18)     (0.18)   
-## factor(ingresos_tramos)3                               -0.27      -0.24    
-##                                                        (0.18)     (0.17)   
-## factor(ingresos_tramos)4                               -0.08      -0.05    
-##                                                        (0.14)     (0.14)   
-## factor(ingresos_tramos)5                               -0.08      -0.07    
-##                                                        (0.14)     (0.14)   
-## factor(ingresos_tramos)6                               -0.17      -0.14    
-##                                                        (0.13)     (0.13)   
-## factor(ingresos_tramos)7                               -0.11      -0.03    
-##                                                        (0.13)     (0.12)   
-## factor(ingresos_tramos)8                               -0.19      -0.11    
-##                                                        (0.13)     (0.12)   
-## factor(ingresos_tramos)9                               -0.22      -0.10    
-##                                                        (0.13)     (0.13)   
-## factor(ingresos_tramos)10                              -0.33 *    -0.20    
-##                                                        (0.16)     (0.16)   
-## factor(ingresos_tramos)11                              -0.20      -0.02    
-##                                                        (0.14)     (0.14)   
-## factor(ingresos_tramos)99                              -0.17      -0.09    
-##                                                        (0.13)     (0.13)   
-## ---------------------------------------------------------------------------
-## AIC                         707.95       706.75       756.39     761.64    
-## BIC                         734.60       742.27       818.56     859.34    
-## Log Likelihood             -347.98      -345.37      -364.19    -358.82    
-## Num. obs.                   627          627          627        627       
-## Num. groups: RBD             60           60           60         60       
-## Var: RBD (Intercept)          0.02         0.02         0.02       0.01    
-## Var: Residual                 0.16         0.16         0.17       0.16    
-## ===========================================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
-<pre class="r"><code>h4.1_esp_priv.apod &lt;- lmer(esp_privado.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
-h4.2_esp_priv.apod &lt;- lmer(esp_privado.pad ~ 1 + factor(Libros_apod) + (1 | RBD), data=data_proc)
-h4.3_esp_priv.apod &lt;- lmer(esp_privado.pad ~ 1 + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
-h4.4_esp_priv.apod &lt;- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + (1 | RBD), data=data_proc)
-screenreg(list(h4.1_esp_priv.apod, h4.2_esp_priv.apod, h4.3_esp_priv.apod, h4.4_esp_priv.apod))</code></pre>
-<pre><code>## 
-## ==========================================================================
-##                            Model 1      Model 2      Model 3   Model 4    
-## --------------------------------------------------------------------------
-## (Intercept)                   0.19 ***     0.17 ***     0.12      0.35 ** 
-##                              (0.06)       (0.04)       (0.13)    (0.13)   
-## factor(Educacion)2           -0.15 **                            -0.13 *  
-##                              (0.06)                              (0.06)   
-## factor(Educacion)3           -0.24 ***                           -0.20 ** 
-##                              (0.06)                              (0.07)   
-## factor(Educacion)4           -0.31 ***                           -0.23 ** 
-##                              (0.07)                              (0.08)   
-## factor(Libros_apod)2                      -0.13 **               -0.12 *  
-##                                           (0.05)                 (0.05)   
-## factor(Libros_apod)3                      -0.25 ***              -0.23 ***
-##                                           (0.05)                 (0.05)   
-## factor(Libros_apod)4                      -0.30 ***              -0.26 ***
-##                                           (0.07)                 (0.07)   
-## factor(Libros_apod)5                      -0.20 *                -0.17    
-##                                           (0.09)                 (0.10)   
-## factor(Libros_apod)6                      -0.46 **               -0.38 *  
-##                                           (0.16)                 (0.17)   
-## factor(ingresos_tramos)2                                0.09      0.08    
-##                                                        (0.18)    (0.18)   
-## factor(ingresos_tramos)3                               -0.25     -0.23    
-##                                                        (0.18)    (0.18)   
-## factor(ingresos_tramos)4                               -0.04     -0.01    
-##                                                        (0.15)    (0.15)   
-## factor(ingresos_tramos)5                                0.02      0.02    
-##                                                        (0.14)    (0.14)   
-## factor(ingresos_tramos)6                               -0.14     -0.12    
-##                                                        (0.13)    (0.13)   
-## factor(ingresos_tramos)7                               -0.08     -0.00    
-##                                                        (0.13)    (0.13)   
-## factor(ingresos_tramos)8                               -0.13     -0.04    
-##                                                        (0.13)    (0.13)   
-## factor(ingresos_tramos)9                               -0.17     -0.06    
-##                                                        (0.13)    (0.13)   
-## factor(ingresos_tramos)10                              -0.29     -0.16    
-##                                                        (0.16)    (0.16)   
-## factor(ingresos_tramos)11                              -0.17      0.00    
-##                                                        (0.15)    (0.15)   
-## factor(ingresos_tramos)99                              -0.13     -0.05    
-##                                                        (0.13)    (0.13)   
-## --------------------------------------------------------------------------
-## AIC                         740.79       739.06       788.05    791.47    
-## BIC                         767.43       774.59       850.22    889.17    
-## Log Likelihood             -364.39      -361.53      -380.02   -373.73    
-## Num. obs.                   627          627          627       627       
-## Num. groups: RBD             60           60           60        60       
-## Var: RBD (Intercept)          0.02         0.02         0.02      0.01    
-## Var: Residual                 0.17         0.17         0.17      0.17    
-## ==========================================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<div id="cantidad-de-libros-en-el-hogar-2" class="section level4">
+<h4>Cantidad de libros en el hogar</h4>
+<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia la igualdad de género&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Educacion)|(ingresos_tramos)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; (Ref. Entre 0 y 10 libros)&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Entre 101 y 200 libros&quot;, &quot;Entre 201 y 500 libros&quot;, &quot;Más de 500 libros&quot;))</code></pre>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes del apoderado hacia la igualdad de género
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercepto
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.26<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.38<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.35<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 11 y 25 libros <br> (Ref. Entre 0 y 10 libros)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.09<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 26 y 100 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.14<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.21<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.23<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 101 y 200 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.20<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.26<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.26<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 201 y 500 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.19<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.17
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.17
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Más de 500 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.28<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.38<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.38<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.16)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.17)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+505.98
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+761.64
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+791.47
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+603.68
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+859.34
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+889.17
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-230.99
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-358.82
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-373.73
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: RBD
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: RBD (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.00
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.16
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="4">
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="ingresos-1" class="section level4">
+<h4>Ingresos</h4>
+<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia la igualdad de género&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Libros_apod)|(Educacion)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;De $101.001 a $134.000 mensuales líquidos &lt;br&gt; (Ref. Menos de $101.000 mensuales líquidos)&quot;, &quot;De $134.001 a $179.000 mensuales líquidos&quot;, &quot;De $179.001 a $224.000 mensuales líquidos&quot;, &quot;De $224.001 a $291.000 mensuales líquidos&quot;, &quot;De $291.001 a $358.000 mensuales líquidos&quot;, &quot;De $358.001 a $448.000 mensuales líquidos&quot;, &quot;De $448.001 a $1.000.000 mensuales líquidos&quot;, &quot;De $1.000.001 a $2.000.000 mensuales líquidos&quot;, &quot;De $2.000.001 a $3.000.000 mensuales líquidos&quot;, &quot;Más de $3.000.000 mensuales líquidos&quot;, &quot;No sabe / No responde&quot;))</code></pre>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes del apoderado hacia la igualdad de género
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercepto
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.26<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.38<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.35<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $101.001 a $134.000 mensuales líquidos <br> (Ref. Menos de $101.000 mensuales líquidos)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.07
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.18)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.18)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $134.001 a $179.000 mensuales líquidos
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.23
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.17)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.18)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $179.001 a $224.000 mensuales líquidos
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.15)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $224.001 a $291.000 mensuales líquidos
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.07
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $291.001 a $358.000 mensuales líquidos
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.14
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $358.001 a $448.000 mensuales líquidos
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.00
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $448.001 a $1.000.000 mensuales líquidos
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.07
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.04
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $1.000.001 a $2.000.000 mensuales líquidos
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.06
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+De $2.000.001 a $3.000.000 mensuales líquidos
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.20
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.16
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.16)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.16)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Más de <span class="math inline">\(3.000.000 mensuales líquidos&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.02&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.02&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.00&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.12)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.14)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.15)&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;No sabe / No responde&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.10&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.09&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.05&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.10)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.13)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.13)&lt;/td&gt; &lt;/tr&gt; &lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;505.98&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;761.64&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;791.47&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;603.68&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;859.34&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;889.17&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-230.99&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-358.82&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-373.73&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. groups: RBD&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Var: RBD (Intercept)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.00&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.01&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.01&lt;/td&gt; &lt;/tr&gt; &lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Var: Residual&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.11&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.16&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.17&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;tfoot&gt; &lt;tr&gt; &lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;4&quot;&gt;\)</span>***p &lt;$ 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
 </div>
 <div id="h4a-la-relación-entre-los-recursos-de-la-familia-y-las-actitudes-de-los-estudiantes-hacia-la-igualdad-de-género-estará-mediada-por-las-actitudes-de-sus-apoderados-hacia-la-igualdad-de-género.-1" class="section level2">
 <h2>H4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.</h2>
-<div id="educación-2" class="section level3">
+<div id="educación-3" class="section level3">
 <h3>Educación</h3>
 <pre class="r"><code>h4a.1_educ_igualdad &lt;- lmer(igualdad.pad_c ~ 1 + Educacion_c + (1 | RBD), data=data_proc1)</code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
@@ -5390,7 +5886,7 @@ screenreg(list(h4.1_esp_priv.apod, h4.2_esp_priv.apod, h4.3_esp_priv.apod, h4.4_
 ## =====================================================================================================
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
-<div id="cantidad-de-libros-en-el-hogar-2" class="section level3">
+<div id="cantidad-de-libros-en-el-hogar-3" class="section level3">
 <h3>Cantidad de libros en el hogar</h3>
 <pre class="r"><code>h4a.1_lib_igualdad &lt;- lmer(igualdad.pad_c ~ 1 + Libros_apod_c + (1 | RBD), data=data_proc1)</code></pre>
 <pre><code>## boundary (singular) fit: see ?isSingular</code></pre>
@@ -5544,286 +6040,435 @@ screenreg(list(h4.1_esp_priv.apod, h4.2_esp_priv.apod, h4.3_esp_priv.apod, h4.4_
 </div>
 <div id="h5-las-características-de-la-escuela-proporción-de-niñas-apertura-a-la-discusión-en-el-aula-se-asocian-positivamente-con-las-actitudes-de-los-estudiantes-hacia-la-igualdad-de-género.-1" class="section level2">
 <h2>H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.</h2>
-<pre class="r"><code>h5a_igualdad &lt;- lmer(igualdad.est ~ 1 + ap_discusion + mean_discusion + (1 | RBD), data=data_proc)
-h5a_esp.pub &lt;- lmer(esp_publico.est ~ 1 + ap_discusion + mean_discusion + (1 | RBD), data=data_proc)
-h5a_esp.priv &lt;- lmer(esp_privado.est ~ 1 + ap_discusion + mean_discusion + (1 | RBD), data=data_proc)
-screenreg(list(h5a_igualdad, h5a_esp.pub, h5a_esp.priv))</code></pre>
-<pre><code>## 
-## ===========================================================
-##                       Model 1      Model 2      Model 3    
-## -----------------------------------------------------------
-## (Intercept)              0.02         0.00         0.00    
-##                         (0.02)       (0.03)       (0.03)   
-## ap_discusion             0.14 ***    -0.12 ***    -0.11 ** 
-##                         (0.02)       (0.03)       (0.04)   
-## mean_discusion           0.50 ***    -0.66 ***    -0.74 ***
-##                         (0.09)       (0.11)       (0.12)   
-## -----------------------------------------------------------
-## AIC                    507.55       782.86       962.15    
-## BIC                    529.76       805.06       984.35    
-## Log Likelihood        -248.78      -386.43      -476.08    
-## Num. obs.              627          627          627       
-## Num. groups: RBD        60           60           60       
-## Var: RBD (Intercept)     0.02         0.03         0.04    
-## Var: Residual            0.12         0.18         0.24    
-## ===========================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
-<pre class="r"><code>h5b_igualdad &lt;- lmer(igualdad.est ~ 1 + num_fem + (1 | RBD), data=data_proc)
-h5b_esp.pub &lt;- lmer(esp_publico.est ~ 1 + num_fem + (1 | RBD), data=data_proc)
-h5b_esp.priv &lt;- lmer(esp_privado.est ~ 1 + num_fem + (1 | RBD), data=data_proc)
-screenreg(list(h5b_igualdad, h5b_esp.pub, h5b_esp.priv))</code></pre>
-<pre><code>## 
-## =====================================================
-##                       Model 1    Model 2    Model 3  
-## -----------------------------------------------------
-## (Intercept)             -0.12       0.18       0.20  
-##                         (0.07)     (0.09)     (0.11) 
-## num_fem                  0.29 *    -0.36 *    -0.42 *
-##                         (0.14)     (0.18)     (0.20) 
-## -----------------------------------------------------
-## AIC                    551.94     813.23     988.31  
-## BIC                    569.71     831.00    1006.08  
-## Log Likelihood        -271.97    -402.62    -490.16  
-## Num. obs.              627        627        627     
-## Num. groups: RBD        60         60         60     
-## Var: RBD (Intercept)     0.04       0.06       0.07  
-## Var: Residual            0.12       0.19       0.25  
-## =====================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
-<pre class="r"><code>h5c_igualdad &lt;- lmer(igualdad.est ~ 1 + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
-h5c_esp.pub &lt;- lmer(esp_publico.est ~ 1 + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
-h5c_esp.priv &lt;- lmer(esp_privado.est ~ 1 + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
-screenreg(list(h5c_igualdad, h5c_esp.pub, h5c_esp.priv))</code></pre>
-<pre><code>## 
-## ===========================================================
-##                       Model 1      Model 2      Model 3    
-## -----------------------------------------------------------
-## (Intercept)             -0.04         0.08         0.10    
-##                         (0.06)       (0.08)       (0.09)   
-## ap_discusion             0.14 ***    -0.12 ***    -0.11 ** 
-##                         (0.02)       (0.03)       (0.04)   
-## mean_discusion           0.48 ***    -0.63 ***    -0.71 ***
-##                         (0.09)       (0.11)       (0.13)   
-## num_fem                  0.13        -0.16        -0.20    
-##                         (0.12)       (0.15)       (0.17)   
-## -----------------------------------------------------------
-## AIC                    510.88       785.62       964.53    
-## BIC                    537.53       812.26       991.18    
-## Log Likelihood        -249.44      -386.81      -476.27    
-## Num. obs.              627          627          627       
-## Num. groups: RBD        60           60           60       
-## Var: RBD (Intercept)     0.02         0.03         0.04    
-## Var: Residual            0.12         0.18         0.24    
-## ===========================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<div id="apertura-a-la-discusión-en-el-aula" class="section level3">
+<h3>Apertura a la discusión en el aula</h3>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Percepción individual sobre la apertura a la discusión en el aula&quot;, &quot;Percepción promedio del curso sobre la apertura a la discusión en el aula&quot;))</code></pre>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes del estudiante hacia la igualdad de género
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercepto
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.50<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.67<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.67<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.17)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.20)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Percepción individual sobre la apertura a la discusión en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.09<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.08<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Percepción promedio del curso sobre la apertura a la discusión en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.43<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.49<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.53<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+610.41
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+846.22
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1004.44
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+734.75
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+970.57
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1128.79
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-277.20
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-395.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-474.22
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: RBD
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: RBD (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.22
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="4">
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.
+</td>
+</tr>
+</tfoot>
+</table>
 </div>
-<div id="modelos-con-variables-individuales-y-contextuales-1" class="section level2">
-<h2>Modelos con variables individuales y contextuales</h2>
-<pre class="r"><code>reg_igualdad.ind &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + igualdad.pad + (1 | RBD), data=data_proc)
-reg_igualdad.comp &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
-screenreg(list(reg_igualdad.ind, h5c_igualdad, reg_igualdad.comp))</code></pre>
-<pre><code>## 
-## ================================================================
-##                            Model 1      Model 2      Model 3    
-## ----------------------------------------------------------------
-## (Intercept)                  -0.43 ***    -0.04        -0.41 ** 
-##                              (0.13)       (0.06)       (0.13)   
-## Sexo                          0.11 ***                  0.08 *  
-##                              (0.03)                    (0.03)   
-## factor(Educacion)2            0.00                      0.01    
-##                              (0.05)                    (0.05)   
-## factor(Educacion)3            0.02                      0.02    
-##                              (0.06)                    (0.06)   
-## factor(Educacion)4            0.04                      0.01    
-##                              (0.07)                    (0.06)   
-## factor(Libros_apod)2          0.09 *                    0.09 *  
-##                              (0.04)                    (0.04)   
-## factor(Libros_apod)3          0.09 *                    0.06    
-##                              (0.04)                    (0.04)   
-## factor(Libros_apod)4          0.07                      0.06    
-##                              (0.06)                    (0.06)   
-## factor(Libros_apod)5         -0.01                     -0.01    
-##                              (0.08)                    (0.08)   
-## factor(Libros_apod)6          0.16                      0.21    
-##                              (0.14)                    (0.14)   
-## factor(ingresos_tramos)2      0.13                      0.20    
-##                              (0.15)                    (0.15)   
-## factor(ingresos_tramos)3      0.27                      0.26    
-##                              (0.15)                    (0.15)   
-## factor(ingresos_tramos)4      0.24                      0.28 *  
-##                              (0.13)                    (0.12)   
-## factor(ingresos_tramos)5      0.25 *                    0.27 *  
-##                              (0.12)                    (0.12)   
-## factor(ingresos_tramos)6      0.17                      0.20    
-##                              (0.11)                    (0.11)   
-## factor(ingresos_tramos)7      0.21                      0.25 *  
-##                              (0.11)                    (0.11)   
-## factor(ingresos_tramos)8      0.19                      0.21 *  
-##                              (0.11)                    (0.11)   
-## factor(ingresos_tramos)9      0.23 *                    0.27 *  
-##                              (0.11)                    (0.11)   
-## factor(ingresos_tramos)10     0.22                      0.29 *  
-##                              (0.14)                    (0.14)   
-## factor(ingresos_tramos)11     0.18                      0.21    
-##                              (0.13)                    (0.12)   
-## factor(ingresos_tramos)99     0.21                      0.26 *  
-##                              (0.11)                    (0.11)   
-## igualdad.pad                  0.09 *                    0.07    
-##                              (0.04)                    (0.04)   
-## ap_discusion                               0.14 ***     0.13 ***
-##                                           (0.02)       (0.03)   
-## mean_discusion                             0.48 ***     0.47 ***
-##                                           (0.09)       (0.09)   
-## num_fem                                    0.13         0.03    
-##                                           (0.12)       (0.12)   
-## ----------------------------------------------------------------
-## AIC                         638.68       510.88       605.64    
-## BIC                         745.27       537.53       725.55    
-## Log Likelihood             -295.34      -249.44      -275.82    
-## Num. obs.                   627          627          627       
-## Num. groups: RBD             60           60           60       
-## Var: RBD (Intercept)          0.03         0.02         0.02    
-## Var: Residual                 0.12         0.12         0.12    
-## ================================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
-<pre class="r"><code>reg_esp.pub.ind &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_publico.pad + (1 | RBD), data=data_proc)
-reg_esp.pub.comp &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
-screenreg(list(reg_esp.pub.ind, h5c_esp.pub, reg_esp.pub.comp))</code></pre>
-<pre><code>## 
-## ================================================================
-##                            Model 1      Model 2      Model 3    
-## ----------------------------------------------------------------
-## (Intercept)                   0.53 ***     0.08         0.51 ** 
-##                              (0.15)       (0.08)       (0.16)   
-## Sexo                         -0.17 ***                 -0.14 ***
-##                              (0.04)                    (0.04)   
-## factor(Educacion)2            0.02                      0.02    
-##                              (0.06)                    (0.06)   
-## factor(Educacion)3           -0.00                      0.00    
-##                              (0.07)                    (0.07)   
-## factor(Educacion)4           -0.07                     -0.04    
-##                              (0.08)                    (0.08)   
-## factor(Libros_apod)2         -0.06                     -0.06    
-##                              (0.05)                    (0.05)   
-## factor(Libros_apod)3         -0.11 *                   -0.09    
-##                              (0.05)                    (0.05)   
-## factor(Libros_apod)4         -0.17 *                   -0.15 *  
-##                              (0.07)                    (0.07)   
-## factor(Libros_apod)5          0.14                      0.14    
-##                              (0.10)                    (0.10)   
-## factor(Libros_apod)6         -0.03                     -0.08    
-##                              (0.17)                    (0.17)   
-## factor(ingresos_tramos)2     -0.06                     -0.12    
-##                              (0.19)                    (0.18)   
-## factor(ingresos_tramos)3     -0.24                     -0.25    
-##                              (0.18)                    (0.18)   
-## factor(ingresos_tramos)4     -0.25                     -0.28    
-##                              (0.15)                    (0.15)   
-## factor(ingresos_tramos)5     -0.17                     -0.20    
-##                              (0.15)                    (0.14)   
-## factor(ingresos_tramos)6     -0.20                     -0.23    
-##                              (0.13)                    (0.13)   
-## factor(ingresos_tramos)7     -0.26 *                   -0.29 *  
-##                              (0.13)                    (0.13)   
-## factor(ingresos_tramos)8     -0.21                     -0.24    
-##                              (0.13)                    (0.13)   
-## factor(ingresos_tramos)9     -0.25                     -0.29 *  
-##                              (0.14)                    (0.14)   
-## factor(ingresos_tramos)10    -0.34 *                   -0.40 *  
-##                              (0.17)                    (0.17)   
-## factor(ingresos_tramos)11    -0.27                     -0.29    
-##                              (0.15)                    (0.15)   
-## factor(ingresos_tramos)99    -0.22                     -0.26 *  
-##                              (0.13)                    (0.13)   
-## esp_publico.pad               0.16 ***                  0.15 ***
-##                              (0.04)                    (0.04)   
-## ap_discusion                              -0.12 ***    -0.09 ** 
-##                                           (0.03)       (0.03)   
-## mean_discusion                            -0.63 ***    -0.54 ***
-##                                           (0.11)       (0.10)   
-## num_fem                                   -0.16         0.02    
-##                                           (0.15)       (0.14)   
-## ----------------------------------------------------------------
-## AIC                         860.28       785.62       844.41    
-## BIC                         966.86       812.26       964.32    
-## Log Likelihood             -406.14      -386.81      -395.21    
-## Num. obs.                   627          627          627       
-## Num. groups: RBD             60           60           60       
-## Var: RBD (Intercept)          0.04         0.03         0.02    
-## Var: Residual                 0.18         0.18         0.17    
-## ================================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
-<pre class="r"><code>reg_esp.priv.ind &lt;- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_privado.pad + (1 | RBD), data=data_proc)
-reg_esp.priv.comp &lt;- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
-screenreg(list(reg_esp.priv.ind, h5c_esp.priv, reg_esp.priv.comp))</code></pre>
-<pre><code>## 
-## ================================================================
-##                            Model 1      Model 2      Model 3    
-## ----------------------------------------------------------------
-## (Intercept)                   0.56 **      0.10         0.54 ** 
-##                              (0.17)       (0.09)       (0.18)   
-## Sexo                         -0.18 ***                 -0.15 ***
-##                              (0.04)                    (0.05)   
-## factor(Educacion)2            0.03                      0.03    
-##                              (0.07)                    (0.07)   
-## factor(Educacion)3            0.00                      0.01    
-##                              (0.08)                    (0.08)   
-## factor(Educacion)4           -0.06                     -0.04    
-##                              (0.09)                    (0.09)   
-## factor(Libros_apod)2         -0.03                     -0.03    
-##                              (0.06)                    (0.06)   
-## factor(Libros_apod)3         -0.11                     -0.08    
-##                              (0.06)                    (0.06)   
-## factor(Libros_apod)4         -0.20 *                   -0.18 *  
-##                              (0.08)                    (0.08)   
-## factor(Libros_apod)5          0.18                      0.18    
-##                              (0.11)                    (0.11)   
-## factor(Libros_apod)6          0.00                     -0.04    
-##                              (0.20)                    (0.20)   
-## factor(ingresos_tramos)2     -0.05                     -0.11    
-##                              (0.21)                    (0.21)   
-## factor(ingresos_tramos)3     -0.18                     -0.19    
-##                              (0.21)                    (0.21)   
-## factor(ingresos_tramos)4     -0.26                     -0.29    
-##                              (0.17)                    (0.17)   
-## factor(ingresos_tramos)5     -0.18                     -0.20    
-##                              (0.17)                    (0.16)   
-## factor(ingresos_tramos)6     -0.22                     -0.25    
-##                              (0.15)                    (0.15)   
-## factor(ingresos_tramos)7     -0.29                     -0.32 *  
-##                              (0.15)                    (0.15)   
-## factor(ingresos_tramos)8     -0.24                     -0.26    
-##                              (0.15)                    (0.15)   
-## factor(ingresos_tramos)9     -0.28                     -0.32 *  
-##                              (0.16)                    (0.15)   
-## factor(ingresos_tramos)10    -0.42 *                   -0.47 *  
-##                              (0.19)                    (0.19)   
-## factor(ingresos_tramos)11    -0.30                     -0.32    
-##                              (0.17)                    (0.17)   
-## factor(ingresos_tramos)99    -0.22                     -0.26    
-##                              (0.15)                    (0.15)   
-## esp_privado.pad               0.26 ***                  0.24 ***
-##                              (0.05)                    (0.05)   
-## ap_discusion                              -0.11 **     -0.08 *  
-##                                           (0.04)       (0.04)   
-## mean_discusion                            -0.71 ***    -0.58 ***
-##                                           (0.13)       (0.12)   
-## num_fem                                   -0.20        -0.00    
-##                                           (0.17)       (0.15)   
-## ----------------------------------------------------------------
-## AIC                        1012.95       964.53      1000.68    
-## BIC                        1119.53       991.18      1120.59    
-## Log Likelihood             -482.47      -476.27      -473.34    
-## Num. obs.                   627          627          627       
-## Num. groups: RBD             60           60           60       
-## Var: RBD (Intercept)          0.05         0.04         0.03    
-## Var: Residual                 0.23         0.24         0.22    
-## ================================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
+<div id="proporción-de-niñas" class="section level3">
+<h3>Proporción de niñas</h3>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Proporción de niñas en el aula&quot;))</code></pre>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes del estudiante hacia la igualdad de género
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercepto
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.50<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.67<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.67<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.17)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.20)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Proporción de niñas en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.03
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.15)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+610.41
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+846.22
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1004.44
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+734.75
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+970.57
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1128.79
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-277.20
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-395.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-474.22
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: RBD
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: RBD (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.22
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="4">
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<div id="modelos-completos" class="section level2">
+<h2>Modelos completos</h2>
+<div id="igualdad-de-género-2" class="section level3">
+<h3>Igualdad de género</h3>
+<pre class="r"><code>#reg_completo1&lt;-sjPlot::plot_model(reg_igualdad, type=c(&quot;std&quot;), axis.labels = c(&quot;Dependencia administrativa&quot;,&quot;Proporción de niñas&quot;, &quot;Percepción promedio del curso sobre la apertura a la discusión en el aula&quot;,&quot;Percepción individual sobre la apertura a la discusión en el aula&quot;, &quot;Una carrera en la Universidad o estudios de Posgrado&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;,&quot;Educación Media (Ref. 8vo básico o menos)&quot;, &quot;Sexo (Ref. niño)&quot;)) + ggtitle(&quot;Coeficientes beta estandarizados&quot;) + theme_grey()
+
+#ggsave(reg_completo1, filename = &quot;modelo-completo_igualdad-genero.png&quot;,device = &quot;png&quot;,width = 18,height = 12,dpi = &quot;retina&quot;,units = &quot;cm&quot;)</code></pre>
+</div>
+<div id="espacio-público-1" class="section level3">
+<h3>Espacio público</h3>
+<pre class="r"><code>reg_completo2&lt;-sjPlot::plot_model(reg_esp.pub, type=c(&quot;std&quot;)) + ggtitle(&quot;Coeficientes beta estandarizados&quot;) + theme_grey() #, axis.labels = c(&quot;Nivel socioeconómico&quot;, &quot;Conocimiento cívico&quot;, &quot;Sexo (Ref. niño)&quot;), colors = &quot;#377EB8&quot;
+
+ggsave(reg_completo2, filename = &quot;modelo-completo_espacio-publico.png&quot;,device = &quot;png&quot;,width = 18,height = 12,dpi = &quot;retina&quot;,units = &quot;cm&quot;)</code></pre>
+</div>
+<div id="espacio-privado-2" class="section level3">
+<h3>Espacio privado</h3>
+<pre class="r"><code>reg_completo3&lt;-sjPlot::plot_model(h1_esp.priv, type=c(&quot;std&quot;)) + ggtitle(&quot;Coeficientes beta estandarizados&quot;) + theme_grey() #, axis.labels = c(&quot;Nivel socioeconómico&quot;, &quot;Conocimiento cívico&quot;, &quot;Sexo (Ref. niño)&quot;), colors = &quot;#377EB8&quot;
+
+ggsave(reg_completo3, filename = &quot;modelo-completo_espacio-privado.png&quot;,device = &quot;png&quot;,width = 18,height = 12,dpi = &quot;retina&quot;,units = &quot;cm&quot;)</code></pre>
+</div>
 </div>
 <div id="pendientes-fijas-y-aleatorias-1" class="section level2">
 <h2>Pendientes fijas y aleatorias</h2>
-<div id="igualdad-de-género-2" class="section level3">
+<div id="igualdad-de-género-3" class="section level3">
 <h3>Igualdad de género</h3>
 <pre class="r"><code>reg_igualdad_pf &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
 # Educación
@@ -5896,7 +6541,7 @@ anova(reg_igualdad_pf,reg_igualdad_pa5) #sí</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
-<div id="espacio-público-1" class="section level3">
+<div id="espacio-público-2" class="section level3">
 <h3>Espacio público</h3>
 <pre class="r"><code>reg_esp.pub_pf &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
 # Educación
@@ -5969,7 +6614,7 @@ anova(reg_esp.pub_pf,reg_esp.pub_pa5) #no</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
-<div id="espacio-privado-2" class="section level3">
+<div id="espacio-privado-3" class="section level3">
 <h3>Espacio privado</h3>
 <pre class="r"><code>reg_esp.priv_pf &lt;- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + (1 | RBD), data=data_proc)
 # Educación
@@ -6042,7 +6687,7 @@ anova(reg_esp.priv_pf,reg_esp.priv_pa5) #no</code></pre>
 </div>
 <div id="h6-las-características-de-la-escuela-proporción-de-niñas-apertura-a-la-discusión-en-el-aula-mitigan-la-influencia-de-los-recursos-familiares-y-actitudes-de-los-apoderados-sobre-las-actitudes-de-los-estudiantes-hacia-la-igualdad-de-género.-1" class="section level2">
 <h2>H6: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) mitigan la influencia de los recursos familiares y actitudes de los apoderados sobre las actitudes de los estudiantes hacia la igualdad de género.</h2>
-<div id="igualdad-de-género-3" class="section level3">
+<div id="igualdad-de-género-4" class="section level3">
 <h3>Igualdad de género</h3>
 <pre class="r"><code>h6a_igualdad &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + igualdad.pad*mean_discusion + ap_discusion + num_fem + (1 + igualdad.pad | RBD), data=data_proc)
 h6b_igualdad &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + igualdad.pad*num_fem + ap_discusion + mean_discusion + (1 + igualdad.pad | RBD), data=data_proc)</code></pre>
@@ -6204,7 +6849,7 @@ h6b_esp.pub &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(L
 ## ===========================================================================
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
-<div id="espacio-privado-3" class="section level3">
+<div id="espacio-privado-4" class="section level3">
 <h3>Espacio privado</h3>
 <pre class="r"><code>h6a_esp.priv &lt;- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_privado.pad*mean_discusion + ap_discusion + num_fem + (1 + esp_privado.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.priv_pf,h6a_esp.priv))</code></pre>
