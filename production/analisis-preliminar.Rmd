@@ -641,7 +641,7 @@ screenreg(list(reg_esp.pub_pf,h6a_esp.pub,h6b_esp.pub))
 ### Espacio privado
 ```{r}
 h6a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_privado.pad*mean_discusion + ap_discusion + num_fem + (1 + esp_privado.pad | RBD), data=data)
-screenreg(list(reg_esp.priv_pf,h6a_1_esp.priv))
+screenreg(list(reg_esp.priv_pf,h6a_esp.priv))
 h6b_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_privado.pad*num_fem + ap_discusion + mean_discusion + (1 + esp_privado.pad | RBD), data=data)
 screenreg(list(reg_esp.priv_pf,h6a_esp.priv,h6b_esp.priv))
 ```
@@ -1174,7 +1174,7 @@ screenreg(list(reg_esp.pub_pf,h6a_esp.pub,h6b_esp.pub))
 ### Espacio privado
 ```{r}
 h6a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_privado.pad*mean_discusion + ap_discusion + num_fem + (1 + esp_privado.pad | RBD), data=data_proc)
-screenreg(list(reg_esp.priv_pf,h6a_1_esp.priv))
+screenreg(list(reg_esp.priv_pf,h6a_esp.priv))
 h6b_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod) + factor(ingresos_tramos) + esp_privado.pad*num_fem + ap_discusion + mean_discusion + (1 + esp_privado.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.priv_pf,h6a_esp.priv,h6b_esp.priv))
 ```
