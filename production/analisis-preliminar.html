@@ -3376,11 +3376,11 @@ dev.off()</code></pre>
 <pre class="r"><code>data_proc=data %&gt;% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod,ingresos_tramos,dependencia) %&gt;% as.data.frame() #,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod
 view(dfSummary(data_proc))</code></pre>
 <pre><code>## Switching method to &#39;browser&#39;</code></pre>
-<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpyoK0Gx\file2d4c62a832ab.html</code></pre>
+<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpCcwcuw\file256031af01.html</code></pre>
 <pre class="r"><code>data_proc &lt;- na.omit(data_proc)
 view(dfSummary(data_proc))</code></pre>
 <pre><code>## Switching method to &#39;browser&#39;</code></pre>
-<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpyoK0Gx\file2d4c73c93a4.html</code></pre>
+<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpCcwcuw\file2560c14eb4.html</code></pre>
 <pre class="r"><code>data_proc1=data %&gt;% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod,ingresos_tramos,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod,dependencia) %&gt;% as.data.frame()
 data_proc1 &lt;- na.omit(data_proc1)</code></pre>
 <div id="modelo-nulo-1" class="section level2">
@@ -3515,7 +3515,7 @@ screenreg(list(reg_igualdad,reg_esp.pub,h1_esp.priv))</code></pre>
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 <div id="h1-las-niñas-presentarán-actitudes-más-positivas-hacia-la-igualdad-de-género-que-los-niños.-1" class="section level3">
 <h3>H1: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.</h3>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo (Ref. Niño)&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo &lt;i&gt;(Ref. Niño)&lt;/i&gt;&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -3526,13 +3526,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del estudiante hacia la igualdad de género
+Actitudes del estudiante hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -3567,7 +3567,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Sexo (Ref. Niño)
+Sexo <i>(Ref. Niño)</i>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.08<sup>*</sup>
@@ -3705,7 +3705,7 @@ Var: Residual
 <h3>H2: Estudiantes que provienen de familias con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.</h3>
 <div id="educación-1" class="section level4">
 <h4>Educación</h4>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Educación Media &lt;br&gt; (Ref. 8vo básico o menos)&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o estudios de Posgrado&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Educación Media &lt;br&gt; &lt;i&gt;(Ref. 8vo básico o menos)&lt;/i&gt;&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o &lt;br&gt; estudios de Posgrado&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -3716,13 +3716,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del estudiante hacia la igualdad de género
+Actitudes del estudiante hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -3757,7 +3757,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Educación Media <br> (Ref. 8vo básico o menos)
+Educación Media <br> <i>(Ref. 8vo básico o menos)</i>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.01
@@ -3813,7 +3813,7 @@ Educación Técnica Superior (IP o CFT)
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Una carrera en la Universidad o estudios de Posgrado
+Una carrera en la Universidad o <br> estudios de Posgrado
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.00
@@ -3949,7 +3949,7 @@ Var: Residual
 </div>
 <div id="cantidad-de-libros-en-el-hogar-1" class="section level4">
 <h4>Cantidad de libros en el hogar</h4>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; (Ref. Entre 0 y 10 libros)&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Entre 101 y 200 libros&quot;, &quot;Entre 201 y 500 libros&quot;, &quot;Más de 500 libros&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; &lt;i&gt;(Ref. Entre 0 y 10 libros)&lt;/i&gt;&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Entre 101 y 200 libros&quot;, &quot;Entre 201 y 500 libros&quot;, &quot;Más de 500 libros&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -3960,13 +3960,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del estudiante hacia la igualdad de género
+Actitudes del estudiante hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -4001,7 +4001,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Entre 11 y 25 libros <br> (Ref. Entre 0 y 10 libros)
+Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.09<sup>*</sup>
@@ -4249,7 +4249,7 @@ Var: Residual
 </div>
 <div id="ingresos" class="section level4">
 <h4>Ingresos</h4>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;De $101.001 a $134.000 mensuales líquidos &lt;br&gt; (Ref. Menos de $101.000 mensuales líquidos)&quot;, &quot;De $134.001 a $179.000 mensuales líquidos&quot;, &quot;De $179.001 a $224.000 mensuales líquidos&quot;, &quot;De $224.001 a $291.000 mensuales líquidos&quot;, &quot;De $291.001 a $358.000 mensuales líquidos&quot;, &quot;De $358.001 a $448.000 mensuales líquidos&quot;, &quot;De $448.001 a $1.000.000 mensuales líquidos&quot;, &quot;De $1.000.001 a $2.000.000 mensuales líquidos&quot;, &quot;De $2.000.001 a $3.000.000 mensuales líquidos&quot;, &quot;Más de $3.000.000 mensuales líquidos&quot;, &quot;No sabe / No responde&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;De 101.001 a 134.000 mensuales &lt;br&gt; &lt;i&gt;(Ref. Menos de 101.000 mensuales)&lt;/i&gt;&quot;, &quot;De 134.001 a 179.000 mensuales&quot;, &quot;De 179.001 a 224.000 mensuales&quot;, &quot;De 224.001 a 291.000 mensuales&quot;, &quot;De 291.001 a 358.000 mensuales&quot;, &quot;De 358.001 a 448.000 mensuales&quot;, &quot;De 448.001 a 1.000.000 mensuales&quot;, &quot;De 1.000.001 a 2.000.000 mensuales&quot;, &quot;De 2.000.001 a 3.000.000 mensuales&quot;, &quot;Más de 3.000.000 mensuales&quot;, &quot;No sabe / No responde&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -4260,13 +4260,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del estudiante hacia la igualdad de género
+Actitudes del estudiante hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -4301,7 +4301,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $101.001 a $134.000 mensuales líquidos <br> (Ref. Menos de $101.000 mensuales líquidos)
+De 101.001 a 134.000 mensuales <br> <i>(Ref. Menos de 101.000 mensuales)</i>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.19
@@ -4329,7 +4329,7 @@ De $101.001 a $134.000 mensuales líquidos <br> (Ref. Menos de $101.000 mensuale
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $134.001 a $179.000 mensuales líquidos
+De 134.001 a 179.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.26
@@ -4357,7 +4357,7 @@ De $134.001 a $179.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $179.001 a $224.000 mensuales líquidos
+De 179.001 a 224.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.28<sup>*</sup>
@@ -4385,7 +4385,7 @@ De $179.001 a $224.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $224.001 a $291.000 mensuales líquidos
+De 224.001 a 291.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.27<sup>*</sup>
@@ -4413,7 +4413,7 @@ De $224.001 a $291.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $291.001 a $358.000 mensuales líquidos
+De 291.001 a 358.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.20
@@ -4441,7 +4441,7 @@ De $291.001 a $358.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $358.001 a $448.000 mensuales líquidos
+De 358.001 a 448.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.24<sup>*</sup>
@@ -4469,7 +4469,7 @@ De $358.001 a $448.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $448.001 a $1.000.000 mensuales líquidos
+De 448.001 a 1.000.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.21
@@ -4497,7 +4497,7 @@ De $448.001 a $1.000.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $1.000.001 a $2.000.000 mensuales líquidos
+De 1.000.001 a 2.000.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.26<sup>*</sup>
@@ -4525,7 +4525,7 @@ De $1.000.001 a $2.000.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $2.000.001 a $3.000.000 mensuales líquidos
+De 2.000.001 a 3.000.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.28<sup>*</sup>
@@ -4553,7 +4553,163 @@ De $2.000.001 a $3.000.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Más de <span class="math inline">\(3.000.000 mensuales líquidos&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.18&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.24&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.27&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.13)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.15)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.17)&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;No sabe / No responde&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.24&lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.24&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.24&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.11)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.13)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.15)&lt;/td&gt; &lt;/tr&gt; &lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;610.41&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;846.22&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;1004.44&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;734.75&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;970.57&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;1128.79&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-277.20&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-395.11&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-474.22&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. groups: RBD&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Var: RBD (Intercept)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.02&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.02&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.03&lt;/td&gt; &lt;/tr&gt; &lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Var: Residual&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.12&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.17&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.22&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;tfoot&gt; &lt;tr&gt; &lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;4&quot;&gt;\)</span>***p &lt;$ 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.
+Más de 3.000.000 mensuales
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.27
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.15)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.17)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+No sabe / No responde
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.24<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.24
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.15)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+610.41
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+846.22
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1004.44
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+734.75
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+970.57
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1128.79
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-277.20
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-395.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-474.22
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: RBD
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: RBD (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.22
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="4">
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.
 </td>
 </tr>
 </tfoot>
@@ -4563,7 +4719,7 @@ Más de <span class="math inline">\(3.000.000 mensuales líquidos&lt;/td&gt; &lt
 </div>
 <div id="h3-estudiantes-con-apoderados-que-poseen-actitudes-más-positivas-hacia-la-igualdad-de-género-presentarán-actitudes-más-positivas-hacia-la-igualdad-de-género.-1" class="section level2">
 <h2>H3: Estudiantes con apoderados que poseen actitudes más positivas hacia la igualdad de género presentarán actitudes más positivas hacia la igualdad de género.</h2>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Actitudes del apoderado hacia la igualdad de derechos y oportunidades entre hombres y mujeres&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -4574,13 +4730,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del estudiante hacia la igualdad de género
+Actitudes del estudiante hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -4615,7 +4771,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Actitudes del apoderado hacia la igualdad de derechos y oportunidades entre hombres y mujeres
+Actitudes del apoderado hacia <br> la igualdad de género
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.07
@@ -4643,7 +4799,7 @@ Actitudes del apoderado hacia la igualdad de derechos y oportunidades entre homb
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública
+Actitudes del apoderado hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
  
@@ -4671,7 +4827,7 @@ Actitudes sexistas del apoderado hacia la distribución de roles en la esfera p�
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada
+Actitudes del apoderado hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
  
@@ -4867,7 +5023,7 @@ screenreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod))</code></pre>
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 <div id="educación-2" class="section level3">
 <h3>Educación</h3>
-<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia la igualdad de género&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Libros_apod)|(ingresos_tramos)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Educación Media &lt;br&gt; (Ref. 8vo básico o menos)&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o estudios de Posgrado&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Libros_apod)|(ingresos_tramos)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Educación Media &lt;br&gt; &lt;i&gt;(Ref. 8vo básico o menos)&lt;/i&gt;&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o &lt;br&gt; estudios de Posgrado&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -4878,13 +5034,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del apoderado hacia la igualdad de género
+Actitudes del apoderado hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública
+Actitudes del apoderado hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada
+Actitudes del apoderado hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -4919,7 +5075,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Educación Media <br> (Ref. 8vo básico o menos)
+Educación Media <br> <i>(Ref. 8vo básico o menos)</i>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.11<sup>*</sup>
@@ -4975,7 +5131,7 @@ Educación Técnica Superior (IP o CFT)
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Una carrera en la Universidad o estudios de Posgrado
+Una carrera en la Universidad o <br> estudios de Posgrado
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.13<sup>*</sup>
@@ -5108,9 +5264,10 @@ Var: Residual
 </tr>
 </tfoot>
 </table>
-<div id="cantidad-de-libros-en-el-hogar-2" class="section level4">
-<h4>Cantidad de libros en el hogar</h4>
-<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia la igualdad de género&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Educacion)|(ingresos_tramos)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; (Ref. Entre 0 y 10 libros)&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Entre 101 y 200 libros&quot;, &quot;Entre 201 y 500 libros&quot;, &quot;Más de 500 libros&quot;))</code></pre>
+</div>
+<div id="cantidad-de-libros-en-el-hogar-2" class="section level3">
+<h3>Cantidad de libros en el hogar</h3>
+<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Educacion)|(ingresos_tramos)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; (Ref. Entre 0 y 10 libros)&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Entre 101 y 200 libros&quot;, &quot;Entre 201 y 500 libros&quot;, &quot;Más de 500 libros&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -5121,13 +5278,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del apoderado hacia la igualdad de género
+Actitudes del apoderado hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública
+Actitudes del apoderado hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada
+Actitudes del apoderado hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -5408,9 +5565,9 @@ Var: Residual
 </tfoot>
 </table>
 </div>
-<div id="ingresos-1" class="section level4">
-<h4>Ingresos</h4>
-<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia la igualdad de género&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Libros_apod)|(Educacion)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;De $101.001 a $134.000 mensuales líquidos &lt;br&gt; (Ref. Menos de $101.000 mensuales líquidos)&quot;, &quot;De $134.001 a $179.000 mensuales líquidos&quot;, &quot;De $179.001 a $224.000 mensuales líquidos&quot;, &quot;De $224.001 a $291.000 mensuales líquidos&quot;, &quot;De $291.001 a $358.000 mensuales líquidos&quot;, &quot;De $358.001 a $448.000 mensuales líquidos&quot;, &quot;De $448.001 a $1.000.000 mensuales líquidos&quot;, &quot;De $1.000.001 a $2.000.000 mensuales líquidos&quot;, &quot;De $2.000.001 a $3.000.000 mensuales líquidos&quot;, &quot;Más de $3.000.000 mensuales líquidos&quot;, &quot;No sabe / No responde&quot;))</code></pre>
+<div id="ingresos-1" class="section level3">
+<h3>Ingresos</h3>
+<pre class="r"><code>htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c(&quot;Actitudes del apoderado hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Libros_apod)|(Educacion)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;De 101.001 a 134.000 mensuales &lt;br&gt; (Ref. Menos de 101.000 mensuales)&quot;, &quot;De 134.001 a 179.000 mensuales&quot;, &quot;De 179.001 a 224.000 mensuales&quot;, &quot;De 224.001 a 291.000 mensuales&quot;, &quot;De 291.001 a 358.000 mensuales&quot;, &quot;De 358.001 a 448.000 mensuales&quot;, &quot;De 448.001 a 1.000.000 mensuales&quot;, &quot;De 1.000.001 a 2.000.000 mensuales&quot;, &quot;De 2.000.001 a 3.000.000 mensuales&quot;, &quot;Más de 3.000.000 mensuales&quot;, &quot;No sabe / No responde&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -5421,13 +5578,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del apoderado hacia la igualdad de género
+Actitudes del apoderado hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles en la esfera pública
+Actitudes del apoderado hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del apoderado hacia la distribución de roles en la esfera privada
+Actitudes del apoderado hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -5462,7 +5619,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $101.001 a $134.000 mensuales líquidos <br> (Ref. Menos de $101.000 mensuales líquidos)
+De 101.001 a 134.000 mensuales <br> (Ref. Menos de 101.000 mensuales)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.07
@@ -5490,7 +5647,7 @@ De $101.001 a $134.000 mensuales líquidos <br> (Ref. Menos de $101.000 mensuale
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $134.001 a $179.000 mensuales líquidos
+De 134.001 a 179.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.02
@@ -5518,7 +5675,7 @@ De $134.001 a $179.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $179.001 a $224.000 mensuales líquidos
+De 179.001 a 224.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.01
@@ -5546,7 +5703,7 @@ De $179.001 a $224.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $224.001 a $291.000 mensuales líquidos
+De 224.001 a 291.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.04
@@ -5574,7 +5731,7 @@ De $224.001 a $291.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $291.001 a $358.000 mensuales líquidos
+De 291.001 a 358.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.06
@@ -5602,7 +5759,7 @@ De $291.001 a $358.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $358.001 a $448.000 mensuales líquidos
+De 358.001 a 448.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 -0.01
@@ -5630,7 +5787,7 @@ De $358.001 a $448.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $448.001 a $1.000.000 mensuales líquidos
+De 448.001 a 1.000.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.07
@@ -5658,7 +5815,7 @@ De $448.001 a $1.000.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $1.000.001 a $2.000.000 mensuales líquidos
+De 1.000.001 a 2.000.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.10
@@ -5686,7 +5843,7 @@ De $1.000.001 a $2.000.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-De $2.000.001 a $3.000.000 mensuales líquidos
+De 2.000.001 a 3.000.000 mensuales
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.11
@@ -5714,12 +5871,167 @@ De $2.000.001 a $3.000.000 mensuales líquidos
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Más de <span class="math inline">\(3.000.000 mensuales líquidos&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.02&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.02&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.00&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.12)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.14)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.15)&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;No sabe / No responde&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.10&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.09&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-0.05&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;&amp;nbsp;&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.10)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.13)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;(0.13)&lt;/td&gt; &lt;/tr&gt; &lt;tr style=&quot;border-top: 1px solid #000000;&quot;&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;AIC&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;505.98&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;761.64&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;791.47&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;BIC&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;603.68&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;859.34&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;889.17&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Log Likelihood&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-230.99&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-358.82&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;-373.73&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. obs.&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;627&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Num. groups: RBD&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;60&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Var: RBD (Intercept)&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.00&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.01&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.01&lt;/td&gt; &lt;/tr&gt; &lt;tr style=&quot;border-bottom: 2px solid #000000;&quot;&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;Var: Residual&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.11&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.16&lt;/td&gt; &lt;td style=&quot;padding-left: 5px;padding-right: 5px;&quot;&gt;0.17&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;tfoot&gt; &lt;tr&gt; &lt;td style=&quot;font-size: 0.8em;&quot; colspan=&quot;4&quot;&gt;\)</span>***p &lt;$ 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.
+Más de 3.000.000 mensuales
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.15)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+No sabe / No responde
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.09
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.05
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+505.98
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+761.64
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+791.47
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+603.68
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+859.34
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+889.17
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-230.99
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-358.82
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-373.73
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: RBD
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: RBD (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.00
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.16
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="4">
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.
 </td>
 </tr>
 </tfoot>
 </table>
-</div>
 </div>
 </div>
 <div id="h4a-la-relación-entre-los-recursos-de-la-familia-y-las-actitudes-de-los-estudiantes-hacia-la-igualdad-de-género-estará-mediada-por-las-actitudes-de-sus-apoderados-hacia-la-igualdad-de-género.-1" class="section level2">
@@ -6042,7 +6354,7 @@ Más de <span class="math inline">\(3.000.000 mensuales líquidos&lt;/td&gt; &lt
 <h2>H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.</h2>
 <div id="apertura-a-la-discusión-en-el-aula" class="section level3">
 <h3>Apertura a la discusión en el aula</h3>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Percepción individual sobre la apertura a la discusión en el aula&quot;, &quot;Percepción promedio del curso sobre la apertura a la discusión en el aula&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(num_fem)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Percepción individual sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Percepción promedio sobre la apertura &lt;br&gt; a la discusión en el aula&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -6053,13 +6365,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del estudiante hacia la igualdad de género
+Actitudes del estudiante hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -6094,7 +6406,7 @@ Intercepto
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Percepción individual sobre la apertura a la discusión en el aula
+Percepción individual sobre la apertura <br> a la discusión en el aula
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.13<sup>***</sup>
@@ -6122,7 +6434,7 @@ Percepción individual sobre la apertura a la discusión en el aula
 </tr>
 <tr>
 <td style="padding-left: 5px;padding-right: 5px;">
-Percepción promedio del curso sobre la apertura a la discusión en el aula
+Percepción promedio sobre la apertura <br> a la discusión en el aula
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
 0.43<sup>***</sup>
@@ -6258,7 +6570,7 @@ Var: Residual
 </div>
 <div id="proporción-de-niñas" class="section level3">
 <h3>Proporción de niñas</h3>
-<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia la igualdad de género&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública&quot;, &quot;Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Proporción de niñas en el aula&quot;))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia &lt;br&gt; la igualdad de género&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera pública&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; el sexismo en la distribución &lt;br&gt; de roles en la esfera privada&quot;), omit.coef = &quot;(Sexo)|(Educacion)|(Libros_apod)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(dependencia)&quot;, custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Todos los modelos están controlados por el resto de las variables analizadas y por la dependencia administrativa de la escuela.&quot;,  custom.coef.names = c(&quot;Intercepto&quot;, &quot;Proporción de niñas en el aula&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
 <caption>
 Statistical models
@@ -6269,13 +6581,13 @@ Statistical models
  
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes del estudiante hacia la igualdad de género
+Actitudes del estudiante hacia <br> la igualdad de género
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera pública
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera pública
 </th>
 <th style="padding-left: 5px;padding-right: 5px;">
-Actitudes sexistas del estudiante hacia la distribución de roles en la esfera privada
+Actitudes del estudiante hacia <br> el sexismo en la distribución <br> de roles en la esfera privada
 </th>
 </tr>
 </thead>
@@ -6449,9 +6761,9 @@ Var: Residual
 <h2>Modelos completos</h2>
 <div id="igualdad-de-género-2" class="section level3">
 <h3>Igualdad de género</h3>
-<pre class="r"><code>#reg_completo1&lt;-sjPlot::plot_model(reg_igualdad, type=c(&quot;std&quot;), axis.labels = c(&quot;Dependencia administrativa&quot;,&quot;Proporción de niñas&quot;, &quot;Percepción promedio del curso sobre la apertura a la discusión en el aula&quot;,&quot;Percepción individual sobre la apertura a la discusión en el aula&quot;, &quot;Una carrera en la Universidad o estudios de Posgrado&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;,&quot;Educación Media (Ref. 8vo básico o menos)&quot;, &quot;Sexo (Ref. niño)&quot;)) + ggtitle(&quot;Coeficientes beta estandarizados&quot;) + theme_grey()
+<pre class="r"><code>reg_completo1&lt;-sjPlot::plot_model(reg_igualdad, type=c(&quot;std&quot;), axis.labels = c(&quot;Tipo de dependencia&quot;,&quot;Proporción de niñas&quot;, &quot;Apertura a la discusión (promedio)&quot;,&quot;Apertura a la discusión (individual)&quot;,&quot;Actitud del apoderado hacia la igualdad de género&quot;, &quot;Ns/Nr (ingresos)&quot;,&quot;Más de 3 millones&quot;, &quot;De 2 a 3 millones&quot;, &quot;De 1 millón a 2 millones&quot;, &quot;De $448.001 a $1.000.000&quot;, &quot;De $358.001 a $448.000&quot;,&quot;De $291.001 a $358.000&quot;,&quot;De $224.001 a $291.000&quot;,&quot;De $179.001 a $224.000&quot;,&quot;De $134.001 a $179.000&quot;,&quot;De $101.001 a $134.000&quot;, &quot;Más de 500 libros&quot;, &quot;Entre 201 y 500 libros&quot;, &quot;Entre 101 y 200 libros&quot;,&quot;Entre 26 y 100 libros&quot;, &quot;Entre 11 y 25 libros&quot;, &quot;Ed. Universitaria&quot;, &quot;IP o CFT&quot;,&quot;Ed. Media&quot;, &quot;Sexo&quot;)) + ggtitle(&quot;Actitudes del estudiante hacia la igualdad de género&quot;) + theme_grey() + xlab(&quot; &quot;) + ylab(&quot; &quot;) + theme(title=element_text(size=10),axis.title.y=element_text(size=1),axis.title.x=element_text(size=1),axis.text.y=element_text(size=7.9))
 
-#ggsave(reg_completo1, filename = &quot;modelo-completo_igualdad-genero.png&quot;,device = &quot;png&quot;,width = 18,height = 12,dpi = &quot;retina&quot;,units = &quot;cm&quot;)</code></pre>
+ggsave(reg_completo1, filename = &quot;modelo-completo_igualdad-genero.png&quot;,device = &quot;png&quot;,width = 18,height = 12,dpi = &quot;retina&quot;,units = &quot;cm&quot;)</code></pre>
 </div>
 <div id="espacio-público-1" class="section level3">
 <h3>Espacio público</h3>
