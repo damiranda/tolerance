@@ -33,7 +33,7 @@ apod_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/
 apod_data = apod_data0 %>% dplyr::select("Igualdad1"=P5A, "Igualdad2"=P5B, "Igualdad3"=P5C, "Igualdad4"=P5D, "Igualdad5"=P5E, "Igualdad6"=P5F, "Igualdad7"=P5G, "Igualdad8"=P5H, "Igualdad9"=P5I, "personas_hogar" = P41, "Educacion"=P45, "Libros_apod"=P47, "ingresos_tramos"=P55, FOLIO, FOLIO_EST, pond_apoderado_reg_dep_tens, "Sexo_apod"=P39, "Relacion_con_est"=P2, "Preg_apoderado"=P1) %>% as.data.frame()
 
 est_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_estudiantesv2.dta?raw=true"))
-est_data = est_data0 %>% dplyr::select("Igualdad1"=P18A, "Igualdad2"=P18B, "Igualdad3"=P18C, "Igualdad4"=P18D, "Igualdad5"=P18E, "Igualdad6"=P18F, "Igualdad7"=P18G, "Igualdad8"=P18H, "Igualdad9"=P18I, "Ap_discusion1"=P49A, "Ap_discusion2"=P49B, "Ap_discusion3"=P49C, "Ap_discusion4"=P49D, "Ap_discusion5"=P49E, "Ap_discusion6"=P49F, "Ap_discusion7"=P49G, "Sexo"=P58, "Ed_madre"=P66, "Ed_padre"=P67, "Libros_est"=P68, RBD, FOLIO, pond_estudiante_reg_dep_tens,"dependencia" = Dependencia) %>% as.data.frame()
+est_data = est_data0 %>% dplyr::select("Igualdad1"=P18A, "Igualdad2"=P18B, "Igualdad3"=P18C, "Igualdad4"=P18D, "Igualdad5"=P18E, "Igualdad6"=P18F, "Igualdad7"=P18G, "Igualdad8"=P18H, "Igualdad9"=P18I, "Ap_discusion1"=P49A, "Ap_discusion2"=P49B, "Ap_discusion3"=P49C, "Ap_discusion4"=P49D, "Ap_discusion5"=P49E, "Ap_discusion6"=P49F, "Ap_discusion7"=P49G, "Sexo"=P58, "Ed_madre"=P66, "Ed_padre"=P67, "Libros_est"=P68, RBD, FOLIO, pond_estudiante_reg_dep_tens,"dependencia" = Dependencia,REGION,P1,P2,P3,P4,P5,P6,P7,P8,P9) %>% as.data.frame()
 ```
 # Preparación base de datos de los apoderados 
 ## Variables de caracterización
@@ -51,13 +51,19 @@ apod_data$Preg_apoderado <- set_na(apod_data$Preg_apoderado, na = 9, drop.levels
 ```{r}
 apod_data$Igualdad1 <- set_na(apod_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 apod_data$Igualdad2 <- set_na(apod_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad2 <-sjmisc::rec(apod_data$Igualdad2,rec="rev")
 apod_data$Igualdad3 <- set_na(apod_data$Igualdad3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad3 <-sjmisc::rec(apod_data$Igualdad3,rec="rev")
 apod_data$Igualdad4 <- set_na(apod_data$Igualdad4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad4 <-sjmisc::rec(apod_data$Igualdad4,rec="rev")
 apod_data$Igualdad5 <- set_na(apod_data$Igualdad5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 apod_data$Igualdad6 <- set_na(apod_data$Igualdad6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad6 <-sjmisc::rec(apod_data$Igualdad6,rec="rev")
 apod_data$Igualdad7 <- set_na(apod_data$Igualdad7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 apod_data$Igualdad8 <- set_na(apod_data$Igualdad8, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad8 <-sjmisc::rec(apod_data$Igualdad8,rec="rev")
 apod_data$Igualdad9 <- set_na(apod_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad9 <-sjmisc::rec(apod_data$Igualdad9,rec="rev")
 apod_cfa = apod_data %>% dplyr::select(Igualdad1,Igualdad2,Igualdad3,Igualdad4,Igualdad5,Igualdad6,Igualdad7,Igualdad8,Igualdad9,FOLIO,FOLIO_EST) %>% as.data.frame()
 ```
 #### Análisis de supuestos
@@ -157,13 +163,16 @@ apod_data$Educacion <- set_na(apod_data$Educacion, na = 9, drop.levels = TRUE, a
 ```{r}
 table(apod_data$Libros_apod)
 apod_data$Libros_apod <- set_label(x = apod_data$Libros_apod,label = "Cantidad de libros en el hogar")
-apod_data$Libros_apod <- set_na(apod_data$Libros_apod, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
 apod_data$Libros_apod_rec <- ifelse((apod_data$Libros_apod==1), 1,
                                 ifelse((apod_data$Libros_apod==2), 1,
-                                       ifelse((apod_data$Libros_apod==3), 1,
+                                       ifelse((apod_data$Libros_apod==3), 2,
                                               ifelse((apod_data$Libros_apod==4), 2,
-                                                     ifelse((apod_data$Libros_apod==5), 2,
-                                                            ifelse((apod_data$Libros_apod==6), 2, NA))))))
+                                                     ifelse((apod_data$Libros_apod==5), 3,
+                                                            ifelse((apod_data$Libros_apod==6), 3, NA))))))
+apod_data$Libros_apod <- set_na(apod_data$Libros_apod, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Libros_apod_rec <- set_label(x = apod_data$Libros_apod_rec,label = "Cantidad de libros en el hogar")
+apod_data$Libros_apod_rec <- set_labels(x = apod_data$Libros_apod_rec, labels = c("Entre 0 y 25 libros" = 1, "Entre 26 y 200 libros" = 2, "Más de 200 libros" = 3))
+table(apod_data$Libros_apod_rec)
 ```
 #### Ingresos del hogar en tramos
 ```{r}
@@ -249,13 +258,19 @@ save(apod_cfa_sco, file = "../input/data-proc/apod_data_sco.rda")
 ```{r}
 est_data$Igualdad1 <- set_na(est_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 est_data$Igualdad2 <- set_na(est_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad2 <-sjmisc::rec(est_data$Igualdad2,rec="rev")
 est_data$Igualdad3 <- set_na(est_data$Igualdad3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad3 <-sjmisc::rec(est_data$Igualdad3,rec="rev")
 est_data$Igualdad4 <- set_na(est_data$Igualdad4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad4 <-sjmisc::rec(est_data$Igualdad4,rec="rev")
 est_data$Igualdad5 <- set_na(est_data$Igualdad5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 est_data$Igualdad6 <- set_na(est_data$Igualdad6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad6 <-sjmisc::rec(est_data$Igualdad6,rec="rev")
 est_data$Igualdad7 <- set_na(est_data$Igualdad7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 est_data$Igualdad8 <- set_na(est_data$Igualdad8, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad8 <-sjmisc::rec(est_data$Igualdad8,rec="rev")
 est_data$Igualdad9 <- set_na(est_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad9 <-sjmisc::rec(est_data$Igualdad9,rec="rev")
 est_cfa = est_data %>% dplyr::select(Igualdad1,Igualdad2,Igualdad3,Igualdad4,Igualdad5,Igualdad6,Igualdad7,Igualdad8,Igualdad9,FOLIO) %>% as.data.frame()
 ```
 ### AFC
@@ -570,6 +585,7 @@ summary(data$Libros_est)
 data$Libros <- ifelse(is.na(data$Libros_apod), data$Libros_est, data$Libros_apod)
 data$Libros <- set_label(x = data$Libros,label = "Cantidad de libros en el hogar")
 ```
+
 ```{r}
 # Cantidad de libros en el hogar ambas respuestas
 summary(data$Libros)
@@ -578,6 +594,27 @@ summary(data$Libros)
 ```{r}
 data$dependencia <- set_label(data$dependencia, label = "Dependencia administrativa de la escuela")
 data$dependencia <- set_labels(x = data$dependencia, labels = c("Municipal" = 1, "Part. Subvencionado" = 2, "Part. Pagado" = 3))
+```
+
+# Región
+```{r}
+data$REGION <- set_label(data$REGION, label = "Región")
+data$REGION <- set_labels(x = data$REGION, labels = c("Región de Antofagasta" = 2, "Región del Maule" = 7, "Región Metropolitana" = 13))
+```
+
+# Escala de conocimiento civico
+```{r}
+data$c1 <- ifelse(data$P1==4,1,0) ## 0 = respuesta incorrecta y 1 = respuesta correcta
+data$c2 <- ifelse(data$P2==4,1,0)
+data$c3 <- ifelse(data$P3==4,1,0)
+data$c4 <- ifelse(data$P4==2,1,0)
+data$c5 <- ifelse(data$P5==3,1,0)
+data$c6 <- ifelse(data$P6==4,1,0)
+data$c7 <- ifelse(data$P7==3,1,0)
+data$c8 <- ifelse(data$P8==2,1,0)
+data$c9 <- ifelse(data$P9==1,1,0)
+data$c_civic= as.numeric(data$c1 + data$c2 + data$c3 + data$c4 + data$c5 + data$c6 + data$c7 + data$c8) 
+data$c_civic <- set_label(data$c_civic, label = "Conocimiento cívico conceptual")
 ```
 
 # Centrado de las variables
