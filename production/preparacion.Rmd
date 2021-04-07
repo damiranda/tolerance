@@ -210,9 +210,15 @@ apod_data$ingresos[apod_data$ingresos_tramos == 8] <- 724000
 apod_data$ingresos[apod_data$ingresos_tramos == 9] <- 1500000
 apod_data$ingresos[apod_data$ingresos_tramos == 10] <- 2500000
 apod_data$ingresos[apod_data$ingresos_tramos == 11] <- 3500000
+apod_data$ingresos[apod_data$ingresos_tramos == 99] <- 0
+
+# Cantidad de personas en el hogar
+apod_data$personas_hogar[apod_data$personas_hogar == 999] <- 0
 # Construcción ingreso per capita
 apod_data$ingresos_pc <- apod_data$ingresos/apod_data$personas_hogar
 apod_data$ingresos_pc <- trunc(apod_data$ingresos_pc)
+# Los resultados incongruentes de la división los pasamos a NA
+apod_data$ingresos_pc[apod_data$ingresos_pc == 0 | apod_data$ingresos_pc == Inf] <- NA
 # Construcción ingreso tramos como factor
 apod_data$ingresos_tramos_factor <- factor(apod_data$ingresos_tramos, levels = c(1,2,3,4,5,6,7,8,9,10,11,99), labels = c("Menos de $101.000 mensuales líquidos",
                                                                                               "De $101.001 a $134.000 mensuales líquidos",
@@ -244,6 +250,8 @@ apod_data$ingresos <- set_label(x = apod_data$ingresos, label = "Ingresos del ho
 apod_data$ingresos_pc <- set_label(x = apod_data$ingresos_pc, label = "Ingreso per capita")
 # ingreso factor
 apod_data$ingresos_tramos_factor <- set_label(x = apod_data$ingresos_tramos_factor, label = "Ingresos del hogar en tramos factor")
+# Ingresos per cápita por quintiles
+apod_data$quintiles_ingresos_pc_factor <- set_label(x = apod_data$quintiles_ingresos_pc_factor, label = "Ingresos per cápita del hogar en quintiles")
 ```
 ## Guardar base de datos procesada
 ```{r}

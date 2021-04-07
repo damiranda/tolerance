@@ -191,6 +191,7 @@ est_apdis$Ap_discusion7 <- set_label(x = est_apdis$Ap_discusion7, label = "Los(a
 png("../output/cor_indicadores_ig_est.png",width=600,height=600)
 corrplot.mixed(cor(dplyr::select(data,Igualdad1.est, Igualdad5.est, Igualdad7.est, Igualdad3.est, Igualdad4.est, Igualdad6.est, Igualdad2.est, Igualdad8.est, Igualdad9.est),
                    use = "na.or.complete", method="spearman"))
+
 dev.off()
 
 #png("../output/cor_indicadores_ig_est.png",width=600,height=400)
@@ -394,50 +395,50 @@ reghelper::ICC(reg0_priv)
 
 ## Modelos de regresión 
 ```{r}
-reg_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
-reg_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
-reg_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+reg_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+reg_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+reg_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
 screenreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv))
 ```
 ### H1: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(Libros_apod_rec)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>"))
 ```
 ### H2: Estudiantes que provienen de familias con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.
 #### Educación
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Libros_apod_rec)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
 ```
 #### Cantidad de libros en el hogar
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
 ```
 #### Ingresos
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "De 101.001 a 134.000 mensuales <br> <i>(Ref. Menos de 101.000 mensuales)</i>", "De 134.001 a 179.000 mensuales", "De 179.001 a 224.000 mensuales", "De 224.001 a 291.000 mensuales", "De 291.001 a 358.000 mensuales", "De 358.001 a 448.000 mensuales", "De 448.001 a 1.000.000 mensuales", "De 1.000.001 a 2.000.000 mensuales", "De 2.000.001 a 3.000.000 mensuales", "Más de 3.000.000 mensuales", "No sabe / No responde"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde"))
 ```
 ## H3: Estudiantes con apoderados que poseen actitudes más positivas hacia la igualdad de género presentarán actitudes más positivas hacia la igualdad de género.
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(ingresos_tramos)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"))
 ```
 ## H4: Apoderados con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.
 ```{r}
-h4_igualdad.apod <- lmer(igualdad.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + factor(REGION) + (1 | RBD), data=data)
-h4_esp_pub.apod <- lmer(esp_publico.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + factor(REGION) + (1 | RBD), data=data)
-h4_esp_priv.apod <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + factor(REGION) + (1 | RBD), data=data)
+h4_igualdad.apod <- lmer(igualdad.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data)
+h4_esp_pub.apod <- lmer(esp_publico.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data)
+h4_esp_priv.apod <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data)
 screenreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod))
 ```
 ### Educación
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(ingresos_tramos)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
 ```
 ### Cantidad de libros en el hogar
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(ingresos_tramos)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
 ```
 ### Ingresos
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(Educacion)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.",  custom.coef.names = c("Intercepto", "De 101.001 a 134.000 mensuales <br> (Ref. Menos de 101.000 mensuales)", "De 134.001 a 179.000 mensuales", "De 179.001 a 224.000 mensuales", "De 224.001 a 291.000 mensuales", "De 291.001 a 358.000 mensuales", "De 358.001 a 448.000 mensuales", "De 448.001 a 1.000.000 mensuales", "De 1.000.001 a 2.000.000 mensuales", "De 2.000.001 a 3.000.000 mensuales", "Más de 3.000.000 mensuales", "No sabe / No responde"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(Educacion)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.",  custom.coef.names = c("Intercepto", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde"))
 ```
 
 ## H4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.
@@ -522,160 +523,160 @@ htmlreg(list(h4a.1_lib_esp_priv, h4a.2_lib_esp_priv, h4a.3_lib_esp_priv, h4a.4_l
 ## H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.
 ### Apertura a la discusión en el aula
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula"))
 ```
 ### Proporción de niñas
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Proporción de niñas en el aula"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Proporción de niñas en el aula"))
 ```
 ## Pendientes fijas y aleatorias
 ### Igualdad de género
 ```{r}
-reg_igualdad_pf <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+reg_igualdad_pf <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
 # Educación
-reg_igualdad_pa1 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data)
+reg_igualdad_pa1 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data)
 anova(reg_igualdad_pf,reg_igualdad_pa1) #no
 # Libros
-reg_igualdad_pa2 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data)
+reg_igualdad_pa2 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data)
 anova(reg_igualdad_pf,reg_igualdad_pa2) #no
 # Ingresos
-#reg_igualdad_pa3 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(ingresos_tramos) | RBD), data=data) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
+#reg_igualdad_pa3 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(quintiles_ingresos_pc_factor) | RBD), data=data) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
 # Actitudes del apoderado
-reg_igualdad_pa4 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
+reg_igualdad_pa4 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
 anova(reg_igualdad_pf,reg_igualdad_pa4) #sí
 # Sexo
-reg_igualdad_pa5 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+reg_igualdad_pa5 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
 anova(reg_igualdad_pf,reg_igualdad_pa5) #sí
 ```
 ### Espacio público
 ```{r}
-reg_esp.pub_pf <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+reg_esp.pub_pf <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
 # Educación
-reg_esp.pub_pa1 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data)
+reg_esp.pub_pa1 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data)
 anova(reg_esp.pub_pf,reg_esp.pub_pa1) #no
 # Libros
-reg_esp.pub_pa2 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data)
+reg_esp.pub_pa2 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data)
 anova(reg_esp.pub_pf,reg_esp.pub_pa2) #no
 # Ingresos
-#reg_esp.pub_pa3 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(ingresos_tramos) | RBD), data=data) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
+#reg_esp.pub_pa3 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(quintiles_ingresos_pc_factor) | RBD), data=data) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
 # Actitudes del apoderado
-reg_esp.pub_pa4 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
+reg_esp.pub_pa4 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
 anova(reg_esp.pub_pf,reg_esp.pub_pa4) #sí
 # Sexo
-reg_esp.pub_pa5 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+reg_esp.pub_pa5 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
 anova(reg_esp.pub_pf,reg_esp.pub_pa5) #no
 ```
 ### Espacio privado
 ```{r}
-reg_esp.priv_pf <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+reg_esp.priv_pf <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
 # Educación
-reg_esp.priv_pa1 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data)
+reg_esp.priv_pa1 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data)
 anova(reg_esp.priv_pf,reg_esp.priv_pa1) #no
 # Libros
-reg_esp.priv_pa2 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data)
+reg_esp.priv_pa2 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data)
 anova(reg_esp.priv_pf,reg_esp.priv_pa2) #no
 # Ingresos
-#reg_esp.priv_pa3 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(ingresos_tramos) | RBD), data=data) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
+#reg_esp.priv_pa3 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(quintiles_ingresos_pc_factor) | RBD), data=data) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
 # Actitudes del apoderado
-reg_esp.priv_pa4 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
+reg_esp.priv_pa4 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
 anova(reg_esp.priv_pf,reg_esp.priv_pa4) #sí
 # Sexo
-reg_esp.priv_pa5 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+reg_esp.priv_pa5 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
 anova(reg_esp.priv_pf,reg_esp.priv_pa5) #no
 ```
 ## H6: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) mitigan la influencia de los recursos familiares y actitudes de los apoderados sobre las actitudes de los estudiantes hacia la igualdad de género.
 ### Igualdad de género
 ```{r}
-h6a_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
-h6b_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
-h6c_igualdad <- lmer(igualdad.est ~ 1 + Sexo*mean_discusion + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
-h6d_igualdad <- lmer(igualdad.est ~ 1 + Sexo*num_fem + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+h6a_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
+h6b_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
+h6c_igualdad <- lmer(igualdad.est ~ 1 + Sexo*mean_discusion + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+h6d_igualdad <- lmer(igualdad.est ~ 1 + Sexo*num_fem + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
 screenreg(list(reg_igualdad_pf,h6a_igualdad,h6b_igualdad,h6c_igualdad,h6d_igualdad))
 ```
 ### Espacio publico
 ```{r}
-h6a_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
-h6b_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
+h6a_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
+h6b_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
 screenreg(list(reg_esp.pub_pf,h6a_esp.pub,h6b_esp.pub))
 ```
 ### Espacio privado
 ```{r}
-h6a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
+h6a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
 screenreg(list(reg_esp.priv_pf,h6a_esp.priv))
-h6b_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
+h6b_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
 screenreg(list(reg_esp.priv_pf,h6a_esp.priv,h6b_esp.priv))
 ```
 ## H7: Los efectos planteados en la hipótesis 2, 3, 4, 4a, 5 y 6 estarán condicionados por  el género del estudiante.
 ### H2: igualdad de derechos
 ```{r}
-h7_h2a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
-h7_h2b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
-h7_h2c_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos)*Sexo + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+h7_h2a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+h7_h2b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+h7_h2c_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor)*Sexo + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
 screenreg(list(h7_h2a_igualdad, h7_h2b_igualdad, h7_h2c_igualdad))
 ```
 ### H2: espacio publico
 ```{r}
-h7_h2a_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
-h7_h2b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
-h7_h2c_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos)*Sexo + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h2a_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h2b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h2c_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor)*Sexo + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
 screenreg(list(h7_h2a_esp.pub, h7_h2b_esp.pub, h7_h2c_esp.pub))
 ```
 ### H2: espacio privado
 ```{r}
-h7_h2a_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
-h7_h2b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
-h7_h2c_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos)*Sexo + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h2a_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h2b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h2c_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor)*Sexo + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
 screenreg(list(h7_h2a_esp.priv, h7_h2b_esp.priv, h7_h2c_esp.priv))
 ```
 ### H3
 ```{r}
-h7_h3_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
-h7_h3_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
-h7_h3_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
+h7_h3_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
+h7_h3_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
+h7_h3_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
 screenreg(list(h7_h3_igualdad, h7_h3_esp.pub, h7_h3_esp.priv))
 ```
 ### H5: apertura a la discusión
 ```{r}
-h7_h5a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
-h7_h5a_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
-h7_h5a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h5a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+h7_h5a_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h5a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
 screenreg(list(h7_h5a_igualdad, h7_h5a_esp.pub, h7_h5a_esp.priv))
 ```
 ### H5: proporción de niñas
 ```{r}
-h7_h5b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
-h7_h5b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
-h7_h5b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h5b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)
+h7_h5b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
+h7_h5b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data)
 screenreg(list(h7_h5b_igualdad, h7_h5b_esp.pub, h7_h5b_esp.priv))
 ```
 ### H6: apertura a la discusión
 ```{r}
-h7_h6a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
+h7_h6a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
 screenreg(list(reg_igualdad_pf,h7_h6a_igualdad))
 ```
 ### H6: apertura a la discusión
 ```{r}
-h7_h6a_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
+h7_h6a_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
 screenreg(list(reg_esp.pub_pf,h7_h6a_esp.pub))
 ```
 ### H6: apertura a la discusión
 ```{r}
-h7_h6a_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
+h7_h6a_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
 screenreg(list(reg_esp.priv_pf,h7_h6a_esp.priv))
 ```
 ### H6: proporción de niñas
 ```{r}
-h7_h6b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
+h7_h6b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data)
 screenreg(list(reg_igualdad_pf,h7_h6b_igualdad))
 ```
 ### H6: proporción de niñas
 ```{r}
-h7_h6b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
+h7_h6b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data)
 screenreg(list(reg_esp.pub_pf,h7_h6b_esp.pub))
 ```
 ### H6: proporción de niñas
 ```{r}
-h7_h6b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
+h7_h6b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data)
 screenreg(list(reg_esp.priv_pf,h7_h6b_esp.priv))
 ```
 
@@ -865,12 +866,12 @@ dev.off()
 
 # Modelos de regresión: Base de datos reducida
 ```{r}
-data_proc=data %>% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod_rec,ingresos_tramos,dependencia,REGION,c_civic) %>% as.data.frame() #,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod
+data_proc=data %>% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod_rec,quintiles_ingresos_pc_factor,dependencia,REGION,c_civic) %>% as.data.frame() #,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod
 view(dfSummary(data_proc))
 save(data_proc, file = "../input/data-proc/data_proc.rda")
 data_proc <- na.omit(data_proc)
 view(dfSummary(data_proc))
-data_proc1=data %>% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod_rec,ingresos_tramos,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod,dependencia,REGION,c_civic) %>% as.data.frame()
+data_proc1=data %>% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod_rec,quintiles_ingresos_pc_factor,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod,dependencia,REGION,c_civic) %>% as.data.frame()
 data_proc1 <- na.omit(data_proc1)
 ```
 
@@ -907,54 +908,54 @@ reghelper::ICC(reg0_priv)
 
 ## Modelos de regresión 
 ```{r}
-reg_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-reg_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-reg_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 screenreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv))
 ```
 ### Modelo completo.
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros", "De 101.001 a 134.000 mensuales <br> <i>(Ref. Menos de 101.000 mensuales)</i>", "De 134.001 a 179.000 mensuales", "De 179.001 a 224.000 mensuales", "De 224.001 a 291.000 mensuales", "De 291.001 a 358.000 mensuales", "De 358.001 a 448.000 mensuales", "De 448.001 a 1.000.000 mensuales", "De 1.000.001 a 2.000.000 mensuales", "De 2.000.001 a 3.000.000 mensuales", "Más de 3.000.000 mensuales", "No sabe / No responde", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula", "Proporción de niñas en el aula","Part. Subvencionado <br> <i>(Ref. Municipal)</i>", "Part. Pagado","Reg. del Maule <br> <i>(Ref. Reg. de Antofagasta)</i>", "Reg. Metropolitana", "Conocimiento cívico", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula", "Proporción de niñas en el aula","Part. Subvencionado <br> <i>(Ref. Municipal)</i>", "Part. Pagado","Reg. del Maule <br> <i>(Ref. Reg. de Antofagasta)</i>", "Reg. Metropolitana", "Conocimiento cívico", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"))
 ```
 ### H1: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(Libros_apod_rec)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>"))
 ```
 ### H2: Estudiantes que provienen de familias con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.
 #### Educación
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Libros_apod_rec)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
 ```
 #### Cantidad de libros en el hogar
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
 ```
 #### Ingresos
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "De 101.001 a 134.000 mensuales <br> <i>(Ref. Menos de 101.000 mensuales)</i>", "De 134.001 a 179.000 mensuales", "De 179.001 a 224.000 mensuales", "De 224.001 a 291.000 mensuales", "De 291.001 a 358.000 mensuales", "De 358.001 a 448.000 mensuales", "De 448.001 a 1.000.000 mensuales", "De 1.000.001 a 2.000.000 mensuales", "De 2.000.001 a 3.000.000 mensuales", "Más de 3.000.000 mensuales", "No sabe / No responde"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde"))
 ```
 ## H3: Estudiantes con apoderados que poseen actitudes más positivas hacia la igualdad de género presentarán actitudes más positivas hacia la igualdad de género.
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(ingresos_tramos)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"))
 ```
 ## H4: Apoderados con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.
 ```{r}
-h4_igualdad.apod <- lmer(igualdad.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + factor(REGION) + (1 | RBD), data=data_proc)
-h4_esp_pub.apod <- lmer(esp_publico.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + factor(REGION) + (1 | RBD), data=data_proc)
-h4_esp_priv.apod <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + factor(REGION) + (1 | RBD), data=data_proc)
+h4_igualdad.apod <- lmer(igualdad.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data_proc)
+h4_esp_pub.apod <- lmer(esp_publico.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data_proc)
+h4_esp_priv.apod <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data_proc)
 screenreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod))
 ```
 ### Educación
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(ingresos_tramos)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
 ```
 ### Cantidad de libros en el hogar
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(ingresos_tramos)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
 ```
 ### Ingresos
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(Educacion)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.",  custom.coef.names = c("Intercepto", "De 101.001 a 134.000 mensuales <br> (Ref. Menos de 101.000 mensuales)", "De 134.001 a 179.000 mensuales", "De 179.001 a 224.000 mensuales", "De 224.001 a 291.000 mensuales", "De 291.001 a 358.000 mensuales", "De 358.001 a 448.000 mensuales", "De 448.001 a 1.000.000 mensuales", "De 1.000.001 a 2.000.000 mensuales", "De 2.000.001 a 3.000.000 mensuales", "Más de 3.000.000 mensuales", "No sabe / No responde"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(Educacion)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.",  custom.coef.names = c("Intercepto", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde"))
 ```
 
 ## H4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.
@@ -1039,29 +1040,29 @@ htmlreg(list(h4a.1_lib_esp_priv, h4a.2_lib_esp_priv, h4a.3_lib_esp_priv, h4a.4_l
 ## H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.
 ### Apertura a la discusión en el aula
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula"))
 ```
 ### Proporción de niñas
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(ingresos_tramos)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Proporción de niñas en el aula"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Proporción de niñas en el aula"))
 ```
 ## Modelos completos por dimensión
 ### Igualdad de derechos y oportunidades
 ```{r}
-reg_completo1<-sjPlot::plot_model(reg_igualdad, type=c("std"), axis.labels = c("Conocimiento cívico","Reg. Metropolitana","Reg. del Maule", "Part. Pagado","Part. Subvencionado","Proporción de niñas", "Apertura a la discusión (promedio)","Apertura a la discusión","Actitudes del apoderado", "Ns/Nr (ingresos)","Más de 3 millones", "De 2 a 3 millones", "De 1 millón a 2 millones", "De $448.001 a $1.000.000", "De $358.001 a $448.000","De $291.001 a $358.000","De $224.001 a $291.000","De $179.001 a $224.000","De $134.001 a $179.000","De $101.001 a $134.000", "Más de 200 libros", "Entre 26 y 200 libros", "Ed. Universitaria", "IP o CFT","Ed. Media", "Sexo")) + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades") + theme_grey() + xlab(" ") + ylab(" ") + theme(title=element_text(size=10),axis.title.y=element_text(size=1),axis.title.x=element_text(size=1),axis.text.y=element_text(size=7.9))
+reg_completo1<-sjPlot::plot_model(reg_igualdad, type=c("std"), axis.labels = c("Conocimiento cívico","Reg. Metropolitana","Reg. del Maule", "Part. Pagado","Part. Subvencionado","Proporción de niñas", "Apertura a la discusión (promedio)","Apertura a la discusión","Actitudes del apoderado", "Ns/Nr (ingresos)", "Quintil 5", "Quintil 4", "Quintil 3", "Quintil 2", "Ed. Universitaria", "IP o CFT","Ed. Media", "Sexo")) + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades") + theme_grey() + xlab(" ") + ylab(" ") + theme(title=element_text(size=10),axis.title.y=element_text(size=1),axis.title.x=element_text(size=1),axis.text.y=element_text(size=7.9))
 
 ggsave(reg_completo1, filename = "modelo-completo_igualdad-genero.png",device = "png",width = 18,height = 12,dpi = "retina",units = "cm")
 ```
 ### Espacio público
 ```{r}
-reg_completo2<-sjPlot::plot_model(reg_esp.pub, type=c("std"), axis.labels = c("Conocimiento cívico","Reg. Metropolitana","Reg. del Maule", "Part. Pagado","Part. Subvencionado","Proporción de niñas", "Apertura a la discusión (promedio)","Apertura a la discusión","Actitudes del apoderado", "Ns/Nr (ingresos)","Más de 3 millones", "De 2 a 3 millones", "De 1 millón a 2 millones", "De $448.001 a $1.000.000", "De $358.001 a $448.000","De $291.001 a $358.000","De $224.001 a $291.000","De $179.001 a $224.000","De $134.001 a $179.000","De $101.001 a $134.000", "Más de 200 libros", "Entre 26 y 200 libros", "Ed. Universitaria", "IP o CFT","Ed. Media", "Sexo")) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en 
+reg_completo2<-sjPlot::plot_model(reg_esp.pub, type=c("std"), axis.labels = c("Conocimiento cívico","Reg. Metropolitana","Reg. del Maule", "Part. Pagado","Part. Subvencionado","Proporción de niñas", "Apertura a la discusión (promedio)","Apertura a la discusión","Actitudes del apoderado", "Ns/Nr (ingresos)","Quintil 5", "Quintil 4", "Quintil 3", "Quintil 2", "Ed. Universitaria", "IP o CFT","Ed. Media", "Sexo")) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en 
 la esfera pública") + theme_grey() + xlab(" ") + ylab(" ") + theme(title=element_text(size=10),axis.title.y=element_text(size=1),axis.title.x=element_text(size=1),axis.text.y=element_text(size=7.9))
 
 ggsave(reg_completo2, filename = "modelo-completo_espacio-publico.png",device = "png",width = 18,height = 12,dpi = "retina",units = "cm")
 ```
 ### Espacio privado
 ```{r}
-reg_completo3<-sjPlot::plot_model(reg_esp.priv, type=c("std"), axis.labels = c("Conocimiento cívico","Reg. Metropolitana","Reg. del Maule", "Part. Pagado","Part. Subvencionado","Proporción de niñas", "Apertura a la discusión (promedio)","Apertura a la discusión","Actitudes del apoderado", "Ns/Nr (ingresos)","Más de 3 millones", "De 2 a 3 millones", "De 1 millón a 2 millones", "De $448.001 a $1.000.000", "De $358.001 a $448.000","De $291.001 a $358.000","De $224.001 a $291.000","De $179.001 a $224.000","De $134.001 a $179.000","De $101.001 a $134.000", "Más de 200 libros", "Entre 26 y 200 libros", "Ed. Universitaria", "IP o CFT","Ed. Media", "Sexo")) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en 
+reg_completo3<-sjPlot::plot_model(reg_esp.priv, type=c("std"), axis.labels = c("Conocimiento cívico","Reg. Metropolitana","Reg. del Maule", "Part. Pagado","Part. Subvencionado","Proporción de niñas", "Apertura a la discusión (promedio)","Apertura a la discusión","Actitudes del apoderado", "Ns/Nr (ingresos)","Quintil 5", "Quintil 4", "Quintil 3", "Quintil 2", "Ed. Universitaria", "IP o CFT","Ed. Media", "Sexo")) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en 
 la esfera privada") + theme_grey() + xlab(" ") + ylab(" ") + theme(title=element_text(size=10),axis.title.y=element_text(size=1),axis.title.x=element_text(size=1),axis.text.y=element_text(size=7.9))
 
 ggsave(reg_completo3, filename = "modelo-completo_espacio-privado.png",device = "png",width = 18,height = 12,dpi = "retina",units = "cm")
@@ -1070,150 +1071,150 @@ ggsave(reg_completo3, filename = "modelo-completo_espacio-privado.png",device = 
 ## Pendientes fijas y aleatorias
 ### Igualdad de género
 ```{r}
-reg_igualdad_pf <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad_pf <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 # Educación
-reg_igualdad_pa1 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data_proc)
+reg_igualdad_pa1 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data_proc)
 anova(reg_igualdad_pf,reg_igualdad_pa1) #no
 # Libros
-reg_igualdad_pa2 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data_proc)
+reg_igualdad_pa2 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data_proc)
 anova(reg_igualdad_pf,reg_igualdad_pa2) #no
 # Ingresos
-#reg_igualdad_pa3 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(ingresos_tramos) | RBD), data=data_proc) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
+#reg_igualdad_pa3 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(quintiles_ingresos_pc_factor) | RBD), data=data_proc) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
 # Actitudes del apoderado
-reg_igualdad_pa4 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
+reg_igualdad_pa4 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
 anova(reg_igualdad_pf,reg_igualdad_pa4) #sí
 # Sexo
-reg_igualdad_pa5 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+reg_igualdad_pa5 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
 anova(reg_igualdad_pf,reg_igualdad_pa5) #sí
 ```
 ### Espacio público
 ```{r}
-reg_esp.pub_pf <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.pub_pf <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 # Educación
-reg_esp.pub_pa1 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data_proc)
+reg_esp.pub_pa1 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data_proc)
 anova(reg_esp.pub_pf,reg_esp.pub_pa1) #no
 # Libros
-reg_esp.pub_pa2 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data_proc)
+reg_esp.pub_pa2 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data_proc)
 anova(reg_esp.pub_pf,reg_esp.pub_pa2) #no
 # Ingresos
-#reg_esp.pub_pa3 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(ingresos_tramos) | RBD), data=data_proc) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
+#reg_esp.pub_pa3 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(quintiles_ingresos_pc_factor) | RBD), data=data_proc) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
 # Actitudes del apoderado
-reg_esp.pub_pa4 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
+reg_esp.pub_pa4 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
 anova(reg_esp.pub_pf,reg_esp.pub_pa4) #sí
 # Sexo
-reg_esp.pub_pa5 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+reg_esp.pub_pa5 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
 anova(reg_esp.pub_pf,reg_esp.pub_pa5) #no
 ```
 ### Espacio privado
 ```{r}
-reg_esp.priv_pf <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv_pf <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 # Educación
-reg_esp.priv_pa1 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data_proc)
+reg_esp.priv_pa1 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Educacion) | RBD), data=data_proc)
 anova(reg_esp.priv_pf,reg_esp.priv_pa1) #no
 # Libros
-reg_esp.priv_pa2 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data_proc)
+reg_esp.priv_pa2 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(Libros_apod_rec) | RBD), data=data_proc)
 anova(reg_esp.priv_pf,reg_esp.priv_pa2) #no
 # Ingresos
-#reg_esp.priv_pa3 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(ingresos_tramos) | RBD), data=data_proc) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
+#reg_esp.priv_pa3 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + factor(quintiles_ingresos_pc_factor) | RBD), data=data_proc) ###no es posible estimar el modelo: "Error: number of observations (=627) <= number of random effects (=720) for term (1 + factor(ingresos_tramos) | RBD); the random-effects parameters and the residual variance (or scale parameter) are probably unidentifiable"
 # Actitudes del apoderado
-reg_esp.priv_pa4 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
+reg_esp.priv_pa4 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
 anova(reg_esp.priv_pf,reg_esp.priv_pa4) #sí
 # Sexo
-reg_esp.priv_pa5 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+reg_esp.priv_pa5 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
 anova(reg_esp.priv_pf,reg_esp.priv_pa5) #no
 ```
 ## H6: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) mitigan la influencia de los recursos familiares y actitudes de los apoderados sobre las actitudes de los estudiantes hacia la igualdad de género.
 ### Igualdad de género
 ```{r}
-h6a_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
-h6b_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
-h6c_igualdad <- lmer(igualdad.est ~ 1 + Sexo*mean_discusion + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
-h6d_igualdad <- lmer(igualdad.est ~ 1 + Sexo*num_fem + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+h6a_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
+h6b_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
+h6c_igualdad <- lmer(igualdad.est ~ 1 + Sexo*mean_discusion + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+h6d_igualdad <- lmer(igualdad.est ~ 1 + Sexo*num_fem + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
 screenreg(list(reg_igualdad_pf,h6a_igualdad,h6b_igualdad,h6c_igualdad,h6d_igualdad))
 ```
 ### Espacio publico
 ```{r}
-h6a_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
-h6b_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
+h6a_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
+h6b_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.pub_pf,h6a_esp.pub,h6b_esp.pub))
 ```
 ### Espacio privado
 ```{r}
-h6a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
+h6a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*mean_discusion + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.priv_pf,h6a_esp.priv))
-h6b_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
+h6b_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*num_fem + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.priv_pf,h6a_esp.priv,h6b_esp.priv))
 ```
 ## H7: Los efectos planteados en la hipótesis 2, 3, 4, 4a, 5 y 6 estarán condicionados por  el género del estudiante.
 ### H2: igualdad de derechos
 ```{r}
-h7_h2a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
-h7_h2b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
-h7_h2c_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos)*Sexo + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+h7_h2a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+h7_h2b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+h7_h2c_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor)*Sexo + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
 screenreg(list(h7_h2a_igualdad, h7_h2b_igualdad, h7_h2c_igualdad))
 ```
 ### H2: espacio publico
 ```{r}
-h7_h2a_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-h7_h2b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-h7_h2c_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos)*Sexo + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h2a_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h2b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h2c_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor)*Sexo + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 screenreg(list(h7_h2a_esp.pub, h7_h2b_esp.pub, h7_h2c_esp.pub))
 ```
 ### H2: espacio privado
 ```{r}
-h7_h2a_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-h7_h2b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-h7_h2c_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos)*Sexo + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h2a_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion)*Sexo + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h2b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec)*Sexo + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h2c_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor)*Sexo + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 screenreg(list(h7_h2a_esp.priv, h7_h2b_esp.priv, h7_h2c_esp.priv))
 ```
 ### H3
 ```{r}
-h7_h3_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
-h7_h3_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
-h7_h3_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
+h7_h3_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
+h7_h3_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
+h7_h3_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*Sexo + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
 screenreg(list(h7_h3_igualdad, h7_h3_esp.pub, h7_h3_esp.priv))
 ```
 ### H5: apertura a la discusión
 ```{r}
-h7_h5a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
-h7_h5a_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-h7_h5a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h5a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+h7_h5a_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h5a_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion*Sexo + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 screenreg(list(h7_h5a_igualdad, h7_h5a_esp.pub, h7_h5a_esp.priv))
 ```
 ### H5: proporción de niñas
 ```{r}
-h7_h5b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
-h7_h5b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-h7_h5b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h5b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)
+h7_h5b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+h7_h5b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem*Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 screenreg(list(h7_h5b_igualdad, h7_h5b_esp.pub, h7_h5b_esp.priv))
 ```
 ### H6: apertura a la discusión
 ```{r}
-h7_h6a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
+h7_h6a_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
 screenreg(list(reg_igualdad_pf,h7_h6a_igualdad))
 ```
 ### H6: apertura a la discusión
 ```{r}
-h7_h6a_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
+h7_h6a_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.pub_pf,h7_h6a_esp.pub))
 ```
 ### H6: apertura a la discusión
 ```{r}
-h7_h6a_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
+h7_h6a_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*mean_discusion*Sexo + ap_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.priv_pf,h7_h6a_esp.priv))
 ```
 ### H6: proporción de niñas
 ```{r}
-h7_h6b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + igualdad.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
+h7_h6b_igualdad <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + igualdad.pad | RBD), data=data_proc)
 screenreg(list(reg_igualdad_pf,h7_h6b_igualdad))
 ```
 ### H6: proporción de niñas
 ```{r}
-h7_h6b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_publico.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
+h7_h6b_esp.pub <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_publico.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.pub_pf,h7_h6b_esp.pub))
 ```
 ### H6: proporción de niñas
 ```{r}
-h7_h6b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(ingresos_tramos) + esp_privado.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
+h7_h6b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad*num_fem*Sexo + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 + esp_privado.pad | RBD), data=data_proc)
 screenreg(list(reg_esp.priv_pf,h7_h6b_esp.priv))
 ```
