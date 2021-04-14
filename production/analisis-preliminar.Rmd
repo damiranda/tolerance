@@ -10,7 +10,26 @@ output:
 ```{r}
 pacman::p_load(stargazer, ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
                sjPlot, summarytools, kableExtra, corrplot, coefplot, ltm, polycor,
-               psych, lme4, ppcor, texreg, skimr, dplyr)
+               psych, lme4, ppcor, texreg, skimr, sessioninfo, dplyr)
+
+##sessionInfo()
+#R version 4.0.2 (2020-06-22)
+#Platform: x86_64-w64-mingw32/x64 (64-bit)
+#Running under: Windows 10 x64 (build 19042)
+
+#Matrix products: default
+
+#locale:
+#[1] LC_COLLATE=Spanish_Chile.1252  LC_CTYPE=Spanish_Chile.1252    LC_MONETARY=Spanish_Chile.1252 LC_NUMERIC=C                   LC_TIME=Spanish_Chile.1252    
+
+#attached base packages:
+#[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+#other attached packages:
+#[1] sessioninfo_1.1.1  dplyr_1.0.2        skimr_2.1.2        texreg_1.37.5      ppcor_1.1          lme4_1.1-26        Matrix_1.3-2       psych_2.0.12      
+#[9] ltm_1.1-1          polycor_0.7-10     msm_1.6.8          MASS_7.3-53        coefplot_1.2.7     corrplot_0.84      kableExtra_1.3.1   summarytools_0.9.8
+#[17] sjPlot_2.8.7       cowplot_1.1.1      haven_2.3.1        sjlabelled_1.1.7   car_3.0-10         carData_3.0-4      sjmisc_2.8.6       ggplot2_3.3.3     
+#[25] stargazer_5.2.2 
 ```
 
 # Cargar base
