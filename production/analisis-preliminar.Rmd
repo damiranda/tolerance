@@ -10,7 +10,7 @@ output:
 ```{r}
 pacman::p_load(stargazer, ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
                sjPlot, summarytools, kableExtra, corrplot, coefplot, ltm, polycor,
-               psych, lme4, ppcor, texreg, skimr, sessioninfo, dplyr)
+               psych, lme4, ppcor, texreg, skimr, gtools, bda, lmerTest, Matrix, sessioninfo, dplyr)
 
 ##sessionInfo()
 #R version 4.0.2 (2020-06-22)
@@ -384,15 +384,15 @@ dev.off()
 ```{r}
 data$RBD <- as.factor(data$RBD)
 
-reg0_igualdad <- lmer(igualdad.est ~ 1 + (1 | RBD), data=data)
-reg0_pub <- lmer(esp_publico.est ~ 1 + (1 | RBD), data=data)
-reg0_priv <- lmer(esp_privado.est ~ 1 + (1 | RBD), data=data)
+reg0_igualdad <- lme4::lmer(igualdad.est ~ 1 + (1 | RBD), data=data)
+reg0_pub <- lme4::lmer(esp_publico.est ~ 1 + (1 | RBD), data=data)
+reg0_priv <- lme4::lmer(esp_privado.est ~ 1 + (1 | RBD), data=data)
 
-stargazer(reg0_igualdad,reg0_pub, reg0_priv,
+stargazer::stargazer(reg0_igualdad, reg0_pub, reg0_priv,
   column.labels=c("Igualdad","Espacio público", "Espacio privado"),
   type ='text')
 
-screenreg(list(reg0_igualdad,reg0_pub, reg0_priv))
+screenreg(list(reg0_igualdad, reg0_pub, reg0_priv))
 ```
 
 ```{r results='asis'}
@@ -1601,11 +1601,11 @@ ggsave(plot_act_apod, file = "../output/priv_prop-act_apod.png",device = "png",w
 ```{r}
 data_proc$RBD <- as.factor(data_proc$RBD)
 
-reg0_igualdad <- lmer(igualdad.est ~ 1 + (1 | RBD), data=data_proc)
-reg0_pub <- lmer(esp_publico.est ~ 1 + (1 | RBD), data=data_proc)
-reg0_priv <- lmer(esp_privado.est ~ 1 + (1 | RBD), data=data_proc)
+reg0_igualdad <- lme4::lmer(igualdad.est ~ 1 + (1 | RBD), data=data_proc)
+reg0_pub <- lme4::lmer(esp_publico.est ~ 1 + (1 | RBD), data=data_proc)
+reg0_priv <- lme4::lmer(esp_privado.est ~ 1 + (1 | RBD), data=data_proc)
 
-stargazer(reg0_igualdad,reg0_pub, reg0_priv,
+stargazer::stargazer(reg0_igualdad,reg0_pub, reg0_priv,
   column.labels=c("Igualdad","Espacio público", "Espacio privado"),
   type ='text')
 
@@ -1892,53 +1892,82 @@ screenreg(list(reg_esp.priv_pf,h7_h6b_esp.priv))
 ### Igualdad de derechos y oportunidades
 ```{r}
 reg_igual1E <- lmer(igualdad.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc) # Efecto al mediador
+sreg_igual1E <- summary(reg_igual1E)
 reg_igual2E <- lmer(igualdad.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc) # Efecto Total
+sreg_igual2E <- summary(reg_igual2E)
 reg_igual3E <- lmer(igualdad.est ~ 1 + igualdad.pad + (1 | RBD), data=data_proc) # Efecto del mediador
 reg_igual4E <- lmer(igualdad.est ~ 1 + factor(Educacion) + igualdad.pad + (1 | RBD), data=data_proc) # Efecto directo + mediado (del*al)
-
+sreg_igual4E <- summary(reg_igual4E)
 reg_igual1L <- lmer(igualdad.pad ~ 1 + factor(Libros_apod_rec) + (1 | RBD), data=data_proc)
 reg_igual2L <- lmer(igualdad.est ~ 1 + factor(Libros_apod_rec) + (1 | RBD), data=data_proc)
+sreg_igual2L <- summary(reg_igual2L)
 reg_igual3L <- lmer(igualdad.est ~ 1 + esp_publico.pad + (1 | RBD), data=data_proc)
 reg_igual4L <- lmer(igualdad.est ~ 1 + factor(Libros_apod_rec) + igualdad.pad + (1 | RBD), data=data_proc)
-
+sreg_igual4L <- summary(reg_igual4L)
 reg_igual1Q <- lmer(igualdad.pad ~ 1 + factor(quintiles_ingresos_pc_factor) + (1 | RBD), data=data_proc)
 reg_igual2Q <- lmer(igualdad.est ~ 1 + factor(quintiles_ingresos_pc_factor) + (1 | RBD), data=data_proc)
+sreg_igual2Q <- summary(reg_igual2Q)
 reg_igual3Q <- lmer(igualdad.est ~ 1 + esp_publico.pad + (1 | RBD), data=data_proc)
 reg_igual4Q <- lmer(igualdad.est ~ 1 + factor(quintiles_ingresos_pc_factor) + igualdad.pad + (1 | RBD), data=data_proc)
+sreg_igual4Q <- summary(reg_igual4Q)
 ```
 ### Espacio publico
 ```{r}
 reg_esp.pub1E <- lmer(esp_publico.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
 reg_esp.pub2E <- lmer(esp_publico.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
+sreg_esp.pub2E <- summary(reg_esp.pub2E)
 reg_esp.pub3E <- lmer(esp_publico.est ~ 1 + esp_publico.pad + (1 | RBD), data=data_proc)
 reg_esp.pub4E <- lmer(esp_publico.est ~ 1 + factor(Educacion) + esp_publico.pad + (1 | RBD), data=data_proc)
-
+sreg_esp.pub4E <- summary(reg_esp.pub4E)
 reg_esp.pub1L <- lmer(esp_publico.pad ~ 1 + factor(Libros_apod_rec) + (1 | RBD), data=data_proc)
 reg_esp.pub2L <- lmer(esp_publico.est ~ 1 + factor(Libros_apod_rec) + (1 | RBD), data=data_proc)
+sreg_esp.pub2L <- summary(reg_esp.pub2L)
+
 reg_esp.pub3L <- lmer(esp_publico.est ~ 1 + esp_publico.pad + (1 | RBD), data=data_proc)
 reg_esp.pub4L <- lmer(esp_publico.est ~ 1 + factor(Libros_apod_rec) + esp_publico.pad + (1 | RBD), data=data_proc)
-
+sreg_esp.pub4L <- summary(reg_esp.pub4L)
 reg_esp.pub1Q <- lmer(esp_publico.pad ~ 1 + factor(quintiles_ingresos_pc_factor) + (1 | RBD), data=data_proc)
 reg_esp.pub2Q <- lmer(esp_publico.est ~ 1 + factor(quintiles_ingresos_pc_factor) + (1 | RBD), data=data_proc)
+sreg_esp.pub2Q <- summary(reg_esp.pub2Q)
+
 reg_esp.pub3Q <- lmer(esp_publico.est ~ 1 + esp_publico.pad + (1 | RBD), data=data_proc)
 reg_esp.pub4Q <- lmer(esp_publico.est ~ 1 + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + (1 | RBD), data=data_proc)
+sreg_esp.pub4Q <- summary(reg_esp.pub4Q)
 ```
 ### Espacio privado
 ```{r}
 reg_esp.priv1E <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
-reg_esp.priv2E <- lmer(esp_privado.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc) 
+reg_esp.priv2E <- lmer(esp_privado.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
+sreg_esp.priv2E <- summary(reg_esp.priv2E)
 reg_esp.priv3E <- lmer(esp_privado.est ~ 1 + esp_privado.pad + (1 | RBD), data=data_proc)
-reg_esp.priv4E <- lmer(esp_privado.est ~ 1 + factor(Educacion) + esp_privado.pad + (1 | RBD), data=data_proc) 
-
+reg_esp.priv4E <- lmer(esp_privado.est ~ 1 + factor(Educacion) + esp_privado.pad + (1 | RBD), data=data_proc)
+sreg_esp.priv4E <- summary(reg_esp.priv4E)
 reg_esp.priv1L <- lmer(esp_privado.pad ~ 1 + factor(Libros_apod_rec) + (1 | RBD), data=data_proc)
 reg_esp.priv2L <- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + (1 | RBD), data=data_proc)
+sreg_esp.priv2L <- summary(reg_esp.priv2L)
 reg_esp.priv3L <- lmer(esp_privado.est ~ 1 + esp_privado.pad + (1 | RBD), data=data_proc)
 reg_esp.priv4L <- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + esp_privado.pad + (1 | RBD), data=data_proc)
-
+sreg_esp.priv4L <- summary(reg_esp.priv4L)
 reg_esp.priv1Q <- lmer(esp_privado.pad ~ 1 + factor(quintiles_ingresos_pc_factor) + (1 | RBD), data=data_proc)
 reg_esp.priv2Q <- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + (1 | RBD), data=data_proc)
+sreg_esp.priv2Q <- summary(reg_esp.priv2Q)
 reg_esp.priv3Q <- lmer(esp_privado.est ~ 1 + esp_privado.pad + (1 | RBD), data=data_proc)
 reg_esp.priv4Q <- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + (1 | RBD), data=data_proc)
+sreg_esp.priv4Q <- summary(reg_esp.priv4Q)
+```
+### Test de Sobel
+```{r}
+iE1_E4<-mediation.test(data_proc$igualdad.pad,data_proc$Educacion,data_proc$igualdad.est)
+iL1_L4<-mediation.test(data_proc$igualdad.pad,data_proc$Libros_apod,data_proc$igualdad.est)
+iQ1_Q4<-mediation.test(data_proc$igualdad.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$igualdad.est)
+
+puE1_E4<-mediation.test(data_proc$esp_publico.pad,data_proc$Educacion,data_proc$esp_publico.est)
+puL1_L4<-mediation.test(data_proc$esp_publico.pad,data_proc$Libros_apod,data_proc$esp_publico.est)
+puiQ1_Q4<-mediation.test(data_proc$esp_publico.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_publico.est)
+
+prE1_E4<-mediation.test(data_proc$esp_privado.pad,data_proc$Educacion,data_proc$esp_privado.est)
+prL1_L4<-mediation.test(data_proc$esp_privado.pad,data_proc$Libros_apod,data_proc$esp_privado.est)
+priQ1_Q4<-mediation.test(data_proc$esp_privado.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_privado.est)
 ```
 ### Tabla mediaciones h4a
 ```{r}
@@ -1946,47 +1975,80 @@ data_proc$Educacion <- factor(data_proc$Educacion, levels = c(1,2,3,4), labels =
 data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, levels = c(1,2,3), labels = c("Entre 0 y 25 libros", "Entre 26 y 200 libros (Ref. 25 o menos)", "Más de 200 libros"))
 data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc_factor, levels = c(1,2,3,4,5,99), labels = c("Quintil 1", "Quintil 2 (Ref. Quintil 1)", "Quintil 3", "Quintil 4", "Quintil 5", "Ns/Nr"))
 
-   collapse_rows_dt <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 2), rep("Quintiles de ingreso",5)),
+
+ collapse_rows_dt <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 2), rep("Quintiles de ingreso",5)),
                     Categorias = c(sjlabelled::get_labels(data_proc$Educacion)[-1],
                                    sjlabelled::get_labels(data_proc$Libros_apod_rec)[-1],
                                    sjlabelled::get_labels(data_proc$quintiles_ingresos_pc_factor)[-1]),
-                    Efectos_Directos = c(round(reg_igual4E@beta[2:4],3), 
-                                         round(reg_igual4L@beta[2:3],3),
-                                         round(reg_igual4Q@beta[2:6],3)),
-                    Efectos_Indirectos = c(round(reg_igual1E@beta[2:4]*reg_igual4E@beta[5],3),
-                                           round(reg_igual1L@beta[-1]*reg_igual4L@beta[4],3),
-                                           round(reg_igual1Q@beta[-1]*reg_igual4Q@beta[7],3)),
-                    Efectos_Totales =  c(round(reg_igual2E@beta[2:4],3),
-                                         round(reg_igual2L@beta[2:3],3),
-                                         round(reg_igual2Q@beta[2:6],3)),
-                    Porcentaje_Indirecto = c(paste(round(reg_igual1E@beta[2:4]*reg_igual4E@beta[5]*100/reg_igual2E@beta[2:4],1),"%"),
-  paste(round(reg_igual1L@beta[-1]*reg_igual4L@beta[4]*100/reg_igual2L@beta[2:3],1),"%"),
-  paste(round(reg_igual1Q@beta[-1]*reg_igual4Q@beta[7]*100/reg_igual2Q@beta[2:6],1),"%")),
-                    Efectos_Directos = c(round(reg_esp.pub4E@beta[2:4],3),
-                                         round(reg_esp.pub4L@beta[2:3],3),
-                                         round(reg_esp.pub4Q@beta[2:6],3)),
-                    Efectos_Indirectos = c(round(reg_esp.pub1E@beta[2:4]*reg_esp.pub4E@beta[5],3),
-                                           round(reg_esp.pub1L@beta[-1]*reg_esp.pub4L@beta[4],3),
-                                           round(reg_esp.pub1Q@beta[-1]*reg_esp.pub4Q@beta[7],3)),
-                    Efectos_Totales =  c(round(reg_esp.pub2E@beta[2:4],3),
-                                         round(reg_esp.pub2L@beta[2:3],3),
-                                         round(reg_esp.pub2Q@beta[2:6],3)),
+                   
+                     Efectos_Directos = c(paste0(round(reg_igual4E@beta[2:4],3),gtools::stars.pval(sreg_igual1E$coefficients[2:4,5])),
+                                         paste0(round(reg_igual4L@beta[2:3],3),gtools::stars.pval(sreg_igual4L$coefficients[2:3,5])),
+                                         paste0(round(reg_igual4Q@beta[2:6],3),gtools::stars.pval(sreg_igual4Q$coefficients[2:6,5]))),
+                    Efectos_Indirectos = c(
+                                           paste0(round(reg_igual1E@beta[2:4]*reg_igual4E@beta[5],3),gtools::stars.pval(iE1_E4[2,1])),
+                                           paste0(round(reg_igual1L@beta[-1]*reg_igual4L@beta[4],3),   gtools::stars.pval(iL1_L4[2,1])),
+                                           paste0(round(reg_igual1Q@beta[-1]*reg_igual4Q@beta[7],3), gtools::stars.pval(iQ1_Q4[2,1]))
+                                           ),
+                    Efectos_Totales =  c(
+                                         paste0(round(reg_igual2E@beta[2:4],3),gtools::stars.pval(sreg_igual2E$coefficients[2:4,5])),
+                                         paste0(round(reg_igual2L@beta[2:3],3),gtools::stars.pval(sreg_igual2L$coefficients[2:3,5])),
+                                         paste0(round(reg_igual2Q@beta[2:6],3),gtools::stars.pval(sreg_igual2Q$coefficients[2:6,5]))
+                                         ),
+                    Porcentaje_Indirecto = c(
+                                             paste(round(reg_igual1E@beta[2:4]*reg_igual4E@beta[5]*100/reg_igual2E@beta[2:4],1),"%"),
+                                             paste(round(reg_igual1L@beta[-1]*reg_igual4L@beta[4]*100/reg_igual2L@beta[2:3],1),"%"),
+                                             paste(round(reg_igual1Q@beta[-1]*reg_igual4Q@beta[7]*100/reg_igual2Q@beta[2:6],1),"%")
+                                             ),
+                   
+ 
+                    Efectos_Directos = c(
+                                         paste0(round(reg_esp.pub4E@beta[2:4],3),gtools::stars.pval(sreg_esp.pub4E$coefficients[2:4,5])),
+                                         paste0(round(reg_esp.pub4L@beta[2:3],3), gtools::stars.pval(sreg_esp.pub4L$coefficients[2:3,5])),
+                                         paste0(round(reg_esp.pub4Q@beta[2:6],3), gtools::stars.pval(sreg_esp.pub4Q$coefficients[2:6,5]))
+                                          )
+                                         
+                                         ,
+                   
+                   
+                    Efectos_Indirectos = c(
+                                          paste0(round(reg_esp.pub1E@beta[2:4]*reg_esp.pub4E@beta[5],3),gtools::stars.pval(puE1_E4[2,1])),
+                                           paste0(round(reg_esp.pub1L@beta[-1]*reg_esp.pub4L@beta[4],3), gtools::stars.pval(puE1_E4[2,1])),
+                                           paste0(round(reg_esp.pub1Q@beta[-1]*reg_esp.pub4Q@beta[7],3),gtools::stars.pval(puE1_E4[2,1]))),
+                   
+                   
+                   
+                    Efectos_Totales =  c(
+                                          paste0(round(reg_esp.pub2E@beta[2:4],3),gtools::stars.pval(sreg_esp.pub2E$coefficients[2:4,5])),
+                                         paste0(round(reg_esp.pub2L@beta[2:3],3),gtools::stars.pval(sreg_esp.pub2L$coefficients[2:3,5])),
+                                         paste0(round(reg_esp.pub2Q@beta[2:6],3),gtools::stars.pval(sreg_esp.pub2Q$coefficients[2:6,5]))
+                                         ),
+                   
+                   
                     Porcentaje_Indirecto = c(paste(round(reg_esp.pub1E@beta[2:4]*reg_esp.pub4E@beta[5]*100/reg_esp.pub2E@beta[2:4],1),"%"),
-  paste(round(reg_esp.pub1L@beta[-1]*reg_esp.pub4L@beta[4]*100/ reg_esp.pub2L@beta[2:3],1),"%"),                   paste(round(reg_esp.pub1Q@beta[-1]*reg_esp.pub4Q@beta[7]*100/reg_esp.pub2Q@beta[2:6],1),"%")),
-                    Efectos_Directos = c(round(reg_esp.priv4E@beta[2:4],3),
-                                         round(reg_esp.priv4L@beta[2:3],3),
-                                         round(reg_esp.priv4Q@beta[2:6],3)),
-                    Efectos_Indirectos = c(round(reg_esp.priv1E@beta[2:4]*reg_esp.priv4E@beta[5],3),
-                                           round(reg_esp.priv1L@beta[-1]*reg_esp.priv4L@beta[4],3),
-                                           round(reg_esp.priv1Q@beta[-1]*reg_esp.priv4Q@beta[7],3)),
-                    Efectos_Totales = c(round(reg_esp.priv2E@beta[2:4],3),
-                                        round(reg_esp.priv2L@beta[2:3],3),
-                                        round(reg_esp.priv2Q@beta[2:6],3)),
-                    Porcentaje_Indirecto = c(paste(round(reg_esp.priv1E@beta[2:4]*reg_esp.priv4E@beta[5]*100/reg_esp.priv2E@beta[2:4],1),"%"),
+                                             paste(round(reg_esp.pub1L@beta[-1]*reg_esp.pub4L@beta[4]*100/ reg_esp.pub2L@beta[2:3],1),"%"),                   paste(round(reg_esp.pub1Q@beta[-1]*reg_esp.pub4Q@beta[7]*100/reg_esp.pub2Q@beta[2:6],1),"%")),
+                   
+ 
+                    Efectos_Directos = c(
+                                         paste0(round(reg_esp.priv4E@beta[2:4],3), gtools::stars.pval(sreg_esp.priv4E$coefficients[2:4,5])),
+                                         paste0(round(reg_esp.priv4L@beta[2:3],3),gtools::stars.pval(sreg_esp.priv4L$coefficients[2:3,5])),
+                                         paste0(round(reg_esp.priv4Q@beta[2:6],3),gtools::stars.pval(sreg_esp.priv4Q$coefficients[2:6,5]))),
+                   
+ 
+ 
+                   Efectos_Indirectos = c(paste0(round(reg_esp.priv1E@beta[2:4]*reg_esp.priv4E@beta[5],3), gtools::stars.pval(prE1_E4[2,1])),
+                                           paste0(round(reg_esp.priv1L@beta[-1]*reg_esp.priv4L@beta[4],3),gtools::stars.pval(prE1_E4[2,1])),
+                                           paste0(round(reg_esp.priv1Q@beta[-1]*reg_esp.priv4Q@beta[7],3),gtools::stars.pval(prE1_E4[2,1]))),
+                 
+                    Efectos_Totales = c(
+                                        paste0(round(reg_esp.priv2E@beta[2:4],3),gtools::stars.pval(sreg_esp.priv2E$coefficients[2:4,5])),
+                                        paste0(round(reg_esp.priv2L@beta[2:3],3),gtools::stars.pval(sreg_esp.priv2L$coefficients[2:3,5])),
+                                        paste0(round(reg_esp.priv2Q@beta[2:6],3),gtools::stars.pval(sreg_esp.priv2Q$coefficients[2:6,5]))
+                                      ),
+                   Porcentaje_Indirecto = c(paste(round(reg_esp.priv1E@beta[2:4]*reg_esp.priv4E@beta[5]*100/reg_esp.priv2E@beta[2:4],1),"%"),
   paste(round(reg_esp.priv1L@beta[-1]*reg_esp.priv4L@beta[4]*100/ reg_esp.priv2L@beta[2:3],1),"%"),
   paste(round(reg_esp.priv1Q@beta[-1]*reg_esp.priv4Q@beta[7]*100/reg_esp.priv2Q@beta[2:6],1),"%")))
-
-   kbl(collapse_rows_dt, align = "c", col.names = c("Variable","Categorías", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos")) %>%
+ 
+    kbl(collapse_rows_dt, align = "c", col.names = c("Variable","Categorías", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos")) %>%
  add_header_above(c(" " = 2,"Actitudes hacia  la igualdad de derechos y oportunidades"=4, "Actitudes hacia la distribución igualitaria de roles en la esfera pública"=4, "Actitudes hacia la distribución igualitaria de roles en la esfera privada"=4), bold = T)%>%  
    kable_paper("hover",full_width = F) %>%
      column_spec(1, bold = T) %>%
