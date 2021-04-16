@@ -164,14 +164,14 @@ apod_data$Educacion <- set_na(apod_data$Educacion, na = 9, drop.levels = TRUE, a
 table(apod_data$Libros_apod)
 apod_data$Libros_apod <- set_label(x = apod_data$Libros_apod,label = "Cantidad de libros en el hogar")
 apod_data$Libros_apod_rec <- ifelse((apod_data$Libros_apod==1), 1,
-                                ifelse((apod_data$Libros_apod==2), 1,
-                                       ifelse((apod_data$Libros_apod==3), 2,
-                                              ifelse((apod_data$Libros_apod==4), 2,
-                                                     ifelse((apod_data$Libros_apod==5), 3,
-                                                            ifelse((apod_data$Libros_apod==6), 3, NA))))))
+                                ifelse((apod_data$Libros_apod==2), 2,
+                                       ifelse((apod_data$Libros_apod==3), 3,
+                                              ifelse((apod_data$Libros_apod==4), 4,
+                                                     ifelse((apod_data$Libros_apod==5), 4,
+                                                            ifelse((apod_data$Libros_apod==6), 4, NA))))))
 apod_data$Libros_apod <- set_na(apod_data$Libros_apod, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
 apod_data$Libros_apod_rec <- set_label(x = apod_data$Libros_apod_rec,label = "Cantidad de libros en el hogar")
-apod_data$Libros_apod_rec <- set_labels(x = apod_data$Libros_apod_rec, labels = c("Entre 0 y 25 libros" = 1, "Entre 26 y 200 libros" = 2, "Más de 200 libros" = 3))
+apod_data$Libros_apod_rec <- set_labels(x = apod_data$Libros_apod_rec, labels = c("Entre 0 y 10 libros" = 1, "Entre 11 y 25 libros" = 2, "Entre 26 y 100 libros" = 3, "Más de 100 libros" = 4))
 table(apod_data$Libros_apod_rec)
 ```
 #### Ingresos del hogar en tramos

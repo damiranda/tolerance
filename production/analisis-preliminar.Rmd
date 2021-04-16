@@ -429,7 +429,7 @@ htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Act
 ```
 #### Cantidad de libros en el hogar
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros"))
 ```
 #### Ingresos
 ```{r results='asis'}
@@ -448,96 +448,21 @@ screenreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod))
 ```
 ### Educación
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar, los ingresos mensuales de los miembros del hogar y la región en que residen.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
 ```
 ### Cantidad de libros en el hogar
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado, los ingresos mensuales de los miembros del hogar y la región en que residen.",  custom.coef.names = c("Intercepto", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros"))
 ```
 ### Ingresos
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(Educacion)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.",  custom.coef.names = c("Intercepto", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(Educacion)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado, la cantidad de libros en el hogar y la región en que residen.",  custom.coef.names = c("Intercepto", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde"))
+```
+### Modelo H4 completo 
+```{r results='asis'}
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde", "Reg. del Maule <br> <i>(Ref. Reg. de Antofagasta)</i>", "Reg. Metropolitana"))
 ```
 
-## H4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.
-### Educación
-```{r}
-#h4a.1_educ_igualdad <- lmer(igualdad.pad_c ~ 1 + Educacion_c + (1 | RBD), data=data)
-#h4a.2_educ_igualdad <- lmer(igualdad.est_c ~ 1 + Educacion_c + (1 | RBD), data=data)
-#h4a.3_educ_igualdad <- lmer(igualdad.est_c ~ 1 + Educacion_c + igualdad.pad_c + (1 | RBD), data=data)
-#h4a.4_educ_igualdad <- lmer(mean_ig_pad ~ 1 + mean_educacion + (1 | RBD), data=data) ###Error in eval_f(x, ...) : Downdated VtV is not positive definite
-#h4a.5_educ_igualdad <- lmer(mean_ig_est ~ 1 + mean_educacion + (1 | RBD), data=data)
-#h4a.6_educ_igualdad <- lmer(mean_ig_est ~ 1 + mean_educacion + mean_ig_pad + (1 | RBD), data=data)
-#screenreg(list(h4a.1_educ_igualdad, h4a.2_educ_igualdad, h4a.3_educ_igualdad, h4a.4_educ_igualdad, h4a.5_educ_igualdad, h4a.6_educ_igualdad))
-```
-```{r results='asis'}
-#htmlreg(list(h4a.1_educ_igualdad, h4a.2_educ_igualdad, h4a.3_educ_igualdad, h4a.4_educ_igualdad, h4a.5_educ_igualdad, h4a.6_educ_igualdad), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4", "Modelo 5", "Modelo 6"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Nivel educativo","Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Nivel educativo (promedio)", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades (promedio)"))
-```
-
-```{r}
-h4a.1_educ_esp_pub <- lmer(esp_publico.pad_c ~ 1 + Educacion_c + (1 | RBD), data=data)
-h4a.2_educ_esp_pub <- lmer(esp_publico.est_c ~ 1 + Educacion_c + (1 | RBD), data=data)
-h4a.3_educ_esp_pub <- lmer(esp_publico.est_c ~ 1 + Educacion_c + esp_publico.pad_c + (1 | RBD), data=data)
-#h4a.4_educ_esp_pub <- lmer(mean_pub_pad ~ 1 + mean_educacion + (1 | RBD), data=data) ##Error in eval_f(x, ...) : Downdated VtV is not positive definite
-h4a.5_educ_esp_pub <- lmer(mean_pub_est ~ 1 + mean_educacion + (1 | RBD), data=data)
-h4a.6_educ_esp_pub <- lmer(mean_pub_est ~ 1 + mean_educacion + mean_pub_pad + (1 | RBD), data=data)
-screenreg(list(h4a.1_educ_esp_pub, h4a.2_educ_esp_pub, h4a.3_educ_esp_pub, h4a.5_educ_esp_pub, h4a.6_educ_esp_pub))
-```
-```{r results='asis'}
-htmlreg(list(h4a.1_educ_esp_pub, h4a.2_educ_esp_pub, h4a.3_educ_esp_pub, h4a.5_educ_esp_pub, h4a.6_educ_esp_pub), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4", "Modelo 5"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Nivel educativo","Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Nivel educativo (promedio)", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública (promedio)"))
-```
-
-```{r}
-h4a.1_educ_esp_priv <- lmer(esp_privado.pad_c ~ 1 + Educacion_c + (1 | RBD), data=data)
-h4a.2_educ_esp_priv <- lmer(esp_privado.est_c ~ 1 + Educacion_c + (1 | RBD), data=data)
-h4a.3_educ_esp_priv <- lmer(esp_privado.est_c ~ 1 + Educacion_c + esp_privado.pad_c + (1 | RBD), data=data)
-#h4a.4_educ_esp_priv <- lmer(mean_priv_pad ~ 1 + mean_educacion + (1 | RBD), data=data) ##Error in eval_f(x, ...) : Downdated VtV is not positive definite
-h4a.5_educ_esp_priv <- lmer(mean_priv_est ~ 1 + mean_educacion + (1 | RBD), data=data)
-h4a.6_educ_esp_priv <- lmer(mean_priv_est ~ 1 + mean_educacion + mean_priv_pad + (1 | RBD), data=data)
-screenreg(list(h4a.1_educ_esp_priv, h4a.2_educ_esp_priv, h4a.3_educ_esp_priv, h4a.5_educ_esp_priv, h4a.6_educ_esp_priv))
-```
-```{r results='asis'}
-htmlreg(list(h4a.1_educ_esp_priv, h4a.2_educ_esp_priv, h4a.3_educ_esp_priv, h4a.5_educ_esp_priv, h4a.6_educ_esp_priv), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4", "Modelo 5"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Nivel educativo","Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada", "Nivel educativo (promedio)", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada (promedio)"))
-```
-### Cantidad de libros en el hogar
-```{r}
-h4a.1_lib_igualdad <- lmer(igualdad.pad_c ~ 1 + Libros_apod_c + (1 | RBD), data=data)
-h4a.2_lib_igualdad <- lmer(igualdad.est_c ~ 1 + Libros_apod_c + (1 | RBD), data=data)
-h4a.3_lib_igualdad <- lmer(igualdad.est_c ~ 1 + Libros_apod_c + igualdad.pad_c + (1 | RBD), data=data)
-#h4a.4_lib_igualdad <- lmer(mean_ig_pad ~ 1 + mean_libros_apod + (1 | RBD), data=data) ###Error in eval_f(x, ...) : Downdated VtV is not positive definite
-h4a.5_lib_igualdad <- lmer(mean_ig_est ~ 1 + mean_libros_apod + (1 | RBD), data=data)
-h4a.6_lib_igualdad <- lmer(mean_ig_est ~ 1 + mean_libros_apod + mean_ig_pad + (1 | RBD), data=data)
-#screenreg(list(h4a.1_lib_igualdad, h4a.2_lib_igualdad, h4a.3_lib_igualdad, h4a.4_lib_igualdad, h4a.5_lib_igualdad, h4a.6_lib_igualdad))
-```
-```{r results='asis'}
-#htmlreg(list(h4a.1_lib_igualdad, h4a.2_lib_igualdad, h4a.3_lib_igualdad, h4a.4_lib_igualdad, h4a.5_lib_igualdad, h4a.6_lib_igualdad), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4", "Modelo 5", "Modelo 6"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Cantidad de libros en el hogar","Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Cantidad de libros en el hogar (promedio)", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades (promedio)"))
-```
-
-```{r}
-h4a.1_lib_esp_pub <- lmer(esp_publico.pad_c ~ 1 + Libros_apod_c + (1 | RBD), data=data)
-h4a.2_lib_esp_pub <- lmer(esp_publico.est_c ~ 1 + Libros_apod_c + (1 | RBD), data=data)
-h4a.3_lib_esp_pub <- lmer(esp_publico.est_c ~ 1 + Libros_apod_c + esp_publico.pad_c + (1 | RBD), data=data)
-h4a.4_lib_esp_pub <- lmer(mean_pub_pad ~ 1 + mean_libros_apod + (1 | RBD), data=data)
-h4a.5_lib_esp_pub <- lmer(mean_pub_est ~ 1 + mean_libros_apod + (1 | RBD), data=data)
-#h4a.6_lib_esp_pub <- lmer(mean_pub_est ~ 1 + mean_libros_apod + mean_pub_pad + (1 | RBD), data=data) ###Error in eval_f(x, ...) : Downdated VtV is not positive definite
-#screenreg(list(h4a.1_lib_esp_pub, h4a.2_lib_esp_pub, h4a.3_lib_esp_pub, h4a.4_lib_esp_pub, h4a.5_lib_esp_pub, h4a.6_lib_esp_pub))
-```
-```{r results='asis'}
-#htmlreg(list(h4a.1_lib_esp_pub, h4a.2_lib_esp_pub, h4a.3_lib_esp_pub, h4a.4_lib_esp_pub, h4a.5_lib_esp_pub, h4a.6_lib_esp_pub), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4", "Modelo 5", "Modelo 6"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Cantidad de libros en el hogar","Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Cantidad de libros en el hogar (promedio)", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública (promedio)"))
-```
-
-```{r}
-h4a.1_lib_esp_priv <- lmer(esp_privado.pad_c ~ 1 + Libros_apod_c + (1 | RBD), data=data)
-h4a.2_lib_esp_priv <- lmer(esp_privado.est_c ~ 1 + Libros_apod_c + (1 | RBD), data=data)
-h4a.3_lib_esp_priv <- lmer(esp_privado.est_c ~ 1 + Libros_apod_c + esp_privado.pad_c + (1 | RBD), data=data)
-h4a.4_lib_esp_priv <- lmer(mean_priv_pad ~ 1 + mean_libros_apod + (1 | RBD), data=data)
-h4a.5_lib_esp_priv <- lmer(mean_priv_est ~ 1 + mean_libros_apod + (1 | RBD), data=data)
-h4a.6_lib_esp_priv <- lmer(mean_priv_est ~ 1 + mean_libros_apod + mean_priv_pad + (1 | RBD), data=data)
-screenreg(list(h4a.1_lib_esp_priv, h4a.2_lib_esp_priv, h4a.3_lib_esp_priv, h4a.4_lib_esp_priv, h4a.5_lib_esp_priv, h4a.6_lib_esp_priv))
-```
-```{r results='asis'}
-htmlreg(list(h4a.1_lib_esp_priv, h4a.2_lib_esp_priv, h4a.3_lib_esp_priv, h4a.4_lib_esp_priv, h4a.5_lib_esp_priv, h4a.6_lib_esp_priv), custom.model.names = c("Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4", "Modelo 5", "Modelo 6"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Cantidad de libros","Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada", "Cantidad de libros (promedio)", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada (promedio)"))
-```
 ## H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.
 ### Apertura a la discusión en el aula
 ```{r results='asis'}
@@ -949,12 +874,14 @@ plotdata <- data_proc %>%
          sd = sd(igualdad.est),
          se = sd / sqrt(n),
          ci = qt(0.99, df = n - 1) * sd / sqrt(n))
-plotdata$Libros_apod_rec <- factor(plotdata$Libros_apod_rec, levels = c(1,2,3), labels = c(
+plotdata$Libros_apod_rec <- factor(plotdata$Libros_apod_rec, levels = c(1,2,3,4), labels = c(
 "Entre 0 y 
+10 libros",
+"Entre 11 y
 25 libros",
 "Entre 26 y
-200 libros", 
-"Más de 200 
+100 libros", 
+"Más de 100 
 libros"))
 plotdata<-na.omit(plotdata)
 plot_ig_lib <- ggplot(plotdata, 
@@ -1177,12 +1104,14 @@ plotdata <- data_proc %>%
          sd = sd(esp_publico.est),
          se = sd / sqrt(n),
          ci = qt(0.99, df = n - 1) * sd / sqrt(n))
-plotdata$Libros_apod_rec <- factor(plotdata$Libros_apod_rec, levels = c(1,2,3), labels = c(
+plotdata$Libros_apod_rec <- factor(plotdata$Libros_apod_rec, levels = c(1,2,3,4), labels = c(
 "Entre 0 y 
+10 libros",
+"Entre 11 y
 25 libros",
 "Entre 26 y
-200 libros", 
-"Más de 200 
+100 libros", 
+"Más de 100 
 libros"))
 plotdata<-na.omit(plotdata)
 plot_pub_lib <- ggplot(plotdata, 
@@ -1411,12 +1340,14 @@ plotdata <- data_proc %>%
          sd = sd(esp_privado.est),
          se = sd / sqrt(n),
          ci = qt(0.99, df = n - 1) * sd / sqrt(n))
-plotdata$Libros_apod_rec <- factor(plotdata$Libros_apod_rec, levels = c(1,2,3), labels = c(
+plotdata$Libros_apod_rec <- factor(plotdata$Libros_apod_rec, levels = c(1,2,3,4), labels = c(
 "Entre 0 y 
+10 libros",
+"Entre 11 y
 25 libros",
 "Entre 26 y
-200 libros", 
-"Más de 200 
+100 libros", 
+"Más de 100 
 libros"))
 plotdata<-na.omit(plotdata)
 plot_priv_lib <- ggplot(plotdata, 
@@ -1634,6 +1565,16 @@ reg_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros
 reg_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 reg_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 screenreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv))
+#para evaluar la significación de la variable dependencia administrativa al no ser controlada por el resto de las variables del modelo
+reg_igualdad54 <- lmer(igualdad.est ~ 1 + factor(dependencia) + (1 | RBD), data=data_proc)
+reg_esp.pub54 <- lmer(esp_publico.est ~ 1 + factor(dependencia) + (1 | RBD), data=data_proc)
+reg_esp.priv54 <- lmer(esp_privado.est ~ 1 + factor(dependencia) + (1 | RBD), data=data_proc)
+screenreg(list(reg_igualdad54,reg_esp.pub54,reg_esp.priv54))
+#para evaluar la significación de la variable región al no ser controlada por el resto de las variables del modelo
+reg_igualdad54 <- lmer(igualdad.est ~ 1 + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub54 <- lmer(esp_publico.est ~ 1 + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv54 <- lmer(esp_privado.est ~ 1 + factor(REGION) + (1 | RBD), data=data_proc)
+screenreg(list(reg_igualdad54,reg_esp.pub54,reg_esp.priv54))
 
 reg_esp.priv1 <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
 reg_esp.priv2 <- lmer(esp_privado.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
@@ -1643,17 +1584,14 @@ reg_esp.priv4 <- lmer(esp_privado.est ~ 1 + factor(Educacion) + esp_privado.pad 
 texreg::screenreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4),custom.model.names = c("Padres","hijos","hijos","hijos"))
 
 
-
-
 reg_esp.priv2 <- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + esp_privado.pad + (1 | RBD), data=data_proc)
 reg_esp.priv3 <- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + (1 | RBD), data=data_proc)
-
 
 ```
 
 __Espacio privado__
 
-> Edecto directo desde educacion de los padres en CID : B ( r= basica, media = 0.02, tecnicos = 00.9, universitaria = 0,17)
+> Efecto directo desde educacion de los padres en CID : B ( r= basica, media = 0.02, tecnicos = 00.9, universitaria = 0,17)
 > Efecto directo de CID-Padres a CID-hijos: b = 0.31***
 > Ef
 
@@ -1664,7 +1602,7 @@ __Espacio privado__
 
 ### Modelo completo.
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula", "Proporción de niñas en el aula","Part. Subvencionado <br> <i>(Ref. Municipal)</i>", "Part. Pagado","Reg. del Maule <br> <i>(Ref. Reg. de Antofagasta)</i>", "Reg. Metropolitana", "Conocimiento cívico", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la región en que residen (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (la cual, al ser controlada por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).", omit.coef = "(dependencia)|(REGION)", custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula", "Proporción de niñas en el aula", "Conocimiento cívico", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"))
 ```
 ### H1: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.
 ```{r results='asis'}
@@ -1677,7 +1615,7 @@ htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Act
 ```
 #### Cantidad de libros en el hogar
 ```{r results='asis'}
-htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
+htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c("Actitudes del estudiante hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del estudiante hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Sexo)|(Educacion)|(quintiles_ingresos_pc_factor)|(igualdad.pad)|(esp_publico.pad)|(esp_privado.pad)|(ap_discusion)|(mean_discusion)|(num_fem)|(dependencia)|(REGION)|(c_civic)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Todos los modelos están controlados por el resto de las variables analizadas, la dependencia administrativa de la escuela, la región y el nivel de conocimiento cívico del estudiante.",  custom.coef.names = c("Intercepto", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros"))
 ```
 #### Ingresos
 ```{r results='asis'}
@@ -1696,15 +1634,19 @@ screenreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod))
 ```
 ### Educación
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la cantidad de libros en el hogar, los ingresos mensuales de los miembros del hogar y la región en que residen.",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado"))
 ```
 ### Cantidad de libros en el hogar
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y los ingresos mensuales de los miembros del hogar.",  custom.coef.names = c("Intercepto", "Entre 26 y 200 libros <br> <i>(Ref. Entre 0 y 25 libros)</i>", "Más de 200 libros"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Educacion)|(quintiles_ingresos_pc_factor)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado, los ingresos mensuales de los miembros del hogar y la región en que residen.",  custom.coef.names = c("Intercepto", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros"))
 ```
 ### Ingresos
 ```{r results='asis'}
-htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(Educacion)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado y la cantidad de libros en el hogar.",  custom.coef.names = c("Intercepto", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde"))
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), omit.coef = "(Libros_apod_rec)|(Educacion)|(REGION)", custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por el nivel educativo del apoderado, la cantidad de libros en el hogar y la región en que residen.",  custom.coef.names = c("Intercepto", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde"))
+```
+### Modelo H4 completo 
+```{r results='asis'}
+htmlreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública", "Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde","Reg. del Maule <br> <i>(Ref. Reg. de Antofagasta)</i>", "Reg. Metropolitana"))
 ```
 ## H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.
 ### Apertura a la discusión en el aula
@@ -1972,38 +1914,38 @@ priQ1_Q4<-mediation.test(data_proc$esp_privado.pad,data_proc$quintiles_ingresos_
 ### Tabla mediaciones h4a
 ```{r}
 data_proc$Educacion <- factor(data_proc$Educacion, levels = c(1,2,3,4), labels = c("Educación Básica", "Educación Media (Ref. 8vo Básico)", "Educación Téc.Superior (IP o CFT)", "Universidad o Posgrado"))
-data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, levels = c(1,2,3), labels = c("Entre 0 y 25 libros", "Entre 26 y 200 libros (Ref. 25 o menos)", "Más de 200 libros"))
+data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, levels = c(1,2,3,4), labels = c("Entre 0 y 10 libros", "Entre 11 y 25 libros (Ref. Entre 0 y 10 libros)", "Entre 26 y 100 libros", "Más de 100 libros"))
 data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc_factor, levels = c(1,2,3,4,5,99), labels = c("Quintil 1", "Quintil 2 (Ref. Quintil 1)", "Quintil 3", "Quintil 4", "Quintil 5", "Ns/Nr"))
 
 
- collapse_rows_dt <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 2), rep("Quintiles de ingreso",5)),
+ collapse_rows_dt <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 3), rep("Quintiles de ingreso",5)),
                     Categorias = c(sjlabelled::get_labels(data_proc$Educacion)[-1],
                                    sjlabelled::get_labels(data_proc$Libros_apod_rec)[-1],
                                    sjlabelled::get_labels(data_proc$quintiles_ingresos_pc_factor)[-1]),
                    
                      Efectos_Directos = c(paste0(round(reg_igual4E@beta[2:4],3),gtools::stars.pval(sreg_igual1E$coefficients[2:4,5])),
-                                         paste0(round(reg_igual4L@beta[2:3],3),gtools::stars.pval(sreg_igual4L$coefficients[2:3,5])),
+                                         paste0(round(reg_igual4L@beta[2:4],3),gtools::stars.pval(sreg_igual4L$coefficients[2:4,5])),
                                          paste0(round(reg_igual4Q@beta[2:6],3),gtools::stars.pval(sreg_igual4Q$coefficients[2:6,5]))),
                     Efectos_Indirectos = c(
                                            paste0(round(reg_igual1E@beta[2:4]*reg_igual4E@beta[5],3),gtools::stars.pval(iE1_E4[2,1])),
-                                           paste0(round(reg_igual1L@beta[-1]*reg_igual4L@beta[4],3),   gtools::stars.pval(iL1_L4[2,1])),
-                                           paste0(round(reg_igual1Q@beta[-1]*reg_igual4Q@beta[7],3), gtools::stars.pval(iQ1_Q4[2,1]))
+                                           paste0(round(reg_igual1L@beta[2:4]*reg_igual4L@beta[4],3),   gtools::stars.pval(iL1_L4[2,1])),
+                                           paste0(round(reg_igual1Q@beta[2:6]*reg_igual4Q@beta[7],3), gtools::stars.pval(iQ1_Q4[2,1]))
                                            ),
                     Efectos_Totales =  c(
                                          paste0(round(reg_igual2E@beta[2:4],3),gtools::stars.pval(sreg_igual2E$coefficients[2:4,5])),
-                                         paste0(round(reg_igual2L@beta[2:3],3),gtools::stars.pval(sreg_igual2L$coefficients[2:3,5])),
+                                         paste0(round(reg_igual2L@beta[2:4],3),gtools::stars.pval(sreg_igual2L$coefficients[2:4,5])),
                                          paste0(round(reg_igual2Q@beta[2:6],3),gtools::stars.pval(sreg_igual2Q$coefficients[2:6,5]))
                                          ),
                     Porcentaje_Indirecto = c(
                                              paste(round(reg_igual1E@beta[2:4]*reg_igual4E@beta[5]*100/reg_igual2E@beta[2:4],1),"%"),
-                                             paste(round(reg_igual1L@beta[-1]*reg_igual4L@beta[4]*100/reg_igual2L@beta[2:3],1),"%"),
-                                             paste(round(reg_igual1Q@beta[-1]*reg_igual4Q@beta[7]*100/reg_igual2Q@beta[2:6],1),"%")
+                                             paste(round(reg_igual1L@beta[2:4]*reg_igual4L@beta[4]*100/reg_igual2L@beta[2:4],1),"%"),
+                                             paste(round(reg_igual1Q@beta[2:6]*reg_igual4Q@beta[7]*100/reg_igual2Q@beta[2:6],1),"%")
                                              ),
                    
  
                     Efectos_Directos = c(
                                          paste0(round(reg_esp.pub4E@beta[2:4],3),gtools::stars.pval(sreg_esp.pub4E$coefficients[2:4,5])),
-                                         paste0(round(reg_esp.pub4L@beta[2:3],3), gtools::stars.pval(sreg_esp.pub4L$coefficients[2:3,5])),
+                                         paste0(round(reg_esp.pub4L@beta[2:4],3), gtools::stars.pval(sreg_esp.pub4L$coefficients[2:4,5])),
                                          paste0(round(reg_esp.pub4Q@beta[2:6],3), gtools::stars.pval(sreg_esp.pub4Q$coefficients[2:6,5]))
                                           )
                                          
@@ -2012,41 +1954,41 @@ data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc
                    
                     Efectos_Indirectos = c(
                                           paste0(round(reg_esp.pub1E@beta[2:4]*reg_esp.pub4E@beta[5],3),gtools::stars.pval(puE1_E4[2,1])),
-                                           paste0(round(reg_esp.pub1L@beta[-1]*reg_esp.pub4L@beta[4],3), gtools::stars.pval(puE1_E4[2,1])),
-                                           paste0(round(reg_esp.pub1Q@beta[-1]*reg_esp.pub4Q@beta[7],3),gtools::stars.pval(puE1_E4[2,1]))),
+                                           paste0(round(reg_esp.pub1L@beta[2:4]*reg_esp.pub4L@beta[4],3), gtools::stars.pval(puE1_E4[2,1])),
+                                           paste0(round(reg_esp.pub1Q@beta[2:6]*reg_esp.pub4Q@beta[7],3),gtools::stars.pval(puE1_E4[2,1]))),
                    
                    
                    
                     Efectos_Totales =  c(
                                           paste0(round(reg_esp.pub2E@beta[2:4],3),gtools::stars.pval(sreg_esp.pub2E$coefficients[2:4,5])),
-                                         paste0(round(reg_esp.pub2L@beta[2:3],3),gtools::stars.pval(sreg_esp.pub2L$coefficients[2:3,5])),
+                                         paste0(round(reg_esp.pub2L@beta[2:4],3),gtools::stars.pval(sreg_esp.pub2L$coefficients[2:4,5])),
                                          paste0(round(reg_esp.pub2Q@beta[2:6],3),gtools::stars.pval(sreg_esp.pub2Q$coefficients[2:6,5]))
                                          ),
                    
                    
                     Porcentaje_Indirecto = c(paste(round(reg_esp.pub1E@beta[2:4]*reg_esp.pub4E@beta[5]*100/reg_esp.pub2E@beta[2:4],1),"%"),
-                                             paste(round(reg_esp.pub1L@beta[-1]*reg_esp.pub4L@beta[4]*100/ reg_esp.pub2L@beta[2:3],1),"%"),                   paste(round(reg_esp.pub1Q@beta[-1]*reg_esp.pub4Q@beta[7]*100/reg_esp.pub2Q@beta[2:6],1),"%")),
+                                             paste(round(reg_esp.pub1L@beta[2:4]*reg_esp.pub4L@beta[4]*100/ reg_esp.pub2L@beta[2:4],1),"%"),                   paste(round(reg_esp.pub1Q@beta[2:6]*reg_esp.pub4Q@beta[7]*100/reg_esp.pub2Q@beta[2:6],1),"%")),
                    
  
                     Efectos_Directos = c(
                                          paste0(round(reg_esp.priv4E@beta[2:4],3), gtools::stars.pval(sreg_esp.priv4E$coefficients[2:4,5])),
-                                         paste0(round(reg_esp.priv4L@beta[2:3],3),gtools::stars.pval(sreg_esp.priv4L$coefficients[2:3,5])),
+                                         paste0(round(reg_esp.priv4L@beta[2:4],3),gtools::stars.pval(sreg_esp.priv4L$coefficients[2:4,5])),
                                          paste0(round(reg_esp.priv4Q@beta[2:6],3),gtools::stars.pval(sreg_esp.priv4Q$coefficients[2:6,5]))),
                    
  
  
                    Efectos_Indirectos = c(paste0(round(reg_esp.priv1E@beta[2:4]*reg_esp.priv4E@beta[5],3), gtools::stars.pval(prE1_E4[2,1])),
-                                           paste0(round(reg_esp.priv1L@beta[-1]*reg_esp.priv4L@beta[4],3),gtools::stars.pval(prE1_E4[2,1])),
-                                           paste0(round(reg_esp.priv1Q@beta[-1]*reg_esp.priv4Q@beta[7],3),gtools::stars.pval(prE1_E4[2,1]))),
+                                           paste0(round(reg_esp.priv1L@beta[2:4]*reg_esp.priv4L@beta[4],3),gtools::stars.pval(prE1_E4[2,1])),
+                                           paste0(round(reg_esp.priv1Q@beta[2:6]*reg_esp.priv4Q@beta[7],3),gtools::stars.pval(prE1_E4[2,1]))),
                  
                     Efectos_Totales = c(
                                         paste0(round(reg_esp.priv2E@beta[2:4],3),gtools::stars.pval(sreg_esp.priv2E$coefficients[2:4,5])),
-                                        paste0(round(reg_esp.priv2L@beta[2:3],3),gtools::stars.pval(sreg_esp.priv2L$coefficients[2:3,5])),
+                                        paste0(round(reg_esp.priv2L@beta[2:4],3),gtools::stars.pval(sreg_esp.priv2L$coefficients[2:4,5])),
                                         paste0(round(reg_esp.priv2Q@beta[2:6],3),gtools::stars.pval(sreg_esp.priv2Q$coefficients[2:6,5]))
                                       ),
                    Porcentaje_Indirecto = c(paste(round(reg_esp.priv1E@beta[2:4]*reg_esp.priv4E@beta[5]*100/reg_esp.priv2E@beta[2:4],1),"%"),
-  paste(round(reg_esp.priv1L@beta[-1]*reg_esp.priv4L@beta[4]*100/ reg_esp.priv2L@beta[2:3],1),"%"),
-  paste(round(reg_esp.priv1Q@beta[-1]*reg_esp.priv4Q@beta[7]*100/reg_esp.priv2Q@beta[2:6],1),"%")))
+  paste(round(reg_esp.priv1L@beta[2:4]*reg_esp.priv4L@beta[4]*100/ reg_esp.priv2L@beta[2:4],1),"%"),
+  paste(round(reg_esp.priv1Q@beta[2:6]*reg_esp.priv4Q@beta[7]*100/reg_esp.priv2Q@beta[2:6],1),"%")))
  
     kbl(collapse_rows_dt, align = "c", col.names = c("Variable","Categorías", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos")) %>%
  add_header_above(c(" " = 2,"Actitudes hacia  la igualdad de derechos y oportunidades"=4, "Actitudes hacia la distribución igualitaria de roles en la esfera pública"=4, "Actitudes hacia la distribución igualitaria de roles en la esfera privada"=4), bold = T)%>%  
