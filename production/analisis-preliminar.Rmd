@@ -3,7 +3,11 @@ title: "analisis-preliminar"
 author: "Kevin Carrasco"
 date: "26-01-2021"
 output:
-  html_document: default
+  html_document: 
+    toc: yes
+    toc_float: yes
+    number_sections: true
+    code_folding: "hide"
   pdf_document: default
 ---
 
