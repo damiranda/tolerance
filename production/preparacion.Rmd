@@ -1,12 +1,26 @@
 ---
-title: "preparacion"
-author: "Anais Herrera Leighton"
-date: "18-01-2021"
-output:
-  pdf_document: default
-  html_document: default
+title: "Preparacion de datos"
+output: 
+  html_document: 
+    toc: yes
+    code_folding: hide
+    toc_float: 
+      collapsed: true
+      smooth_scroll: false
+      number_sections: true
+    css: "https://jciturras.github.io/ayudantia-sol3051/style.css"    
+editor_options: 
+  chunk_output_type: console
 ---
 
+```{r setup}
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE,
+                      error = TRUE)
+options(scipen=999)
+```
+
+# Librerías
 ```{r}
 pacman::p_load(lavaan, # pacman para instalar / cargar 
                psych, # para funcion lowerMat
@@ -28,12 +42,73 @@ pacman::p_load(lavaan, # pacman para instalar / cargar
                dplyr)
 ```
 
+# Cargar datos
+
 ```{r}
 apod_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_apoderadosv2.dta?raw=true"))
-apod_data = apod_data0 %>% dplyr::select("Igualdad1"=P5A, "Igualdad2"=P5B, "Igualdad3"=P5C, "Igualdad4"=P5D, "Igualdad5"=P5E, "Igualdad6"=P5F, "Igualdad7"=P5G, "Igualdad8"=P5H, "Igualdad9"=P5I, "personas_hogar" = P41, "Educacion"=P45, "Libros_apod"=P47, "ingresos_tramos"=P55, FOLIO, FOLIO_EST, pond_apoderado_reg_dep_tens, "Sexo_apod"=P39, "Relacion_con_est"=P2, "Preg_apoderado"=P1) %>% as.data.frame()
+apod_data = apod_data0 %>% 
+  dplyr::select(
+    "Igualdad1" = P5A,
+    "Igualdad2" = P5B,
+    "Igualdad3" = P5C,
+    "Igualdad4" = P5D,
+    "Igualdad5" = P5E,
+    "Igualdad6" = P5F,
+    "Igualdad7" = P5G,
+    "Igualdad8" = P5H,
+    "Igualdad9" = P5I,
+    "personas_hogar" = P41,
+    "Educacion" = P45,
+    "Libros_apod" = P47,
+    "ingresos_tramos" = P55,
+    FOLIO,
+    FOLIO_EST,
+    pond_apoderado_reg_dep_tens,
+    "Sexo_apod" = P39,
+    "Relacion_con_est" = P2,
+    "Preg_apoderado" = P1
+  ) %>%
+  as.data.frame()
 
 est_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_estudiantesv2.dta?raw=true"))
-est_data = est_data0 %>% dplyr::select("Igualdad1"=P18A, "Igualdad2"=P18B, "Igualdad3"=P18C, "Igualdad4"=P18D, "Igualdad5"=P18E, "Igualdad6"=P18F, "Igualdad7"=P18G, "Igualdad8"=P18H, "Igualdad9"=P18I, "Ap_discusion1"=P49A, "Ap_discusion2"=P49B, "Ap_discusion3"=P49C, "Ap_discusion4"=P49D, "Ap_discusion5"=P49E, "Ap_discusion6"=P49F, "Ap_discusion7"=P49G, "Sexo"=P58, "Ed_madre"=P66, "Ed_padre"=P67, "Libros_est"=P68, RBD, FOLIO, pond_estudiante_reg_dep_tens,"dependencia" = Dependencia,REGION,P1,P2,P3,P4,P5,P6,P7,P8,P9) %>% as.data.frame()
+est_data = est_data0 %>% 
+  dplyr::select(
+    "Igualdad1" = P18A,
+    "Igualdad2" = P18B,
+    "Igualdad3" = P18C,
+    "Igualdad4" = P18D,
+    "Igualdad5" = P18E,
+    "Igualdad6" = P18F,
+    "Igualdad7" = P18G,
+    "Igualdad8" = P18H,
+    "Igualdad9" = P18I,
+    "Ap_discusion1" = P49A,
+    "Ap_discusion2" = P49B,
+    "Ap_discusion3" = P49C,
+    "Ap_discusion4" = P49D,
+    "Ap_discusion5" = P49E,
+    "Ap_discusion6" = P49F,
+    "Ap_discusion7" = P49G,
+    "Sexo" = P58,
+    "Ed_madre" = P66,
+    "Ed_padre" = P67,
+    "Libros_est" = P68,
+    RBD,
+    FOLIO,
+    pond_estudiante_reg_dep_tens,
+    "dependencia" = Dependencia,
+    REGION,
+    P1,
+    P2,
+    P3,
+    P4,
+    P5,
+    P6,
+    P7,
+    P8,
+    P9
+  ) %>%
+  as.data.frame()
 ```
 # Preparación base de datos de los apoderados 
 ## Variables de caracterización
@@ -47,7 +122,7 @@ apod_data$Preg_apoderado <- set_na(apod_data$Preg_apoderado, na = 9, drop.levels
 ```
 
 ## Actitudes hacia la igualdad de género (AFC)
-### Indicar valores perdidos, dar vuelta algunos indicadores para que la interpretación sea más simple y crear una base de datos con menos variables
+* Indicar valores perdidos, dar vuelta algunos indicadores para que la interpretación sea más simple y crear una base de datos con menos variables
 ```{r}
 apod_data$Igualdad1 <- set_na(apod_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 apod_data$Igualdad2 <- set_na(apod_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
@@ -64,7 +139,9 @@ apod_data$Igualdad8 <- set_na(apod_data$Igualdad8, na = c(5,9), drop.levels = TR
 apod_data$Igualdad8 <-sjmisc::rec(apod_data$Igualdad8,rec="rev")
 apod_data$Igualdad9 <- set_na(apod_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 apod_data$Igualdad9 <-sjmisc::rec(apod_data$Igualdad9,rec="rev")
-apod_cfa = apod_data %>% dplyr::select(Igualdad1,Igualdad2,Igualdad3,Igualdad4,Igualdad5,Igualdad6,Igualdad7,Igualdad8,Igualdad9,FOLIO,FOLIO_EST) %>% as.data.frame()
+apod_cfa = apod_data %>% 
+  dplyr::select(Igualdad1,Igualdad2,Igualdad3,Igualdad4,Igualdad5,Igualdad6,Igualdad7,Igualdad8,Igualdad9,FOLIO,FOLIO_EST) %>% 
+  as.data.frame()
 ```
 #### Análisis de supuestos
 ```{r}
@@ -159,7 +236,7 @@ apod_cfa_sco = apod_cfa2_sco %>% dplyr::select(igualdad, esp_publico, esp_privad
 apod_data$Educacion <- set_label(x = apod_data$Educacion,label = "Nivel educacional apoderado/a") # Etiquetar variable
 apod_data$Educacion <- set_na(apod_data$Educacion, na = 9, drop.levels = TRUE, as.tag = FALSE) # Indicar valores perdidos y eliminar etiquetas de dichas categorías 
 ```
-#### Cantidad de libros en el hogar
+### Cantidad de libros en el hogar
 ```{r}
 table(apod_data$Libros_apod)
 apod_data$Libros_apod <- set_label(x = apod_data$Libros_apod,label = "Cantidad de libros en el hogar")
@@ -174,7 +251,7 @@ apod_data$Libros_apod_rec <- set_label(x = apod_data$Libros_apod_rec,label = "Ca
 apod_data$Libros_apod_rec <- set_labels(x = apod_data$Libros_apod_rec, labels = c("Entre 0 y 10 libros" = 1, "Entre 11 y 25 libros" = 2, "Entre 26 y 100 libros" = 3, "Más de 100 libros" = 4))
 table(apod_data$Libros_apod_rec)
 ```
-#### Ingresos del hogar en tramos
+### Ingresos del hogar en tramos
 ```{r}
 # Ingresos tramos
 apod_data$ingresos_tramos[apod_data$ingresos_tramos == 12 | apod_data$ingresos_tramos == 13] <- 99
@@ -195,7 +272,7 @@ apod_data$ingresos_tramos <- set_labels(x = apod_data$ingresos_tramos, labels = 
 apod_data$ingresos_tramos <- set_na(apod_data$ingresos_tramos, na = c(12,13), drop.levels = TRUE, as.tag = FALSE)
 apod_data$ingresos_tramos <- set_label(x = apod_data$ingresos_tramos,label = "Ingresos del hogar en tramos")
 ```
-# Ajustes variable "Ingresos del hogar"
+#### Ajustes variable "Ingresos del hogar"
 Se construyen cuatro variables nuevas. La primera es el ingreso a partir de las marcas de clase de los tramos de ingreso. La segunda es el ingreso per capita. La tercera se construye una variable en tramos tipo factor y la cuarta serán los quintiles de ingreso per capita en su version numerica y factor.
 ```{r}
 # Construcción ingresos numerico
@@ -253,7 +330,7 @@ apod_data$ingresos_tramos_factor <- set_label(x = apod_data$ingresos_tramos_fact
 # Ingresos per cápita por quintiles
 apod_data$quintiles_ingresos_pc_factor <- set_label(x = apod_data$quintiles_ingresos_pc_factor, label = "Ingresos per cápita del hogar en quintiles")
 ```
-## Guardar base de datos procesada
+# Guardar base de datos procesada
 ```{r}
 apod_cfa_sco <- left_join(x = apod_data,y = apod_cfa_sco,by ="FOLIO")
 apod_cfa_sco = apod_cfa_sco %>% dplyr::select(-FOLIO_EST.y,"FOLIO_EST"=FOLIO_EST.x) %>% as.data.frame()
@@ -262,7 +339,7 @@ save(apod_cfa_sco, file = "../input/data-proc/apod_data_sco.rda")
 
 # Preparación base de datos de los estudiantes
 ## Variable dependiente
-### Indicar valores perdidos y crear una base de datos con menos variables
+### Valores perdido y base reducida para AFC
 ```{r}
 est_data$Igualdad1 <- set_na(est_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 est_data$Igualdad2 <- set_na(est_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
@@ -470,6 +547,7 @@ fitMeasures(fit_3, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_3, fit.measures=T, standardized=T)
 modificationindices(fit_3)
 ```
+
 #### Estimación puntuaciones factoriales
 ```{r}
 # predict scores for all models
@@ -481,7 +559,7 @@ scores_est_disc = as.data.frame(p1c)
 est_cfa2_disc_sco = cbind(est_cfa_disc, scores_est_disc)
 
 # Check
-stargazer(est_cfa2_disc_sco[, 9], type = "text")
+stargazer(est_cfa2_disc_sco, type = "text")
 
 # Etiquetado
 est_cfa2_disc_sco$ap_discusion <- set_label(x = est_cfa2_disc_sco$ap_discusion,label = "Percepción individual sobre la apertura a la discusión en el aula")
@@ -512,8 +590,8 @@ data = data %>% dplyr::select(-FOLIO.pad) %>% as.data.frame()
 save(data, file = "../input/data-proc/data.rda")
 ```
 
-# Modificación nivel educacional de los padres
-## Nivel educacional de los padres priorizando información reportada por apoderados
+## Modificación nivel educacional de los padres
+### Nivel educacional de los padres priorizando información reportada por apoderados
 ```{r}
 # Nivel educacional reportado por apoderados
 summary(data$Educacion)
@@ -530,7 +608,7 @@ data$Ed_apod <- set_label(x = data$Ed_apod,label = "Nivel educacional de los apo
 ```{r}
 summary(data$Ed_apod)
 ```
-## Nivel educacional de los padres priorizando información reportada por apoderados y diferenciando por género del apoderado
+### Nivel educacional de los padres priorizando información reportada por apoderados y diferenciando por género del apoderado
 ```{r}
 ## Filtrar base de datos por sexo del apoderado (padre)
 data_pad = data %>%  filter(Sexo_apod==1) %>% as.data.frame()
@@ -562,6 +640,7 @@ data$Educ_madre <- set_label(x = data$Educ_madre,label = "Nivel educacional de l
 
 summary(data$Educ_madre)
 ```
+
 ```{r}
 # Pasar variables educación a categorías
 data$Ed.madre.cat = as.factor(data$Educ_madre)
@@ -578,7 +657,7 @@ data$Ed.padre.cat <- set_labels(data$Ed.padre.cat, labels=c("8vo básico o menos
                                                             "Educación Universitaria o más" = 4))
 ```
 
-# Cantidad de libros en el hogar priorizando respuestas de los apoderados
+## Cantidad de libros en el hogar priorizando respuestas de los apoderados
 ```{r}
 # Respuestas apoderados
 summary(data$Libros_apod)
@@ -598,19 +677,21 @@ data$Libros <- set_label(x = data$Libros,label = "Cantidad de libros en el hogar
 # Cantidad de libros en el hogar ambas respuestas
 summary(data$Libros)
 ```
-# Dependencia administrativa
+## Dependencia administrativa
 ```{r}
 data$dependencia <- set_label(data$dependencia, label = "Dependencia administrativa de la escuela")
-data$dependencia <- set_labels(x = data$dependencia, labels = c("Municipal" = 1, "Part. Subvencionado" = 2, "Part. Pagado" = 3))
+data$dependencia <- set_labels(x = data$dependencia, 
+                               labels = c("Municipal" = 1, "Part. Subvencionado" = 2, "Part. Pagado" = 3))
 ```
 
-# Región
+## Región
 ```{r}
 data$REGION <- set_label(data$REGION, label = "Región")
-data$REGION <- set_labels(x = data$REGION, labels = c("Región de Antofagasta" = 2, "Región del Maule" = 7, "Región Metropolitana" = 13))
+data$REGION <- set_labels(x = data$REGION, 
+                          labels = c("Región de Antofagasta" = 2, "Región del Maule" = 7, "Región Metropolitana" = 13))
 ```
 
-# Escala de conocimiento civico
+## Escala de conocimiento civico
 ```{r}
 data$c1 <- ifelse(data$P1==4,1,0) ## 0 = respuesta incorrecta y 1 = respuesta correcta
 data$c2 <- ifelse(data$P2==4,1,0)
@@ -625,7 +706,7 @@ data$c_civic= as.numeric(data$c1 + data$c2 + data$c3 + data$c4 + data$c5 + data$
 data$c_civic <- set_label(data$c_civic, label = "Conocimiento cívico conceptual")
 ```
 
-# Centrado de las variables
+## Centrado de las variables
 ```{r}
 # Promedio por aula
 data = data %>% group_by(RBD) %>% mutate(mean_discusion=mean(ap_discusion, na.rm = T))
@@ -641,9 +722,6 @@ data = data %>% group_by(RBD) %>% mutate(mean_priv_est=mean(esp_privado.est, na.
 data = data %>% group_by(RBD) %>% mutate(mean_ig_pad=mean(igualdad.pad, na.rm = T))
 data = data %>% group_by(RBD) %>% mutate(mean_pub_pad=mean(esp_publico.pad, na.rm = T))
 data = data %>% group_by(RBD) %>% mutate(mean_priv_pad=mean(esp_privado.pad, na.rm = T))
-
-# Etiquetado
-data$mean_discusion <- set_label(x = data$mean_discusion,label = "Percepción promedio del curso sobre la apertura a la discusión en el aula")
 
 # Centrado
 ## Nivel 1: al promedio del grupo
@@ -663,6 +741,48 @@ data$esp_privado.pad_c = center(data$esp_privado.pad, type = c("CWC"), group = d
 
 ## Nivel 2: al gran promedio
 data$mean_discusion = center(data$mean_discusion, type = c("CGM"))
+# Etiquetado
+data$mean_discusion <- set_label(x = data$mean_discusion,label = "Percepción promedio del curso sobre la apertura a la discusión en el aula")
+```
+
+# Resumen de los datos
+```{r, results='asis'}
+descr <-
+  data %>% select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    Sexo,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    RBD,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Educacion,
+    Libros_apod,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    dependencia,
+    REGION,
+    c_civic
+  ) %>% ungroup()
+st_css()
+print(dfSummary(descr,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = 0.75,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               # col.widths = c(5,5,10,10,10,10)
+               ),
+     method = "render")
 ```
 
 # Guardar base de datos

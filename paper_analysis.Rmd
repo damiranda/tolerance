@@ -1,0 +1,82 @@
+---
+title: "Paper analysis"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Descriptivos
+
+## Univariado
+```{r echo=FALSE, results='asis',message=F}
+pacman::p_load(dplyr, sjlabelled, summarytools, ggplot2, lme4, texreg, stargazer, car)
+load("input/data-proc/data.rda")
+st_css()
+basereg <- data %>% 
+  dplyr::select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    ap_discusion,
+    c_civic,
+    Sexo,
+    num_fem,
+    Educacion,
+    quintiles_ingresos_pc_factor,
+    Libros_apod_rec,
+    dependencia,
+    RBD,
+    REGION
+  ) %>% 
+  ungroup() %>% 
+  na.omit()
+
+print(dfSummary(basereg,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = 0.75,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = F,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido  
+               # col.widths = c(5,5,10,10,10,10)
+               ),
+     method = "render")
+```
+
+## Bivariado
+```{r}
+pacman::p_load(summarytools,haven,sjPlot,dplyr)
+load("input/data-proc/data.rda")
+basereg <- data %>% 
+  dplyr::select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    Sexo,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    RBD,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Educacion,
+    Libros_apod,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    dependencia,
+    REGION,
+    c_civic,
+  ) %>% na.omit()
+```
+
+
+
+# Modelos

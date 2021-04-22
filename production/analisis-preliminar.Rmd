@@ -813,12 +813,66 @@ dev.off()
 
 # Análisis base de datos reducida
 ```{r}
-data_proc=data %>% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod,Libros_apod_rec,quintiles_ingresos_pc_factor,dependencia,REGION,c_civic) %>% as.data.frame() #,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod
+data_proc=data %>% 
+  dplyr::select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    Sexo,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    RBD,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Educacion,
+    Libros_apod,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    dependencia,
+    REGION,
+    c_civic
+  ) %>% as.data.frame() 
 view(dfSummary(data_proc))
 save(data_proc, file = "../input/data-proc/data_proc.rda")
 data_proc <- na.omit(data_proc)
 view(dfSummary(data_proc))
-data_proc1=data %>% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod_rec,quintiles_ingresos_pc_factor,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod,dependencia,REGION,c_civic) %>% as.data.frame()
+data_proc1=data %>% dplyr::select(
+  igualdad.est,
+  esp_publico.est,
+  esp_privado.est,
+  Sexo,
+  ap_discusion,
+  mean_discusion,
+  num_fem,
+  RBD,
+  igualdad.pad,
+  esp_publico.pad,
+  esp_privado.pad,
+  Educacion,
+  Libros_apod_rec,
+  quintiles_ingresos_pc_factor,
+  igualdad.pad_c,
+  Educacion_c,
+  igualdad.est_c,
+  mean_ig_pad,
+  mean_educacion,
+  mean_ig_est,
+  esp_publico.pad_c,
+  esp_publico.est_c,
+  mean_pub_pad,
+  mean_pub_est,
+  esp_privado.pad_c,
+  esp_privado.est_c,
+  mean_priv_pad,
+  mean_priv_est,
+  Libros_apod_c,
+  mean_libros_apod,
+  dependencia,
+  REGION,
+  c_civic
+) %>% as.data.frame()
 data_proc1 <- na.omit(data_proc1)
 ```
 # Calculo promedios por grupo
