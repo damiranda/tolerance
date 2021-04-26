@@ -5664,7 +5664,7 @@ reg_esp.pub_pa4 &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + fact
 <pre class="r"><code># Sexo
 reg_esp.pub_pa5 &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data)</code></pre>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
-## Model failed to converge with max|grad| = 0.00203521 (tol = 0.002, component 1)</code></pre>
+## Model failed to converge with max|grad| = 0.00203512 (tol = 0.002, component 1)</code></pre>
 <pre class="r"><code>anova(reg_esp.pub_pf,reg_esp.pub_pa5) #no</code></pre>
 <pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
 <pre><code>## Data: data
@@ -7069,7 +7069,7 @@ dev.off()</code></pre>
                    Libros*mean_discusion +
                    (1 + Libros | RBD), data=data)</code></pre>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
-## Model failed to converge with max|grad| = 0.00655794 (tol = 0.002, component 1)</code></pre>
+## Model failed to converge with max|grad| = 0.00655798 (tol = 0.002, component 1)</code></pre>
 <pre class="r"><code>png(&quot;../output/int_esp_pub_lib_discusion.png&quot;,width=600,height=400)
 plot_model(reg_esppub_libros, type = &quot;int&quot;, mdrt.values=&quot;meansd&quot;)
 dev.off()</code></pre>
@@ -7175,16 +7175,70 @@ dev.off()</code></pre>
 </div>
 <div id="análisis-base-de-datos-reducida" class="section level1">
 <h1><span class="header-section-number">5</span> Análisis base de datos reducida</h1>
-<pre class="r"><code>data_proc=data %&gt;% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod,Libros_apod_rec,quintiles_ingresos_pc_factor,dependencia,REGION,c_civic) %&gt;% as.data.frame() #,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod
+<pre class="r"><code>data_proc=data %&gt;% 
+  dplyr::select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    Sexo,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    RBD,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Educacion,
+    Libros_apod,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    dependencia,
+    REGION,
+    c_civic
+  ) %&gt;% as.data.frame() 
 view(dfSummary(data_proc))</code></pre>
 <pre><code>## Switching method to &#39;browser&#39;</code></pre>
-<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\Rtmp4SAEFn\file2e284ee18a5.html</code></pre>
+<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpGmYTAi\file39c870a63ef0.html</code></pre>
 <pre class="r"><code>save(data_proc, file = &quot;../input/data-proc/data_proc.rda&quot;)
 data_proc &lt;- na.omit(data_proc)
 view(dfSummary(data_proc))</code></pre>
 <pre><code>## Switching method to &#39;browser&#39;</code></pre>
-<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\Rtmp4SAEFn\file2e281626c0c.html</code></pre>
-<pre class="r"><code>data_proc1=data %&gt;% dplyr::select(igualdad.est,esp_publico.est,esp_privado.est,Sexo,ap_discusion,mean_discusion,num_fem,RBD,igualdad.pad,esp_publico.pad,esp_privado.pad,Educacion,Libros_apod_rec,quintiles_ingresos_pc_factor,igualdad.pad_c,Educacion_c,igualdad.est_c,mean_ig_pad,mean_educacion,mean_ig_est,esp_publico.pad_c,esp_publico.est_c,mean_pub_pad,mean_pub_est,esp_privado.pad_c,esp_privado.est_c,mean_priv_pad,mean_priv_est,Libros_apod_c,mean_libros_apod,dependencia,REGION,c_civic) %&gt;% as.data.frame()
+<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpGmYTAi\file39c87ba3742f.html</code></pre>
+<pre class="r"><code>data_proc1=data %&gt;% dplyr::select(
+  igualdad.est,
+  esp_publico.est,
+  esp_privado.est,
+  Sexo,
+  ap_discusion,
+  mean_discusion,
+  num_fem,
+  RBD,
+  igualdad.pad,
+  esp_publico.pad,
+  esp_privado.pad,
+  Educacion,
+  Libros_apod_rec,
+  quintiles_ingresos_pc_factor,
+  igualdad.pad_c,
+  Educacion_c,
+  igualdad.est_c,
+  mean_ig_pad,
+  mean_educacion,
+  mean_ig_est,
+  esp_publico.pad_c,
+  esp_publico.est_c,
+  mean_pub_pad,
+  mean_pub_est,
+  esp_privado.pad_c,
+  esp_privado.est_c,
+  mean_priv_pad,
+  mean_priv_est,
+  Libros_apod_c,
+  mean_libros_apod,
+  dependencia,
+  REGION,
+  c_civic
+) %&gt;% as.data.frame()
 data_proc1 &lt;- na.omit(data_proc1)</code></pre>
 </div>
 <div id="calculo-promedios-por-grupo" class="section level1">
@@ -8294,42 +8348,6 @@ screenreg(list(reg_igualdad54,reg_esp.pub54,reg_esp.priv54))</code></pre>
 ## Var: Residual            0.12      0.19      0.25 
 ## ==================================================
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
-<pre class="r"><code>reg_esp.priv1 &lt;- lmer(esp_privado.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
-reg_esp.priv2 &lt;- lmer(esp_privado.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
-reg_esp.priv3 &lt;- lmer(esp_privado.est ~ 1 + esp_privado.pad + (1 | RBD), data=data_proc)
-reg_esp.priv4 &lt;- lmer(esp_privado.est ~ 1 + factor(Educacion) + esp_privado.pad + (1 | RBD), data=data_proc)
-
-texreg::screenreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4),custom.model.names = c(&quot;Padres&quot;,&quot;hijos&quot;,&quot;hijos&quot;,&quot;hijos&quot;))</code></pre>
-<pre><code>## 
-## =====================================================================
-##                       Padres       hijos     hijos        hijos      
-## ---------------------------------------------------------------------
-## (Intercept)             -0.19 ***    -0.06      0.01        -0.01    
-##                         (0.06)       (0.07)    (0.04)       (0.07)   
-## factor(Educacion)2       0.15 **      0.02                  -0.02    
-##                         (0.06)       (0.07)                 (0.07)   
-## factor(Educacion)3       0.24 ***     0.09                   0.03    
-##                         (0.06)       (0.08)                 (0.08)   
-## factor(Educacion)4       0.31 ***     0.17                   0.09    
-##                         (0.07)       (0.09)                 (0.09)   
-## esp_privado.pad                                 0.31 ***     0.30 ***
-##                                                (0.05)       (0.05)   
-## ---------------------------------------------------------------------
-## AIC                    740.79      1000.73    954.90       969.14    
-## BIC                    767.43      1027.38    972.67      1000.23    
-## Log Likelihood        -364.39      -494.37   -473.45      -477.57    
-## Num. obs.              627          627       627          627       
-## Num. groups: RBD        60           60        60           60       
-## Var: RBD (Intercept)     0.02         0.07      0.06         0.05    
-## Var: Residual            0.17         0.25      0.23         0.24    
-## =====================================================================
-## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
-<pre class="r"><code>reg_esp.priv2 &lt;- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + esp_privado.pad + (1 | RBD), data=data_proc)
-reg_esp.priv3 &lt;- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + (1 | RBD), data=data_proc)</code></pre>
-<p><strong>Espacio privado</strong></p>
-<blockquote>
-<p>Efecto directo desde educacion de los padres en CID : B ( r= basica, media = 0.02, tecnicos = 00.9, universitaria = 0,17) Efecto directo de CID-Padres a CID-hijos: b = 0.31*** Ef</p>
-</blockquote>
 <div id="modelo-completo." class="section level3">
 <h3><span class="header-section-number">8.2.1</span> Modelo completo.</h3>
 <pre class="r"><code>htmlreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv), custom.model.names = c(&quot;Actitudes del estudiante hacia &lt;br&gt; la igualdad de derechos &lt;br&gt; y oportunidades&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; la distribución igualitaria de&lt;br&gt; roles en la esfera pública&quot;, &quot;Actitudes del estudiante hacia &lt;br&gt; la distribución igualitaria de&lt;br&gt; roles en la esfera privada&quot;), custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por la región en que residen (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (la cual, al ser controlada por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).&quot;, omit.coef = &quot;(dependencia)|(REGION)&quot;, custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo &lt;i&gt;(Ref. Niño)&lt;/i&gt;&quot;, &quot;Educación Media &lt;br&gt; &lt;i&gt;(Ref. 8vo básico o menos)&lt;/i&gt;&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o &lt;br&gt; estudios de Posgrado&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; &lt;i&gt;(Ref. Entre 0 y 10 libros)&lt;/i&gt;&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Más de 100 libros&quot;, &quot;Quintil 2 &lt;br&gt; &lt;i&gt;(Ref. Quintil 1)&lt;/i&gt;&quot;, &quot;Quintil 3&quot;, &quot;Quintil 4&quot;, &quot;Quintil 5&quot;, &quot;No sabe / No responde&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; la igualdad de derechos &lt;br&gt; y oportunidades&quot;, &quot;Percepción individual sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Percepción general sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Proporción de niñas en el aula&quot;, &quot;Conocimiento cívico&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; la distribución igualitaria de&lt;br&gt; roles en la esfera pública&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; la distribución igualitaria de&lt;br&gt; roles en la esfera privada&quot;))</code></pre>
@@ -12185,7 +12203,7 @@ reg_esp.pub_pa4 &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + fact
 <pre class="r"><code># Sexo
 reg_esp.pub_pa5 &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 + Sexo | RBD), data=data_proc)</code></pre>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, :
-## Model failed to converge with max|grad| = 0.00203521 (tol = 0.002, component 1)</code></pre>
+## Model failed to converge with max|grad| = 0.00203512 (tol = 0.002, component 1)</code></pre>
 <pre class="r"><code>anova(reg_esp.pub_pf,reg_esp.pub_pa5) #no</code></pre>
 <pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
 <pre><code>## Data: data_proc
@@ -13508,10 +13526,4330 @@ screenreg(list(reg_esp.priv_pf,h7_h6b_esp.priv))</code></pre>
 ## *** p &lt; 0.001; ** p &lt; 0.01; * p &lt; 0.05</code></pre>
 </div>
 </div>
-<div id="h4a-la-relación-entre-los-recursos-de-la-familia-y-las-actitudes-de-los-estudiantes-hacia-la-igualdad-de-género-estará-mediada-por-las-actitudes-de-sus-apoderados-hacia-la-igualdad-de-género." class="section level2">
-<h2><span class="header-section-number">8.10</span> H4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.</h2>
+</div>
+<div id="tablas-para-el-paper" class="section level1">
+<h1><span class="header-section-number">9</span> Tablas para el paper</h1>
+<div id="modelos-paso-a-paso" class="section level2">
+<h2><span class="header-section-number">9.1</span> Modelos paso a paso</h2>
 <div id="igualdad-de-derechos-y-oportunidades-1" class="section level3">
-<h3><span class="header-section-number">8.10.1</span> Igualdad de derechos y oportunidades</h3>
+<h3><span class="header-section-number">9.1.1</span> Igualdad de derechos y oportunidades</h3>
+<pre class="r"><code>reg_igualdad1 &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad2 &lt;- lmer(igualdad.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad3 &lt;- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad4 &lt;- lmer(igualdad.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad5 &lt;- lmer(igualdad.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad6 &lt;- lmer(igualdad.est ~ 1 + igualdad.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad7 &lt;- lmer(igualdad.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad8 &lt;- lmer(igualdad.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad9 &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+#screenreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8,reg_igualdad9))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8,reg_igualdad9), custom.model.names = c(&quot;Modelo 1&quot;,&quot;Modelo 2&quot;,&quot;Modelo 3&quot;,&quot;Modelo 4&quot;,&quot;Modelo 5&quot;,&quot;Modelo 6&quot;,&quot;Modelo 7&quot;,&quot;Modelo 8&quot;,&quot;Modelo 9&quot;), custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).&quot;, omit.coef = &quot;(dependencia)|(REGION)&quot;, custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo &lt;i&gt;(Ref. Niño)&lt;/i&gt;&quot;, &quot;Conocimiento cívico&quot;, &quot;Educación Media &lt;br&gt; &lt;i&gt;(Ref. 8vo básico o menos)&lt;/i&gt;&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o &lt;br&gt; estudios de Posgrado&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; &lt;i&gt;(Ref. Entre 0 y 10 libros)&lt;/i&gt;&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Más de 100 libros&quot;, &quot;Quintil 2 &lt;br&gt; &lt;i&gt;(Ref. Quintil 1)&lt;/i&gt;&quot;, &quot;Quintil 3&quot;, &quot;Quintil 4&quot;, &quot;Quintil 5&quot;, &quot;No sabe / No responde&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; la igualdad de derechos &lt;br&gt; y oportunidades&quot;, &quot;Percepción individual sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Percepción general sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Proporción de niñas en el aula&quot;))</code></pre>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 1
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 2
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 3
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 4
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 5
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 6
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 7
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 8
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 9
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercepto
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.27<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.24<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.18<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.17<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.26<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.31<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Sexo <i>(Ref. Niño)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.08<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Conocimiento cívico
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educación Media <br> <i>(Ref. 8vo básico o menos)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educación Técnica Superior (IP o CFT)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Una carrera en la Universidad o <br> estudios de Posgrado
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.00
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 26 y 100 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Más de 100 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.08
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 2 <br> <i>(Ref. Quintil 1)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.08
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 3
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 4
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 5
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+No sabe / No responde
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.09
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.09
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.09<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Percepción individual sobre la apertura <br> a la discusión en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.14<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.02)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Percepción general sobre la apertura <br> a la discusión en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.45<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.41<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Proporción de niñas en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.30<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.07
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+558.48
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+557.90
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+582.44
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+577.32
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+590.34
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+563.69
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+525.72
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+563.87
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+590.57
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+594.00
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+593.42
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+626.85
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+621.73
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+643.63
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+599.22
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+565.69
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+599.40
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+692.71
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-271.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-270.95
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-281.22
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-278.66
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-283.17
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-273.84
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-253.86
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-273.93
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-272.28
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: RBD
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: RBD (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="10">
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="distribución-igualitaria-de-roles-en-la-esfera-pública" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Distribución igualitaria de roles en la esfera pública</h3>
+<pre class="r"><code>reg_esp.pub1 &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub2 &lt;- lmer(esp_publico.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub3 &lt;- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub4 &lt;- lmer(esp_publico.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub5 &lt;- lmer(esp_publico.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub6 &lt;- lmer(esp_publico.est ~ 1 + esp_publico.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub7 &lt;- lmer(esp_publico.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub8 &lt;- lmer(esp_publico.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub9 &lt;- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+#screenreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,reg_esp.pub6,reg_esp.pub7,reg_esp.pub8,reg_esp.pub9))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,reg_esp.pub6,reg_esp.pub7,reg_esp.pub8,reg_esp.pub9), custom.model.names = c(&quot;Modelo 1&quot;,&quot;Modelo 2&quot;,&quot;Modelo 3&quot;,&quot;Modelo 4&quot;,&quot;Modelo 5&quot;,&quot;Modelo 6&quot;,&quot;Modelo 7&quot;,&quot;Modelo 8&quot;,&quot;Modelo 9&quot;), custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).&quot;, omit.coef = &quot;(dependencia)|(REGION)&quot;, custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo &lt;i&gt;(Ref. Niño)&lt;/i&gt;&quot;, &quot;Conocimiento cívico&quot;, &quot;Educación Media &lt;br&gt; &lt;i&gt;(Ref. 8vo básico o menos)&lt;/i&gt;&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o &lt;br&gt; estudios de Posgrado&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; &lt;i&gt;(Ref. Entre 0 y 10 libros)&lt;/i&gt;&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Más de 100 libros&quot;, &quot;Quintil 2 &lt;br&gt; &lt;i&gt;(Ref. Quintil 1)&lt;/i&gt;&quot;, &quot;Quintil 3&quot;, &quot;Quintil 4&quot;, &quot;Quintil 5&quot;, &quot;No sabe / No responde&quot;, &quot;Actitudes del apoderado hacia  &lt;br&gt; la distribución igualitaria de&lt;br&gt; roles en la esfera pública&quot;, &quot;Percepción individual sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Percepción general sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Proporción de niñas en el aula&quot;))</code></pre>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 1
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 2
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 3
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 4
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 5
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 6
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 7
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 8
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 9
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercepto
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.47<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.52<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.24<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.31<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.33<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.20<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.13
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.39<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.74<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Sexo <i>(Ref. Niño)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.15<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Conocimiento cívico
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.07<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.07<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educación Media <br> <i>(Ref. 8vo básico o menos)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.00
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.02
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educación Técnica Superior (IP o CFT)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.03
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Una carrera en la Universidad o <br> estudios de Posgrado
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.08
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 26 y 100 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.15<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Más de 100 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.14<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 2 <br> <i>(Ref. Quintil 1)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.14<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 3
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.14<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.14<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 4
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 5
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.15<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+No sabe / No responde
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera pública
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.20<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.16<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Percepción individual sobre la apertura <br> a la discusión en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.12<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.07<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Percepción general sobre la apertura <br> a la discusión en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.55<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.36<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Proporción de niñas en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.33
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.04
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.18)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+804.72
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+771.10
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+832.52
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+827.33
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+840.46
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+802.29
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+795.49
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+817.55
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+797.84
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+840.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+806.62
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+876.93
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+871.74
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+893.75
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+837.82
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+835.46
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+853.08
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+904.43
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-394.36
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-377.55
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-406.26
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-403.66
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-408.23
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-393.15
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-388.75
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-400.77
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-374.92
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: RBD
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: RBD (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.02
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.19
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.16
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="10">
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="distribución-igualitaria-de-roles-en-la-esfera-privada" class="section level3">
+<h3><span class="header-section-number">9.1.3</span> Distribución igualitaria de roles en la esfera privada</h3>
+<pre class="r"><code>reg_esp.priv1 &lt;- lmer(esp_privado.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv2 &lt;- lmer(esp_privado.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv3 &lt;- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv4 &lt;- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv5 &lt;- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv6 &lt;- lmer(esp_privado.est ~ 1 + esp_privado.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv7 &lt;- lmer(esp_privado.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv8 &lt;- lmer(esp_privado.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv9 &lt;- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+#screenreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,reg_esp.priv6,reg_esp.priv7,reg_esp.priv8,reg_esp.priv9))</code></pre>
+<pre class="r"><code>htmlreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,reg_esp.priv6,reg_esp.priv7,reg_esp.priv8,reg_esp.priv9), custom.model.names = c(&quot;Modelo 1&quot;,&quot;Modelo 2&quot;,&quot;Modelo 3&quot;,&quot;Modelo 4&quot;,&quot;Modelo 5&quot;,&quot;Modelo 6&quot;,&quot;Modelo 7&quot;,&quot;Modelo 8&quot;,&quot;Modelo 9&quot;), custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).&quot;, omit.coef = &quot;(dependencia)|(REGION)&quot;, custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo &lt;i&gt;(Ref. Niño)&lt;/i&gt;&quot;, &quot;Conocimiento cívico&quot;, &quot;Educación Media &lt;br&gt; &lt;i&gt;(Ref. 8vo básico o menos)&lt;/i&gt;&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o &lt;br&gt; estudios de Posgrado&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; &lt;i&gt;(Ref. Entre 0 y 10 libros)&lt;/i&gt;&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Más de 100 libros&quot;, &quot;Quintil 2 &lt;br&gt; &lt;i&gt;(Ref. Quintil 1)&lt;/i&gt;&quot;, &quot;Quintil 3&quot;, &quot;Quintil 4&quot;, &quot;Quintil 5&quot;, &quot;No sabe / No responde&quot;, &quot;Actitudes del apoderado hacia  &lt;br&gt; la distribución igualitaria de&lt;br&gt; roles en la esfera privada&quot;, &quot;Percepción individual sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Percepción general sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Proporción de niñas en el aula&quot;))</code></pre>
+<table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
+<caption>
+Statistical models
+</caption>
+<thead>
+<tr>
+<th style="padding-left: 5px;padding-right: 5px;">
+ 
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 1
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 2
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 3
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 4
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 5
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 6
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 7
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 8
+</th>
+<th style="padding-left: 5px;padding-right: 5px;">
+Modelo 9
+</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Intercepto
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.52<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.59<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.27<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.33<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.38<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.19<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.14
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.43<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.80<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.12)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.11)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.14)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Sexo <i>(Ref. Niño)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.19<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Conocimiento cívico
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.09<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.07<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.01)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educación Media <br> <i>(Ref. 8vo básico o menos)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.03
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Educación Técnica Superior (IP o CFT)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.04
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Una carrera en la Universidad o <br> estudios de Posgrado
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.09)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.07
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Entre 26 y 100 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.06)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Más de 100 libros
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 2 <br> <i>(Ref. Quintil 1)</i>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.16<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 3
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.19<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.18<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 4
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.17<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.15<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Quintil 5
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.19<sup>*</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.14
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.08)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+No sabe / No responde
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.14
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.13
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.07)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Actitudes del apoderado hacia <br> la distribución igualitaria de<br> roles en la esfera privada
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.29<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.25<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.05)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Percepción individual sobre la apertura <br> a la discusión en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.11<sup>**</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.04)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Percepción general sobre la apertura <br> a la discusión en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.63<sup>***</sup>
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.39<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.10)
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Proporción de niñas en el aula
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.38
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-0.03
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+ 
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.20)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+(0.13)
+</td>
+</tr>
+<tr style="border-top: 1px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+AIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+982.35
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+946.35
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1007.77
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1001.96
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1013.80
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+963.25
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+975.81
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+993.99
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+957.98
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+BIC
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1017.88
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+981.88
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1052.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1046.37
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1067.09
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+998.78
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1015.78
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1029.51
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+1064.57
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Log Likelihood
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-483.17
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-465.18
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-493.89
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-490.98
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-494.90
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-473.62
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-478.91
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-488.99
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+-454.99
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. obs.
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+627
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Num. groups: RBD
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+60
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: RBD (Intercept)
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.03
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.05
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.04
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.06
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.01
+</td>
+</tr>
+<tr style="border-bottom: 2px solid #000000;">
+<td style="padding-left: 5px;padding-right: 5px;">
+Var: Residual
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.23
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.25
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.23
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.24
+</td>
+<td style="padding-left: 5px;padding-right: 5px;">
+0.22
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="font-size: 0.8em;" colspan="10">
+<span class="math inline">\(***p &lt;\)</span> 0.001, <span class="math inline">\(**p &lt;\)</span> 0.01, <span class="math inline">\(*p &lt;\)</span> 0.05 <br> Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<div id="tabla-mediaciones-h4a-la-relación-entre-los-recursos-de-la-familia-y-las-actitudes-de-los-estudiantes-hacia-la-igualdad-de-género-estará-mediada-por-las-actitudes-de-sus-apoderados-hacia-la-igualdad-de-género." class="section level2">
+<h2><span class="header-section-number">9.2</span> Tabla mediaciones h4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.</h2>
+<div id="igualdad-de-derechos-y-oportunidades-2" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> Igualdad de derechos y oportunidades</h3>
 <pre class="r"><code>reg_igual1E &lt;- lmer(igualdad.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc) # Efecto al mediador
 sreg_igual1E &lt;- summary(reg_igual1E)
 reg_igual2E &lt;- lmer(igualdad.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc) # Efecto Total
@@ -13533,7 +17871,7 @@ reg_igual4Q &lt;- lmer(igualdad.est ~ 1 + factor(quintiles_ingresos_pc_factor) +
 sreg_igual4Q &lt;- summary(reg_igual4Q)</code></pre>
 </div>
 <div id="espacio-publico-2" class="section level3">
-<h3><span class="header-section-number">8.10.2</span> Espacio publico</h3>
+<h3><span class="header-section-number">9.2.2</span> Espacio publico</h3>
 <pre class="r"><code>reg_esp.pub1E &lt;- lmer(esp_publico.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
 reg_esp.pub2E &lt;- lmer(esp_publico.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
 sreg_esp.pub2E &lt;- summary(reg_esp.pub2E)
@@ -13556,7 +17894,7 @@ reg_esp.pub4Q &lt;- lmer(esp_publico.est ~ 1 + factor(quintiles_ingresos_pc_fact
 sreg_esp.pub4Q &lt;- summary(reg_esp.pub4Q)</code></pre>
 </div>
 <div id="espacio-privado-5" class="section level3">
-<h3><span class="header-section-number">8.10.3</span> Espacio privado</h3>
+<h3><span class="header-section-number">9.2.3</span> Espacio privado</h3>
 <pre class="r"><code>reg_esp.priv1E &lt;- lmer(esp_privado.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
 reg_esp.priv2E &lt;- lmer(esp_privado.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
 sreg_esp.priv2E &lt;- summary(reg_esp.priv2E)
@@ -13577,21 +17915,21 @@ reg_esp.priv4Q &lt;- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_fac
 sreg_esp.priv4Q &lt;- summary(reg_esp.priv4Q)</code></pre>
 </div>
 <div id="test-de-sobel" class="section level3">
-<h3><span class="header-section-number">8.10.4</span> Test de Sobel</h3>
+<h3><span class="header-section-number">9.2.4</span> Test de Sobel</h3>
 <pre class="r"><code>iE1_E4&lt;-mediation.test(data_proc$igualdad.pad,data_proc$Educacion,data_proc$igualdad.est)
 iL1_L4&lt;-mediation.test(data_proc$igualdad.pad,data_proc$Libros_apod,data_proc$igualdad.est)
 iQ1_Q4&lt;-mediation.test(data_proc$igualdad.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$igualdad.est)
 
 puE1_E4&lt;-mediation.test(data_proc$esp_publico.pad,data_proc$Educacion,data_proc$esp_publico.est)
 puL1_L4&lt;-mediation.test(data_proc$esp_publico.pad,data_proc$Libros_apod,data_proc$esp_publico.est)
-puiQ1_Q4&lt;-mediation.test(data_proc$esp_publico.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_publico.est)
+puQ1_Q4&lt;-mediation.test(data_proc$esp_publico.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_publico.est)
 
 prE1_E4&lt;-mediation.test(data_proc$esp_privado.pad,data_proc$Educacion,data_proc$esp_privado.est)
 prL1_L4&lt;-mediation.test(data_proc$esp_privado.pad,data_proc$Libros_apod,data_proc$esp_privado.est)
-priQ1_Q4&lt;-mediation.test(data_proc$esp_privado.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_privado.est)</code></pre>
+prQ1_Q4&lt;-mediation.test(data_proc$esp_privado.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_privado.est)</code></pre>
 </div>
-<div id="tabla-mediaciones-h4a" class="section level3">
-<h3><span class="header-section-number">8.10.5</span> Tabla mediaciones h4a</h3>
+<div id="tabla-de-mediaciones" class="section level3">
+<h3><span class="header-section-number">9.2.5</span> Tabla de mediaciones</h3>
 <pre class="r"><code>data_proc$Educacion &lt;- factor(data_proc$Educacion, levels = c(1,2,3,4), labels = c(&quot;Educación Básica&quot;, &quot;Educación Media (Ref. 8vo Básico)&quot;, &quot;Educación Téc.Superior (IP o CFT)&quot;, &quot;Universidad o Posgrado&quot;))
 data_proc$Libros_apod_rec &lt;- factor(data_proc$Libros_apod_rec, levels = c(1,2,3,4), labels = c(&quot;Entre 0 y 10 libros&quot;, &quot;Entre 11 y 25 libros (Ref. Entre 0 y 10 libros)&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Más de 100 libros&quot;))
 data_proc$quintiles_ingresos_pc_factor &lt;- factor(data_proc$quintiles_ingresos_pc_factor, levels = c(1,2,3,4,5,99), labels = c(&quot;Quintil 1&quot;, &quot;Quintil 2 (Ref. Quintil 1)&quot;, &quot;Quintil 3&quot;, &quot;Quintil 4&quot;, &quot;Quintil 5&quot;, &quot;Ns/Nr&quot;))
@@ -13602,7 +17940,7 @@ data_proc$quintiles_ingresos_pc_factor &lt;- factor(data_proc$quintiles_ingresos
                                    sjlabelled::get_labels(data_proc$Libros_apod_rec)[-1],
                                    sjlabelled::get_labels(data_proc$quintiles_ingresos_pc_factor)[-1]),
                    
-                     Efectos_Directos = c(paste0(round(reg_igual4E@beta[2:4],3),gtools::stars.pval(sreg_igual1E$coefficients[2:4,5])),
+                     Efectos_Directos = c(paste0(round(reg_igual4E@beta[2:4],3),gtools::stars.pval(sreg_igual4E$coefficients[2:4,5])),
                                          paste0(round(reg_igual4L@beta[2:4],3),gtools::stars.pval(sreg_igual4L$coefficients[2:4,5])),
                                          paste0(round(reg_igual4Q@beta[2:6],3),gtools::stars.pval(sreg_igual4Q$coefficients[2:6,5]))),
                     Efectos_Indirectos = c(
@@ -13633,8 +17971,8 @@ data_proc$quintiles_ingresos_pc_factor &lt;- factor(data_proc$quintiles_ingresos
                    
                     Efectos_Indirectos = c(
                                           paste0(round(reg_esp.pub1E@beta[2:4]*reg_esp.pub4E@beta[5],3),gtools::stars.pval(puE1_E4[2,1])),
-                                           paste0(round(reg_esp.pub1L@beta[2:4]*reg_esp.pub4L@beta[4],3), gtools::stars.pval(puE1_E4[2,1])),
-                                           paste0(round(reg_esp.pub1Q@beta[2:6]*reg_esp.pub4Q@beta[7],3),gtools::stars.pval(puE1_E4[2,1]))),
+                                           paste0(round(reg_esp.pub1L@beta[2:4]*reg_esp.pub4L@beta[4],3), gtools::stars.pval(puL1_L4[2,1])),
+                                           paste0(round(reg_esp.pub1Q@beta[2:6]*reg_esp.pub4Q@beta[7],3),gtools::stars.pval(puQ1_Q4[2,1]))),
                    
                    
                    
@@ -13657,8 +17995,8 @@ data_proc$quintiles_ingresos_pc_factor &lt;- factor(data_proc$quintiles_ingresos
  
  
                    Efectos_Indirectos = c(paste0(round(reg_esp.priv1E@beta[2:4]*reg_esp.priv4E@beta[5],3), gtools::stars.pval(prE1_E4[2,1])),
-                                           paste0(round(reg_esp.priv1L@beta[2:4]*reg_esp.priv4L@beta[4],3),gtools::stars.pval(prE1_E4[2,1])),
-                                           paste0(round(reg_esp.priv1Q@beta[2:6]*reg_esp.priv4Q@beta[7],3),gtools::stars.pval(prE1_E4[2,1]))),
+                                           paste0(round(reg_esp.priv1L@beta[2:4]*reg_esp.priv4L@beta[4],3),gtools::stars.pval(prL1_L4[2,1])),
+                                           paste0(round(reg_esp.priv1Q@beta[2:6]*reg_esp.priv4Q@beta[7],3),gtools::stars.pval(prQ1_Q4[2,1]))),
                  
                     Efectos_Totales = c(
                                         paste0(round(reg_esp.priv2E@beta[2:4],3),gtools::stars.pval(sreg_esp.priv2E$coefficients[2:4,5])),
@@ -13749,7 +18087,7 @@ Educación de los padres
 Educación Media (Ref. 8vo Básico)
 </td>
 <td style="text-align:center;">
-0.002**
+0.002
 </td>
 <td style="text-align:center;">
 0.015**
@@ -13790,7 +18128,7 @@ Educación Media (Ref. 8vo Básico)
 Educación Téc.Superior (IP o CFT)
 </td>
 <td style="text-align:center;">
-0.029**
+0.029
 </td>
 <td style="text-align:center;">
 0.019**
@@ -13831,7 +18169,7 @@ Educación Téc.Superior (IP o CFT)
 Universidad o Posgrado
 </td>
 <td style="text-align:center;">
-0.043***
+0.043
 </td>
 <td style="text-align:center;">
 0.024**
@@ -14016,7 +18354,7 @@ Quintil 2 (Ref. Quintil 1)
 0.136*
 </td>
 <td style="text-align:center;">
--0.006***
+-0.006
 </td>
 <td style="text-align:center;">
 0.129*
@@ -14028,7 +18366,7 @@ Quintil 2 (Ref. Quintil 1)
 0.164*
 </td>
 <td style="text-align:center;">
--0.002***
+-0.002
 </td>
 <td style="text-align:center;">
 0.159*
@@ -14057,7 +18395,7 @@ Quintil 3
 0.142*
 </td>
 <td style="text-align:center;">
-0.001***
+0.001
 </td>
 <td style="text-align:center;">
 0.142*
@@ -14069,7 +18407,7 @@ Quintil 3
 0.187**
 </td>
 <td style="text-align:center;">
-0.009***
+0.009
 </td>
 <td style="text-align:center;">
 0.191**
@@ -14098,7 +18436,7 @@ Quintil 4
 0.128*
 </td>
 <td style="text-align:center;">
-0.017***
+0.017
 </td>
 <td style="text-align:center;">
 0.136*
@@ -14110,7 +18448,7 @@ Quintil 4
 0.168*
 </td>
 <td style="text-align:center;">
-0.024***
+0.024
 </td>
 <td style="text-align:center;">
 0.18*
@@ -14139,7 +18477,7 @@ Quintil 5
 0.171*
 </td>
 <td style="text-align:center;">
-0.015***
+0.015
 </td>
 <td style="text-align:center;">
 0.176*
@@ -14151,7 +18489,7 @@ Quintil 5
 0.213**
 </td>
 <td style="text-align:center;">
-0.025***
+0.025
 </td>
 <td style="text-align:center;">
 0.223**
@@ -14180,7 +18518,7 @@ Ns/Nr
 0.142*
 </td>
 <td style="text-align:center;">
-0.007***
+0.007
 </td>
 <td style="text-align:center;">
 0.146*
@@ -14192,7 +18530,7 @@ Ns/Nr
 0.145*
 </td>
 <td style="text-align:center;">
-0.015***
+0.015
 </td>
 <td style="text-align:center;">
 0.157*

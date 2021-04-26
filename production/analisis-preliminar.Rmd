@@ -1623,6 +1623,7 @@ reg_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros
 reg_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 reg_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 screenreg(list(reg_igualdad,reg_esp.pub,reg_esp.priv))
+
 #para evaluar la significación de la variable dependencia administrativa al no ser controlada por el resto de las variables del modelo
 reg_igualdad54 <- lmer(igualdad.est ~ 1 + factor(dependencia) + (1 | RBD), data=data_proc)
 reg_esp.pub54 <- lmer(esp_publico.est ~ 1 + factor(dependencia) + (1 | RBD), data=data_proc)
@@ -1633,30 +1634,7 @@ reg_igualdad54 <- lmer(igualdad.est ~ 1 + factor(REGION) + (1 | RBD), data=data_
 reg_esp.pub54 <- lmer(esp_publico.est ~ 1 + factor(REGION) + (1 | RBD), data=data_proc)
 reg_esp.priv54 <- lmer(esp_privado.est ~ 1 + factor(REGION) + (1 | RBD), data=data_proc)
 screenreg(list(reg_igualdad54,reg_esp.pub54,reg_esp.priv54))
-
-reg_esp.priv1 <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
-reg_esp.priv2 <- lmer(esp_privado.est ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc)
-reg_esp.priv3 <- lmer(esp_privado.est ~ 1 + esp_privado.pad + (1 | RBD), data=data_proc)
-reg_esp.priv4 <- lmer(esp_privado.est ~ 1 + factor(Educacion) + esp_privado.pad + (1 | RBD), data=data_proc)
-
-texreg::screenreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4),custom.model.names = c("Padres","hijos","hijos","hijos"))
-
-
-reg_esp.priv2 <- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + esp_privado.pad + (1 | RBD), data=data_proc)
-reg_esp.priv3 <- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + (1 | RBD), data=data_proc)
-
 ```
-
-__Espacio privado__
-
-> Efecto directo desde educacion de los padres en CID : B ( r= basica, media = 0.02, tecnicos = 00.9, universitaria = 0,17)
-> Efecto directo de CID-Padres a CID-hijos: b = 0.31***
-> Ef
-
-
-
-
-
 
 ### Modelo completo.
 ```{r results='asis'}
@@ -1888,7 +1866,57 @@ h7_h6b_esp.priv <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(Libros_
 screenreg(list(reg_esp.priv_pf,h7_h6b_esp.priv))
 ```
 
-## H4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.
+# Tablas para el paper
+## Modelos paso a paso
+### Igualdad de derechos y oportunidades
+```{r}
+reg_igualdad1 <- lmer(igualdad.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad2 <- lmer(igualdad.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad3 <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad4 <- lmer(igualdad.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad5 <- lmer(igualdad.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad6 <- lmer(igualdad.est ~ 1 + igualdad.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad7 <- lmer(igualdad.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad8 <- lmer(igualdad.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad9 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+#screenreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8,reg_igualdad9))
+```
+```{r results='asis'}
+htmlreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8,reg_igualdad9), custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8","Modelo 9"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).", omit.coef = "(dependencia)|(REGION)", custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>", "Conocimiento cívico", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde", "Actitudes del apoderado hacia <br> la igualdad de derechos <br> y oportunidades", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula", "Proporción de niñas en el aula"))
+```
+### Distribución igualitaria de roles en la esfera pública
+```{r}
+reg_esp.pub1 <- lmer(esp_publico.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub2 <- lmer(esp_publico.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub3 <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub4 <- lmer(esp_publico.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub5 <- lmer(esp_publico.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub6 <- lmer(esp_publico.est ~ 1 + esp_publico.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub7 <- lmer(esp_publico.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub8 <- lmer(esp_publico.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub9 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+#screenreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,reg_esp.pub6,reg_esp.pub7,reg_esp.pub8,reg_esp.pub9))
+```
+```{r results='asis'}
+htmlreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,reg_esp.pub6,reg_esp.pub7,reg_esp.pub8,reg_esp.pub9), custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8","Modelo 9"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).", omit.coef = "(dependencia)|(REGION)", custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>", "Conocimiento cívico", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde", "Actitudes del apoderado hacia  <br> la distribución igualitaria de<br> roles en la esfera pública", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula", "Proporción de niñas en el aula"))
+```
+### Distribución igualitaria de roles en la esfera privada
+```{r}
+reg_esp.priv1 <- lmer(esp_privado.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv2 <- lmer(esp_privado.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv3 <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv4 <- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv5 <- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv6 <- lmer(esp_privado.est ~ 1 + esp_privado.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv7 <- lmer(esp_privado.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv8 <- lmer(esp_privado.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv9 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+#screenreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,reg_esp.priv6,reg_esp.priv7,reg_esp.priv8,reg_esp.priv9))
+```
+```{r results='asis'}
+htmlreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,reg_esp.priv6,reg_esp.priv7,reg_esp.priv8,reg_esp.priv9), custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8","Modelo 9"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 <br> Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).", omit.coef = "(dependencia)|(REGION)", custom.coef.names = c("Intercepto", "Sexo <i>(Ref. Niño)</i>", "Conocimiento cívico", "Educación Media <br> <i>(Ref. 8vo básico o menos)</i>", "Educación Técnica Superior (IP o CFT)", "Una carrera en la Universidad o <br> estudios de Posgrado", "Entre 11 y 25 libros <br> <i>(Ref. Entre 0 y 10 libros)</i>", "Entre 26 y 100 libros", "Más de 100 libros", "Quintil 2 <br> <i>(Ref. Quintil 1)</i>", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde", "Actitudes del apoderado hacia  <br> la distribución igualitaria de<br> roles en la esfera privada", "Percepción individual sobre la apertura <br> a la discusión en el aula", "Percepción general sobre la apertura <br> a la discusión en el aula", "Proporción de niñas en el aula"))
+```
+## Tabla mediaciones h4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.
 ### Igualdad de derechos y oportunidades
 ```{r}
 reg_igual1E <- lmer(igualdad.pad ~ 1 + factor(Educacion) + (1 | RBD), data=data_proc) # Efecto al mediador
@@ -1963,13 +1991,13 @@ iQ1_Q4<-mediation.test(data_proc$igualdad.pad,data_proc$quintiles_ingresos_pc_fa
 
 puE1_E4<-mediation.test(data_proc$esp_publico.pad,data_proc$Educacion,data_proc$esp_publico.est)
 puL1_L4<-mediation.test(data_proc$esp_publico.pad,data_proc$Libros_apod,data_proc$esp_publico.est)
-puiQ1_Q4<-mediation.test(data_proc$esp_publico.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_publico.est)
+puQ1_Q4<-mediation.test(data_proc$esp_publico.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_publico.est)
 
 prE1_E4<-mediation.test(data_proc$esp_privado.pad,data_proc$Educacion,data_proc$esp_privado.est)
 prL1_L4<-mediation.test(data_proc$esp_privado.pad,data_proc$Libros_apod,data_proc$esp_privado.est)
-priQ1_Q4<-mediation.test(data_proc$esp_privado.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_privado.est)
+prQ1_Q4<-mediation.test(data_proc$esp_privado.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_privado.est)
 ```
-### Tabla mediaciones h4a
+### Tabla de mediaciones
 ```{r}
 data_proc$Educacion <- factor(data_proc$Educacion, levels = c(1,2,3,4), labels = c("Educación Básica", "Educación Media (Ref. 8vo Básico)", "Educación Téc.Superior (IP o CFT)", "Universidad o Posgrado"))
 data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, levels = c(1,2,3,4), labels = c("Entre 0 y 10 libros", "Entre 11 y 25 libros (Ref. Entre 0 y 10 libros)", "Entre 26 y 100 libros", "Más de 100 libros"))
@@ -1981,7 +2009,7 @@ data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc
                                    sjlabelled::get_labels(data_proc$Libros_apod_rec)[-1],
                                    sjlabelled::get_labels(data_proc$quintiles_ingresos_pc_factor)[-1]),
                    
-                     Efectos_Directos = c(paste0(round(reg_igual4E@beta[2:4],3),gtools::stars.pval(sreg_igual1E$coefficients[2:4,5])),
+                     Efectos_Directos = c(paste0(round(reg_igual4E@beta[2:4],3),gtools::stars.pval(sreg_igual4E$coefficients[2:4,5])),
                                          paste0(round(reg_igual4L@beta[2:4],3),gtools::stars.pval(sreg_igual4L$coefficients[2:4,5])),
                                          paste0(round(reg_igual4Q@beta[2:6],3),gtools::stars.pval(sreg_igual4Q$coefficients[2:6,5]))),
                     Efectos_Indirectos = c(
@@ -2012,8 +2040,8 @@ data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc
                    
                     Efectos_Indirectos = c(
                                           paste0(round(reg_esp.pub1E@beta[2:4]*reg_esp.pub4E@beta[5],3),gtools::stars.pval(puE1_E4[2,1])),
-                                           paste0(round(reg_esp.pub1L@beta[2:4]*reg_esp.pub4L@beta[4],3), gtools::stars.pval(puE1_E4[2,1])),
-                                           paste0(round(reg_esp.pub1Q@beta[2:6]*reg_esp.pub4Q@beta[7],3),gtools::stars.pval(puE1_E4[2,1]))),
+                                           paste0(round(reg_esp.pub1L@beta[2:4]*reg_esp.pub4L@beta[4],3), gtools::stars.pval(puL1_L4[2,1])),
+                                           paste0(round(reg_esp.pub1Q@beta[2:6]*reg_esp.pub4Q@beta[7],3),gtools::stars.pval(puQ1_Q4[2,1]))),
                    
                    
                    
@@ -2036,8 +2064,8 @@ data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc
  
  
                    Efectos_Indirectos = c(paste0(round(reg_esp.priv1E@beta[2:4]*reg_esp.priv4E@beta[5],3), gtools::stars.pval(prE1_E4[2,1])),
-                                           paste0(round(reg_esp.priv1L@beta[2:4]*reg_esp.priv4L@beta[4],3),gtools::stars.pval(prE1_E4[2,1])),
-                                           paste0(round(reg_esp.priv1Q@beta[2:6]*reg_esp.priv4Q@beta[7],3),gtools::stars.pval(prE1_E4[2,1]))),
+                                           paste0(round(reg_esp.priv1L@beta[2:4]*reg_esp.priv4L@beta[4],3),gtools::stars.pval(prL1_L4[2,1])),
+                                           paste0(round(reg_esp.priv1Q@beta[2:6]*reg_esp.priv4Q@beta[7],3),gtools::stars.pval(prQ1_Q4[2,1]))),
                  
                     Efectos_Totales = c(
                                         paste0(round(reg_esp.priv2E@beta[2:4],3),gtools::stars.pval(sreg_esp.priv2E$coefficients[2:4,5])),
