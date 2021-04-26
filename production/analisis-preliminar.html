@@ -7198,12 +7198,12 @@ dev.off()</code></pre>
   ) %&gt;% as.data.frame() 
 view(dfSummary(data_proc))</code></pre>
 <pre><code>## Switching method to &#39;browser&#39;</code></pre>
-<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpGmYTAi\file39c870a63ef0.html</code></pre>
+<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpSoyssJ\file4d2076642675.html</code></pre>
 <pre class="r"><code>save(data_proc, file = &quot;../input/data-proc/data_proc.rda&quot;)
 data_proc &lt;- na.omit(data_proc)
 view(dfSummary(data_proc))</code></pre>
 <pre><code>## Switching method to &#39;browser&#39;</code></pre>
-<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpGmYTAi\file39c87ba3742f.html</code></pre>
+<pre><code>## Output file written: C:\Users\Anais\AppData\Local\Temp\RtmpSoyssJ\file4d2037586b8a.html</code></pre>
 <pre class="r"><code>data_proc1=data %&gt;% dplyr::select(
   igualdad.est,
   esp_publico.est,
@@ -13541,7 +13541,7 @@ reg_igualdad5 &lt;- lmer(igualdad.est ~ 1 + factor(quintiles_ingresos_pc_factor)
 reg_igualdad6 &lt;- lmer(igualdad.est ~ 1 + igualdad.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
 reg_igualdad7 &lt;- lmer(igualdad.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
 reg_igualdad8 &lt;- lmer(igualdad.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad9 &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_igualdad9 &lt;- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 #screenreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8,reg_igualdad9))</code></pre>
 <pre class="r"><code>htmlreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8,reg_igualdad9), custom.model.names = c(&quot;Modelo 1&quot;,&quot;Modelo 2&quot;,&quot;Modelo 3&quot;,&quot;Modelo 4&quot;,&quot;Modelo 5&quot;,&quot;Modelo 6&quot;,&quot;Modelo 7&quot;,&quot;Modelo 8&quot;,&quot;Modelo 9&quot;), custom.note = &quot;$***p &lt;$ 0.001, $**p &lt;$ 0.01, $*p &lt;$ 0.05 &lt;br&gt; Los modelos están controlados por la región de residencia (la cual no posee un efecto estadísticamente significativo) y el tipo de dependencia administrativa de la escuela (el cual, al ser controlado por el resto de las variables del modelo, no posee un efecto estadísticamente significativo).&quot;, omit.coef = &quot;(dependencia)|(REGION)&quot;, custom.coef.names = c(&quot;Intercepto&quot;, &quot;Sexo &lt;i&gt;(Ref. Niño)&lt;/i&gt;&quot;, &quot;Conocimiento cívico&quot;, &quot;Educación Media &lt;br&gt; &lt;i&gt;(Ref. 8vo básico o menos)&lt;/i&gt;&quot;, &quot;Educación Técnica Superior (IP o CFT)&quot;, &quot;Una carrera en la Universidad o &lt;br&gt; estudios de Posgrado&quot;, &quot;Entre 11 y 25 libros &lt;br&gt; &lt;i&gt;(Ref. Entre 0 y 10 libros)&lt;/i&gt;&quot;, &quot;Entre 26 y 100 libros&quot;, &quot;Más de 100 libros&quot;, &quot;Quintil 2 &lt;br&gt; &lt;i&gt;(Ref. Quintil 1)&lt;/i&gt;&quot;, &quot;Quintil 3&quot;, &quot;Quintil 4&quot;, &quot;Quintil 5&quot;, &quot;No sabe / No responde&quot;, &quot;Actitudes del apoderado hacia &lt;br&gt; la igualdad de derechos &lt;br&gt; y oportunidades&quot;, &quot;Percepción individual sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Percepción general sobre la apertura &lt;br&gt; a la discusión en el aula&quot;, &quot;Proporción de niñas en el aula&quot;))</code></pre>
 <table class="texreg" style="margin: 10px auto;border-collapse: collapse;border-spacing: 0px;caption-side: bottom;color: #000000;border-top: 2px solid #000000;">
@@ -13612,7 +13612,7 @@ Intercepto
 -0.26<sup>**</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.31<sup>**</sup>
+-0.41<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -13644,7 +13644,7 @@ Intercepto
 (0.10)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.11)
+(0.10)
 </td>
 </tr>
 <tr>
@@ -13740,7 +13740,7 @@ Conocimiento cívico
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
- 
+0.03<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -13772,7 +13772,7 @@ Conocimiento cívico
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
- 
+(0.01)
 </td>
 </tr>
 <tr>
@@ -13868,7 +13868,7 @@ Educación Técnica Superior (IP o CFT)
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.01
+-0.00
 </td>
 </tr>
 <tr>
@@ -13932,7 +13932,7 @@ Una carrera en la Universidad o <br> estudios de Posgrado
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--0.00
+0.00
 </td>
 </tr>
 <tr>
@@ -14060,7 +14060,7 @@ Entre 26 y 100 libros
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.06
+0.05
 </td>
 </tr>
 <tr>
@@ -14124,7 +14124,7 @@ Más de 100 libros
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.06
+0.04
 </td>
 </tr>
 <tr>
@@ -14188,7 +14188,7 @@ Quintil 2 <br> <i>(Ref. Quintil 1)</i>
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.08
+0.07
 </td>
 </tr>
 <tr>
@@ -14252,7 +14252,7 @@ Quintil 3
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.11<sup>*</sup>
+0.10<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -14316,7 +14316,7 @@ Quintil 4
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.04
+0.03
 </td>
 </tr>
 <tr>
@@ -14380,7 +14380,7 @@ Quintil 5
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.10
+0.09
 </td>
 </tr>
 <tr>
@@ -14572,7 +14572,7 @@ Percepción individual sobre la apertura <br> a la discusión en el aula
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.13<sup>***</sup>
+0.12<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -14636,7 +14636,7 @@ Percepción general sobre la apertura <br> a la discusión en el aula
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.41<sup>***</sup>
+0.36<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -14668,7 +14668,7 @@ Percepción general sobre la apertura <br> a la discusión en el aula
  
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.09)
+(0.08)
 </td>
 </tr>
 <tr>
@@ -14700,7 +14700,7 @@ Proporción de niñas en el aula
 0.30<sup>*</sup>
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.07
+0.04
 </td>
 </tr>
 <tr>
@@ -14732,7 +14732,7 @@ Proporción de niñas en el aula
 (0.14)
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-(0.12)
+(0.11)
 </td>
 </tr>
 <tr style="border-top: 1px solid #000000;">
@@ -14764,7 +14764,7 @@ AIC
 563.87
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-590.57
+589.55
 </td>
 </tr>
 <tr>
@@ -14796,7 +14796,7 @@ BIC
 599.40
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-692.71
+696.14
 </td>
 </tr>
 <tr>
@@ -14828,7 +14828,7 @@ Log Likelihood
 -273.93
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
--272.28
+-270.78
 </td>
 </tr>
 <tr>
@@ -14924,7 +14924,7 @@ Var: RBD (Intercept)
 0.03
 </td>
 <td style="padding-left: 5px;padding-right: 5px;">
-0.02
+0.01
 </td>
 </tr>
 <tr style="border-bottom: 2px solid #000000;">
