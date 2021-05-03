@@ -14,7 +14,7 @@ output:
 ```{r}
 pacman::p_load(stargazer, ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
                sjPlot, summarytools, kableExtra, corrplot, coefplot, ltm, polycor,
-               psych, lme4, ppcor, texreg, skimr, gtools, bda, lmerTest, Matrix, sessioninfo, dplyr)
+               psych, lme4, ppcor, texreg, skimr, gtools, bda, lmerTest, Matrix, extrafont, sessioninfo, dplyr)
 
 ##sessionInfo()
 #R version 4.0.2 (2020-06-22)
@@ -898,8 +898,7 @@ o menos",
 "Educación 
 Media", 
 "Educación 
-Téc.Superior 
-(IP o CFT)", 
+Téc.Superior", 
 "Universidad 
 o Posgrado"))
 plotdata<-na.omit(plotdata)
@@ -914,14 +913,15 @@ plot_ig_educ <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Nivel de estudios del apoderado") + ylab("Actitudes hacia la igualdad de derechos 
-y oportunidades") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades, 
-según nivel educativo del apoderado")
+ xlab("Nivel de estudios del apoderado") + ylab("Actitudes") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + ggtitle("                                                             ") + 
+ylim(-0.2,0.2)
+
 plot_ig_educ
-ggsave(plot_ig_educ, file = "../output/ig_educ.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ggsave(plot_ig_educ, file = "../output/a1_ig_educ.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 ### Cantidad de libros 
 ```{r}
@@ -953,14 +953,15 @@ plot_ig_lib <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Cantidad de libros en el hogar") + ylab("Actitudes hacia la igualdad de derechos 
-y oportunidades") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades, 
-según cantidad de libros en el hogar")
+ xlab("Cantidad de libros en el hogar") + ylab("Actitudes") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.75, size=16, face="bold")) + #ggtitle("Actitudes del estudiante #hacia la igualdad de derechos y oportunidades, 
+#según cantidad de libros en el hogar") + 
+  ylim(-0.2,0.2) + ggtitle("Igualdad de derechos y oportunidades")
 plot_ig_lib
-ggsave(plot_ig_lib, file = "../output/ig_lib.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ggsave(plot_ig_lib, file = "../output/a2_ig_lib.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 
 ```{r}
@@ -996,12 +997,14 @@ plot_ig_lib2 <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Cantidad de libros en el hogar") + ylab("Actitudes hacia la igualdad de derechos 
-y oportunidades") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades, 
-según cantidad de libros en el hogar") + ylim(-0.1,0.25)
+ xlab("Cantidad de libros en el hogar") + ylab("Actitudes hacia la igualdad de 
+derechos y oportunidades") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades, 
+según cantidad de libros en el hogar")  + 
+  ylim(-0.2,0.2)
 plot_ig_lib2
 ggsave(plot_ig_lib2, file = "../output/ig_lib2.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
@@ -1014,6 +1017,19 @@ plotdata <- data_proc %>%
          sd = sd(igualdad.est),
          se = sd / sqrt(n),
          ci = qt(0.99, df = n - 1) * sd / sqrt(n))
+table(data_proc$quintiles_ingresos_pc_factor)
+plotdata$quintiles_ingresos_pc_factor <- factor(plotdata$quintiles_ingresos_pc_factor, levels = c("Quintil 1", "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Ns/Nr"), labels = c("Quintil
+1",
+"Quintil
+2", 
+"Quintil
+3", 
+"Quintil
+4",
+"Quintil
+5",
+"Ns/Nr
+"))
 plotdata<-na.omit(plotdata)
 plot_ig_ing <- ggplot(plotdata, 
        aes(x = quintiles_ingresos_pc_factor, 
@@ -1026,14 +1042,14 @@ plot_ig_ing <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Ingresos per capita del hogar") + ylab("Actitudes hacia la igualdad de derechos 
-y oportunidades") + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades, 
-según quintiles de ingreso") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) #+ ylim(-0.1,0.25)
+ xlab("Ingresos per capita del hogar") + ylab("Actitudes") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + ggtitle("                                                                         ") + 
+ylim(-0.2,0.2)
 plot_ig_ing
-ggsave(plot_ig_ing, file = "../output/ig_ing.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ggsave(plot_ig_ing, file = "../output/a3_ig_ing.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 ### Sexo
 ```{r}
@@ -1059,12 +1075,13 @@ plot_ig_sexo <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Promedio exo") + ylab("Actitudes hacia la igualdad de derechos 
-y oportunidades") + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades, 
-según su sexo") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) #+ ylim(-0.1,0.25)
+ xlab("Promedio sexo") + ylab("Actitudes hacia la igualdad de 
+derechos y oportunidades") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades, 
+según su sexo") + ylim(-0.2,0.2)
 plot_ig_sexo
 ggsave(plot_ig_sexo, file = "../output/ig_sexo.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
@@ -1072,9 +1089,12 @@ ggsave(plot_ig_sexo, file = "../output/ig_sexo.png",device = "png",width = 20,he
 ```{r}
 plot_prop_ninas <- ggplot(data_proc, aes(x=num_fem, y=igualdad.est)) +
   geom_point(color="#535151") + 
-  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Proporción de niñas") + ylab("Actitudes hacia la igualdad de derechos y oportunidades entre hombres y mujeres") + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades,
-según la proporción de niñas en el aula") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Proporción de niñas") + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades,
+según la proporción de niñas en el aula") + ylab("Actitudes hacia la igualdad de 
+derechos y oportunidades") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) 
 
 plot_prop_ninas
 ggsave(plot_prop_ninas, file = "../output/ig_prop-niñas.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1083,9 +1103,12 @@ ggsave(plot_prop_ninas, file = "../output/ig_prop-niñas.png",device = "png",wid
 ```{r}
 plot_ap_discusion <- ggplot(data_proc, aes(x=ap_discusion, y=igualdad.est)) +
   geom_point(color="#535151") + 
-  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Percepción individual sobre la apertura a la discusión en el aula") + ylab("Actitudes hacia la igualdad de derechos y oportunidades") + ggtitle("Actitudes hacia la igualdad de derechos y oportunidades,
-según su percepción sobre la apertura a la discusión en el aula") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Percepción individual sobre la apertura a la discusión en el aula") + ggtitle("Actitudes hacia la igualdad de derechos y oportunidades,
+según su percepción sobre la apertura a la discusión en el aula")  + ylab("Actitudes hacia la igualdad de 
+derechos y oportunidades") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 
 plot_ap_discusion
 ggsave(plot_ap_discusion, file = "../output/ig_ap_discusion_individual.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1094,10 +1117,12 @@ ggsave(plot_ap_discusion, file = "../output/ig_ap_discusion_individual.png",devi
 ```{r}
 plot_ap_discusion_prom <- ggplot(data_proc, aes(x=mean_discusion, y=igualdad.est)) +
   geom_point(color="#535151") + 
-  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Percepción general sobre la apertura a la discusión en el aula") + ylab("Actitudes hacia la igualdad de derechos y oportunidades") + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades,
-según la percepción general del aula sobre la apertura a la discusión") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
-
+  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Percepción general sobre la apertura a la discusión en el aula") + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades,
+según la percepción general del aula sobre la apertura a la discusión")  + ylab("Actitudes hacia la igualdad de 
+derechos y oportunidades") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) 
 plot_ap_discusion_prom
 ggsave(plot_ap_discusion_prom, file = "../output/ig_ap_discusion_promedio.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
@@ -1107,8 +1132,9 @@ plot_act_apod <- ggplot(data_proc, aes(x=igualdad.pad, y=igualdad.est)) +
   geom_point(color="#535151") + 
   geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Actitudes del apoderado") + ylab("Actitudes del estudiante") + ggtitle("Actitudes del estudiante hacia la igualdad de derechos y oportunidades,
 según las actitudes de su apoderado") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
-
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 plot_act_apod
 ggsave(plot_act_apod, file = "../output/ig_prop-act_apod.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
@@ -1128,8 +1154,7 @@ o menos",
 "Educación 
 Media", 
 "Educación 
-Téc.Superior 
-(IP o CFT)", 
+Téc.Superior", 
 "Universidad 
 o Posgrado"))
 plotdata<-na.omit(plotdata)
@@ -1144,14 +1169,15 @@ plot_pub_educ <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Nivel de estudios del apoderado") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera pública") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública,
-según nivel educativo del apoderado")
-plot_pub_educ
-ggsave(plot_pub_educ, file = "../output/pub_educ.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ xlab("Nivel de estudios del apoderado") + ylab("Actitudes") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + #ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+#pública, según nivel educativo del apoderado") + 
+  ylim(-0.2,0.3) + ggtitle("                                                                                          ")
+plot_pub_educ 
+ggsave(plot_pub_educ, file = "../output/b1_pub_educ.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 ### Cantidad de libros 
 ```{r}
@@ -1183,14 +1209,13 @@ plot_pub_lib <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Cantidad de libros en el hogar") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera pública") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública,
-según cantidad de libros en el hogar")
+ xlab("Cantidad de libros en el hogar") + ylab("Actitudes") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=1, size=16, face="bold")) + ggtitle("Distribución igualitaria en la esfera pública") + ylim(-0.2,0.3)
 plot_pub_lib
-ggsave(plot_pub_lib, file = "../output/pub_lib.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ggsave(plot_pub_lib, file = "../output/b2_pub_lib.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 
 ```{r}
@@ -1228,10 +1253,11 @@ plot_pub_lib2 <- ggplot(plotdata,
              linetype = "solid") + 
  xlab("Cantidad de libros en el hogar") + ylab("Actitudes hacia la distribución igualitaria
 de roles en la esfera pública") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública,
-según cantidad de libros en el hogar") #+ ylim(-0.1,0.25)
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+pública, según cantidad de libros en el hogar")  + ylim(-0.2,0.3)
 plot_pub_lib2
 ggsave(plot_pub_lib2, file = "../output/pub_lib2.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
@@ -1244,6 +1270,18 @@ plotdata <- data_proc %>%
          sd = sd(esp_publico.est),
          se = sd / sqrt(n),
          ci = qt(0.99, df = n - 1) * sd / sqrt(n))
+plotdata$quintiles_ingresos_pc_factor <- factor(plotdata$quintiles_ingresos_pc_factor, levels = c("Quintil 1", "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Ns/Nr"), labels = c("Quintil
+1",
+"Quintil
+2", 
+"Quintil
+3", 
+"Quintil
+4",
+"Quintil
+5",
+"Ns/Nr
+"))
 plotdata<-na.omit(plotdata)
 plot_pub_ing <- ggplot(plotdata, 
        aes(x = quintiles_ingresos_pc_factor, 
@@ -1256,17 +1294,15 @@ plot_pub_ing <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Ingresos per capita del hogar") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera pública") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública, 
-según quintiles de ingreso") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("
-Actitudes del estudiante hacia la distribución igualitaria
-de roles en la esfera pública, 
-según nivel educativo del apoderado") #+ ylim(-0.1,0.25)
+ xlab("Ingresos per capita del hogar") + ylab("Actitudes")  + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + #ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+#pública, según nivel educativo del apoderado") +
+ylim(-0.2,0.3)+ ggtitle("                                                                                          ")
 plot_pub_ing
-ggsave(plot_pub_ing, file = "../output/pub_ing.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ggsave(plot_pub_ing, file = "../output/b3_ub_ing.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 ### Sexo
 ```{r}
@@ -1294,10 +1330,11 @@ plot_pub_sexo <- ggplot(plotdata,
              linetype = "solid") + 
  xlab("Sexo") + ylab("Actitudes hacia la distribución igualitaria
 de roles en la esfera pública") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública,
-según su sexo") #+ ylim(-0.1,0.25)
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+pública, según su sexo") + ylim(-0.2,0.3)
 plot_pub_sexo
 ggsave(plot_pub_sexo, file = "../output/pub_sexo.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
@@ -1306,9 +1343,11 @@ ggsave(plot_pub_sexo, file = "../output/pub_sexo.png",device = "png",width = 20,
 plot_prop_ninas <- ggplot(data_proc, aes(x=num_fem, y=esp_publico.est)) +
   geom_point(color="#535151") + 
   geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Proporción de niñas") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera pública") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública,
-según la proporción de niñas en el aula") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+de roles en la esfera pública") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+pública, según la proporción de niñas en el aula") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 
 plot_prop_ninas
 ggsave(plot_prop_ninas, file = "../output/priv_prop-niñas.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1318,9 +1357,11 @@ ggsave(plot_prop_ninas, file = "../output/priv_prop-niñas.png",device = "png",w
 plot_ap_discusion <- ggplot(data_proc, aes(x=ap_discusion, y=esp_publico.est)) +
   geom_point(color="#535151") + 
   geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Percepción individual sobre la apertura a la discusión en el aula") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera pública") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública,
-según su percepción sobre la apertura a la discusión en el aula") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+de roles en la esfera pública") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+pública, según su percepción sobre la apertura a la discusión en el aula") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 
 plot_ap_discusion
 ggsave(plot_ap_discusion, file = "../output/pub_prop-ap_discusion_individual.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1330,9 +1371,11 @@ ggsave(plot_ap_discusion, file = "../output/pub_prop-ap_discusion_individual.png
 plot_ap_discusion_prom <- ggplot(data_proc, aes(x=mean_discusion, y=esp_publico.est)) +
   geom_point(color="#535151") + 
   geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Percepción general sobre la apertura a la discusión en el aula") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera pública") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública,
-según la percepción general del aula sobre la apertura a la discusión") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+de roles en la esfera pública") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+pública, según la percepción general del aula sobre la apertura a la discusión") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 
 plot_ap_discusion_prom
 ggsave(plot_ap_discusion_prom, file = "../output/pub_prop-ap_discusion_promedio.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1341,9 +1384,11 @@ ggsave(plot_ap_discusion_prom, file = "../output/pub_prop-ap_discusion_promedio.
 ```{r}
 plot_act_apod <- ggplot(data_proc, aes(x=esp_publico.pad, y=esp_publico.est)) +
   geom_point(color="#535151") + 
-  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Actitudes del apoderado") + ylab("Actitudes del estudiante") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública,
-según las actitudes de su apoderado") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Actitudes del apoderado") + ylab("Actitudes del estudiante") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+pública, según las actitudes de su apoderado") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) 
 
 plot_act_apod
 ggsave(plot_act_apod, file = "../output/pub_prop-act_apod.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1364,8 +1409,7 @@ o menos",
 "Educación 
 Media", 
 "Educación 
-Téc.Superior 
-(IP o CFT)", 
+Téc.Superior", 
 "Universidad 
 o Posgrado"))
 plotdata<-na.omit(plotdata)
@@ -1380,14 +1424,15 @@ plot_priv_educ <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Nivel de estudios del apoderado") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera privada") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada,
-según nivel educativo del apoderado")
+ xlab("Nivel de estudios del apoderado") + ylab("Actitudes") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + #ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+#privada, según nivel educativo del apoderado") + 
+ ylim(-0.3,0.3)+ ggtitle("                                                                         ")
 plot_priv_educ
-ggsave(plot_priv_educ, file = "../output/priv_educ.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ggsave(plot_priv_educ, file = "../output/c1_priv_educ.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 ### Cantidad de libros 
 ```{r}
@@ -1419,14 +1464,13 @@ plot_priv_lib <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Cantidad de libros en el hogar") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera privada") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada,
-según cantidad de libros en el hogar")
+ xlab("Cantidad de libros en el hogar") + ylab("Actitudes") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=1, size=16, face="bold"))+ ylim(-0.3,0.3) + ggtitle("Distribución igualitaria en la esfera privada")
 plot_priv_lib
-ggsave(plot_priv_lib, file = "../output/priv_lib.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ggsave(plot_priv_lib, file = "../output/c2_priv_lib.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 
 ```{r}
@@ -1463,11 +1507,12 @@ plot_priv_lib2 <- ggplot(plotdata,
              color = "grey50",
              linetype = "solid") + 
  xlab("Cantidad de libros en el hogar") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera privada") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada,
-según cantidad de libros en el hogar") #+ ylim(-0.1,0.25)
+de roles en la esfera privada") + theme_classic()+
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))+ ylim(-0.2,0.3) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+privada, según cantidad de libros en el hogar") #+ ylim(-0.1,0.25)
 plot_priv_lib2
 ggsave(plot_priv_lib2, file = "../output/priv_lib2.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
@@ -1480,6 +1525,18 @@ plotdata <- data_proc %>%
          sd = sd(esp_privado.est),
          se = sd / sqrt(n),
          ci = qt(0.99, df = n - 1) * sd / sqrt(n))
+plotdata$quintiles_ingresos_pc_factor <- factor(plotdata$quintiles_ingresos_pc_factor, levels = c("Quintil 1", "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Ns/Nr"), labels = c("Quintil
+1",
+"Quintil
+2", 
+"Quintil
+3", 
+"Quintil
+4",
+"Quintil
+5",
+"Ns/Nr
+"))
 plotdata<-na.omit(plotdata)
 plot_priv_ing <- ggplot(plotdata, 
        aes(x = quintiles_ingresos_pc_factor, 
@@ -1492,17 +1549,15 @@ plot_priv_ing <- ggplot(plotdata,
   geom_hline(yintercept = mean_ig,
              color = "grey50",
              linetype = "solid") + 
- xlab("Ingresos per capita del hogar") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera privada") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada, 
-según quintiles de ingreso") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("
-Actitudes del estudiante hacia la distribución igualitaria
-de roles en la esfera privada, 
-según nivel educativo del apoderado") #+ ylim(-0.1,0.25)
+ xlab("Ingresos per capita del hogar") + ylab("Actitudes") + #ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada, 
+#según quintiles de ingreso") + 
+  theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))+ ylim(-0.3,0.3) + ggtitle("                                                                         ")
 plot_priv_ing
-ggsave(plot_priv_ing, file = "../output/priv_ing.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+ggsave(plot_priv_ing, file = "../output/c3_priv_ing.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
 ### Sexo
 ```{r}
@@ -1530,10 +1585,11 @@ plot_priv_sexo <- ggplot(plotdata,
              linetype = "solid") + 
  xlab("Sexo") + ylab("Actitudes hacia la distribución igualitaria
 de roles en la esfera privada") + theme_classic() +
-    theme(axis.title.x = element_text(hjust = 0.48),
-          axis.text.x = element_text(colour = "black", size = 10, hjust = 0.5),
-          plot.title = element_text(hjust=0.5)) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada,
-según su sexo") #+ ylim(-0.1,0.25)
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16)) + ylim(-0.2,0.3) + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+privada, según su sexo") #+ ylim(-0.1,0.25)
 plot_priv_sexo
 ggsave(plot_priv_sexo, file = "../output/priv_sexo.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
 ```
@@ -1542,9 +1598,12 @@ ggsave(plot_priv_sexo, file = "../output/priv_sexo.png",device = "png",width = 2
 plot_prop_ninas <- ggplot(data_proc, aes(x=num_fem, y=esp_privado.est)) +
   geom_point(color="#535151") + 
   geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Proporción de niñas") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera privada") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada,
-según la proporción de niñas en el aula") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+de roles en la esfera privada") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+privada, según la proporción de niñas en el aula") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 
 plot_prop_ninas
 ggsave(plot_prop_ninas, file = "../output/priv_prop-niñas.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1554,9 +1613,12 @@ ggsave(plot_prop_ninas, file = "../output/priv_prop-niñas.png",device = "png",w
 plot_ap_discusion <- ggplot(data_proc, aes(x=ap_discusion, y=esp_privado.est)) +
   geom_point(color="#535151") + 
   geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Percepción individual sobre la apertura a la discusión en el aula") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera privada") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada,
-según su percepción sobre la apertura a la discusión en el aula") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+de roles en la esfera privada") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+privada, según su percepción sobre la apertura a la discusión en el aula") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 
 plot_ap_discusion
 ggsave(plot_ap_discusion, file = "../output/priv_prop-ap_discusion_individual.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1566,9 +1628,12 @@ ggsave(plot_ap_discusion, file = "../output/priv_prop-ap_discusion_individual.pn
 plot_ap_discusion_prom <- ggplot(data_proc, aes(x=mean_discusion, y=esp_privado.est)) +
   geom_point(color="#535151") + 
   geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Percepción general sobre la apertura a la discusión en el aula") + ylab("Actitudes hacia la distribución igualitaria
-de roles en la esfera privada") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada,
-según la percepción general del aula sobre la apertura a la discusión") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+de roles en la esfera privada") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+privada, según la percepción general del aula sobre la apertura a la discusión") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 
 plot_ap_discusion_prom
 ggsave(plot_ap_discusion_prom, file = "../output/priv_prop-ap_discusion_promedio.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
@@ -1577,12 +1642,21 @@ ggsave(plot_ap_discusion_prom, file = "../output/priv_prop-ap_discusion_promedio
 ```{r}
 plot_act_apod <- ggplot(data_proc, aes(x=esp_privado.pad, y=esp_privado.est)) +
   geom_point(color="#535151") + 
-  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Actitudes del apoderado") + ylab("Actitudes del estudiante") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada,
-según las actitudes de su apoderado") + theme_classic() +
-    theme(plot.title = element_text(hjust=0.5))
+  geom_smooth(method=lm, color="#000000", fill="#D1CACA", se=TRUE) + xlab("Actitudes del apoderado") + ylab("Actitudes del estudiante") + ggtitle("Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera 
+privada, según las actitudes de su apoderado") + theme_classic() +
+    theme(axis.title.y = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.title.x = element_text(family="Times New Roman", size = 14, hjust = 0.5),
+          axis.text.x = element_text(family="Times New Roman", colour = "black", size = 12, hjust = 0.5),
+          plot.title = element_text(family="Times New Roman", hjust=0.5, size=16))
 
 plot_act_apod
 ggsave(plot_act_apod, file = "../output/priv_prop-act_apod.png",device = "png",width = 20,height = 13,dpi = "retina",units = "cm")
+```
+```{r}
+ggsave(plot = plot_grid(list(plot_ig_educ,plot_ig_lib,plot_ig_ing,plot_pub_educ,plot_pub_lib,plot_pub_ing,plot_priv_educ,plot_priv_lib,plot_priv_ing),
+                        margin = c(0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01,0.01), 
+                        tags = c(" ", " ", " "," ", " ", " ", " ", " ", " ")),
+       filename = "../output/general.png", width = 13, height = 8, dpi= "retina")
 ```
 
 # Modelos de regresión: Base de datos reducida
