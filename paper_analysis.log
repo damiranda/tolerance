@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.3)  3 MAY 2021 17:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.3)  3 MAY 2021 18:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -788,18 +788,18 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <output/descriptivos1.png, id=138, 548.0475pt x 610.53094pt>
 File: output/descriptivos1.png Graphic file (type png)
 <use output/descriptivos1.png>
-Package pdftex.def Info: output/descriptivos1.png  used on input line 904.
+Package pdftex.def Info: output/descriptivos1.png  used on input line 906.
 (pdftex.def)             Requested size: 469.76459pt x 523.32292pt.
 <output/descriptivos2.png, id=140, 554.07pt x 766.36313pt>
 File: output/descriptivos2.png Graphic file (type png)
 <use output/descriptivos2.png>
-Package pdftex.def Info: output/descriptivos2.png  used on input line 905.
+Package pdftex.def Info: output/descriptivos2.png  used on input line 907.
 (pdftex.def)             Requested size: 469.75275pt x 649.73955pt.
 [11 <./output/descriptivos1.png>] [12 <./output/descriptivos2.png>]
 <output/general.png, id=153, 939.51pt x 578.16pt>
 File: output/general.png Graphic file (type png)
 <use output/general.png>
-Package pdftex.def Info: output/general.png  used on input line 913.
+Package pdftex.def Info: output/general.png  used on input line 915.
 (pdftex.def)             Requested size: 469.75385pt x 289.07928pt.
 [13 <./output/general.png>]
 
@@ -810,7 +810,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [17] [18] [19]
-Overfull \hbox (2.33038pt too wide) in paragraph at lines 1401--1401
+Overfull \hbox (2.33038pt too wide) in paragraph at lines 1404--1404
 []|\T1/ptm/b/n/10 Educación 
  []
 
@@ -818,18 +818,18 @@ Overfull \hbox (2.33038pt too wide) in paragraph at lines 1401--1401
 
 
 ]
-Overfull \hbox (6.55585pt too wide) in paragraph at lines 1519--1521
+Overfull \hbox (6.55585pt too wide) in paragraph at lines 1522--1524
  [] 
  []
 
 [22]
-Underfull \hbox (badness 1303) in paragraph at lines 1606--1611
+Underfull \hbox (badness 1303) in paragraph at lines 1609--1614
 [][]\T1/ptm/m/n/10 Gorodzeisky, A., & Sem-yo-nov, M. (2009). Terms of ex-clu-si
 on: Pu-blic views to-wards ad-mis-sion and allo-
  []
 
 
-Underfull \hbox (badness 2111) in paragraph at lines 1606--1611
+Underfull \hbox (badness 2111) in paragraph at lines 1609--1614
 \T1/ptm/m/n/10 ca-tion of rights to im-mi-grants in Eu-ro-pean coun-tries. \T1/
 ptm/m/it/10 Eth-nic and Ra-cial Stu-dies\T1/ptm/m/n/10 , \T1/ptm/m/it/10 32\T1/
 ptm/m/n/10 (3), 401--423. [][]$https :
@@ -854,12 +854,12 @@ LaTeX Info: Redefining \% on input line 25.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `paper_analysis.out' has not changed.
-(rerunfilecheck)             Checksum: 1C50331E2DB7809C6A8C2CA0A1A14E90;3623.
+(rerunfilecheck)             Checksum: 53C5B09647876232DB5994AC469509B4;3718.
  ) 
 Here is how much of TeX's memory you used:
  14394 strings out of 480936
- 216633 string characters out of 5904906
- 601112 words of memory out of 5000000
+ 216677 string characters out of 5904906
+ 602112 words of memory out of 5000000
  31216 multiletter control sequences out of 15000+600000
  465900 words of font info for 86 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -878,7 +878,7 @@ f-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Users/Anais/AppData/Roaming/TinyTeX
 /texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Users/Anais/AppData/Roaming/T
 inyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Users/Anais/AppData/Roam
 ing/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper_analysis.pdf (25 pages, 389148 bytes).
+Output written on paper_analysis.pdf (25 pages, 389046 bytes).
 PDF statistics:
  380 PDF objects out of 1000 (max. 8388607)
  334 compressed objects within 4 object streams
