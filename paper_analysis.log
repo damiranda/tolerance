@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.3)  3 MAY 2021 03:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.3)  3 MAY 2021 11:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -757,62 +757,65 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
-x.map}] [2] [3] [4] [5] [6] [7]
+x.map}] [2] [3] [4] [5] [6]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 783.
+(Font)              <10> on input line 649.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 783.
+(Font)              <7> on input line 649.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 783.
-[8] [9]
-<output/descriptivos1.png, id=121, 548.0475pt x 610.53094pt>
+(Font)              <5> on input line 649.
+[7] [8] [9]
+<output/descriptivos1.png, id=126, 548.0475pt x 610.53094pt>
 File: output/descriptivos1.png Graphic file (type png)
 <use output/descriptivos1.png>
-Package pdftex.def Info: output/descriptivos1.png  used on input line 834.
+Package pdftex.def Info: output/descriptivos1.png  used on input line 866.
 (pdftex.def)             Requested size: 469.76459pt x 523.32292pt.
-<output/descriptivos2.png, id=123, 554.07pt x 766.36313pt>
+<output/descriptivos2.png, id=128, 554.07pt x 766.36313pt>
 File: output/descriptivos2.png Graphic file (type png)
 <use output/descriptivos2.png>
-Package pdftex.def Info: output/descriptivos2.png  used on input line 835.
+Package pdftex.def Info: output/descriptivos2.png  used on input line 867.
 (pdftex.def)             Requested size: 469.75275pt x 649.73955pt.
 [10 <./output/descriptivos1.png>] [11 <./output/descriptivos2.png>]
-<output/general.png, id=135, 939.51pt x 578.16pt>
+<output/general.png, id=140, 939.51pt x 578.16pt>
 File: output/general.png Graphic file (type png)
 <use output/general.png>
-Package pdftex.def Info: output/general.png  used on input line 843.
+Package pdftex.def Info: output/general.png  used on input line 875.
 (pdftex.def)             Requested size: 469.75385pt x 289.07928pt.
+[12 <./output/general.png>]
 
-Underfull \hbox (badness 10000) in paragraph at lines 843--866
-[][]
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[12 <./output/general.png>] [13] [14] [15] [16] [17] [18] [19]
-Overfull \hbox (2.33038pt too wide) in paragraph at lines 1330--1330
+[13] [14] [15]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[16] [17] [18]
+Overfull \hbox (2.33038pt too wide) in paragraph at lines 1363--1363
 []|\T1/ptm/b/n/10 Educación 
  []
 
-[20]
-Overfull \hbox (6.55585pt too wide) in paragraph at lines 1385--1387
+[19] [20
+
+
+]
+Overfull \hbox (6.55585pt too wide) in paragraph at lines 1481--1483
  [] 
  []
 
-[21
-
-
-] [22]
-Underfull \hbox (badness 1303) in paragraph at lines 1466--1471
+[21]
+Underfull \hbox (badness 1303) in paragraph at lines 1568--1573
 [][]\T1/ptm/m/n/10 Gorodzeisky, A., & Sem-yo-nov, M. (2009). Terms of ex-clu-si
 on: Pu-blic views to-wards ad-mis-sion and allo-
  []
 
 
-Underfull \hbox (badness 2111) in paragraph at lines 1466--1471
+Underfull \hbox (badness 2111) in paragraph at lines 1568--1573
 \T1/ptm/m/n/10 ca-tion of rights to im-mi-grants in Eu-ro-pean coun-tries. \T1/
 ptm/m/it/10 Eth-nic and Ra-cial Stu-dies\T1/ptm/m/n/10 , \T1/ptm/m/it/10 32\T1/
 ptm/m/n/10 (3), 401--423. []$https :
  []
 
-[23] [24]
+[22] [23]
 
 Package caption Warning: Unused \captionsetup[figure] on input line \caption@op
 t@figure@lineno .
@@ -823,7 +826,7 @@ Package caption Warning: Unused \captionsetup[ table] on input line \caption@op
 t@ table@lineno .
 See the caption package documentation for explanation.
 
-[25] (./paper_analysis.aux
+[24] (./paper_analysis.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
@@ -831,16 +834,16 @@ LaTeX Info: Redefining \% on input line 25.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `paper_analysis.out' has not changed.
-(rerunfilecheck)             Checksum: 6FFDB2A724588363AA0B406581670F84;3447.
+(rerunfilecheck)             Checksum: 50470294E52CB609B5E163A969C4A3E7;3542.
  ) 
 Here is how much of TeX's memory you used:
- 14250 strings out of 480936
- 214264 string characters out of 5904906
- 581126 words of memory out of 5000000
- 31094 multiletter control sequences out of 15000+600000
+ 14277 strings out of 480936
+ 214557 string characters out of 5904906
+ 585231 words of memory out of 5000000
+ 31118 multiletter control sequences out of 15000+600000
  460142 words of font info for 81 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 71i,13n,74p,617b,375s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,16n,74p,617b,488s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.en
 c}{c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-math
 it.enc}{c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm
@@ -855,10 +858,10 @@ f-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Users/Anais/AppData/Roaming/TinyTeX
 /texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Users/Anais/AppData/Roaming/T
 inyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Users/Anais/AppData/Roam
 ing/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper_analysis.pdf (25 pages, 383278 bytes).
+Output written on paper_analysis.pdf (24 pages, 387122 bytes).
 PDF statistics:
- 362 PDF objects out of 1000 (max. 8388607)
- 316 compressed objects within 4 object streams
- 113 named destinations out of 1000 (max. 500000)
- 144 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 367 PDF objects out of 1000 (max. 8388607)
+ 322 compressed objects within 4 object streams
+ 116 named destinations out of 1000 (max. 500000)
+ 152 words of extra memory for PDF output out of 10000 (max. 10000000)
 
