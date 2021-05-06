@@ -1,6 +1,5 @@
 ---
 title: "El rol de la familia y la escuela en la socialización política de las actitudes hacia la igualdad de género"
-subtitle: "Resumen extenso para la postulación al Seminario Internacional Desigualdad y Movilidad Social 2021"
 output: 
   pdf_document: 
     extra_dependencies: ["graphicx", "threeparttable"]    
@@ -8,7 +7,7 @@ output:
     toc: yes
     code_folding: hide
     toc_float: 
-      collapsed: false
+      collapsed: true
       smooth_scroll: false
       number_sections: true
 editor_options: 
@@ -31,8 +30,8 @@ header-includes:
   - \usepackage{tabu}
   - \usepackage{threeparttable}  
 bibliography: 
-  - "bib/Tolerancia.bib"
-csl: "bib/apa6.csl"
+  - "input/bib/Tolerancia.bib"
+csl: "input/bib/apa6.csl"
 linkcolor: blue
 ---
 
@@ -123,7 +122,7 @@ table_format = if(is_html_output()) {
 }
 ```
 ```{r echo=FALSE}
-tab <- read.csv(file = "table.csv",header = 1,sep = ";",encoding = "UTF-8")
+tab <- read.csv(file = "input/tables/table.csv",header = 1,sep = ";",encoding = "UTF-8")
 
 kable(tab,table_format,booktabs = T, linesep = "",col.names =  c("Constructo","Dimensión","Indicador"), caption = "Actitudes hacia la igualdad de género.") %>%
   kable_styling(

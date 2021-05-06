@@ -1,23 +1,23 @@
-# taller-git
+# El rol de la familia y la escuela en la socialización política de las actitudes hacia la igualdad de género
 
-**Autor**: Julio César Iturra Sanhueza.
+**Autores**: Daniel Miranda, Julio Iturra, Anaís Herrera y Kevin Carrasco.
 
 ## Estructura del repositorio:
 ```
 │   LICENSE
 │   README.md
-│   taller-git.Rproj
-│
-├───docs
-│       README-docs.md
+│   tolerance.Rproj
 │
 ├───input
-│       README-input.md
+│       bib		
+│	data-proc
+│	tables
 │
 ├───output
-│       README-output.md
+│       
 │
 └───production
-        README-prod.md
-
+        preparacion.md
+	analisis-bbdd-completa.md
+	analisis-bbdd-reducida.md
 ```

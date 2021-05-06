@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.3)  3 MAY 2021 18:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.3)  6 MAY 2021 11:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**paper_analysis.tex
-(./paper_analysis.tex
+**paper.tex
+(./paper.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-02-18> (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf
 -dist/tex/latex/base/article.cls
@@ -601,22 +601,17 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \c@nlinenum=\count303
 \TeXr@lab=\toks35
 )
-(c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.
-sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count304
-)
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 11
-1.
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 10
+3.
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
 d-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count305
+\l__color_backend_stack_int=\count304
 \l__pdf_internal_box=\box67
-) (./paper_analysis.aux
+) (./paper.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 
@@ -629,26 +624,26 @@ LaTeX Warning: Label `table:coefficients' multiply defined.
 LaTeX Warning: Label `table:coefficients' multiply defined.
 
 )
-\openout1 = `paper_analysis.aux'.
+\openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 111.
-LaTeX Font Info:    ... okay on input line 111.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 103.
+LaTeX Font Info:    ... okay on input line 103.
 
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epsto
 pdf-base.sty
@@ -661,7 +656,7 @@ df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 111.
+Package hyperref Info: Link coloring ON on input line 103.
 
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -675,14 +670,14 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count306
+\c@section@level=\count305
 )
-LaTeX Info: Redefining \ref on input line 111.
-LaTeX Info: Redefining \pageref on input line 111.
-LaTeX Info: Redefining \nameref on input line 111.
-(./paper_analysis.out) (./paper_analysis.out)
+LaTeX Info: Redefining \ref on input line 103.
+LaTeX Info: Redefining \pageref on input line 103.
+LaTeX Info: Redefining \nameref on input line 103.
+(./paper.out) (./paper.out)
 \@outlinefile=\write3
-\openout3 = `paper_analysis.out'.
+\openout3 = `paper.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -718,8 +713,8 @@ LaTeX Info: Redefining \nameref on input line 111.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \. on input line 111.
-LaTeX Info: Redefining \% on input line 111.
+LaTeX Info: Redefining \. on input line 103.
+LaTeX Info: Redefining \% on input line 103.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: longtable package is loaded.
@@ -732,49 +727,49 @@ Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-13.
+05.
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-13.
+05.
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-113.
+105.
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-113.
+105.
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 113.
+(Font)              <12> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 113.
+(Font)              <8> on input line 105.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 113.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 113
+(Font)              <6> on input line 105.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 105
 .
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 113
+LaTeX Font Info:    Trying to load font information for U+msb on input line 105
 .
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 116.
+(Font)              <10> on input line 108.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 116.
+(Font)              <7> on input line 108.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 116.
+(Font)              <5> on input line 108.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
-35.
+27.
 (c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 ) [1
@@ -788,18 +783,18 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <output/descriptivos1.png, id=138, 548.0475pt x 610.53094pt>
 File: output/descriptivos1.png Graphic file (type png)
 <use output/descriptivos1.png>
-Package pdftex.def Info: output/descriptivos1.png  used on input line 906.
+Package pdftex.def Info: output/descriptivos1.png  used on input line 898.
 (pdftex.def)             Requested size: 469.76459pt x 523.32292pt.
 <output/descriptivos2.png, id=140, 554.07pt x 766.36313pt>
 File: output/descriptivos2.png Graphic file (type png)
 <use output/descriptivos2.png>
-Package pdftex.def Info: output/descriptivos2.png  used on input line 907.
+Package pdftex.def Info: output/descriptivos2.png  used on input line 899.
 (pdftex.def)             Requested size: 469.75275pt x 649.73955pt.
 [11 <./output/descriptivos1.png>] [12 <./output/descriptivos2.png>]
 <output/general.png, id=153, 939.51pt x 578.16pt>
 File: output/general.png Graphic file (type png)
 <use output/general.png>
-Package pdftex.def Info: output/general.png  used on input line 915.
+Package pdftex.def Info: output/general.png  used on input line 907.
 (pdftex.def)             Requested size: 469.75385pt x 289.07928pt.
 [13 <./output/general.png>]
 
@@ -810,7 +805,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [17] [18] [19]
-Overfull \hbox (2.33038pt too wide) in paragraph at lines 1404--1404
+Overfull \hbox (2.33038pt too wide) in paragraph at lines 1396--1396
 []|\T1/ptm/b/n/10 Educación 
  []
 
@@ -818,18 +813,18 @@ Overfull \hbox (2.33038pt too wide) in paragraph at lines 1404--1404
 
 
 ]
-Overfull \hbox (6.55585pt too wide) in paragraph at lines 1522--1524
+Overfull \hbox (6.55585pt too wide) in paragraph at lines 1514--1516
  [] 
  []
 
 [22]
-Underfull \hbox (badness 1303) in paragraph at lines 1609--1614
+Underfull \hbox (badness 1303) in paragraph at lines 1601--1606
 [][]\T1/ptm/m/n/10 Gorodzeisky, A., & Sem-yo-nov, M. (2009). Terms of ex-clu-si
 on: Pu-blic views to-wards ad-mis-sion and allo-
  []
 
 
-Underfull \hbox (badness 2111) in paragraph at lines 1609--1614
+Underfull \hbox (badness 2111) in paragraph at lines 1601--1606
 \T1/ptm/m/n/10 ca-tion of rights to im-mi-grants in Eu-ro-pean coun-tries. \T1/
 ptm/m/it/10 Eth-nic and Ra-cial Stu-dies\T1/ptm/m/n/10 , \T1/ptm/m/it/10 32\T1/
 ptm/m/n/10 (3), 401--423. [][]$https :
@@ -846,24 +841,24 @@ Package caption Warning: Unused \captionsetup[ table] on input line \caption@op
 t@ table@lineno .
 See the caption package documentation for explanation.
 
-[25] (./paper_analysis.aux
+[25] (./paper.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package rerunfilecheck Info: File `paper_analysis.out' has not changed.
+Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 53C5B09647876232DB5994AC469509B4;3718.
  ) 
 Here is how much of TeX's memory you used:
- 14394 strings out of 480936
- 216677 string characters out of 5904906
- 602112 words of memory out of 5000000
- 31216 multiletter control sequences out of 15000+600000
- 465900 words of font info for 86 fonts, out of 8000000 for 9000
+ 14083 strings out of 480936
+ 212875 string characters out of 5904906
+ 594136 words of memory out of 5000000
+ 30910 multiletter control sequences out of 15000+600000
+ 464822 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 71i,16n,74p,617b,488s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 71i,16n,74p,608b,488s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.en
 c}{c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-math
 it.enc}{c:/Users/Anais/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm
@@ -878,7 +873,7 @@ f-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Users/Anais/AppData/Roaming/TinyTeX
 /texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Users/Anais/AppData/Roaming/T
 inyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Users/Anais/AppData/Roam
 ing/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper_analysis.pdf (25 pages, 389046 bytes).
+Output written on paper.pdf (25 pages, 388492 bytes).
 PDF statistics:
  380 PDF objects out of 1000 (max. 8388607)
  334 compressed objects within 4 object streams
