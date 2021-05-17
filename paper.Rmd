@@ -1,10 +1,13 @@
 ---
 title: "El rol de la familia y la escuela en la socialización política de las actitudes hacia la igualdad de género"
+author:
+  - Daniel Miranda^[Pontificia Universidad Católica de Chile,[damiran1@uc.cl](damiran1@uc.cl)]
+  - Julio Iturra^[Centro de Estudio de Conflicto y Cohesión Social]
+  - Anaís Herrera^[Universidad de Chile]
+  - Kevin Carrasco$^{***}$
 output: 
   bookdown::pdf_document2:
-    fig_caption: true
     keep_tex: no
-    template: null
     number_sections: no
     toc: false
     latex_engine: xelatex
@@ -18,26 +21,27 @@ output:
 editor_options: 
   chunk_output_type: console
 header-includes:
-  - \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
-  - \usepackage{times}           # Times New Roman
-  - \usepackage{caption}
-  - \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
-  - \usepackage{graphicx}
-  - \usepackage{float}
-  - \usepackage{booktabs}
-  - \usepackage{longtable}
-  - \usepackage{array}
-  - \usepackage{multirow}
-  - \usepackage{wrapfig}
-  - \usepackage{colortbl}
-  - \usepackage{pdflscape}
-  - \usepackage{tabu}
-  - \usepackage{threeparttable} 
-geometry: paperheight= 11in, paperwidth=11in, margin=1.5in
+- \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+- \usepackage{times}           # Times New Roman
+- \usepackage{caption}
+- \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{booktabs}
+- \usepackage{longtable}
+- \usepackage{array}
+- \usepackage{multirow}
+- \usepackage{wrapfig}
+- \usepackage{colortbl}
+- \usepackage{pdflscape}
+- \usepackage{tabu}
+- \usepackage{threeparttable} 
+geometry: margin=0.78in
 bibliography: 
   - "input/bib/Tolerancia.bib"
 csl: "input/bib/apa6.csl"
 linkcolor: blue
+abstract: "La socialización política de actitudes hacia la igualdad de género es un elemento clave para la construcción de sociedades más democráticas y tolerantes, entendiendo la igualdad de derechos entre hombres y mujeres como un principio básico de toda democracia. Utilizando datos del Panel de Ciudadanía Escolar 2019 (Ola 1) se analizan las actitudes de 627 estudiantes de 2° medio y sus apoderados, pertenecientes a 60 escuelas de tres regiones de Chile. Se provee evidencia acerca del rol que juegan los recursos socioeconómicos de la familia sobre las actitudes hacia la igualdad de género de estudiantes y apoderados. Asimismo, se provee evidencia acerca del grado de consistencia de la transmisión intergeneracional de actitudes entre estudiantes y apoderados. Finalmente, se muestra la influencia sobre las actitudes de los jóvenes de dos características de la escuela, el porcentaje de niñas y la percepción de apertura a la discusión en el aula." 
 ---
 
 ```{r setup, echo=FALSE}
@@ -45,21 +49,6 @@ knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
                       error = TRUE)
 ```
-
-__\hfill Autores:__
-
-\hfill Daniel Miranda^[[damiran1@uc.cl](damiran1@uc.cl)], Pontificia Universidad Católica de Chile
-
-\hfill Juan Carlos Castillo, Universidad de Chile
-
-\hfill Julio Iturra, COES
-
-\hfill Anaís Herrera, Universidad de Chile
-
-\hfill Kevin Carrasco, Universidad de Chile
-
-# Resumen
-La socialización política de actitudes hacia la igualdad de género es un elemento clave para la construcción de sociedades más democráticas y tolerantes, entendiendo la igualdad de derechos entre hombres y mujeres como un principio básico de toda democracia. Utilizando datos del Panel de Ciudadanía Escolar 2019 (Ola 1) se analizan las actitudes de 627 estudiantes de 2° medio y sus apoderados, pertenecientes a 60 escuelas de tres regiones de Chile. Se provee evidencia acerca del rol que juegan los recursos socioeconómicos de la familia sobre las actitudes hacia la igualdad de género de estudiantes y apoderados. Asimismo, se provee evidencia acerca del grado de consistencia de la transmisión intergeneracional de actitudes entre estudiantes y apoderados. Finalmente, se muestra la influencia sobre las actitudes de los jóvenes de dos características de la escuela, el porcentaje de niñas y la percepción de apertura a la discusión en el aula.
 
 # Introducción
 La igualdad de derechos es un principio básico de toda democracia. De hecho, los derechos humanos pueden ser entendidos como un imperativo ético para la construcción de una sociedad democrática [@ahlert_Etica_2007], pero su relevancia en la democracia traspasa los ámbitos puramente éticos. Distintos organismos internacionales plantean que la igualdad se encuentra íntimamente relacionada con las posibilidades de desarrollo social y progreso económico de los países [@onu_IGUALDAD_2016; @pnud_Desiguales_2017], con el sentimiento de plenitud y valía de las personas [@onu_IGUALDAD_2016], y con la vida democrática, la convivencia y la cohesión social en general [@pnud_Desiguales_2017]. Por lo tanto, avanzar en garantizar la igualdad “(…) no es sólo un imperativo ético, es también una exigencia para la sostenibilidad del desarrollo de los países” [@pnud_Desiguales_2017, p.7]. Pese a la importancia de la igualdad de derechos, las democracias latinoamericanas y caribeñas aún enfrentan grandes desafíos en este ámbito, manteniendo en el tiempo desigualdades sociales, políticas y económicas que afectan principalmente a grupos tradicionalmente desfavorecidos [@barcena_matriz_2016]. El problema es de tal magnitud que la Comisión Económica para América Latina y el Caribe (CEPAL) ha definido a Latinoamérica como la región más desigual del mundo [@cepal_Panorama_2017]. Estas desigualdades afectan especialmente a las mujeres, quienes se encuentran sobrerrepresentadas en los quintiles de menores ingresos, se enfrentan a una marcada brecha salarial (que, paradojalmente, se acentúa en función de los años de estudio), se ven afectadas por una distribución desigual del uso del tiempo y del trabajo no remunerado en los hogares (cargando con las labores domésticas y de cuidado), son la mayor parte de las personas en la región sin ingresos propios [@cepal_Panorama_2017], tienen una menor participación en actividades remuneradas formales a largo plazo, menores probabilidades de contar con una pensión para su vejez y, aquellas mujeres que acceden a una pensión, reciben un monto menor al recibido por los hombres [@barcena_matriz_2016]. En este contexto, la ONU ha determinado que garantizar la igualdad de género y reducir todas las desigualdades son parte de los objetivos de desarrollo sostenible, volviéndose cada vez más relevante buscar vías de acción que permitan avanzar al cumplimiento de estas metas.
@@ -659,11 +648,10 @@ data_proc$quintiles_ingresos_pc_factor <-
                     "Igualdad de derechos y oportunidades"=4,
                     "Distribución igualitaria de roles en la esfera pública"=4,
                     "Distribución igualitaria de roles en la esfera privada"=4), bold = T)%>%
-   kable_paper("hover",full_width = F,latex_options = c("scale_down")) %>%
+   kable_paper("hover",full_width = F,latex_options = c("scale_down","HOLD_position")) %>%
     column_spec(1, bold = T,width = "1.5cm") %>%
     column_spec(3:14, width = "1.5cm") %>%
-    collapse_rows(columns = 1:2, valign = "top") %>% 
-    landscape()
+    collapse_rows(columns = 1:2, valign = "top")
 ```
 
 \newpage
