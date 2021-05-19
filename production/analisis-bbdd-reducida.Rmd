@@ -18,7 +18,7 @@ output:
 pacman::p_load(stargazer, ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
                sjPlot, summarytools, kableExtra, corrplot, coefplot, ltm, polycor,
                psych, lme4, ppcor, texreg, skimr, gtools, bda, lmerTest, Matrix, extrafont, sessioninfo, dplyr,
-               mediation, fastDummies)
+               mediation, fastDummies, tidyr)
 ```
 
 # Cargar base
@@ -1447,142 +1447,299 @@ data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc
      collapse_rows(columns = 1:2, valign = "top")
 ```
 
-### Igualdad de derechos y oportunidades paquete mediation
+## Mediaciones paquete mediation
+### Igualdad de derechos y oportunidades
 ```{r}
-# Educacion
-reg_med_ig1 <- lme4::lmer(igualdad.pad ~ as.numeric(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 | RBD), data = data_proc)
+data_proc <- data_proc %>%
+  mutate(ed_basica = case_when(Educacion == "8vo básico o menos" ~ 1,
+                               TRUE ~ 0),
+         ed_media = case_when(Educacion == "Educación Media" ~ 1,
+                              TRUE ~ 0),
+         ed_tecni = case_when(Educacion == "Educación Téc.Superior" ~ 1,
+                              TRUE ~ 0),
+         ed_supe = case_when(Educacion == "Universidad o Posgrado" ~ 1,
+                             TRUE ~ 0))
+data_proc <- data_proc %>%
+  mutate(libros1 = case_when(Libros_apod_rec == "Entre 0 y 10 libros" ~ 1,
+                               TRUE ~ 0),
+         libros2 = case_when(Libros_apod_rec == "Entre 11 y 25 libros" ~ 1,
+                              TRUE ~ 0),
+         libros3 = case_when(Libros_apod_rec == "Entre 26 y 100 libros" ~ 1,
+                              TRUE ~ 0),
+         libros4 = case_when(Libros_apod_rec == "Más de 100 libros" ~ 1,
+                             TRUE ~ 0))
 
-reg_out_ig1 <- lme4::lmer(igualdad.est ~ igualdad.pad*as.numeric(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 + igualdad.pad | RBD), data = data_proc)
+data_proc <- data_proc %>%
+  mutate(quintil1 = case_when(quintiles_ingresos_pc_factor == "Quintil 1" ~ 1,
+                               TRUE ~ 0),
+         quintil2 = case_when(quintiles_ingresos_pc_factor == "Quintil 2" ~ 1,
+                              TRUE ~ 0),
+         quintil3 = case_when(quintiles_ingresos_pc_factor == "Quintil 3" ~ 1,
+                              TRUE ~ 0),
+         quintil4 = case_when(quintiles_ingresos_pc_factor == "Quintil 4" ~ 1,
+                             TRUE ~ 0),
+         quintil5 = case_when(quintiles_ingresos_pc_factor == "Quintil 5" ~ 1,
+                              TRUE ~ 0),
+         quintilna= case_when(quintiles_ingresos_pc_factor == "Ns/Nr" ~ 1,
+                              TRUE ~ 0))
 
-med_out_ig1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "as.numeric(Educacion)", mediator = "igualdad.pad", sims = 100)
 
-summary(med_out_ig1)
+reg_med_ig1 <- lme4::lmer(igualdad.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
 
-# Libros en el hogar
-reg_med_ig2 <- lme4::lmer(igualdad.pad ~ as.numeric(Libros_apod_rec) + factor(Educacion) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 | RBD), data = data_proc)
-
-reg_out_ig2 <- lme4::lmer(igualdad.est ~ igualdad.pad*as.numeric(Libros_apod_rec) + factor(Educacion) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 + igualdad.pad | RBD), data = data_proc)
-
-med_out_ig2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "as.numeric(Libros_apod_rec)", mediator = "igualdad.pad", sims = 100)
-
-summary(med_out_ig2)
-
-# Quintiles de ingreso
-reg_med_ig3 <- lme4::lmer(igualdad.pad ~ as.numeric(quintiles_ingresos_pc_factor) + factor(Educacion) + factor(Libros_apod_rec) + factor(REGION) + factor(dependencia) + (1 | RBD), data = data_proc)
-
-reg_out_ig3 <- lme4::lmer(igualdad.est ~ igualdad.pad*as.numeric(quintiles_ingresos_pc_factor) + factor(Educacion) + factor(Libros_apod_rec) + factor(REGION) + factor(dependencia) + (1 + igualdad.pad | RBD), data = data_proc)
-
-med_out_ig3 <- mediate(reg_med_ig3, reg_out_ig3, treat = "as.numeric(quintiles_ingresos_pc_factor)", mediator = "igualdad.pad", sims = 100)
-
-summary(med_out_ig3)
-```
-### Espacio público paquete mediation
-```{r}
-data_proc <- dummy_cols(data_proc, select_columns = "Educacion")
-data_proc <- data_proc %>% rename(ed_basica=`Educacion_8vo básico o menos`,
-                      ed_media =`Educacion_Educación Media`,
-                      ed_tecni=`Educacion_Educación Téc.Superior`,
-                      ed_supe=`Educacion_Universidad o Posgrado`)
-
-```
-
-```{r}
-reg_med_pubdummy <- lme4::lmer(esp_publico.pad ~ ed_media + ed_tecni + ed_supe + Libros_apod_rec + quintiles_ingresos_pc_factor + REGION + dependencia + (1 | RBD), data = data_proc)
-
-reg_out_pubdummy <- lme4::lmer(esp_publico.est ~ esp_publico.pad + ed_media + ed_tecni + ed_supe + Libros_apod_rec + quintiles_ingresos_pc_factor + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
-
-med_out_pubnum <- mediate(reg_med_pubdummy, reg_out_pubdummy, treat = "ed_media", mediator = "esp_publico.pad", sims = 100)
-med_out_pubnum2 <- mediate(reg_med_pubdummy, reg_out_pubdummy, treat = "ed_tecni", mediator = "esp_publico.pad", sims = 100)
-med_out_pubnum3 <- mediate(reg_med_pubdummy, reg_out_pubdummy, treat = "ed_supe", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_pubnum)
-```
-```{r}
-summary(med_out_pubnum2)
-```
-```{r}
-summary(med_out_pubnum3)
+reg_out_ig1 <- lme4::lmer(igualdad.est ~ igualdad.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
 ```
 
-
-
-
-
-#### Educación numeric
 ```{r}
-reg_med_pubnum <- lme4::lmer(esp_publico.pad ~ as.numeric(Educacion) + Libros_apod_rec + quintiles_ingresos_pc_factor + REGION + dependencia + (1 | RBD), data = data_proc)
+med_out_iged1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "ed_media", mediator = "igualdad.pad", sims = 100)
+med_out_iged2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "ed_tecni", mediator = "igualdad.pad", sims = 100)
+med_out_iged3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "ed_supe", mediator = "igualdad.pad", sims = 100)
 
-reg_out_pubnum <- lme4::lmer(esp_publico.est ~ esp_publico.pad + as.numeric(Educacion) + Libros_apod_rec + quintiles_ingresos_pc_factor + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
+summary(med_out_iged1)
+summary(med_out_iged2)
+summary(med_out_iged3)
 
-med_out_pubnum <- mediate(reg_med_pubnum, reg_out_pubnum, treat = "as.numeric(Educacion)", mediator = "esp_publico.pad", sims = 100)
+```
 
+```{r}
+# Libros
+med_out_iglib1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "libros2", mediator = "igualdad.pad", sims = 100)
+med_out_iglib2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "libros3", mediator = "igualdad.pad", sims = 100)
+med_out_iglib3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "libros4", mediator = "igualdad.pad", sims = 100)
 
-
-summary(med_out_pubnum)
+summary(med_out_iglib1)
+summary(med_out_iglib2)
+summary(med_out_iglib3)
 ```
 ```{r}
-# Educacion factor
-reg_med_pub1 <- lme4::lmer(esp_publico.pad ~ Educacion + Libros_apod_rec + quintiles_ingresos_pc_factor + REGION + dependencia + (1 | RBD), data = data_proc)
+# Ingresos
+med_out_iging1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintil2", mediator = "igualdad.pad", sims = 100)
+med_out_iging2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintil3", mediator = "igualdad.pad", sims = 100)
+med_out_iging3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintil4", mediator = "igualdad.pad", sims = 100)
+med_out_iging4 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintil5", mediator = "igualdad.pad", sims = 100)
+med_out_iging5 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintilna", mediator = "igualdad.pad", sims = 100)
 
-reg_out_pub1 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + Educacion + Libros_apod_rec + quintiles_ingresos_pc_factor + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
+summary(med_out_iging1)
+summary(med_out_iging2)
+summary(med_out_iging3)
+summary(med_out_iging4)
+summary(med_out_iging5)
+```
+### Espacio público
+```{r}
+reg_med_pub1 <- lme4::lmer(esp_publico.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
 
-med_out_pubfactor <- mediate(reg_med_pub1, reg_out_pub1, treat = "Educacion", mediator = "esp_publico.pad", sims = 100)
-
-
-
-summary(med_out_pubfactor)
+reg_out_pub1 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
 ```
 
 ```{r}
 # Educacion
+med_out_pubed1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "ed_media", mediator = "esp_publico.pad", sims = 100)
+med_out_pubed2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "ed_tecni", mediator = "esp_publico.pad", sims = 100)
+med_out_pubed3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "ed_supe", mediator = "esp_publico.pad", sims = 100)
 
+summary(med_out_pubed1)
+summary(med_out_pubed2)
+summary(med_out_pubed3)
+```
+```{r}
+# Libros
+med_out_publib1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "libros2", mediator = "esp_publico.pad", sims = 100)
+med_out_publib2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "libros3", mediator = "esp_publico.pad", sims = 100)
+med_out_publib3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "libros4", mediator = "esp_publico.pad", sims = 100)
 
-# Libros en el hogar
-reg_med_pub2 <- lme4::lmer(esp_publico.pad ~ as.numeric(Libros_apod_rec) + factor(Educacion) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 | RBD), data = data_proc)
-
-reg_out_pub2 <- lme4::lmer(esp_publico.est ~ esp_publico.pad*as.numeric(Libros_apod_rec) + factor(Educacion) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 + esp_publico.pad | RBD), data = data_proc)
-
-med_out_pub2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "as.numeric(Libros_apod_rec)", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_pub2)
-
-# Quintiles de ingreso
-reg_med_pub3 <- lme4::lmer(esp_publico.pad ~ as.numeric(quintiles_ingresos_pc_factor) + factor(Educacion) + factor(Libros_apod_rec) + factor(REGION) + factor(dependencia) + (1 | RBD), data = data_proc)
-
-reg_out_pub3 <- lme4::lmer(esp_publico.est ~ esp_publico.pad*as.numeric(quintiles_ingresos_pc_factor) + factor(Educacion) + factor(Libros_apod_rec) + factor(REGION) + factor(dependencia) + (1 + esp_publico.pad | RBD), data = data_proc)
-
-med_out_pub3 <- mediate(reg_med_pub3, reg_out_pub3, treat = "as.numeric(quintiles_ingresos_pc_factor)", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_pub3)
+summary(med_out_publib1)
+summary(med_out_publib2)
+summary(med_out_publib3)
 ```
 
-### Espacio privado con paquete mediation
+```{r}
+# Ingresos
+med_out_pubing1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintil2", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintil3", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintil4", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing4 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintil5", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing5 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintilna", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_pubing1)
+summary(med_out_pubing2)
+summary(med_out_pubing3)
+summary(med_out_pubing4)
+summary(med_out_pubing5)
+```
+
+### Espacio privado
+```{r}
+reg_med_priv1 <- lme4::lmer(esp_privado.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_priv1 <- lme4::lmer(esp_privado.est ~ esp_privado.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
 ```{r}
 # Educacion
-reg_med_priv1 <- lme4::lmer(esp_privado.pad ~ as.numeric(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 | RBD), data = data_proc)
+med_out_prived1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "ed_media", mediator = "esp_privado.pad", sims = 100)
+med_out_prived2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "ed_tecni", mediator = "esp_privado.pad", sims = 100)
+med_out_prived3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "ed_supe", mediator = "esp_privado.pad", sims = 100)
 
-reg_out_priv1 <- lme4::lmer(esp_privado.est ~ esp_privado.pad*as.numeric(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 + esp_privado.pad | RBD), data = data_proc)
-
-med_out_priv1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "as.numeric(Educacion)", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_priv1)
-
-# Libros en el hogar
-reg_med_priv2 <- lme4::lmer(esp_privado.pad ~ as.numeric(Libros_apod_rec) + factor(Educacion) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 | RBD), data = data_proc)
-
-reg_out_priv2 <- lme4::lmer(esp_privado.est ~ esp_privado.pad*as.numeric(Libros_apod_rec) + factor(Educacion) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + factor(dependencia) + (1 + esp_privado.pad | RBD), data = data_proc)
-
-med_out_priv2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "as.numeric(Libros_apod_rec)", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_priv2)
-
-# Quintiles de ingreso
-reg_med_priv3 <- lme4::lmer(esp_privado.pad ~ as.numeric(quintiles_ingresos_pc_factor) + factor(Educacion) + factor(Libros_apod_rec) + factor(REGION) + factor(dependencia) + (1 | RBD), data = data_proc)
-
-reg_out_priv3 <- lme4::lmer(esp_privado.est ~ esp_privado.pad*as.numeric(quintiles_ingresos_pc_factor) + factor(Educacion) + factor(Libros_apod_rec) + factor(REGION) + factor(dependencia) + (1 + esp_privado.pad | RBD), data = data_proc)
-
-med_out_priv3 <- mediate(reg_med_pub3, reg_out_pub3, treat = "as.numeric(quintiles_ingresos_pc_factor)", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_priv3)
+summary(med_out_prived1)
+summary(med_out_prived2)
+summary(med_out_prived3)
 ```
 
+```{r}
+# Libros
+med_out_privlib1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "libros2", mediator = "esp_privado.pad", sims = 100)
+med_out_privlib2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "libros3", mediator = "esp_privado.pad", sims = 100)
+med_out_privlib3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "libros4", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_privlib1)
+summary(med_out_privlib2)
+summary(med_out_privlib3)
+```
+
+```{r}
+# Ingresos
+med_out_priving1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintil2", mediator = "esp_privado.pad", sims = 100)
+med_out_priving2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintil3", mediator = "esp_privado.pad", sims = 100)
+med_out_priving3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintil4", mediator = "esp_privado.pad", sims = 100)
+med_out_priving4 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintil5", mediator = "esp_privado.pad", sims = 100)
+med_out_priving5 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintilna", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_priving1)
+summary(med_out_priving2)
+summary(med_out_priving3)
+summary(med_out_priving4)
+summary(med_out_priving5)
+```
+
+## Mediaciones paquete mediation modelos con controles equivalentes
+### Igualdad de derechos y oportunidades
+```{r}
+reg_med_ig2 <- lme4::lmer(igualdad.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic  + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_ig2 <- lme4::lmer(igualdad.est ~ igualdad.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_iged1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "ed_media", mediator = "igualdad.pad", sims = 100)
+med_out_iged2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "ed_tecni", mediator = "igualdad.pad", sims = 100)
+med_out_iged3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "ed_supe", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iged1.2)
+summary(med_out_iged2.2)
+summary(med_out_iged3.2)
+```
+
+```{r}
+# Libros
+med_out_iglib1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "libros2", mediator = "igualdad.pad", sims = 100)
+med_out_iglib2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "libros3", mediator = "igualdad.pad", sims = 100)
+med_out_iglib3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "libros4", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iglib1.2)
+summary(med_out_iglib2.2)
+summary(med_out_iglib3.2)
+```
+
+```{r}
+# Ingresos
+med_out_iging1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintil2", mediator = "igualdad.pad", sims = 100)
+med_out_iging2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintil3", mediator = "igualdad.pad", sims = 100)
+med_out_iging3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintil4", mediator = "igualdad.pad", sims = 100)
+med_out_iging4.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintil5", mediator = "igualdad.pad", sims = 100)
+med_out_iging5.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintilna", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iging1.2)
+summary(med_out_iging2.2)
+summary(med_out_iging3.2)
+summary(med_out_iging4.2)
+summary(med_out_iging5.2)
+```
+
+### Espacio público
+```{r}
+reg_med_pub2 <- lme4::lmer(esp_publico.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_pub2 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_pubed1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "ed_media", mediator = "esp_publico.pad", sims = 100)
+med_out_pubed2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "ed_tecni", mediator = "esp_publico.pad", sims = 100)
+med_out_pubed3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "ed_supe", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_pubed1.2)
+summary(med_out_pubed2.2)
+summary(med_out_pubed3.2)
+```
+
+```{r}
+# Libros
+med_out_publib1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "libros2", mediator = "esp_publico.pad", sims = 100)
+med_out_publib2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "libros3", mediator = "esp_publico.pad", sims = 100)
+med_out_publib3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "libros4", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_publib1.2)
+summary(med_out_publib2.2)
+summary(med_out_publib3.2)
+```
+
+```{r}
+# Ingresos
+med_out_pubing1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintil2", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintil3", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintil4", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing4.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintil5", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing5.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintilna", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_pubing1.2)
+summary(med_out_pubing2.2)
+summary(med_out_pubing3.2)
+summary(med_out_pubing4.2)
+summary(med_out_pubing5.2)
+```
+
+### Espacio privado
+```{r}
+reg_med_priv2 <- lme4::lmer(esp_privado.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_priv2 <- lme4::lmer(esp_privado.est ~ esp_privado.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_prived1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "ed_media", mediator = "esp_privado.pad", sims = 100)
+med_out_prived2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "ed_tecni", mediator = "esp_privado.pad", sims = 100)
+med_out_prived3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "ed_supe", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_prived1.2)
+summary(med_out_prived2.2)
+summary(med_out_prived3.2)
+```
+
+```{r}
+# Libros
+med_out_privlib1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "libros2", mediator = "esp_privado.pad", sims = 100)
+med_out_privlib2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "libros3", mediator = "esp_privado.pad", sims = 100)
+med_out_privlib3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "libros4", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_privlib1.2)
+summary(med_out_privlib2.2)
+summary(med_out_privlib3.2)
+```
+
+```{r}
+# Ingresos
+med_out_priving1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintil2", mediator = "esp_privado.pad", sims = 100)
+med_out_priving2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintil3", mediator = "esp_privado.pad", sims = 100)
+med_out_priving3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintil4", mediator = "esp_privado.pad", sims = 100)
+med_out_priving4.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintil5", mediator = "esp_privado.pad", sims = 100)
+med_out_priving5.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintilna", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_priving1.2)
+summary(med_out_priving2.2)
+summary(med_out_priving3.2)
+summary(med_out_priving4.2)
+summary(med_out_priving5.2)
+```
