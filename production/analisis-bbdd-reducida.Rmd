@@ -18,7 +18,7 @@ output:
 pacman::p_load(stargazer, ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
                sjPlot, summarytools, kableExtra, corrplot, coefplot, ltm, polycor,
                psych, lme4, ppcor, texreg, skimr, gtools, bda, lmerTest, Matrix, extrafont, sessioninfo, dplyr,
-               mediation, fastDummies, tidyr)
+               mediation, fastDummies)
 ```
 
 # Cargar base
@@ -1361,6 +1361,292 @@ prL1_L4<-mediation.test(data_proc$esp_privado.pad,data_proc$Libros_apod,data_pro
 prQ1_Q4<-mediation.test(data_proc$esp_privado.pad,data_proc$quintiles_ingresos_pc_factor,data_proc$esp_privado.est)
 ```
 
+### Mediaciones paquete mediation
+#### Igualdad de derechos y oportunidades
+```{r}
+data_proc$Educacion <- factor(data_proc$Educacion, levels = c("8vo básico o menos", "Educación Media", "Educación Téc.Superior", "Universidad o Posgrado"), labels = c("ed_basica", "ed_media", "ed_tecni", "ed_supe"))
+
+data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, levels = c("Entre 0 y 10 libros", "Entre 11 y 25 libros", "Entre 26 y 100 libros", "Más de 100 libros"), labels = c("libros1", "libros2", "libros3", "libros4"))
+
+data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc_factor, levels = c("Quintil 1", "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Ns/Nr"), labels = c("quintil1", "quintil2", "quintil3", "quintil4", "quintil5", "quintilna"))
+```
+
+
+```{r}
+data_proc <- dummy_cols(data_proc, select_columns = "Educacion")
+
+data_proc <- dummy_cols(data_proc, select_columns = "Libros_apod_rec")
+
+data_proc <- dummy_cols(data_proc, select_columns = "quintiles_ingresos_pc_factor")
+
+```
+
+
+```{r}
+reg_med_ig1 <- lme4::lmer(igualdad.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_ig1 <- lme4::lmer(igualdad.est ~ igualdad.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_iged1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Educacion_ed_media", mediator = "igualdad.pad", sims = 100)
+med_out_iged2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Educacion_ed_tecni", mediator = "igualdad.pad", sims = 100)
+med_out_iged3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Educacion_ed_supe", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iged1)
+summary(med_out_iged2)
+summary(med_out_iged3)
+
+```
+
+
+```{r}
+# Libros
+med_out_iglib1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Libros_apod_rec_libros2", mediator = "igualdad.pad", sims = 100)
+med_out_iglib2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Libros_apod_rec_libros3", mediator = "igualdad.pad", sims = 100)
+med_out_iglib3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Libros_apod_rec_libros4", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iglib1)
+summary(med_out_iglib2)
+summary(med_out_iglib3)
+```
+
+```{r}
+# Ingresos
+med_out_iging1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "igualdad.pad", sims = 100)
+med_out_iging2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "igualdad.pad", sims = 100)
+med_out_iging3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "igualdad.pad", sims = 100)
+med_out_iging4 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "igualdad.pad", sims = 100)
+med_out_iging5 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iging1)
+summary(med_out_iging2)
+summary(med_out_iging3)
+summary(med_out_iging4)
+summary(med_out_iging5)
+```
+
+#### Espacio público
+```{r}
+reg_med_pub1 <- lme4::lmer(esp_publico.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_pub1 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_pubed1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Educacion_ed_media", mediator = "esp_publico.pad", sims = 100)
+med_out_pubed2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Educacion_ed_tecni", mediator = "esp_publico.pad", sims = 100)
+med_out_pubed3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Educacion_ed_supe", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_pubed1)
+summary(med_out_pubed2)
+summary(med_out_pubed3)
+```
+```{r}
+# Libros
+med_out_publib1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Libros_apod_rec_libros2", mediator = "esp_publico.pad", sims = 100)
+med_out_publib2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Libros_apod_rec_libros3", mediator = "esp_publico.pad", sims = 100)
+med_out_publib3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Libros_apod_rec_libros4", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_publib1)
+summary(med_out_publib2)
+summary(med_out_publib3)
+```
+
+```{r}
+# Ingresos
+med_out_pubing1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing4 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing5 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_pubing1)
+summary(med_out_pubing2)
+summary(med_out_pubing3)
+summary(med_out_pubing4)
+summary(med_out_pubing5)
+```
+
+#### Espacio privado
+```{r}
+reg_med_priv1 <- lme4::lmer(esp_privado.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_priv1 <- lme4::lmer(esp_privado.est ~ esp_privado.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_prived1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Educacion_ed_media", mediator = "esp_privado.pad", sims = 100)
+med_out_prived2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Educacion_ed_tecni", mediator = "esp_privado.pad", sims = 100)
+med_out_prived3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Educacion_ed_supe", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_prived1)
+summary(med_out_prived2)
+summary(med_out_prived3)
+```
+
+```{r}
+# Libros
+med_out_privlib1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Libros_apod_rec_libros2", mediator = "esp_privado.pad", sims = 100)
+med_out_privlib2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Libros_apod_rec_libros3", mediator = "esp_privado.pad", sims = 100)
+med_out_privlib3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Libros_apod_rec_libros4", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_privlib1)
+summary(med_out_privlib2)
+summary(med_out_privlib3)
+```
+
+```{r}
+# Ingresos
+med_out_priving1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "esp_privado.pad", sims = 100)
+med_out_priving2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "esp_privado.pad", sims = 100)
+med_out_priving3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "esp_privado.pad", sims = 100)
+med_out_priving4 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "esp_privado.pad", sims = 100)
+med_out_priving5 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_priving1)
+summary(med_out_priving2)
+summary(med_out_priving3)
+summary(med_out_priving4)
+summary(med_out_priving5)
+```
+
+### Mediaciones paquete mediation modelos con controles equivalentes
+#### Igualdad de derechos y oportunidades
+```{r}
+reg_med_ig2 <- lme4::lmer(igualdad.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic  + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_ig2 <- lme4::lmer(igualdad.est ~ igualdad.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_iged1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "Educacion_ed_media", mediator = "igualdad.pad", sims = 100)
+med_out_iged2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "Educacion_ed_tecni", mediator = "igualdad.pad", sims = 100)
+med_out_iged3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "Educacion_ed_supe", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iged1.2)
+summary(med_out_iged2.2)
+summary(med_out_iged3.2)
+```
+
+```{r}
+# Libros
+med_out_iglib1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "Libros_apod_rec_libros2", mediator = "igualdad.pad", sims = 100)
+med_out_iglib2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "Libros_apod_rec_libros3", mediator = "igualdad.pad", sims = 100)
+med_out_iglib3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "Libros_apod_rec_libros4", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iglib1.2)
+summary(med_out_iglib2.2)
+summary(med_out_iglib3.2)
+```
+
+```{r}
+# Ingresos
+med_out_iging1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "igualdad.pad", sims = 100)
+med_out_iging2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "igualdad.pad", sims = 100)
+med_out_iging3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "igualdad.pad", sims = 100)
+med_out_iging4.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "igualdad.pad", sims = 100)
+med_out_iging5.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "igualdad.pad", sims = 100)
+
+summary(med_out_iging1.2)
+summary(med_out_iging2.2)
+summary(med_out_iging3.2)
+summary(med_out_iging4.2)
+summary(med_out_iging5.2)
+```
+
+#### Espacio público
+```{r}
+reg_med_pub2 <- lme4::lmer(esp_publico.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_pub2 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_pubed1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "Educacion_ed_media", mediator = "esp_publico.pad", sims = 100)
+med_out_pubed2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "Educacion_ed_tecni", mediator = "esp_publico.pad", sims = 100)
+med_out_pubed3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "Educacion_ed_supe", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_pubed1.2)
+summary(med_out_pubed2.2)
+summary(med_out_pubed3.2)
+```
+
+```{r}
+# Libros
+med_out_publib1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "Libros_apod_rec_libros2", mediator = "esp_publico.pad", sims = 100)
+med_out_publib2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "Libros_apod_rec_libros3", mediator = "esp_publico.pad", sims = 100)
+med_out_publib3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "Libros_apod_rec_libros4", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_publib1.2)
+summary(med_out_publib2.2)
+summary(med_out_publib3.2)
+```
+
+```{r}
+# Ingresos
+med_out_pubing1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing4.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "esp_publico.pad", sims = 100)
+med_out_pubing5.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "esp_publico.pad", sims = 100)
+
+summary(med_out_pubing1.2)
+summary(med_out_pubing2.2)
+summary(med_out_pubing3.2)
+summary(med_out_pubing4.2)
+summary(med_out_pubing5.2)
+```
+
+#### Espacio privado
+```{r}
+reg_med_priv2 <- lme4::lmer(esp_privado.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_priv2 <- lme4::lmer(esp_privado.est ~ esp_privado.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+```
+
+```{r}
+# Educacion
+med_out_prived1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "Educacion_ed_media", mediator = "esp_privado.pad", sims = 100)
+med_out_prived2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "Educacion_ed_tecni", mediator = "esp_privado.pad", sims = 100)
+med_out_prived3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "Educacion_ed_supe", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_prived1.2)
+summary(med_out_prived2.2)
+summary(med_out_prived3.2)
+```
+
+```{r}
+# Libros
+med_out_privlib1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "Libros_apod_rec_libros2", mediator = "esp_privado.pad", sims = 100)
+med_out_privlib2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "Libros_apod_rec_libros3", mediator = "esp_privado.pad", sims = 100)
+med_out_privlib3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "Libros_apod_rec_libros4", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_privlib1.2)
+summary(med_out_privlib2.2)
+summary(med_out_privlib3.2)
+```
+
+```{r}
+# Ingresos
+med_out_priving1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "esp_privado.pad", sims = 100)
+med_out_priving2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "esp_privado.pad", sims = 100)
+med_out_priving3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "esp_privado.pad", sims = 100)
+med_out_priving4.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "esp_privado.pad", sims = 100)
+med_out_priving5.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "esp_privado.pad", sims = 100)
+
+summary(med_out_priving1.2)
+summary(med_out_priving2.2)
+summary(med_out_priving3.2)
+summary(med_out_priving4.2)
+summary(med_out_priving5.2)
+```
+
 ### Tabla de mediaciones
 ```{r}
 data_proc$Educacion <- factor(data_proc$Educacion, levels = c(1,2,3,4), labels = c("Educación Básica", "Educación Media (Ref. 8vo Básico)", "Educación Téc.Superior (IP o CFT)", "Universidad o Posgrado"))
@@ -1447,299 +1733,253 @@ data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc
      collapse_rows(columns = 1:2, valign = "top")
 ```
 
-## Mediaciones paquete mediation
-### Igualdad de derechos y oportunidades
+### Tabla mediación mediate
 ```{r}
-data_proc <- data_proc %>%
-  mutate(ed_basica = case_when(Educacion == "8vo básico o menos" ~ 1,
-                               TRUE ~ 0),
-         ed_media = case_when(Educacion == "Educación Media" ~ 1,
-                              TRUE ~ 0),
-         ed_tecni = case_when(Educacion == "Educación Téc.Superior" ~ 1,
-                              TRUE ~ 0),
-         ed_supe = case_when(Educacion == "Universidad o Posgrado" ~ 1,
-                             TRUE ~ 0))
-data_proc <- data_proc %>%
-  mutate(libros1 = case_when(Libros_apod_rec == "Entre 0 y 10 libros" ~ 1,
-                               TRUE ~ 0),
-         libros2 = case_when(Libros_apod_rec == "Entre 11 y 25 libros" ~ 1,
-                              TRUE ~ 0),
-         libros3 = case_when(Libros_apod_rec == "Entre 26 y 100 libros" ~ 1,
-                              TRUE ~ 0),
-         libros4 = case_when(Libros_apod_rec == "Más de 100 libros" ~ 1,
-                             TRUE ~ 0))
+collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 3), rep("Quintiles de ingreso",5)),
+                    Categorias = c(sjlabelled::get_labels(data_proc$Educacion)[-1],
+                                   sjlabelled::get_labels(data_proc$Libros_apod_rec)[-1],
+                                   sjlabelled::get_labels(data_proc$quintiles_ingresos_pc_factor)[-1]),
+                   
+                    Efectos_Directos = c(paste0(round(med_out_iged1[["d0"]],3), gtools::stars.pval(med_out_iged1[["d0.p"]])),
+                                         paste0(round(med_out_iged2[["d0"]],3), gtools::stars.pval(med_out_iged2[["d0.p"]])),
+                                         paste0(round(med_out_iged3[["d0"]],3), gtools::stars.pval(med_out_iged3[["d0.p"]])),
+                                         paste0(round(med_out_iglib1[["d0"]],3), gtools::stars.pval(med_out_iglib1[["d0.p"]])),
+                                         paste0(round(med_out_iglib2[["d0"]],3), gtools::stars.pval(med_out_iglib2[["d0.p"]])),
+                                         paste0(round(med_out_iglib3[["d0"]],3), gtools::stars.pval(med_out_iglib3[["d0.p"]])),
+                                         paste0(round(med_out_iging1[["d0"]],3), gtools::stars.pval(med_out_iging1[["d0.p"]])),
+                                         paste0(round(med_out_iging2[["d0"]],3), gtools::stars.pval(med_out_iging2[["d0.p"]])),
+                                         paste0(round(med_out_iging3[["d0"]],3), gtools::stars.pval(med_out_iging3[["d0.p"]])),
+                                         paste0(round(med_out_iging4[["d0"]],3), gtools::stars.pval(med_out_iging4[["d0.p"]])),
+                                         paste0(round(med_out_iging5[["d0"]],3), gtools::stars.pval(med_out_iging5[["d0.p"]]))),
+                    
+                    Efectos_Indirectos = c(paste0(round(med_out_iged1[["z0"]],3), gtools::stars.pval(med_out_iged1[["z0.p"]])),
+                                           paste0(round(med_out_iged2[["z0"]],3), gtools::stars.pval(med_out_iged2[["z0.p"]])),
+                                           paste0(round(med_out_iged3[["z0"]],3), gtools::stars.pval(med_out_iged3[["z0.p"]])),
+                                           paste0(round(med_out_iglib1[["z0"]],3), gtools::stars.pval(med_out_iglib1[["z0.p"]])),
+                                           paste0(round(med_out_iglib2[["z0"]],3), gtools::stars.pval(med_out_iglib2[["z0.p"]])),
+                                           paste0(round(med_out_iglib3[["z0"]],3), gtools::stars.pval(med_out_iglib3[["z0.p"]])),
+                                           paste0(round(med_out_iging1[["z0"]],3), gtools::stars.pval(med_out_iging1[["z0.p"]])),
+                                           paste0(round(med_out_iging2[["z0"]],3), gtools::stars.pval(med_out_iging2[["z0.p"]])),
+                                           paste0(round(med_out_iging3[["z0"]],3), gtools::stars.pval(med_out_iging3[["z0.p"]])),
+                                           paste0(round(med_out_iging4[["z0"]],3), gtools::stars.pval(med_out_iging4[["z0.p"]])),
+                                           paste0(round(med_out_iging5[["z0"]],3), gtools::stars.pval(med_out_iging5[["z0.p"]]))),
+                    
+                    Efectos_Totales = c(paste0(round(med_out_iged1[["tau.coef"]],3), gtools::stars.pval(med_out_iged1[["tau.p"]])),
+                                           paste0(round(med_out_iged2[["tau.coef"]],3), gtools::stars.pval(med_out_iged2[["tau.p"]])),
+                                           paste0(round(med_out_iged3[["tau.coef"]],3), gtools::stars.pval(med_out_iged3[["tau.p"]])),
+                                           paste0(round(med_out_iglib1[["tau.coef"]],3), gtools::stars.pval(med_out_iglib1[["tau.p"]])),
+                                           paste0(round(med_out_iglib2[["tau.coef"]],3), gtools::stars.pval(med_out_iglib2[["tau.p"]])),
+                                           paste0(round(med_out_iglib3[["tau.coef"]],3), gtools::stars.pval(med_out_iglib3[["tau.p"]])),
+                                           paste0(round(med_out_iging1[["tau.coef"]],3), gtools::stars.pval(med_out_iging1[["tau.p"]])),
+                                           paste0(round(med_out_iging2[["tau.coef"]],3), gtools::stars.pval(med_out_iging2[["tau.p"]])),
+                                           paste0(round(med_out_iging3[["tau.coef"]],3), gtools::stars.pval(med_out_iging3[["tau.p"]])),
+                                           paste0(round(med_out_iging4[["tau.coef"]],3), gtools::stars.pval(med_out_iging4[["tau.p"]])),
+                                           paste0(round(med_out_iging5[["tau.coef"]],3), gtools::stars.pval(med_out_iging5[["tau.p"]]))),
+                    
+                    Efectos_Directos = c(paste0(round(med_out_pubed1[["d0"]],3), gtools::stars.pval(med_out_pubed1[["d0.p"]])),
+                                         paste0(round(med_out_pubed2[["d0"]],3), gtools::stars.pval(med_out_pubed2[["d0.p"]])),
+                                         paste0(round(med_out_pubed3[["d0"]],3), gtools::stars.pval(med_out_pubed3[["d0.p"]])),
+                                         paste0(round(med_out_publib1[["d0"]],3), gtools::stars.pval(med_out_publib1[["d0.p"]])),
+                                         paste0(round(med_out_publib2[["d0"]],3), gtools::stars.pval(med_out_publib2[["d0.p"]])),
+                                         paste0(round(med_out_publib3[["d0"]],3), gtools::stars.pval(med_out_publib3[["d0.p"]])),
+                                         paste0(round(med_out_pubing1[["d0"]],3), gtools::stars.pval(med_out_pubing1[["d0.p"]])),
+                                         paste0(round(med_out_pubing2[["d0"]],3), gtools::stars.pval(med_out_pubing2[["d0.p"]])),
+                                         paste0(round(med_out_pubing3[["d0"]],3), gtools::stars.pval(med_out_pubing3[["d0.p"]])),
+                                         paste0(round(med_out_pubing4[["d0"]],3), gtools::stars.pval(med_out_pubing4[["d0.p"]])),
+                                         paste0(round(med_out_pubing5[["d0"]],3), gtools::stars.pval(med_out_pubing5[["d0.p"]]))),
+                    
+                    Efectos_Indirectos = c(paste0(round(med_out_pubed1[["z0"]],3), gtools::stars.pval(med_out_pubed1[["z0.p"]])),
+                                           paste0(round(med_out_pubed2[["z0"]],3), gtools::stars.pval(med_out_pubed2[["z0.p"]])),
+                                           paste0(round(med_out_pubed3[["z0"]],3), gtools::stars.pval(med_out_pubed3[["z0.p"]])),
+                                           paste0(round(med_out_publib1[["z0"]],3), gtools::stars.pval(med_out_publib1[["z0.p"]])),
+                                           paste0(round(med_out_publib2[["z0"]],3), gtools::stars.pval(med_out_publib2[["z0.p"]])),
+                                           paste0(round(med_out_publib3[["z0"]],3), gtools::stars.pval(med_out_publib3[["z0.p"]])),
+                                           paste0(round(med_out_pubing1[["z0"]],3), gtools::stars.pval(med_out_pubing1[["z0.p"]])),
+                                           paste0(round(med_out_pubing2[["z0"]],3), gtools::stars.pval(med_out_pubing2[["z0.p"]])),
+                                           paste0(round(med_out_pubing3[["z0"]],3), gtools::stars.pval(med_out_pubing3[["z0.p"]])),
+                                           paste0(round(med_out_pubing4[["z0"]],3), gtools::stars.pval(med_out_pubing4[["z0.p"]])),
+                                           paste0(round(med_out_pubing5[["z0"]],3), gtools::stars.pval(med_out_pubing5[["z0.p"]]))),
+                    
+                    Efectos_Totales = c(paste0(round(med_out_pubed1[["tau.coef"]],3), gtools::stars.pval(med_out_pubed1[["tau.p"]])),
+                                           paste0(round(med_out_pubed2[["tau.coef"]],3), gtools::stars.pval(med_out_pubed2[["tau.p"]])),
+                                           paste0(round(med_out_pubed3[["tau.coef"]],3), gtools::stars.pval(med_out_pubed3[["tau.p"]])),
+                                           paste0(round(med_out_publib1[["tau.coef"]],3), gtools::stars.pval(med_out_publib1[["tau.p"]])),
+                                           paste0(round(med_out_publib2[["tau.coef"]],3), gtools::stars.pval(med_out_publib2[["tau.p"]])),
+                                           paste0(round(med_out_publib3[["tau.coef"]],3), gtools::stars.pval(med_out_publib3[["tau.p"]])),
+                                           paste0(round(med_out_pubing1[["tau.coef"]],3), gtools::stars.pval(med_out_pubing1[["tau.p"]])),
+                                           paste0(round(med_out_pubing2[["tau.coef"]],3), gtools::stars.pval(med_out_pubing2[["tau.p"]])),
+                                           paste0(round(med_out_pubing3[["tau.coef"]],3), gtools::stars.pval(med_out_pubing3[["tau.p"]])),
+                                           paste0(round(med_out_pubing4[["tau.coef"]],3), gtools::stars.pval(med_out_pubing4[["tau.p"]])),
+                                           paste0(round(med_out_pubing5[["tau.coef"]],3), gtools::stars.pval(med_out_pubing5[["tau.p"]]))),
+                    
+                    Efectos_Directos = c(paste0(round(med_out_prived1[["d0"]],3), gtools::stars.pval(med_out_prived1[["d0.p"]])),
+                                         paste0(round(med_out_prived2[["d0"]],3), gtools::stars.pval(med_out_prived2[["d0.p"]])),
+                                         paste0(round(med_out_prived3[["d0"]],3), gtools::stars.pval(med_out_prived3[["d0.p"]])),
+                                         paste0(round(med_out_privlib1[["d0"]],3), gtools::stars.pval(med_out_privlib1[["d0.p"]])),
+                                         paste0(round(med_out_privlib2[["d0"]],3), gtools::stars.pval(med_out_privlib2[["d0.p"]])),
+                                         paste0(round(med_out_privlib3[["d0"]],3), gtools::stars.pval(med_out_privlib3[["d0.p"]])),
+                                         paste0(round(med_out_priving1[["d0"]],3), gtools::stars.pval(med_out_priving1[["d0.p"]])),
+                                         paste0(round(med_out_priving2[["d0"]],3), gtools::stars.pval(med_out_priving2[["d0.p"]])),
+                                         paste0(round(med_out_priving3[["d0"]],3), gtools::stars.pval(med_out_priving3[["d0.p"]])),
+                                         paste0(round(med_out_priving4[["d0"]],3), gtools::stars.pval(med_out_priving4[["d0.p"]])),
+                                         paste0(round(med_out_priving5[["d0"]],3), gtools::stars.pval(med_out_priving5[["d0.p"]]))),
+                    
+                    Efectos_Indirectos = c(paste0(round(med_out_prived1[["z0"]],3), gtools::stars.pval(med_out_prived1[["z0.p"]])),
+                                           paste0(round(med_out_prived2[["z0"]],3), gtools::stars.pval(med_out_prived2[["z0.p"]])),
+                                           paste0(round(med_out_prived3[["z0"]],3), gtools::stars.pval(med_out_prived3[["z0.p"]])),
+                                           paste0(round(med_out_privlib1[["z0"]],3), gtools::stars.pval(med_out_privlib1[["z0.p"]])),
+                                           paste0(round(med_out_privlib2[["z0"]],3), gtools::stars.pval(med_out_privlib2[["z0.p"]])),
+                                           paste0(round(med_out_privlib3[["z0"]],3), gtools::stars.pval(med_out_privlib3[["z0.p"]])),
+                                           paste0(round(med_out_priving1[["z0"]],3), gtools::stars.pval(med_out_priving1[["z0.p"]])),
+                                           paste0(round(med_out_priving2[["z0"]],3), gtools::stars.pval(med_out_priving2[["z0.p"]])),
+                                           paste0(round(med_out_priving3[["z0"]],3), gtools::stars.pval(med_out_priving3[["z0.p"]])),
+                                           paste0(round(med_out_priving4[["z0"]],3), gtools::stars.pval(med_out_priving4[["z0.p"]])),
+                                           paste0(round(med_out_priving5[["z0"]],3), gtools::stars.pval(med_out_priving5[["z0.p"]]))),
+                    
+                    Efectos_Totales = c(paste0(round(med_out_prived1[["tau.coef"]],3), gtools::stars.pval(med_out_prived1[["tau.p"]])),
+                                           paste0(round(med_out_prived2[["tau.coef"]],3), gtools::stars.pval(med_out_prived2[["tau.p"]])),
+                                           paste0(round(med_out_prived3[["tau.coef"]],3), gtools::stars.pval(med_out_prived3[["tau.p"]])),
+                                           paste0(round(med_out_privlib1[["tau.coef"]],3), gtools::stars.pval(med_out_privlib1[["tau.p"]])),
+                                           paste0(round(med_out_privlib2[["tau.coef"]],3), gtools::stars.pval(med_out_privlib2[["tau.p"]])),
+                                           paste0(round(med_out_privlib3[["tau.coef"]],3), gtools::stars.pval(med_out_privlib3[["tau.p"]])),
+                                           paste0(round(med_out_priving1[["tau.coef"]],3), gtools::stars.pval(med_out_priving1[["tau.p"]])),
+                                           paste0(round(med_out_priving2[["tau.coef"]],3), gtools::stars.pval(med_out_priving2[["tau.p"]])),
+                                           paste0(round(med_out_priving3[["tau.coef"]],3), gtools::stars.pval(med_out_priving3[["tau.p"]])),
+                                           paste0(round(med_out_priving4[["tau.coef"]],3), gtools::stars.pval(med_out_priving4[["tau.p"]])),
+                                           paste0(round(med_out_priving5[["tau.coef"]],3), gtools::stars.pval(med_out_priving5[["tau.p"]])))
+                    )
+                    
+kbl(collapse_rows_dt2, align = "c", col.names =  c("Variable","Categorías", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "Efectos Directos", "Efectos Indirectos", "Efectos Totales")) %>%
+  add_header_above(c(" " = 2,"Actitudes hacia  la igualdad de derechos y oportunidades"=3, "Actitudes hacia la distribución igualitaria de roles en la esfera pública"=3, "Actitudes hacia la distribución igualitaria de roles en la esfera privada"=3), bold = T)%>%  
+  kable_paper("hover",full_width = F) %>%
+     column_spec(1, bold = T) %>%
+     collapse_rows(columns = 1:2, valign = "top")
 
-data_proc <- data_proc %>%
-  mutate(quintil1 = case_when(quintiles_ingresos_pc_factor == "Quintil 1" ~ 1,
-                               TRUE ~ 0),
-         quintil2 = case_when(quintiles_ingresos_pc_factor == "Quintil 2" ~ 1,
-                              TRUE ~ 0),
-         quintil3 = case_when(quintiles_ingresos_pc_factor == "Quintil 3" ~ 1,
-                              TRUE ~ 0),
-         quintil4 = case_when(quintiles_ingresos_pc_factor == "Quintil 4" ~ 1,
-                             TRUE ~ 0),
-         quintil5 = case_when(quintiles_ingresos_pc_factor == "Quintil 5" ~ 1,
-                              TRUE ~ 0),
-         quintilna= case_when(quintiles_ingresos_pc_factor == "Ns/Nr" ~ 1,
-                              TRUE ~ 0))
 
-
-reg_med_ig1 <- lme4::lmer(igualdad.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
-
-reg_out_ig1 <- lme4::lmer(igualdad.est ~ igualdad.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
 ```
 
+### Tabla mediación mediate modelos con controles equivalentes
 ```{r}
-med_out_iged1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "ed_media", mediator = "igualdad.pad", sims = 100)
-med_out_iged2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "ed_tecni", mediator = "igualdad.pad", sims = 100)
-med_out_iged3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "ed_supe", mediator = "igualdad.pad", sims = 100)
+collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 3), rep("Quintiles de ingreso",5)),
+                    Categorias = c(sjlabelled::get_labels(data_proc$Educacion)[-1],
+                                   sjlabelled::get_labels(data_proc$Libros_apod_rec)[-1],
+                                   sjlabelled::get_labels(data_proc$quintiles_ingresos_pc_factor)[-1]),
+                   
+                    Efectos_Directos = c(paste0(round(med_out_iged1.2[["d0"]],3), gtools::stars.pval(med_out_iged1.2[["d0.p"]])),
+                                         paste0(round(med_out_iged2.2[["d0"]],3), gtools::stars.pval(med_out_iged2.2[["d0.p"]])),
+                                         paste0(round(med_out_iged3.2[["d0"]],3), gtools::stars.pval(med_out_iged3.2[["d0.p"]])),
+                                         paste0(round(med_out_iglib1.2[["d0"]],3), gtools::stars.pval(med_out_iglib1.2[["d0.p"]])),
+                                         paste0(round(med_out_iglib2.2[["d0"]],3), gtools::stars.pval(med_out_iglib2.2[["d0.p"]])),
+                                         paste0(round(med_out_iglib3.2[["d0"]],3), gtools::stars.pval(med_out_iglib3.2[["d0.p"]])),
+                                         paste0(round(med_out_iging1.2[["d0"]],3), gtools::stars.pval(med_out_iging1.2[["d0.p"]])),
+                                         paste0(round(med_out_iging2.2[["d0"]],3), gtools::stars.pval(med_out_iging2.2[["d0.p"]])),
+                                         paste0(round(med_out_iging3.2[["d0"]],3), gtools::stars.pval(med_out_iging3.2[["d0.p"]])),
+                                         paste0(round(med_out_iging4.2[["d0"]],3), gtools::stars.pval(med_out_iging4.2[["d0.p"]])),
+                                         paste0(round(med_out_iging5.2[["d0"]],3), gtools::stars.pval(med_out_iging5.2[["d0.p"]]))),
+                    
+                    Efectos_Indirectos = c(paste0(round(med_out_iged1.2[["z0"]],3), gtools::stars.pval(med_out_iged1.2[["z0.p"]])),
+                                           paste0(round(med_out_iged2.2[["z0"]],3), gtools::stars.pval(med_out_iged2.2[["z0.p"]])),
+                                           paste0(round(med_out_iged3.2[["z0"]],3), gtools::stars.pval(med_out_iged3.2[["z0.p"]])),
+                                           paste0(round(med_out_iglib1.2[["z0"]],3), gtools::stars.pval(med_out_iglib1.2[["z0.p"]])),
+                                           paste0(round(med_out_iglib2.2[["z0"]],3), gtools::stars.pval(med_out_iglib2.2[["z0.p"]])),
+                                           paste0(round(med_out_iglib3.2[["z0"]],3), gtools::stars.pval(med_out_iglib3.2[["z0.p"]])),
+                                           paste0(round(med_out_iging1.2[["z0"]],3), gtools::stars.pval(med_out_iging1.2[["z0.p"]])),
+                                           paste0(round(med_out_iging2.2[["z0"]],3), gtools::stars.pval(med_out_iging2.2[["z0.p"]])),
+                                           paste0(round(med_out_iging3.2[["z0"]],3), gtools::stars.pval(med_out_iging3.2[["z0.p"]])),
+                                           paste0(round(med_out_iging4.2[["z0"]],3), gtools::stars.pval(med_out_iging4.2[["z0.p"]])),
+                                           paste0(round(med_out_iging5.2[["z0"]],3), gtools::stars.pval(med_out_iging5.2[["z0.p"]]))),
+                    
+                    Efectos_Totales = c(paste0(round(med_out_iged1.2[["tau.coef"]],3), gtools::stars.pval(med_out_iged1.2[["tau.p"]])),
+                                           paste0(round(med_out_iged2.2[["tau.coef"]],3), gtools::stars.pval(med_out_iged2.2[["tau.p"]])),
+                                           paste0(round(med_out_iged3.2[["tau.coef"]],3), gtools::stars.pval(med_out_iged3.2[["tau.p"]])),
+                                           paste0(round(med_out_iglib1.2[["tau.coef"]],3), gtools::stars.pval(med_out_iglib1.2[["tau.p"]])),
+                                           paste0(round(med_out_iglib2.2[["tau.coef"]],3), gtools::stars.pval(med_out_iglib2.2[["tau.p"]])),
+                                           paste0(round(med_out_iglib3.2[["tau.coef"]],3), gtools::stars.pval(med_out_iglib3.2[["tau.p"]])),
+                                           paste0(round(med_out_iging1.2[["tau.coef"]],3), gtools::stars.pval(med_out_iging1.2[["tau.p"]])),
+                                           paste0(round(med_out_iging2.2[["tau.coef"]],3), gtools::stars.pval(med_out_iging2.2[["tau.p"]])),
+                                           paste0(round(med_out_iging3.2[["tau.coef"]],3), gtools::stars.pval(med_out_iging3.2[["tau.p"]])),
+                                           paste0(round(med_out_iging4.2[["tau.coef"]],3), gtools::stars.pval(med_out_iging4.2[["tau.p"]])),
+                                           paste0(round(med_out_iging5.2[["tau.coef"]],3), gtools::stars.pval(med_out_iging5.2[["tau.p"]]))),
+                    
+                    Efectos_Directos = c(paste0(round(med_out_pubed1.2[["d0"]],3), gtools::stars.pval(med_out_pubed1.2[["d0.p"]])),
+                                         paste0(round(med_out_pubed2.2[["d0"]],3), gtools::stars.pval(med_out_pubed2.2[["d0.p"]])),
+                                         paste0(round(med_out_pubed3.2[["d0"]],3), gtools::stars.pval(med_out_pubed3.2[["d0.p"]])),
+                                         paste0(round(med_out_publib1.2[["d0"]],3), gtools::stars.pval(med_out_publib1.2[["d0.p"]])),
+                                         paste0(round(med_out_publib2.2[["d0"]],3), gtools::stars.pval(med_out_publib2.2[["d0.p"]])),
+                                         paste0(round(med_out_publib3.2[["d0"]],3), gtools::stars.pval(med_out_publib3.2[["d0.p"]])),
+                                         paste0(round(med_out_pubing1.2[["d0"]],3), gtools::stars.pval(med_out_pubing1.2[["d0.p"]])),
+                                         paste0(round(med_out_pubing2.2[["d0"]],3), gtools::stars.pval(med_out_pubing2.2[["d0.p"]])),
+                                         paste0(round(med_out_pubing3.2[["d0"]],3), gtools::stars.pval(med_out_pubing3.2[["d0.p"]])),
+                                         paste0(round(med_out_pubing4.2[["d0"]],3), gtools::stars.pval(med_out_pubing4.2[["d0.p"]])),
+                                         paste0(round(med_out_pubing5.2[["d0"]],3), gtools::stars.pval(med_out_pubing5.2[["d0.p"]]))),
+                    
+                    Efectos_Indirectos = c(paste0(round(med_out_pubed1.2[["z0"]],3), gtools::stars.pval(med_out_pubed1.2[["z0.p"]])),
+                                           paste0(round(med_out_pubed2.2[["z0"]],3), gtools::stars.pval(med_out_pubed2.2[["z0.p"]])),
+                                           paste0(round(med_out_pubed3.2[["z0"]],3), gtools::stars.pval(med_out_pubed3.2[["z0.p"]])),
+                                           paste0(round(med_out_publib1.2[["z0"]],3), gtools::stars.pval(med_out_publib1.2[["z0.p"]])),
+                                           paste0(round(med_out_publib2.2[["z0"]],3), gtools::stars.pval(med_out_publib2.2[["z0.p"]])),
+                                           paste0(round(med_out_publib3.2[["z0"]],3), gtools::stars.pval(med_out_publib3.2[["z0.p"]])),
+                                           paste0(round(med_out_pubing1.2[["z0"]],3), gtools::stars.pval(med_out_pubing1.2[["z0.p"]])),
+                                           paste0(round(med_out_pubing2.2[["z0"]],3), gtools::stars.pval(med_out_pubing2.2[["z0.p"]])),
+                                           paste0(round(med_out_pubing3.2[["z0"]],3), gtools::stars.pval(med_out_pubing3.2[["z0.p"]])),
+                                           paste0(round(med_out_pubing4.2[["z0"]],3), gtools::stars.pval(med_out_pubing4.2[["z0.p"]])),
+                                           paste0(round(med_out_pubing5.2[["z0"]],3), gtools::stars.pval(med_out_pubing5.2[["z0.p"]]))),
+                    
+                    Efectos_Totales = c(paste0(round(med_out_pubed1.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubed1.2[["tau.p"]])),
+                                           paste0(round(med_out_pubed2.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubed2.2[["tau.p"]])),
+                                           paste0(round(med_out_pubed3.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubed3.2[["tau.p"]])),
+                                           paste0(round(med_out_publib1.2[["tau.coef"]],3), gtools::stars.pval(med_out_publib1.2[["tau.p"]])),
+                                           paste0(round(med_out_publib2.2[["tau.coef"]],3), gtools::stars.pval(med_out_publib2.2[["tau.p"]])),
+                                           paste0(round(med_out_publib3.2[["tau.coef"]],3), gtools::stars.pval(med_out_publib3.2[["tau.p"]])),
+                                           paste0(round(med_out_pubing1.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubing1.2[["tau.p"]])),
+                                           paste0(round(med_out_pubing2.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubing2.2[["tau.p"]])),
+                                           paste0(round(med_out_pubing3.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubing3.2[["tau.p"]])),
+                                           paste0(round(med_out_pubing4.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubing4.2[["tau.p"]])),
+                                           paste0(round(med_out_pubing5.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubing5.2[["tau.p"]]))),
+                    
+                    Efectos_Directos = c(paste0(round(med_out_prived1.2[["d0"]],3), gtools::stars.pval(med_out_prived1.2[["d0.p"]])),
+                                         paste0(round(med_out_prived2.2[["d0"]],3), gtools::stars.pval(med_out_prived2.2[["d0.p"]])),
+                                         paste0(round(med_out_prived3.2[["d0"]],3), gtools::stars.pval(med_out_prived3.2[["d0.p"]])),
+                                         paste0(round(med_out_privlib1.2[["d0"]],3), gtools::stars.pval(med_out_privlib1.2[["d0.p"]])),
+                                         paste0(round(med_out_privlib2.2[["d0"]],3), gtools::stars.pval(med_out_privlib2.2[["d0.p"]])),
+                                         paste0(round(med_out_privlib3.2[["d0"]],3), gtools::stars.pval(med_out_privlib3.2[["d0.p"]])),
+                                         paste0(round(med_out_priving1.2[["d0"]],3), gtools::stars.pval(med_out_priving1.2[["d0.p"]])),
+                                         paste0(round(med_out_priving2.2[["d0"]],3), gtools::stars.pval(med_out_priving2.2[["d0.p"]])),
+                                         paste0(round(med_out_priving3.2[["d0"]],3), gtools::stars.pval(med_out_priving3.2[["d0.p"]])),
+                                         paste0(round(med_out_priving4.2[["d0"]],3), gtools::stars.pval(med_out_priving4.2[["d0.p"]])),
+                                         paste0(round(med_out_priving5.2[["d0"]],3), gtools::stars.pval(med_out_priving5.2[["d0.p"]]))),
+                    
+                    Efectos_Indirectos = c(paste0(round(med_out_prived1.2[["z0"]],3), gtools::stars.pval(med_out_prived1.2[["z0.p"]])),
+                                           paste0(round(med_out_prived2.2[["z0"]],3), gtools::stars.pval(med_out_prived2.2[["z0.p"]])),
+                                           paste0(round(med_out_prived3.2[["z0"]],3), gtools::stars.pval(med_out_prived3.2[["z0.p"]])),
+                                           paste0(round(med_out_privlib1.2[["z0"]],3), gtools::stars.pval(med_out_privlib1.2[["z0.p"]])),
+                                           paste0(round(med_out_privlib2.2[["z0"]],3), gtools::stars.pval(med_out_privlib2.2[["z0.p"]])),
+                                           paste0(round(med_out_privlib3.2[["z0"]],3), gtools::stars.pval(med_out_privlib3.2[["z0.p"]])),
+                                           paste0(round(med_out_priving1.2[["z0"]],3), gtools::stars.pval(med_out_priving1.2[["z0.p"]])),
+                                           paste0(round(med_out_priving2.2[["z0"]],3), gtools::stars.pval(med_out_priving2.2[["z0.p"]])),
+                                           paste0(round(med_out_priving3.2[["z0"]],3), gtools::stars.pval(med_out_priving3.2[["z0.p"]])),
+                                           paste0(round(med_out_priving4.2[["z0"]],3), gtools::stars.pval(med_out_priving4.2[["z0.p"]])),
+                                           paste0(round(med_out_priving5.2[["z0"]],3), gtools::stars.pval(med_out_priving5.2[["z0.p"]]))),
+                    
+                    Efectos_Totales = c(paste0(round(med_out_prived1.2[["tau.coef"]],3), gtools::stars.pval(med_out_prived1.2[["tau.p"]])),
+                                           paste0(round(med_out_prived2.2[["tau.coef"]],3), gtools::stars.pval(med_out_prived2.2[["tau.p"]])),
+                                           paste0(round(med_out_prived3.2[["tau.coef"]],3), gtools::stars.pval(med_out_prived3.2[["tau.p"]])),
+                                           paste0(round(med_out_privlib1.2[["tau.coef"]],3), gtools::stars.pval(med_out_privlib1.2[["tau.p"]])),
+                                           paste0(round(med_out_privlib2.2[["tau.coef"]],3), gtools::stars.pval(med_out_privlib2.2[["tau.p"]])),
+                                           paste0(round(med_out_privlib3.2[["tau.coef"]],3), gtools::stars.pval(med_out_privlib3.2[["tau.p"]])),
+                                           paste0(round(med_out_priving1.2[["tau.coef"]],3), gtools::stars.pval(med_out_priving1.2[["tau.p"]])),
+                                           paste0(round(med_out_priving2.2[["tau.coef"]],3), gtools::stars.pval(med_out_priving2.2[["tau.p"]])),
+                                           paste0(round(med_out_priving3.2[["tau.coef"]],3), gtools::stars.pval(med_out_priving3.2[["tau.p"]])),
+                                           paste0(round(med_out_priving4.2[["tau.coef"]],3), gtools::stars.pval(med_out_priving4.2[["tau.p"]])),
+                                           paste0(round(med_out_priving5.2[["tau.coef"]],3), gtools::stars.pval(med_out_priving5.2[["tau.p"]])))
+                    )
+                    
+kbl(collapse_rows_dt2, align = "c", col.names =  c("Variable","Categorías", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "Efectos Directos", "Efectos Indirectos", "Efectos Totales")) %>%
+  add_header_above(c(" " = 2,"Actitudes hacia  la igualdad de derechos y oportunidades"=3, "Actitudes hacia la distribución igualitaria de roles en la esfera pública"=3, "Actitudes hacia la distribución igualitaria de roles en la esfera privada"=3), bold = T)%>%  
+  kable_paper("hover",full_width = F) %>%
+     column_spec(1, bold = T) %>%
+     collapse_rows(columns = 1:2, valign = "top")
 
-summary(med_out_iged1)
-summary(med_out_iged2)
-summary(med_out_iged3)
 
 ```
 
-```{r}
-# Libros
-med_out_iglib1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "libros2", mediator = "igualdad.pad", sims = 100)
-med_out_iglib2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "libros3", mediator = "igualdad.pad", sims = 100)
-med_out_iglib3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "libros4", mediator = "igualdad.pad", sims = 100)
-
-summary(med_out_iglib1)
-summary(med_out_iglib2)
-summary(med_out_iglib3)
-```
-```{r}
-# Ingresos
-med_out_iging1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintil2", mediator = "igualdad.pad", sims = 100)
-med_out_iging2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintil3", mediator = "igualdad.pad", sims = 100)
-med_out_iging3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintil4", mediator = "igualdad.pad", sims = 100)
-med_out_iging4 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintil5", mediator = "igualdad.pad", sims = 100)
-med_out_iging5 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintilna", mediator = "igualdad.pad", sims = 100)
-
-summary(med_out_iging1)
-summary(med_out_iging2)
-summary(med_out_iging3)
-summary(med_out_iging4)
-summary(med_out_iging5)
-```
-### Espacio público
-```{r}
-reg_med_pub1 <- lme4::lmer(esp_publico.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
-
-reg_out_pub1 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
-```
-
-```{r}
-# Educacion
-med_out_pubed1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "ed_media", mediator = "esp_publico.pad", sims = 100)
-med_out_pubed2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "ed_tecni", mediator = "esp_publico.pad", sims = 100)
-med_out_pubed3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "ed_supe", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_pubed1)
-summary(med_out_pubed2)
-summary(med_out_pubed3)
-```
-```{r}
-# Libros
-med_out_publib1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "libros2", mediator = "esp_publico.pad", sims = 100)
-med_out_publib2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "libros3", mediator = "esp_publico.pad", sims = 100)
-med_out_publib3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "libros4", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_publib1)
-summary(med_out_publib2)
-summary(med_out_publib3)
-```
-
-```{r}
-# Ingresos
-med_out_pubing1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintil2", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintil3", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintil4", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing4 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintil5", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing5 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintilna", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_pubing1)
-summary(med_out_pubing2)
-summary(med_out_pubing3)
-summary(med_out_pubing4)
-summary(med_out_pubing5)
-```
-
-### Espacio privado
-```{r}
-reg_med_priv1 <- lme4::lmer(esp_privado.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
-
-reg_out_priv1 <- lme4::lmer(esp_privado.est ~ esp_privado.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
-```
-
-```{r}
-# Educacion
-med_out_prived1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "ed_media", mediator = "esp_privado.pad", sims = 100)
-med_out_prived2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "ed_tecni", mediator = "esp_privado.pad", sims = 100)
-med_out_prived3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "ed_supe", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_prived1)
-summary(med_out_prived2)
-summary(med_out_prived3)
-```
-
-```{r}
-# Libros
-med_out_privlib1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "libros2", mediator = "esp_privado.pad", sims = 100)
-med_out_privlib2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "libros3", mediator = "esp_privado.pad", sims = 100)
-med_out_privlib3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "libros4", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_privlib1)
-summary(med_out_privlib2)
-summary(med_out_privlib3)
-```
-
-```{r}
-# Ingresos
-med_out_priving1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintil2", mediator = "esp_privado.pad", sims = 100)
-med_out_priving2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintil3", mediator = "esp_privado.pad", sims = 100)
-med_out_priving3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintil4", mediator = "esp_privado.pad", sims = 100)
-med_out_priving4 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintil5", mediator = "esp_privado.pad", sims = 100)
-med_out_priving5 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintilna", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_priving1)
-summary(med_out_priving2)
-summary(med_out_priving3)
-summary(med_out_priving4)
-summary(med_out_priving5)
-```
-
-## Mediaciones paquete mediation modelos con controles equivalentes
-### Igualdad de derechos y oportunidades
-```{r}
-reg_med_ig2 <- lme4::lmer(igualdad.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic  + REGION + dependencia + (1 | RBD), data = data_proc)
-
-reg_out_ig2 <- lme4::lmer(igualdad.est ~ igualdad.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
-```
-
-```{r}
-# Educacion
-med_out_iged1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "ed_media", mediator = "igualdad.pad", sims = 100)
-med_out_iged2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "ed_tecni", mediator = "igualdad.pad", sims = 100)
-med_out_iged3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "ed_supe", mediator = "igualdad.pad", sims = 100)
-
-summary(med_out_iged1.2)
-summary(med_out_iged2.2)
-summary(med_out_iged3.2)
-```
-
-```{r}
-# Libros
-med_out_iglib1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "libros2", mediator = "igualdad.pad", sims = 100)
-med_out_iglib2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "libros3", mediator = "igualdad.pad", sims = 100)
-med_out_iglib3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "libros4", mediator = "igualdad.pad", sims = 100)
-
-summary(med_out_iglib1.2)
-summary(med_out_iglib2.2)
-summary(med_out_iglib3.2)
-```
-
-```{r}
-# Ingresos
-med_out_iging1.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintil2", mediator = "igualdad.pad", sims = 100)
-med_out_iging2.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintil3", mediator = "igualdad.pad", sims = 100)
-med_out_iging3.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintil4", mediator = "igualdad.pad", sims = 100)
-med_out_iging4.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintil5", mediator = "igualdad.pad", sims = 100)
-med_out_iging5.2 <- mediate(reg_med_ig2, reg_out_ig2, treat = "quintilna", mediator = "igualdad.pad", sims = 100)
-
-summary(med_out_iging1.2)
-summary(med_out_iging2.2)
-summary(med_out_iging3.2)
-summary(med_out_iging4.2)
-summary(med_out_iging5.2)
-```
-
-### Espacio público
-```{r}
-reg_med_pub2 <- lme4::lmer(esp_publico.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
-
-reg_out_pub2 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
-```
-
-```{r}
-# Educacion
-med_out_pubed1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "ed_media", mediator = "esp_publico.pad", sims = 100)
-med_out_pubed2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "ed_tecni", mediator = "esp_publico.pad", sims = 100)
-med_out_pubed3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "ed_supe", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_pubed1.2)
-summary(med_out_pubed2.2)
-summary(med_out_pubed3.2)
-```
-
-```{r}
-# Libros
-med_out_publib1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "libros2", mediator = "esp_publico.pad", sims = 100)
-med_out_publib2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "libros3", mediator = "esp_publico.pad", sims = 100)
-med_out_publib3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "libros4", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_publib1.2)
-summary(med_out_publib2.2)
-summary(med_out_publib3.2)
-```
-
-```{r}
-# Ingresos
-med_out_pubing1.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintil2", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing2.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintil3", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing3.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintil4", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing4.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintil5", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing5.2 <- mediate(reg_med_pub2, reg_out_pub2, treat = "quintilna", mediator = "esp_publico.pad", sims = 100)
-
-summary(med_out_pubing1.2)
-summary(med_out_pubing2.2)
-summary(med_out_pubing3.2)
-summary(med_out_pubing4.2)
-summary(med_out_pubing5.2)
-```
-
-### Espacio privado
-```{r}
-reg_med_priv2 <- lme4::lmer(esp_privado.pad ~ ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data = data_proc)
-
-reg_out_priv2 <- lme4::lmer(esp_privado.est ~ esp_privado.pad + ed_media + ed_tecni + ed_supe + libros2 + libros3 + libros4 + quintil2 + quintil3 + quintil4 + quintil5 + quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
-```
-
-```{r}
-# Educacion
-med_out_prived1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "ed_media", mediator = "esp_privado.pad", sims = 100)
-med_out_prived2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "ed_tecni", mediator = "esp_privado.pad", sims = 100)
-med_out_prived3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "ed_supe", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_prived1.2)
-summary(med_out_prived2.2)
-summary(med_out_prived3.2)
-```
-
-```{r}
-# Libros
-med_out_privlib1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "libros2", mediator = "esp_privado.pad", sims = 100)
-med_out_privlib2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "libros3", mediator = "esp_privado.pad", sims = 100)
-med_out_privlib3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "libros4", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_privlib1.2)
-summary(med_out_privlib2.2)
-summary(med_out_privlib3.2)
-```
-
-```{r}
-# Ingresos
-med_out_priving1.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintil2", mediator = "esp_privado.pad", sims = 100)
-med_out_priving2.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintil3", mediator = "esp_privado.pad", sims = 100)
-med_out_priving3.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintil4", mediator = "esp_privado.pad", sims = 100)
-med_out_priving4.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintil5", mediator = "esp_privado.pad", sims = 100)
-med_out_priving5.2 <- mediate(reg_med_priv2, reg_out_priv2, treat = "quintilna", mediator = "esp_privado.pad", sims = 100)
-
-summary(med_out_priving1.2)
-summary(med_out_priving2.2)
-summary(med_out_priving3.2)
-summary(med_out_priving4.2)
-summary(med_out_priving5.2)
-```
