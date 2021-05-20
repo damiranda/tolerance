@@ -195,7 +195,7 @@ data_proc$mean_discusion <- set_label(x = data_proc$mean_discusion,label = "Perc
 data_proc$num_fem <- set_label(x = data_proc$num_fem,label = "Proporción de niñas en el aula")
 data_proc$dependencia <- set_label(x=data_proc$dependencia, label = "Dependencia administrativa de la escuela")
 data_proc$REGION <- set_label(x=data_proc$REGION, label = "Región")
-data_proc$RBD <- set_label(x=data_proc$RBD, label = "RBD")
+#data_proc$RBD <- set_label(x=data_proc$RBD, label = "RBD")
 data_proc$c_civic <- set_label(x = data_proc$c_civic, label = "Conocimiento cívico conceptual")
 
 descr <-
@@ -214,7 +214,7 @@ descr <-
     ap_discusion,
     mean_discusion,
     num_fem,
-    RBD,
+    #RBD,
     c_civic,
     dependencia,
     REGION) %>% ungroup()
@@ -302,8 +302,8 @@ data_proc <- data %>% dplyr::select(
 ) %>% as.data.frame() %>%  na.omit()
 
 coef_names <- c(
+          "Intercepto",
           "Niña Ref. Niño)",
-          "Conocimiento cívico",
           "Educación Media (Ref. 8vo básico o menos)",
           "Educación Técnica Superior (IP o CFT)",
           "Educación universitaria o Posgrado",
@@ -316,8 +316,8 @@ coef_names <- c(
           "Quintil 5",
           "No sabe / No responde"
           )
-omit_coef <- "(dependencia)|(REGION)|(Intercept)|(quintiles_ingresos_pc_factorNs/Nr)"
-footnote<- "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 Todos los modelos son controlados por la región de residencia (p>0.05) y dependencia administrativa de la escuela (p>0.05)"
+omit_coef <- "(dependencia)|(REGION)|(c_civic)"
+footnote<- "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 Todos los modelos son controlados por la región de residencia (p>0.05), la dependencia administrativa de la escuela (p>0.05) y el nivel de conocimiento cívico del estudiante (p<0.05)"
 scale_box <- 0.65
 ```
 
@@ -334,21 +334,20 @@ Siguiendo con la quinta hipótesis, por un lado, tanto la percepción individual
 
 Finalmente, en relación con las hipótesis 6 y 7, los efectos de las interacciones entre las variables propuestas no resultaron estadísticamente significativas para la dimensión de igualdad de derechos. Más precisamente, las características de la escuela como la proporción de niñas y, principalmente, el promedio de apertura a la discusión en el aula, si bien logran afectar positivamente las actitudes de los estudiantes hacia la igualdad de género de forma directa, no logran mitigar el efecto de la transmisión intergeneracional de las actitudes tolerantes de los padres hacia los hijos. Asimismo, no hay ninguna interacción significativa entre el género del estudiante y las variables analizadas en los modelos.
 ```{r, echo=FALSE, results='asis'}
-reg_igualdad1 <- lmer(igualdad.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad2 <- lmer(igualdad.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad3 <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad4 <- lmer(igualdad.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad5 <- lmer(igualdad.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad6 <- lmer(igualdad.est ~ 1 + igualdad.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad7 <- lmer(igualdad.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad8 <- lmer(igualdad.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_igualdad9 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad1 <- lmer(igualdad.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad2 <- lmer(igualdad.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad3 <- lmer(igualdad.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad4 <- lmer(igualdad.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad5 <- lmer(igualdad.est ~ 1 + igualdad.pad + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad6 <- lmer(igualdad.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad7 <- lmer(igualdad.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_igualdad8 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 
 caption <- "Modelo de regresión multinivel para Igualdad de derechos y oportunidades"
 knitreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,
-             reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8,reg_igualdad9),
+             reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8),
         custom.model.names = c("Modelo 1",  "Modelo 2",  "Modelo 3",  "Modelo 4",  
-                               "Modelo 5",  "Modelo 6",  "Modelo 7",  "Modelo 8",  "Modelo 9"),
+                               "Modelo 5",  "Modelo 6",  "Modelo 7",  "Modelo 8"),
         custom.note = footnote,
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
@@ -380,21 +379,19 @@ En relación con la quinta hipótesis, en el modelo 7 se puede observar que tant
 Finalmente, en relación con las hipótesis 6 y 7, los efectos de las interacciones entre las variables propuestas no resultaron estadísticamente significativas para la dimensión de distribución igualitaria de roles en la esfera pública. Más precisamente, las características de la escuela como la proporción de niñas y, principalmente, el promedio de apertura a la discusión en el aula, si bien logran afectar positivamente las actitudes de los estudiantes hacia la igualdad de género de forma directa, no logran mitigar el efecto de la transmisión intergeneracional de las actitudes tolerantes de los padres hacia los hijos. Asimismo, no hay ninguna interacción significativa entre el género del estudiante y las variables analizadas en los modelos.
 
 ```{r, echo=FALSE}
-reg_esp.pub1 <- lmer(esp_publico.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.pub2 <- lmer(esp_publico.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.pub3 <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.pub4 <- lmer(esp_publico.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.pub5 <- lmer(esp_publico.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.pub6 <- lmer(esp_publico.est ~ 1 + esp_publico.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.pub7 <- lmer(esp_publico.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.pub8 <- lmer(esp_publico.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.pub9 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
-#screenreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,reg_esp.pub6,reg_esp.pub7,reg_esp.pub8,reg_esp.pub9))
+reg_esp.pub1 <- lmer(esp_publico.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.pub2 <- lmer(esp_publico.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.pub3 <- lmer(esp_publico.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.pub4 <- lmer(esp_publico.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.pub5 <- lmer(esp_publico.est ~ 1 + esp_publico.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.pub6 <- lmer(esp_publico.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.pub7 <- lmer(esp_publico.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.pub8 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 ```
 ```{r, echo=FALSE,results='asis'}
 caption <- "Modelo de regresión multinivel para Distribución igualitaria de roles en la esfera pública"
-knitreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,reg_esp.pub6,reg_esp.pub7,reg_esp.pub8,reg_esp.pub9), 
-        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8","Modelo 9"), 
+knitreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,reg_esp.pub6,reg_esp.pub7,reg_esp.pub8), 
+        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8"), 
         custom.note = footnote,
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
@@ -425,20 +422,19 @@ En relación con la quinta hipótesis, el modelo 7 muestra que tanto la percepci
 Finalmente, en relación con las hipótesis 6 y 7, los efectos de las interacciones entre las variables propuestas no resultaron estadísticamente significativas para la dimensión de distribución igualitaria de roles en la esfera privada. Más precisamente, las características de la escuela como la proporción de niñas y, principalmente, el promedio de apertura a la discusión en el aula, si bien logran afectar positivamente las actitudes de los estudiantes hacia la igualdad de género de forma directa, no logran mitigar el efecto de la transmisión intergeneracional de las actitudes tolerantes de los padres hacia los hijos. Asimismo, no hay ninguna interacción significativa entre el género del estudiante y las variables analizadas en los modelos.
 
 ```{r, echo=FALSE}
-reg_esp.priv1 <- lmer(esp_privado.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.priv2 <- lmer(esp_privado.est ~ 1 + c_civic + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.priv3 <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.priv4 <- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.priv5 <- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.priv6 <- lmer(esp_privado.est ~ 1 + esp_privado.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.priv7 <- lmer(esp_privado.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.priv8 <- lmer(esp_privado.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
-reg_esp.priv9 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv1 <- lmer(esp_privado.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv2 <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv3 <- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv4 <- lmer(esp_privado.est ~ 1 + factor(quintiles_ingresos_pc_factor) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv5 <- lmer(esp_privado.est ~ 1 + esp_privado.pad + factor(dependencia) + factor(REGION) + (1 | RBD), data=data_proc)
+reg_esp.priv6 <- lmer(esp_privado.est ~ 1 + ap_discusion + mean_discusion + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv7 <- lmer(esp_privado.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
+reg_esp.priv8 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 ```
 ```{r, echo=FALSE,results='asis'}
 caption <- "Modelo de regresión multinivel Distribución igualitaria de roles en la esfera privada"
-knitreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,reg_esp.priv6,reg_esp.priv7,reg_esp.priv8,reg_esp.priv9), 
-        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8","Modelo 9"),
+knitreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,reg_esp.priv6,reg_esp.priv7,reg_esp.priv8), 
+        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8"),
         custom.note = footnote,
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
