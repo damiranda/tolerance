@@ -1778,19 +1778,18 @@ collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3),
                                            paste0(round(med_out_iging5[["tau.coef"]],3), gtools::stars.pval(med_out_iging5[["tau.p"]]))),
                     
                     Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_iged1[["z0"]]*med_out_iged1[["d0"]]*100/med_out_iged1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iged2[["z0"]]*med_out_iged2[["d0"]]*100/med_out_iged2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iged3[["z0"]]*med_out_iged3[["d0"]]*100/med_out_iged3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iglib1[["z0"]]*med_out_iglib1[["d0"]]*100/med_out_iglib1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iglib2[["z0"]]*med_out_iglib2[["d0"]]*100/med_out_iglib2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iglib3[["z0"]]*med_out_iglib3[["d0"]]*100/med_out_iglib3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging1[["z0"]]*med_out_iging1[["d0"]]*100/med_out_iging1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging2[["z0"]]*med_out_iging2[["d0"]]*100/med_out_iging2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging3[["z0"]]*med_out_iging3[["d0"]]*100/med_out_iging3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging4[["z0"]]*med_out_iging4[["d0"]]*100/med_out_iging4[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging5[["z0"]]*med_out_iging5[["d0"]]*100/med_out_iging5[["tau.coef"]],1),"%")
+                                             paste0(round(med_out_iged1[["n.avg"]]*100,2),"%"), # entrega la proporción en %,
+                                             paste0(round(med_out_iged2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iged3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iglib1[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iglib2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iglib3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging1[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging4[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging5[["n.avg"]]*100,2),"%")
                                              ),
-                    
                     
                     Efectos_Directos = c(paste0(round(med_out_pubed1[["d0"]],3), gtools::stars.pval(med_out_pubed1[["d0.p"]])),
                                          paste0(round(med_out_pubed2[["d0"]],3), gtools::stars.pval(med_out_pubed2[["d0.p"]])),
@@ -1829,17 +1828,17 @@ collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3),
                                            paste0(round(med_out_pubing5[["tau.coef"]],3), gtools::stars.pval(med_out_pubing5[["tau.p"]]))),
                     
                     Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_pubed1[["z0"]]*med_out_iged1[["d0"]]*100/med_out_pubed1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubed2[["z0"]]*med_out_iged2[["d0"]]*100/med_out_pubed2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubed3[["z0"]]*med_out_iged3[["d0"]]*100/med_out_pubed3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_publib1[["z0"]]*med_out_iglib1[["d0"]]*100/med_out_publib1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_publib2[["z0"]]*med_out_iglib2[["d0"]]*100/med_out_publib2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_publib3[["z0"]]*med_out_iglib3[["d0"]]*100/med_out_publib3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing1[["z0"]]*med_out_iging1[["d0"]]*100/med_out_pubing1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing2[["z0"]]*med_out_iging2[["d0"]]*100/med_out_pubing2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing3[["z0"]]*med_out_iging3[["d0"]]*100/med_out_pubing3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing4[["z0"]]*med_out_iging4[["d0"]]*100/med_out_pubing4[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing5[["z0"]]*med_out_iging5[["d0"]]*100/med_out_pubing5[["tau.coef"]],1),"%")
+                                             paste0(round(med_out_pubed1[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubed2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubed3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_publib1[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_publib2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_publib3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing1[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing4[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing5[["n.avg"]]*100,2),"%")
                                              ),
                     
                     
@@ -1880,17 +1879,17 @@ collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3),
                                            paste0(round(med_out_priving5[["tau.coef"]],3), gtools::stars.pval(med_out_priving5[["tau.p"]]))),
                     
                     Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_prived1[["z0"]]*med_out_iged1[["d0"]]*100/med_out_prived1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_prived2[["z0"]]*med_out_iged2[["d0"]]*100/med_out_prived2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_prived3[["z0"]]*med_out_iged3[["d0"]]*100/med_out_prived3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_privlib1[["z0"]]*med_out_iglib1[["d0"]]*100/med_out_privlib1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_privlib2[["z0"]]*med_out_iglib2[["d0"]]*100/med_out_privlib2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_privlib3[["z0"]]*med_out_iglib3[["d0"]]*100/med_out_privlib3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving1[["z0"]]*med_out_iging1[["d0"]]*100/med_out_priving1[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving2[["z0"]]*med_out_iging2[["d0"]]*100/med_out_priving2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving3[["z0"]]*med_out_iging3[["d0"]]*100/med_out_priving3[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving4[["z0"]]*med_out_iging4[["d0"]]*100/med_out_priving4[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving5[["z0"]]*med_out_iging5[["d0"]]*100/med_out_priving5[["tau.coef"]],1),"%")
+                                             paste0(round(med_out_prived1[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_prived2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_prived3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_privlib1[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_privlib2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_privlib3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving1[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving3[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving4[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving5[["n.avg"]]*100,2),"%")
                                              )
                     )
                     
@@ -1905,7 +1904,7 @@ kbl(collapse_rows_dt2, align = "c", col.names =  c("Variable","Categorías", "Ef
 
 ### Tabla mediación mediate modelos con controles equivalentes
 ```{r}
-collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 3), rep("Quintiles de ingreso",5)),
+collapse_rows_dt3 <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 3), rep("Quintiles de ingreso",5)),
                     Categorias = c(sjlabelled::get_labels(data_proc$Educacion)[-1],
                                    sjlabelled::get_labels(data_proc$Libros_apod_rec)[-1],
                                    sjlabelled::get_labels(data_proc$quintiles_ingresos_pc_factor)[-1]),
@@ -1947,17 +1946,17 @@ collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3),
                                            paste0(round(med_out_iging5.2[["tau.coef"]],3), gtools::stars.pval(med_out_iging5.2[["tau.p"]]))),
                     
                     Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_iged1.2[["z0"]]*med_out_iged1.2[["d0"]]*100/med_out_iged1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iged2.2[["z0"]]*med_out_iged2.2[["d0"]]*100/med_out_iged2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iged3.2[["z0"]]*med_out_iged3.2[["d0"]]*100/med_out_iged3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iglib1.2[["z0"]]*med_out_iglib1.2[["d0"]]*100/med_out_iglib1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iglib2.2[["z0"]]*med_out_iglib2.2[["d0"]]*100/med_out_iglib2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iglib3.2[["z0"]]*med_out_iglib3.2[["d0"]]*100/med_out_iglib3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging1.2[["z0"]]*med_out_iging1.2[["d0"]]*100/med_out_iging1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging2.2[["z0"]]*med_out_iging2.2[["d0"]]*100/med_out_iging2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging3.2[["z0"]]*med_out_iging3.2[["d0"]]*100/med_out_iging3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging4.2[["z0"]]*med_out_iging4.2[["d0"]]*100/med_out_iging4.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_iging5.2[["z0"]]*med_out_iging5.2[["d0"]]*100/med_out_iging5.2[["tau.coef"]],1),"%")
+                                             paste0(round(med_out_iged1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iged2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iged3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iglib1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iglib2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iglib3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging4.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_iging5.2[["n.avg"]]*100,2),"%")
                                              ),
                     
                     
@@ -1998,17 +1997,17 @@ collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3),
                                            paste0(round(med_out_pubing5.2[["tau.coef"]],3), gtools::stars.pval(med_out_pubing5.2[["tau.p"]]))),
                     
                      Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_pubed1.2[["z0"]]*med_out_iged1.2[["d0"]]*100/med_out_pubed1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubed2.2[["z0"]]*med_out_iged2.2[["d0"]]*100/med_out_pubed2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubed3.2[["z0"]]*med_out_iged3.2[["d0"]]*100/med_out_pubed3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_publib1.2[["z0"]]*med_out_iglib1.2[["d0"]]*100/med_out_publib1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_publib2.2[["z0"]]*med_out_iglib2.2[["d0"]]*100/med_out_publib2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_publib3.2[["z0"]]*med_out_iglib3.2[["d0"]]*100/med_out_publib3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing1.2[["z0"]]*med_out_iging1.2[["d0"]]*100/med_out_pubing1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing2.2[["z0"]]*med_out_iging2.2[["d0"]]*100/med_out_pubing2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing3.2[["z0"]]*med_out_iging3.2[["d0"]]*100/med_out_pubing3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing4.2[["z0"]]*med_out_iging4.2[["d0"]]*100/med_out_pubing4.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_pubing5.2[["z0"]]*med_out_iging5.2[["d0"]]*100/med_out_pubing5.2[["tau.coef"]],1),"%")
+                                             paste0(round(med_out_pubed1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubed2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubed3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_publib1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_publib2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_publib3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing4.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_pubing5.2[["n.avg"]]*100,2),"%")
                                              ),
                     
                     
@@ -2049,21 +2048,21 @@ collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3),
                                            paste0(round(med_out_priving5.2[["tau.coef"]],3), gtools::stars.pval(med_out_priving5.2[["tau.p"]]))),
                     
                      Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_prived1.2[["z0"]]*med_out_iged1.2[["d0"]]*100/med_out_prived1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_prived2.2[["z0"]]*med_out_iged2.2[["d0"]]*100/med_out_prived2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_prived3.2[["z0"]]*med_out_iged3.2[["d0"]]*100/med_out_prived3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_privlib1.2[["z0"]]*med_out_iglib1.2[["d0"]]*100/med_out_privlib1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_privlib2.2[["z0"]]*med_out_iglib2.2[["d0"]]*100/med_out_privlib2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_privlib3.2[["z0"]]*med_out_iglib3.2[["d0"]]*100/med_out_privlib3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving1.2[["z0"]]*med_out_iging1.2[["d0"]]*100/med_out_priving1.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving2.2[["z0"]]*med_out_iging2.2[["d0"]]*100/med_out_priving2.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving3.2[["z0"]]*med_out_iging3.2[["d0"]]*100/med_out_priving3.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving4.2[["z0"]]*med_out_iging4.2[["d0"]]*100/med_out_priving4.2[["tau.coef"]],1),"%"),
-                                             paste0(round(med_out_priving5.2[["z0"]]*med_out_iging5.2[["d0"]]*100/med_out_priving5.2[["tau.coef"]],1),"%")
+                                             paste0(round(med_out_prived1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_prived2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_prived3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_privlib1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_privlib2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_privlib3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving1.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving2.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving3.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving4.2[["n.avg"]]*100,2),"%"),
+                                             paste0(round(med_out_priving5.2[["n.avg"]]*100,2),"%")
                                              )
                     )
                     
-kbl(collapse_rows_dt2, align = "c", col.names =  c("Variable","Categorías", "Efectos Directos", "Efectos Indirectos", "Efectos Totales","% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos")) %>%
+kbl(collapse_rows_dt3, align = "c", col.names =  c("Variable","Categorías", "Efectos Directos", "Efectos Indirectos", "Efectos Totales","% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos", "Efectos Directos", "Efectos Indirectos", "Efectos Totales", "% de Efectos Indirectos")) %>%
   add_header_above(c(" " = 2,"Actitudes hacia  la igualdad de derechos y oportunidades"=4, "Actitudes hacia la distribución igualitaria de roles en la esfera pública"=4, "Actitudes hacia la distribución igualitaria de roles en la esfera privada"=4), bold = T)%>%  
   kable_paper("hover",full_width = F) %>%
      column_spec(1, bold = T) %>%
