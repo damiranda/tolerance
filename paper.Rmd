@@ -7,10 +7,10 @@ author:
   - Kevin Carrasco$^{***}$
 output: 
   bookdown::pdf_document2:
+    template: null
     keep_tex: no
     number_sections: no
     toc: false
-    latex_engine: xelatex
   html_document: 
     toc: yes
     code_folding: hide
@@ -21,21 +21,21 @@ output:
 editor_options: 
   chunk_output_type: console
 header-includes:
-- \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
-- \usepackage{times}           # Times New Roman
-- \usepackage{caption}
-- \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
-- \usepackage{graphicx}
-- \usepackage{float}
-- \usepackage{booktabs}
-- \usepackage{longtable}
-- \usepackage{array}
-- \usepackage{multirow}
-- \usepackage{wrapfig}
-- \usepackage{colortbl}
-- \usepackage{pdflscape}
-- \usepackage{tabu}
-- \usepackage{threeparttable} 
+  - \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+  - \usepackage{times}           # Times New Roman
+  - \usepackage{caption}
+  - \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{wrapfig}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable} 
 geometry: margin=0.78in
 bibliography: 
   - "input/bib/Tolerancia.bib"
@@ -45,9 +45,11 @@ abstract: "La socialización política de actitudes hacia la igualdad de género
 ---
 
 ```{r setup, echo=FALSE}
-knitr::opts_chunk$set(warning = FALSE, 
-                      message = FALSE,
-                      error = TRUE)
+knitr::opts_chunk$set(
+	error = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
 ```
 
 # Introducción
@@ -122,9 +124,15 @@ table_format = if(is_html_output()) {
 }
 ```
 ```{r echo=FALSE}
-tab <- read.csv(file = "input/tables/table.csv",header = 1,sep = ";",encoding = "UTF-8")
+tab <- read.csv(file = "input/tables/table.csv",
+                header = 1,sep = ";",encoding = "UTF-8")
 
-kable(tab,table_format,booktabs = T, linesep = "",col.names =  c("Constructo","Dimensión","Indicador"), caption = "Actitudes hacia la igualdad de género.") %>%
+kable(tab,
+      format = table_format,
+      booktabs = T, 
+      linesep = "",
+      col.names =  c("Constructo","Dimensión","Indicador"),
+      caption = "Actitudes hacia la igualdad de género.") %>%
   kable_styling(
     full_width = T,
     latex_options = c("hold_position"),
@@ -253,22 +261,23 @@ file.remove(c("desc01.html","desc02.html"))
 ```
 
 ```{r desc01, echo=FALSE, results='asis'}
-knitr::kable(data.frame(image='![](output/desc01.png){width="500"}'),    # generar tabla
+kable(data.frame(image='![](output/desc01.png){width="500"}'),    # generar tabla
              caption="Descripción de las variables utilizadas en los análisis (parte 1)",
              col.names = "",
              row.names = F,
-             format = "pandoc") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
 ```
 
 ```{r desc01-esc, echo=FALSE, results='asis'}
-knitr::kable(data.frame(image='![](output/desc02.png){width="550"}'), # generar tabla
+kable(data.frame(image='![](output/desc02.png){width="550"}'), # generar tabla
              caption="Descripción de las variables utilizadas en los análisis (parte 2)",
              col.names = "",
              row.names = F,
-             format = "pandoc") %>% kable_styling(latex_options = c("HOLD_position"),full_width = T)
+             format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
 ```
 
 ## Análisis bivariado
+
 ```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según los recursos socioeconómicos de la familia.", fig.align = 'center', out.width = '80%',out.height='80%'}
 knitr::include_graphics(path = "output/general.png")
 ```
@@ -303,7 +312,7 @@ data_proc <- data %>% dplyr::select(
 
 coef_names <- c(
           "Intercepto",
-          "Niña Ref. Niño)",
+          "Niña (Ref. Niño)",
           "Educación Media (Ref. 8vo básico o menos)",
           "Educación Técnica Superior (IP o CFT)",
           "Educación universitaria o Posgrado",
@@ -317,7 +326,7 @@ coef_names <- c(
           "No sabe / No responde"
           )
 omit_coef <- "(dependencia)|(REGION)|(c_civic)"
-footnote<- "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05 Todos los modelos son controlados por la región de residencia (p>0.05), la dependencia administrativa de la escuela (p>0.05) y el nivel de conocimiento cívico del estudiante (p<0.05)"
+footnote<- "\\item %stars. \\item Todos los modelos son controlados por la región de residencia (p>0.05), la dependencia administrativa de la escuela (p>0.05) y el nivel de conocimiento cívico del estudiante (p<0.05)"
 scale_box <- 0.65
 ```
 
@@ -349,6 +358,7 @@ knitreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,
         custom.model.names = c("Modelo 1",  "Modelo 2",  "Modelo 3",  "Modelo 4",  
                                "Modelo 5",  "Modelo 6",  "Modelo 7",  "Modelo 8"),
         custom.note = footnote,
+        threeparttable = TRUE,
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
           "Actitudes igualdad de derechos (apod.)",
@@ -357,7 +367,6 @@ knitreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,
           "Proporción de niñas en el aula"
         ),
        scalebox = scale_box,
-       threeparttable = F,
        caption.above = T,
        caption=caption,
        float.pos="h!"
@@ -390,9 +399,12 @@ reg_esp.pub8 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Lib
 ```
 ```{r, echo=FALSE,results='asis'}
 caption <- "Modelo de regresión multinivel para Distribución igualitaria de roles en la esfera pública"
-knitreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,reg_esp.pub6,reg_esp.pub7,reg_esp.pub8), 
-        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8"), 
+knitreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,
+             reg_esp.pub6,reg_esp.pub7,reg_esp.pub8), 
+        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4",
+                               "Modelo 5","Modelo 6","Modelo 7","Modelo 8"), 
         custom.note = footnote,
+        threeparttable = TRUE,        
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
           "Actitudes distribución en esfera pública (apod.)",
@@ -401,7 +413,6 @@ knitreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,re
           "Proporción de niñas en el aula"
         ),
         scalebox = scale_box,
-        threeparttable = F,
         caption.above = T,
         caption=caption,
         float.pos="h!"
@@ -421,7 +432,7 @@ En relación con la quinta hipótesis, el modelo 7 muestra que tanto la percepci
 
 Finalmente, en relación con las hipótesis 6 y 7, los efectos de las interacciones entre las variables propuestas no resultaron estadísticamente significativas para la dimensión de distribución igualitaria de roles en la esfera privada. Más precisamente, las características de la escuela como la proporción de niñas y, principalmente, el promedio de apertura a la discusión en el aula, si bien logran afectar positivamente las actitudes de los estudiantes hacia la igualdad de género de forma directa, no logran mitigar el efecto de la transmisión intergeneracional de las actitudes tolerantes de los padres hacia los hijos. Asimismo, no hay ninguna interacción significativa entre el género del estudiante y las variables analizadas en los modelos.
 
-```{r, echo=FALSE}
+```{r echo=FALSE}
 reg_esp.priv1 <- lmer(esp_privado.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 reg_esp.priv2 <- lmer(esp_privado.est ~ 1 + factor(Educacion) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 reg_esp.priv3 <- lmer(esp_privado.est ~ 1 + factor(Libros_apod_rec) + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
@@ -433,8 +444,10 @@ reg_esp.priv8 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Li
 ```
 ```{r, echo=FALSE,results='asis'}
 caption <- "Modelo de regresión multinivel Distribución igualitaria de roles en la esfera privada"
-knitreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,reg_esp.priv6,reg_esp.priv7,reg_esp.priv8), 
-        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4","Modelo 5","Modelo 6","Modelo 7","Modelo 8"),
+knitreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,
+             reg_esp.priv6,reg_esp.priv7,reg_esp.priv8), 
+        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4",
+                               "Modelo 5","Modelo 6","Modelo 7","Modelo 8"),
         custom.note = footnote,
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
@@ -444,7 +457,7 @@ knitreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.pri
           "Proporción de niñas en el aula"
         ),
         scalebox = scale_box,
-        threeparttable = F,
+        threeparttable = TRUE,
         caption.above = T,
         caption=caption,
         float.pos="h!"
@@ -460,278 +473,388 @@ En la Tabla 7 se muestra un análisis de mediación realizado para evaluar la hi
 
 En los distintos modelos referidos a las tres dimensiones el patrón es el mismo. Padres con mayores recursos socioeconómicos (nivel educacional y cantidad de libros en el hogar) presentan actitudes más favorables hacia esta dimensión y, al mismo tiempo, esas actitudes igualitarias de los apoderados se asocian con actitudes más igualitarias por parte de los estudiantes. En este sentido, los recursos de la familia, específicamente el nivel educacional de los padres y la cantidad de libros en el hogar, se vinculan de manera indirecta con el desarrollo de las actitudes de los estudiantes a través de las actitudes que los apoderados presentan. El efecto indirecto de los ingresos per cápita no es significativo en ninguna de las tres dimensiones y sólo son significativos los efectos directos en las dimensiones de actitudes hacia la distribución igualitaria en la esfera pública y en la esfera privada.
 
-```{r, echo=FALSE}
-data_proc$Educacion <- factor(data_proc$Educacion, levels = c("8vo básico o menos", "Educación Media", "Educación Téc.Superior", "Universidad o Posgrado"), labels = c("ed_basica", "ed_media", "ed_tecni", "ed_supe"))
-data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, levels = c("Entre 0 y 10 libros", "Entre 11 y 25 libros", "Entre 26 y 100 libros", "Más de 100 libros"), labels = c("libros1", "libros2", "libros3", "libros4"))
-data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc_factor, levels = c("Quintil 1", "Quintil 2","Quintil 3","Quintil 4","Quintil 5","Ns/Nr"), labels = c("quintil1", "quintil2", "quintil3", "quintil4", "quintil5", "quintilna"))
-library(fastDummies)
-library(mediation)
-data_proc <- dummy_cols(data_proc, select_columns = "Educacion")
-data_proc <- dummy_cols(data_proc, select_columns = "Libros_apod_rec")
-data_proc <- dummy_cols(data_proc, select_columns = "quintiles_ingresos_pc_factor")
-### Igualdad de derechos y oportunidades
+```{r models-mediation, include=FALSE,cache=TRUE}
+pacman::p_load(stargazer, ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
+               sjPlot, summarytools, kableExtra, corrplot, coefplot, ltm,
+               polycor,psych, lme4, ppcor, texreg, skimr, gtools, bda, 
+               lmerTest, Matrix, extrafont, sessioninfo, dplyr,mediation,
+               fastDummies,gtools)
+load("input/data-proc/data.rda")
+data_proc=data %>% 
+  dplyr::select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    Sexo,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    RBD,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Educacion,
+    Libros_apod,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    dependencia,
+    REGION,
+    c_civic
+  ) %>% as.data.frame() 
+data_proc <- na.omit(data_proc)
+
+data_proc$Educacion <- factor(data_proc$Educacion, 
+                              levels = c("8vo básico o menos", 
+                                         "Educación Media", 
+                                         "Educación Téc.Superior", 
+                                         "Universidad o Posgrado"),
+                              labels = c("ed_basica", "ed_media", 
+                                         "ed_tecni", "ed_supe"))
+
+data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, 
+                                    levels = c("Entre 0 y 10 libros",
+                                               "Entre 11 y 25 libros",
+                                               "Entre 26 y 100 libros",
+                                               "Más de 100 libros"), 
+                                    labels = c("libros1", "libros2", 
+                                               "libros3", "libros4"))
+
+data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc_factor, 
+                                                 levels = c("Quintil 1",
+                                                            "Quintil 2",
+                                                            "Quintil 3",
+                                                            "Quintil 4",
+                                                            "Quintil 5",
+                                                            "Ns/Nr"),
+                                                 labels = c("quintil1",
+                                                            "quintil2",
+                                                            "quintil3",
+                                                            "quintil4",
+                                                            "quintil5",
+                                                            "quintilna"))
+
+data_proc <- fastDummies::dummy_cols(data_proc, 
+                                     select_columns = "Educacion")
+data_proc <- fastDummies::dummy_cols(data_proc, 
+                                     select_columns = "Libros_apod_rec")
+data_proc <- fastDummies::dummy_cols(data_proc, 
+                                     select_columns = "quintiles_ingresos_pc_factor")
+
 reg_med_ig1 <- lme4::lmer(igualdad.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
 
 reg_out_ig1 <- lme4::lmer(igualdad.est ~ igualdad.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
-### Espacio publico
+# Educacion
+set.seed(123)
+med_out_iged1 <- mediate(reg_med_ig1, reg_out_ig1,
+                         treat = "Educacion_ed_media", 
+                         mediator = "igualdad.pad", sims = 100)
+med_out_iged2 <- mediate(reg_med_ig1, reg_out_ig1,
+                         treat = "Educacion_ed_tecni", 
+                         mediator = "igualdad.pad", sims = 100)
+med_out_iged3 <- mediate(reg_med_ig1, reg_out_ig1, 
+                         treat = "Educacion_ed_supe", 
+                         mediator = "igualdad.pad", sims = 100)
+# Libros
+med_out_iglib1 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "Libros_apod_rec_libros2", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iglib2 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "Libros_apod_rec_libros3", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iglib3 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "Libros_apod_rec_libros4",
+                          mediator = "igualdad.pad", sims = 100)
+summary(med_out_iglib1)
+summary(med_out_iglib2)
+summary(med_out_iglib3)
+# Ingresos
+med_out_iging1 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintil2", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iging2 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintil3", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iging3 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintil4", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iging4 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintil5", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iging5 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintilna", 
+                          mediator = "igualdad.pad", sims = 100)
+
+#### Espacio público
 reg_med_pub1 <- lme4::lmer(esp_publico.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
 
 reg_out_pub1 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
-### Espacio privado
+
+# Educacion
+med_out_pubed1 <- mediate(reg_med_pub1, reg_out_pub1, 
+                          treat = "Educacion_ed_media", 
+                          mediator = "esp_publico.pad", sims = 100)
+med_out_pubed2 <- mediate(reg_med_pub1, reg_out_pub1, 
+                          treat = "Educacion_ed_tecni", 
+                          mediator = "esp_publico.pad", sims = 100)
+med_out_pubed3 <- mediate(reg_med_pub1, reg_out_pub1, 
+                          treat = "Educacion_ed_supe", 
+                          mediator = "esp_publico.pad", sims = 100)
+
+# Libros
+med_out_publib1 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "Libros_apod_rec_libros2", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_publib2 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "Libros_apod_rec_libros3",
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_publib3 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "Libros_apod_rec_libros4",
+                           mediator = "esp_publico.pad", sims = 100)
+
+# Ingresos
+med_out_pubing1 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintil2", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_pubing2 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintil3", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_pubing3 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintil4", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_pubing4 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintil5", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_pubing5 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintilna", 
+                           mediator = "esp_publico.pad", sims = 100)
+
+#### Espacio privado
 reg_med_priv1 <- lme4::lmer(esp_privado.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
 
 reg_out_priv1 <- lme4::lmer(esp_privado.est ~ esp_privado.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
-### Mediación
+
 # Educacion
-set.seed(123)
-med_out_iged1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Educacion_ed_media", mediator = "igualdad.pad", sims = 100)
-med_out_iged2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Educacion_ed_tecni", mediator = "igualdad.pad", sims = 100)
-med_out_iged3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Educacion_ed_supe", mediator = "igualdad.pad", sims = 100)
+med_out_prived1 <- mediate(reg_med_priv1, reg_out_priv1, 
+                           treat = "Educacion_ed_media", 
+                           mediator = "esp_privado.pad", sims = 100)
+med_out_prived2 <- mediate(reg_med_priv1, reg_out_priv1, 
+                           treat = "Educacion_ed_tecni", 
+                           mediator = "esp_privado.pad", sims = 100)
+med_out_prived3 <- mediate(reg_med_priv1, reg_out_priv1, 
+                           treat = "Educacion_ed_supe", 
+                           mediator = "esp_privado.pad", sims = 100)
+
 # Libros
-med_out_iglib1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Libros_apod_rec_libros2", mediator = "igualdad.pad", sims = 100)
-med_out_iglib2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Libros_apod_rec_libros3", mediator = "igualdad.pad", sims = 100)
-med_out_iglib3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "Libros_apod_rec_libros4", mediator = "igualdad.pad", sims = 100)
+med_out_privlib1 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "Libros_apod_rec_libros2", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_privlib2 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "Libros_apod_rec_libros3",
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_privlib3 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "Libros_apod_rec_libros4", 
+                            mediator = "esp_privado.pad", sims = 100)
 # Ingresos
-med_out_iging1 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "igualdad.pad", sims = 100)
-med_out_iging2 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "igualdad.pad", sims = 100)
-med_out_iging3 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "igualdad.pad", sims = 100)
-med_out_iging4 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "igualdad.pad", sims = 100)
-med_out_iging5 <- mediate(reg_med_ig1, reg_out_ig1, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "igualdad.pad", sims = 100)
-# Educacion
-med_out_pubed1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Educacion_ed_media", mediator = "esp_publico.pad", sims = 100)
-med_out_pubed2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Educacion_ed_tecni", mediator = "esp_publico.pad", sims = 100)
-med_out_pubed3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Educacion_ed_supe", mediator = "esp_publico.pad", sims = 100)
-# Libros
-med_out_publib1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Libros_apod_rec_libros2", mediator = "esp_publico.pad", sims = 100)
-med_out_publib2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Libros_apod_rec_libros3", mediator = "esp_publico.pad", sims = 100)
-med_out_publib3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "Libros_apod_rec_libros4", mediator = "esp_publico.pad", sims = 100)
-# Ingresos
-med_out_pubing1 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing2 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing3 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing4 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "esp_publico.pad", sims = 100)
-med_out_pubing5 <- mediate(reg_med_pub1, reg_out_pub1, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "esp_publico.pad", sims = 100)
-# Educacion
-med_out_prived1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Educacion_ed_media", mediator = "esp_privado.pad", sims = 100)
-med_out_prived2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Educacion_ed_tecni", mediator = "esp_privado.pad", sims = 100)
-med_out_prived3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Educacion_ed_supe", mediator = "esp_privado.pad", sims = 100)
-# Libros
-med_out_privlib1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Libros_apod_rec_libros2", mediator = "esp_privado.pad", sims = 100)
-med_out_privlib2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Libros_apod_rec_libros3", mediator = "esp_privado.pad", sims = 100)
-med_out_privlib3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "Libros_apod_rec_libros4", mediator = "esp_privado.pad", sims = 100)
-# Ingresos
-med_out_priving1 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintil2", mediator = "esp_privado.pad", sims = 100)
-med_out_priving2 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintil3", mediator = "esp_privado.pad", sims = 100)
-med_out_priving3 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintil4", mediator = "esp_privado.pad", sims = 100)
-med_out_priving4 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintil5", mediator = "esp_privado.pad", sims = 100)
-med_out_priving5 <- mediate(reg_med_priv1, reg_out_priv1, treat = "quintiles_ingresos_pc_factor_quintilna", mediator = "esp_privado.pad", sims = 100)
+med_out_priving1 <- mediate(reg_med_priv1, reg_out_priv1,
+                            treat = "quintiles_ingresos_pc_factor_quintil2", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_priving2 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "quintiles_ingresos_pc_factor_quintil3", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_priving3 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "quintiles_ingresos_pc_factor_quintil4", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_priving4 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "quintiles_ingresos_pc_factor_quintil5", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_priving5 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "quintiles_ingresos_pc_factor_quintilna", 
+                            mediator = "esp_privado.pad", sims = 100)
+
+directos.DV1 = 
+  c(paste0(round(med_out_iged1[["z0"]],3), stars.pval(med_out_iged1[["z0.p"]])),
+    paste0(round(med_out_iged2[["z0"]],3), stars.pval(med_out_iged2[["z0.p"]])),
+    paste0(round(med_out_iged3[["z0"]],3), stars.pval(med_out_iged3[["z0.p"]])),
+    paste0(round(med_out_iglib1[["z0"]],3),stars.pval(med_out_iglib1[["z0.p"]])),
+    paste0(round(med_out_iglib2[["z0"]],3),stars.pval(med_out_iglib2[["z0.p"]])),
+    paste0(round(med_out_iglib3[["z0"]],3),stars.pval(med_out_iglib3[["z0.p"]])),
+    paste0(round(med_out_iging1[["z0"]],3),stars.pval(med_out_iging1[["z0.p"]])),
+    paste0(round(med_out_iging2[["z0"]],3),stars.pval(med_out_iging2[["z0.p"]])),
+    paste0(round(med_out_iging3[["z0"]],3),stars.pval(med_out_iging3[["z0.p"]])),
+    paste0(round(med_out_iging4[["z0"]],3),stars.pval(med_out_iging4[["z0.p"]])),
+    paste0(round(med_out_iging5[["z0"]],3),stars.pval(med_out_iging5[["z0.p"]])))
+indirecto.DV1 = 
+  c(paste0(round(med_out_iged1[["d0"]],3), stars.pval(med_out_iged1[["d0.p"]])),
+    paste0(round(med_out_iged2[["d0"]],3), stars.pval(med_out_iged2[["d0.p"]])),
+    paste0(round(med_out_iged3[["d0"]],3), stars.pval(med_out_iged3[["d0.p"]])),
+    paste0(round(med_out_iglib1[["d0"]],3),stars.pval(med_out_iglib1[["d0.p"]])),
+    paste0(round(med_out_iglib2[["d0"]],3),stars.pval(med_out_iglib2[["d0.p"]])),
+    paste0(round(med_out_iglib3[["d0"]],3),stars.pval(med_out_iglib3[["d0.p"]])),
+    paste0(round(med_out_iging1[["d0"]],3),stars.pval(med_out_iging1[["d0.p"]])),
+    paste0(round(med_out_iging2[["d0"]],3),stars.pval(med_out_iging2[["d0.p"]])),
+    paste0(round(med_out_iging3[["d0"]],3),stars.pval(med_out_iging3[["d0.p"]])),
+    paste0(round(med_out_iging4[["d0"]],3),stars.pval(med_out_iging4[["d0.p"]])),
+    paste0(round(med_out_iging5[["d0"]],3),stars.pval(med_out_iging5[["d0.p"]])))
+totales.DV1 =
+  c(paste0(round(med_out_iged1[["tau.coef"]],3), stars.pval(med_out_iged1[["tau.p"]])),
+    paste0(round(med_out_iged2[["tau.coef"]],3), stars.pval(med_out_iged2[["tau.p"]])),
+    paste0(round(med_out_iged3[["tau.coef"]],3), stars.pval(med_out_iged3[["tau.p"]])),
+    paste0(round(med_out_iglib1[["tau.coef"]],3),stars.pval(med_out_iglib1[["tau.p"]])),
+    paste0(round(med_out_iglib2[["tau.coef"]],3),stars.pval(med_out_iglib2[["tau.p"]])),
+    paste0(round(med_out_iglib3[["tau.coef"]],3),stars.pval(med_out_iglib3[["tau.p"]])),
+    paste0(round(med_out_iging1[["tau.coef"]],3),stars.pval(med_out_iging1[["tau.p"]])),
+    paste0(round(med_out_iging2[["tau.coef"]],3),stars.pval(med_out_iging2[["tau.p"]])),
+    paste0(round(med_out_iging3[["tau.coef"]],3),stars.pval(med_out_iging3[["tau.p"]])),
+    paste0(round(med_out_iging4[["tau.coef"]],3),stars.pval(med_out_iging4[["tau.p"]])),
+    paste0(round(med_out_iging5[["tau.coef"]],3),stars.pval(med_out_iging5[["tau.p"]])))
+pct_ind.DV1 =
+  c(paste0(round(med_out_iged1[["n.avg"]]*100,2),"%"), 
+    paste0(round(med_out_iged2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iged3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iglib1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iglib2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iglib3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging4[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging5[["n.avg"]]*100,2),"%"))
+directos.DV2 = 
+  c(paste0(round(med_out_pubed1[["z0"]],3),stars.pval(med_out_pubed1[["z0.p"]])),
+    paste0(round(med_out_pubed2[["z0"]],3),stars.pval(med_out_pubed2[["z0.p"]])),
+    paste0(round(med_out_pubed3[["z0"]],3),stars.pval(med_out_pubed3[["z0.p"]])),
+    paste0(round(med_out_publib1[["z0"]],3),stars.pval(med_out_publib1[["z0.p"]])),
+    paste0(round(med_out_publib2[["z0"]],3),stars.pval(med_out_publib2[["z0.p"]])),
+    paste0(round(med_out_publib3[["z0"]],3),stars.pval(med_out_publib3[["z0.p"]])),
+    paste0(round(med_out_pubing1[["z0"]],3),stars.pval(med_out_pubing1[["z0.p"]])),
+    paste0(round(med_out_pubing2[["z0"]],3),stars.pval(med_out_pubing2[["z0.p"]])),
+    paste0(round(med_out_pubing3[["z0"]],3),stars.pval(med_out_pubing3[["z0.p"]])),
+    paste0(round(med_out_pubing4[["z0"]],3),stars.pval(med_out_pubing4[["z0.p"]])),
+    paste0(round(med_out_pubing5[["z0"]],3),stars.pval(med_out_pubing5[["z0.p"]])))
+indirecto.DV2 = 
+  c(paste0(round(med_out_pubed1[["d0"]],3),stars.pval(med_out_pubed1[["d0.p"]])),
+    paste0(round(med_out_pubed2[["d0"]],3),stars.pval(med_out_pubed2[["d0.p"]])),
+    paste0(round(med_out_pubed3[["d0"]],3),stars.pval(med_out_pubed3[["d0.p"]])),
+    paste0(round(med_out_publib1[["d0"]],3),stars.pval(med_out_publib1[["d0.p"]])),
+    paste0(round(med_out_publib2[["d0"]],3),stars.pval(med_out_publib2[["d0.p"]])),
+    paste0(round(med_out_publib3[["d0"]],3),stars.pval(med_out_publib3[["d0.p"]])),
+    paste0(round(med_out_pubing1[["d0"]],3),stars.pval(med_out_pubing1[["d0.p"]])),
+    paste0(round(med_out_pubing2[["d0"]],3),stars.pval(med_out_pubing2[["d0.p"]])),
+    paste0(round(med_out_pubing3[["d0"]],3),stars.pval(med_out_pubing3[["d0.p"]])),
+    paste0(round(med_out_pubing4[["d0"]],3),stars.pval(med_out_pubing4[["d0.p"]])),
+    paste0(round(med_out_pubing5[["d0"]],3),stars.pval(med_out_pubing5[["d0.p"]])))
+totales.DV2 = 
+  c(paste0(round(med_out_pubed1[["tau.coef"]],3),stars.pval(med_out_pubed1[["tau.p"]])),
+    paste0(round(med_out_pubed2[["tau.coef"]],3),stars.pval(med_out_pubed2[["tau.p"]])),
+    paste0(round(med_out_pubed3[["tau.coef"]],3),stars.pval(med_out_pubed3[["tau.p"]])),
+    paste0(round(med_out_publib1[["tau.coef"]],3),stars.pval(med_out_publib1[["tau.p"]])),
+    paste0(round(med_out_publib2[["tau.coef"]],3),stars.pval(med_out_publib2[["tau.p"]])),
+    paste0(round(med_out_publib3[["tau.coef"]],3),stars.pval(med_out_publib3[["tau.p"]])),
+    paste0(round(med_out_pubing1[["tau.coef"]],3),stars.pval(med_out_pubing1[["tau.p"]])),
+    paste0(round(med_out_pubing2[["tau.coef"]],3),stars.pval(med_out_pubing2[["tau.p"]])),
+    paste0(round(med_out_pubing3[["tau.coef"]],3),stars.pval(med_out_pubing3[["tau.p"]])),
+    paste0(round(med_out_pubing4[["tau.coef"]],3),stars.pval(med_out_pubing4[["tau.p"]])),
+    paste0(round(med_out_pubing5[["tau.coef"]],3),stars.pval(med_out_pubing5[["tau.p"]])))
+pct_ind.DV2 = 
+  c(paste0(round(med_out_pubed1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubed2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubed3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_publib1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_publib2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_publib3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing4[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing5[["n.avg"]]*100,2),"%"))
+
+directos.DV3 = 
+  c(paste0(round(med_out_prived1[["z0"]],3),stars.pval(med_out_prived1[["z0.p"]])),
+    paste0(round(med_out_prived2[["z0"]],3),stars.pval(med_out_prived2[["z0.p"]])),
+    paste0(round(med_out_prived3[["z0"]],3),stars.pval(med_out_prived3[["z0.p"]])),
+    paste0(round(med_out_privlib1[["z0"]],3),stars.pval(med_out_privlib1[["z0.p"]])),
+    paste0(round(med_out_privlib2[["z0"]],3),stars.pval(med_out_privlib2[["z0.p"]])),
+    paste0(round(med_out_privlib3[["z0"]],3),stars.pval(med_out_privlib3[["z0.p"]])),
+    paste0(round(med_out_priving1[["z0"]],3),stars.pval(med_out_priving1[["z0.p"]])),
+    paste0(round(med_out_priving2[["z0"]],3),stars.pval(med_out_priving2[["z0.p"]])),
+    paste0(round(med_out_priving3[["z0"]],3),stars.pval(med_out_priving3[["z0.p"]])),
+    paste0(round(med_out_priving4[["z0"]],3),stars.pval(med_out_priving4[["z0.p"]])),
+    paste0(round(med_out_priving5[["z0"]],3),stars.pval(med_out_priving5[["z0.p"]])))
+indirecto.DV3 = 
+  c(paste0(round(med_out_prived1[["d0"]],3),stars.pval(med_out_prived1[["d0.p"]])),
+    paste0(round(med_out_prived2[["d0"]],3),stars.pval(med_out_prived2[["d0.p"]])),
+    paste0(round(med_out_prived3[["d0"]],3),stars.pval(med_out_prived3[["d0.p"]])),
+    paste0(round(med_out_privlib1[["d0"]],3),stars.pval(med_out_privlib1[["d0.p"]])),
+    paste0(round(med_out_privlib2[["d0"]],3),stars.pval(med_out_privlib2[["d0.p"]])),
+    paste0(round(med_out_privlib3[["d0"]],3),stars.pval(med_out_privlib3[["d0.p"]])),
+    paste0(round(med_out_priving1[["d0"]],3),stars.pval(med_out_priving1[["d0.p"]])),
+    paste0(round(med_out_priving2[["d0"]],3),stars.pval(med_out_priving2[["d0.p"]])),
+    paste0(round(med_out_priving3[["d0"]],3),stars.pval(med_out_priving3[["d0.p"]])),
+    paste0(round(med_out_priving4[["d0"]],3),stars.pval(med_out_priving4[["d0.p"]])),
+    paste0(round(med_out_priving5[["d0"]],3),stars.pval(med_out_priving5[["d0.p"]])))
+totales.DV3 = 
+  c(paste0(round(med_out_prived1[["tau.coef"]],3),stars.pval(med_out_prived1[["tau.p"]])),
+    paste0(round(med_out_prived2[["tau.coef"]],3),stars.pval(med_out_prived2[["tau.p"]])),
+    paste0(round(med_out_prived3[["tau.coef"]],3),stars.pval(med_out_prived3[["tau.p"]])),
+    paste0(round(med_out_privlib1[["tau.coef"]],3),stars.pval(med_out_privlib1[["tau.p"]])),
+    paste0(round(med_out_privlib2[["tau.coef"]],3),stars.pval(med_out_privlib2[["tau.p"]])),
+    paste0(round(med_out_privlib3[["tau.coef"]],3),stars.pval(med_out_privlib3[["tau.p"]])),
+    paste0(round(med_out_priving1[["tau.coef"]],3),stars.pval(med_out_priving1[["tau.p"]])),
+    paste0(round(med_out_priving2[["tau.coef"]],3),stars.pval(med_out_priving2[["tau.p"]])),
+    paste0(round(med_out_priving3[["tau.coef"]],3),stars.pval(med_out_priving3[["tau.p"]])),
+    paste0(round(med_out_priving4[["tau.coef"]],3),stars.pval(med_out_priving4[["tau.p"]])),
+    paste0(round(med_out_priving5[["tau.coef"]],3),stars.pval(med_out_priving5[["tau.p"]])))
+pct_ind.DV3 = 
+  c(paste0(round(med_out_prived1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_prived2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_prived3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_privlib1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_privlib2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_privlib3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving4[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving5[["n.avg"]]*100,2),"%"))
+
+collapse_rows_dt2 <-
+  data.frame(vars = c(rep("Educación de los padres", 3),
+                    rep("Cantidad de libros", 3),
+                    rep("Quintiles de ingreso", 5)),
+           catego = c(sjlabelled::get_labels(data$Educacion)[-1],
+                      sjlabelled::get_labels(data$Libros_apod_rec)[-1],
+                      sjlabelled::get_labels(data$quintiles_ingresos_pc_factor)[-1]),
+           directos.DV1,indirecto.DV1,totales.DV1,pct_ind.DV1, #derechos y oport
+           directos.DV2,indirecto.DV2,totales.DV2,pct_ind.DV2, #espacio publico
+           directos.DV3,indirecto.DV3,totales.DV3,pct_ind.DV3) #espacio privado
 ```
 
-```{r echo=FALSE, results='asis'}
-table_format = if(is_html_output()) {
-  "html"
-} else if(is_latex_output()) {
-  "latex"
-}
-
-
-data_proc$Educacion <- 
-  factor(data_proc$Educacion, 
-         levels = c(1,2,3,4), 
-         labels = c("Educación Básica", "Educación Media (Ref. 8vo Básico)", "Educación Téc.Superior (IP o CFT)", "Universidad o Posgrado"))
-data_proc$Libros_apod_rec <- 
-  factor(data_proc$Libros_apod_rec, 
-         levels = c(1,2,3,4), 
-         labels = c("Entre 0 y 10 libros", "Entre 11 y 25 libros (Ref. Entre 0 y 10 libros)", "Entre 26 y 100 libros", "Más de 100 libros"))
-data_proc$quintiles_ingresos_pc_factor <- 
-  factor(data_proc$quintiles_ingresos_pc_factor, 
-         levels = c(1,2,3,4,5,99), 
-         labels = c("Quintil 1", "Quintil 2 (Ref. Quintil 1)", "Quintil 3", "Quintil 4", "Quintil 5", "Ns/Nr"))
-
-collapse_rows_dt2 <- data.frame(Variable = c(rep("Educación de los padres", 3), rep("Cantidad de libros", 3), rep("Quintiles de ingreso",5)),
-                    Categorias = c(sjlabelled::get_labels(data_proc$Educacion)[-1],
-                                   sjlabelled::get_labels(data_proc$Libros_apod_rec)[-1],
-                                   sjlabelled::get_labels(data_proc$quintiles_ingresos_pc_factor)[-1]),
-                   
-                    Efectos_Directos = c(paste0(round(med_out_iged1[["d0"]],3), gtools::stars.pval(med_out_iged1[["d0.p"]])),
-                                         paste0(round(med_out_iged2[["d0"]],3), gtools::stars.pval(med_out_iged2[["d0.p"]])),
-                                         paste0(round(med_out_iged3[["d0"]],3), gtools::stars.pval(med_out_iged3[["d0.p"]])),
-                                         paste0(round(med_out_iglib1[["d0"]],3), gtools::stars.pval(med_out_iglib1[["d0.p"]])),
-                                         paste0(round(med_out_iglib2[["d0"]],3), gtools::stars.pval(med_out_iglib2[["d0.p"]])),
-                                         paste0(round(med_out_iglib3[["d0"]],3), gtools::stars.pval(med_out_iglib3[["d0.p"]])),
-                                         paste0(round(med_out_iging1[["d0"]],3), gtools::stars.pval(med_out_iging1[["d0.p"]])),
-                                         paste0(round(med_out_iging2[["d0"]],3), gtools::stars.pval(med_out_iging2[["d0.p"]])),
-                                         paste0(round(med_out_iging3[["d0"]],3), gtools::stars.pval(med_out_iging3[["d0.p"]])),
-                                         paste0(round(med_out_iging4[["d0"]],3), gtools::stars.pval(med_out_iging4[["d0.p"]])),
-                                         paste0(round(med_out_iging5[["d0"]],3), gtools::stars.pval(med_out_iging5[["d0.p"]]))),
-                    
-                    Efectos_Indirectos = c(paste0(round(med_out_iged1[["z0"]],3), gtools::stars.pval(med_out_iged1[["z0.p"]])),
-                                           paste0(round(med_out_iged2[["z0"]],3), gtools::stars.pval(med_out_iged2[["z0.p"]])),
-                                           paste0(round(med_out_iged3[["z0"]],3), gtools::stars.pval(med_out_iged3[["z0.p"]])),
-                                           paste0(round(med_out_iglib1[["z0"]],3), gtools::stars.pval(med_out_iglib1[["z0.p"]])),
-                                           paste0(round(med_out_iglib2[["z0"]],3), gtools::stars.pval(med_out_iglib2[["z0.p"]])),
-                                           paste0(round(med_out_iglib3[["z0"]],3), gtools::stars.pval(med_out_iglib3[["z0.p"]])),
-                                           paste0(round(med_out_iging1[["z0"]],3), gtools::stars.pval(med_out_iging1[["z0.p"]])),
-                                           paste0(round(med_out_iging2[["z0"]],3), gtools::stars.pval(med_out_iging2[["z0.p"]])),
-                                           paste0(round(med_out_iging3[["z0"]],3), gtools::stars.pval(med_out_iging3[["z0.p"]])),
-                                           paste0(round(med_out_iging4[["z0"]],3), gtools::stars.pval(med_out_iging4[["z0.p"]])),
-                                           paste0(round(med_out_iging5[["z0"]],3), gtools::stars.pval(med_out_iging5[["z0.p"]]))),
-                    
-                    Efectos_Totales = c(paste0(round(med_out_iged1[["tau.coef"]],3), gtools::stars.pval(med_out_iged1[["tau.p"]])),
-                                           paste0(round(med_out_iged2[["tau.coef"]],3), gtools::stars.pval(med_out_iged2[["tau.p"]])),
-                                           paste0(round(med_out_iged3[["tau.coef"]],3), gtools::stars.pval(med_out_iged3[["tau.p"]])),
-                                           paste0(round(med_out_iglib1[["tau.coef"]],3), gtools::stars.pval(med_out_iglib1[["tau.p"]])),
-                                           paste0(round(med_out_iglib2[["tau.coef"]],3), gtools::stars.pval(med_out_iglib2[["tau.p"]])),
-                                           paste0(round(med_out_iglib3[["tau.coef"]],3), gtools::stars.pval(med_out_iglib3[["tau.p"]])),
-                                           paste0(round(med_out_iging1[["tau.coef"]],3), gtools::stars.pval(med_out_iging1[["tau.p"]])),
-                                           paste0(round(med_out_iging2[["tau.coef"]],3), gtools::stars.pval(med_out_iging2[["tau.p"]])),
-                                           paste0(round(med_out_iging3[["tau.coef"]],3), gtools::stars.pval(med_out_iging3[["tau.p"]])),
-                                           paste0(round(med_out_iging4[["tau.coef"]],3), gtools::stars.pval(med_out_iging4[["tau.p"]])),
-                                           paste0(round(med_out_iging5[["tau.coef"]],3), gtools::stars.pval(med_out_iging5[["tau.p"]]))),
-                    
-                    Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_iged1[["n.avg"]]*100,2),"%"), # entrega la proporción en %,
-                                             paste0(round(med_out_iged2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iged3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iglib1[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iglib2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iglib3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iging1[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iging2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iging3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iging4[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_iging5[["n.avg"]]*100,2),"%")
-                                             ),
-                    
-                    Efectos_Directos = c(paste0(round(med_out_pubed1[["d0"]],3), gtools::stars.pval(med_out_pubed1[["d0.p"]])),
-                                         paste0(round(med_out_pubed2[["d0"]],3), gtools::stars.pval(med_out_pubed2[["d0.p"]])),
-                                         paste0(round(med_out_pubed3[["d0"]],3), gtools::stars.pval(med_out_pubed3[["d0.p"]])),
-                                         paste0(round(med_out_publib1[["d0"]],3), gtools::stars.pval(med_out_publib1[["d0.p"]])),
-                                         paste0(round(med_out_publib2[["d0"]],3), gtools::stars.pval(med_out_publib2[["d0.p"]])),
-                                         paste0(round(med_out_publib3[["d0"]],3), gtools::stars.pval(med_out_publib3[["d0.p"]])),
-                                         paste0(round(med_out_pubing1[["d0"]],3), gtools::stars.pval(med_out_pubing1[["d0.p"]])),
-                                         paste0(round(med_out_pubing2[["d0"]],3), gtools::stars.pval(med_out_pubing2[["d0.p"]])),
-                                         paste0(round(med_out_pubing3[["d0"]],3), gtools::stars.pval(med_out_pubing3[["d0.p"]])),
-                                         paste0(round(med_out_pubing4[["d0"]],3), gtools::stars.pval(med_out_pubing4[["d0.p"]])),
-                                         paste0(round(med_out_pubing5[["d0"]],3), gtools::stars.pval(med_out_pubing5[["d0.p"]]))),
-                    
-                    Efectos_Indirectos = c(paste0(round(med_out_pubed1[["z0"]],3), gtools::stars.pval(med_out_pubed1[["z0.p"]])),
-                                           paste0(round(med_out_pubed2[["z0"]],3), gtools::stars.pval(med_out_pubed2[["z0.p"]])),
-                                           paste0(round(med_out_pubed3[["z0"]],3), gtools::stars.pval(med_out_pubed3[["z0.p"]])),
-                                           paste0(round(med_out_publib1[["z0"]],3), gtools::stars.pval(med_out_publib1[["z0.p"]])),
-                                           paste0(round(med_out_publib2[["z0"]],3), gtools::stars.pval(med_out_publib2[["z0.p"]])),
-                                           paste0(round(med_out_publib3[["z0"]],3), gtools::stars.pval(med_out_publib3[["z0.p"]])),
-                                           paste0(round(med_out_pubing1[["z0"]],3), gtools::stars.pval(med_out_pubing1[["z0.p"]])),
-                                           paste0(round(med_out_pubing2[["z0"]],3), gtools::stars.pval(med_out_pubing2[["z0.p"]])),
-                                           paste0(round(med_out_pubing3[["z0"]],3), gtools::stars.pval(med_out_pubing3[["z0.p"]])),
-                                           paste0(round(med_out_pubing4[["z0"]],3), gtools::stars.pval(med_out_pubing4[["z0.p"]])),
-                                           paste0(round(med_out_pubing5[["z0"]],3), gtools::stars.pval(med_out_pubing5[["z0.p"]]))),
-                    
-                    Efectos_Totales = c(paste0(round(med_out_pubed1[["tau.coef"]],3), gtools::stars.pval(med_out_pubed1[["tau.p"]])),
-                                           paste0(round(med_out_pubed2[["tau.coef"]],3), gtools::stars.pval(med_out_pubed2[["tau.p"]])),
-                                           paste0(round(med_out_pubed3[["tau.coef"]],3), gtools::stars.pval(med_out_pubed3[["tau.p"]])),
-                                           paste0(round(med_out_publib1[["tau.coef"]],3), gtools::stars.pval(med_out_publib1[["tau.p"]])),
-                                           paste0(round(med_out_publib2[["tau.coef"]],3), gtools::stars.pval(med_out_publib2[["tau.p"]])),
-                                           paste0(round(med_out_publib3[["tau.coef"]],3), gtools::stars.pval(med_out_publib3[["tau.p"]])),
-                                           paste0(round(med_out_pubing1[["tau.coef"]],3), gtools::stars.pval(med_out_pubing1[["tau.p"]])),
-                                           paste0(round(med_out_pubing2[["tau.coef"]],3), gtools::stars.pval(med_out_pubing2[["tau.p"]])),
-                                           paste0(round(med_out_pubing3[["tau.coef"]],3), gtools::stars.pval(med_out_pubing3[["tau.p"]])),
-                                           paste0(round(med_out_pubing4[["tau.coef"]],3), gtools::stars.pval(med_out_pubing4[["tau.p"]])),
-                                           paste0(round(med_out_pubing5[["tau.coef"]],3), gtools::stars.pval(med_out_pubing5[["tau.p"]]))),
-                    
-                    Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_pubed1[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_pubed2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_pubed3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_publib1[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_publib2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_publib3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_pubing1[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_pubing2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_pubing3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_pubing4[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_pubing5[["n.avg"]]*100,2),"%")
-                                             ),
-                    
-                    
-                    Efectos_Directos = c(paste0(round(med_out_prived1[["d0"]],3), gtools::stars.pval(med_out_prived1[["d0.p"]])),
-                                         paste0(round(med_out_prived2[["d0"]],3), gtools::stars.pval(med_out_prived2[["d0.p"]])),
-                                         paste0(round(med_out_prived3[["d0"]],3), gtools::stars.pval(med_out_prived3[["d0.p"]])),
-                                         paste0(round(med_out_privlib1[["d0"]],3), gtools::stars.pval(med_out_privlib1[["d0.p"]])),
-                                         paste0(round(med_out_privlib2[["d0"]],3), gtools::stars.pval(med_out_privlib2[["d0.p"]])),
-                                         paste0(round(med_out_privlib3[["d0"]],3), gtools::stars.pval(med_out_privlib3[["d0.p"]])),
-                                         paste0(round(med_out_priving1[["d0"]],3), gtools::stars.pval(med_out_priving1[["d0.p"]])),
-                                         paste0(round(med_out_priving2[["d0"]],3), gtools::stars.pval(med_out_priving2[["d0.p"]])),
-                                         paste0(round(med_out_priving3[["d0"]],3), gtools::stars.pval(med_out_priving3[["d0.p"]])),
-                                         paste0(round(med_out_priving4[["d0"]],3), gtools::stars.pval(med_out_priving4[["d0.p"]])),
-                                         paste0(round(med_out_priving5[["d0"]],3), gtools::stars.pval(med_out_priving5[["d0.p"]]))),
-                    
-                    Efectos_Indirectos = c(paste0(round(med_out_prived1[["z0"]],3), gtools::stars.pval(med_out_prived1[["z0.p"]])),
-                                           paste0(round(med_out_prived2[["z0"]],3), gtools::stars.pval(med_out_prived2[["z0.p"]])),
-                                           paste0(round(med_out_prived3[["z0"]],3), gtools::stars.pval(med_out_prived3[["z0.p"]])),
-                                           paste0(round(med_out_privlib1[["z0"]],3), gtools::stars.pval(med_out_privlib1[["z0.p"]])),
-                                           paste0(round(med_out_privlib2[["z0"]],3), gtools::stars.pval(med_out_privlib2[["z0.p"]])),
-                                           paste0(round(med_out_privlib3[["z0"]],3), gtools::stars.pval(med_out_privlib3[["z0.p"]])),
-                                           paste0(round(med_out_priving1[["z0"]],3), gtools::stars.pval(med_out_priving1[["z0.p"]])),
-                                           paste0(round(med_out_priving2[["z0"]],3), gtools::stars.pval(med_out_priving2[["z0.p"]])),
-                                           paste0(round(med_out_priving3[["z0"]],3), gtools::stars.pval(med_out_priving3[["z0.p"]])),
-                                           paste0(round(med_out_priving4[["z0"]],3), gtools::stars.pval(med_out_priving4[["z0.p"]])),
-                                           paste0(round(med_out_priving5[["z0"]],3), gtools::stars.pval(med_out_priving5[["z0.p"]]))),
-                    
-                    Efectos_Totales = c(paste0(round(med_out_prived1[["tau.coef"]],3), gtools::stars.pval(med_out_prived1[["tau.p"]])),
-                                           paste0(round(med_out_prived2[["tau.coef"]],3), gtools::stars.pval(med_out_prived2[["tau.p"]])),
-                                           paste0(round(med_out_prived3[["tau.coef"]],3), gtools::stars.pval(med_out_prived3[["tau.p"]])),
-                                           paste0(round(med_out_privlib1[["tau.coef"]],3), gtools::stars.pval(med_out_privlib1[["tau.p"]])),
-                                           paste0(round(med_out_privlib2[["tau.coef"]],3), gtools::stars.pval(med_out_privlib2[["tau.p"]])),
-                                           paste0(round(med_out_privlib3[["tau.coef"]],3), gtools::stars.pval(med_out_privlib3[["tau.p"]])),
-                                           paste0(round(med_out_priving1[["tau.coef"]],3), gtools::stars.pval(med_out_priving1[["tau.p"]])),
-                                           paste0(round(med_out_priving2[["tau.coef"]],3), gtools::stars.pval(med_out_priving2[["tau.p"]])),
-                                           paste0(round(med_out_priving3[["tau.coef"]],3), gtools::stars.pval(med_out_priving3[["tau.p"]])),
-                                           paste0(round(med_out_priving4[["tau.coef"]],3), gtools::stars.pval(med_out_priving4[["tau.p"]])),
-                                           paste0(round(med_out_priving5[["tau.coef"]],3), gtools::stars.pval(med_out_priving5[["tau.p"]]))),
-                    
-                    Porcentaje_Indirecto = c(
-                                             paste0(round(med_out_prived1[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_prived2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_prived3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_privlib1[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_privlib2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_privlib3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_priving1[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_priving2[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_priving3[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_priving4[["n.avg"]]*100,2),"%"),
-                                             paste0(round(med_out_priving5[["n.avg"]]*100,2),"%")
-                                             )
-                    )
- 
-  kable(collapse_rows_dt2, align = "llcccccccccccc",format = table_format,booktabs=T, col.names = c(
-   "Variable",
-   "Categorías",
-   "Efectos Directos",
-   "Efectos Indirectos",
-   "Efectos Totales",
-   "% de Efectos Indirectos",
-   "Efectos Directos",
-   "Efectos Indirectos",
-   "Efectos Totales",
-   "% de Efectos Indirectos",
-   "Efectos Directos",
-   "Efectos Indirectos",
-   "Efectos Totales",
-   "% de Efectos Indirectos"
- ), caption="Efectos de mediación") %>%
- add_header_above(c(" " = 2,
-                    "Igualdad de derechos y oportunidades"=4,
-                    "Distribución igualitaria de roles en la esfera pública"=4,
-                    "Distribución igualitaria de roles en la esfera privada"=4), bold = T)%>%
-   kable_paper("hover",full_width = F,latex_options = c("scale_down","HOLD_position")) %>%
-    column_spec(1, bold = T,width = "1.5cm") %>%
-    column_spec(3:14, width = "1.5cm") %>%
-    collapse_rows(columns = 1:2, valign = "top")
+```{r table-mediation, echo=FALSE}
+kbl(collapse_rows_dt2, 
+    caption = "Análisis de mediación de nivel socioeconómico para las actitudes igualitarias",
+    align = "llcccccccccccccccc", booktabs = T,
+    col.names =  c("Variable",
+                   "Categorías", 
+                   "Efectos Directos", "Efectos Indirectos", "Efectos Totales",
+                   "% de Efectos Indirectos", 
+                   "Efectos Directos", "Efectos Indirectos", "Efectos Totales", 
+                   "% de Efectos Indirectos", 
+                   "Efectos Directos", "Efectos Indirectos", "Efectos Totales",
+                   "% de Efectos Indirectos")) %>%
+  add_header_above(c(" " = 2,
+                     "Igualdad de derechos y oportunidades"=4, 
+                     "Distribución igualitaria de roles en la esfera pública"=4, 
+                     "Distribución igualitaria de roles en la esfera privada"=4), 
+                   bold = T)%>%  
+  kable_styling(latex_options = c("scale_down","HOLD_position"),
+                full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  column_spec(column = 3:14,width = "1.5cm") %>%
+  collapse_rows(columns = 1:2, valign = "middle") %>% 
+  footnote(general = "***p <$ 0.001, **p < 0.01, *p < 0.05",
+           footnote_as_chunk = T,general_title = "Nota: ")
 ```
 
-\newpage
 # Discusión
 Este trabajo permite avanzar en la comprensión del rol preponderante que posee la transmisión intergeneracional de las actitudes hacia la igualdad de género entre padres e hijos dentro del proceso de socialización familiar. Como se ha demostrado en esta investigación, las actitudes de los apoderados poseen un efecto significativo sobre las actitudes de los estudiantes para las tres dimensiones analizadas. A diferencia de investigaciones anteriores, si bien en el análisis bivariado es posible visualizar una asociación entre los recursos socioeconómicos de la familia y las actitudes de los estudiantes hacia la igualdad de género, en las tres dimensiones esta influencia desaparece casi en su totalidad al controlar los efectos por el resto de las variables en los modelos de regresiones multinivel, manteniéndose sólo el efecto de algunas de las categorías de los quintiles de ingreso. De modo que el efecto de los recursos socioeconómicos de la familia sobre las actitudes de los jóvenes es principalmente indirecto, siendo la transmisión intergeneracional de actitudes la que influye de manera decisiva sobre las actitudes de los estudiantes. Adicionalmente, se han generado una serie de evidencias que van en consonancia con estudios anteriores, destacándose la relevancia del género, el nivel de conocimiento cívico y la apertura a la discusión en el aula (tanto la percepción individual como grupal). Por último, se han testeado diversos efectos de interacción para evaluar si las características de la escuela mitigan (o aceleran) los procesos de socialización familiar y para evaluar si el género del estudiante interactúa con el resto de las variables analizadas en los modelos, pero ninguna de las interacciones analizadas fue significativa.
 
@@ -765,9 +888,30 @@ h4_esp_priv.apod <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros
 
 ```{r, echo=FALSE, results='asis'}
 caption <- "Modelo de regresión multinivel para Actitudes de los apoderados"
-knitreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), custom.model.names = c("Igualdad de derechos y oportunidades", "Distribución igualitaria en la esfera pública", "Distribución igualitaria en la esfera privada"), custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  custom.coef.names = c("Intercepto", "Educación Media (Ref. 8vo básico o menos)", "Educación Técnica Superior (IP o CFT)", "Educación universitaria o Posgrado", "Entre 11 y 25 libros (Ref. Entre 0 y 10 libros)", "Entre 26 y 100 libros", "Más de 100 libros", "Quintil 2 (Ref. Quintil 1)", "Quintil 3", "Quintil 4", "Quintil 5", "No sabe / No responde","Reg. del Maule (Ref. Reg. de Antofagasta)", "Reg. Metropolitana"),
+knitreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), 
+        custom.model.names = c(
+          "Igualdad de derechos y oportunidades",
+          "Distribución igualitaria en la esfera pública",
+          "Distribución igualitaria en la esfera privada"
+        ), 
+        custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  
+        custom.coef.names = c(
+          "Intercepto",
+          "Educación Media (Ref. 8vo básico o menos)",
+          "Educación Técnica Superior (IP o CFT)",
+          "Educación universitaria o Posgrado",
+          "Entre 11 y 25 libros (Ref. Entre 0 y 10 libros)",
+          "Entre 26 y 100 libros",
+          "Más de 100 libros",
+          "Quintil 2 (Ref. Quintil 1)",
+          "Quintil 3",
+          "Quintil 4",
+          "Quintil 5",
+          "No sabe / No responde",
+          "Reg. del Maule (Ref. Reg. de Antofagasta)",
+          "Reg. Metropolitana"
+        ),
        scalebox = scale_box,
-       threeparttable = F,
        caption.above = T,
        caption=caption,
        float.pos="h!"
