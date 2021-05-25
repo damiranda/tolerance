@@ -109,6 +109,140 @@ print(dfSummary(descr,
 ```
 
 # Bivariados
+
+## Correlaciones
+
+### Hipótesis 1.
+*H1: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.*
+```{r}
+# Igualdad de derechos y oportunidades
+# level = 2 es la categoría a utilizar, en este caso mujer (2)
+biserial.cor(data_proc$igualdad.est,data_proc$Sexo, use = c("complete.obs"), level = 2)
+```
+```{r}
+# Distribución igualitaria en el espacio público
+biserial.cor(data_proc$esp_publico.est,data_proc$Sexo, use = c("complete.obs"), level = 2)
+```
+```{r}
+# Distribución igualitaria en el espacio privado
+biserial.cor(data_proc$esp_privado.est,data_proc$Sexo, use = c("complete.obs"), level = 2)
+```
+
+### Hipótesis 2.
+*H2: Estudiantes que provienen de familias con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.*
+```{r}
+data_proc$Educacion <-as.numeric(data_proc$Educacion)
+data_proc$Libros_apod_rec <-as.numeric(data_proc$Libros_apod_rec)
+data_proc$quintiles_ingresos_pc_factor <- as.numeric(data_proc$quintiles_ingresos_pc_factor)
+
+corrplot.mixed(cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+                   method="spearman",
+                   use = "na.or.complete"))
+
+windowsFonts(A = windowsFont("Times New Roman"))
+cormat <- cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+                   method="spearman",
+                   use = "na.or.complete")
+
+corrplot(
+cormat,
+  method = "color",
+  type = "upper",
+  tl.col = "black",
+  addCoef.col = "black",
+  diag = TRUE,
+  family = "A",
+  number.font = 6,
+  tl.cex =0.75,
+  number.cex = 1)
+```
+
+### Hipótesis 3.
+*H3: Estudiantes con apoderados que poseen actitudes más positivas hacia la igualdad de género presentarán actitudes más positivas hacia la igualdad de género.*
+```{r}
+corrplot.mixed(cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
+                   use = "na.or.complete"))
+
+windowsFonts(A = windowsFont("Times New Roman"))
+cormat <- cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
+                   use = "na.or.complete")
+
+corrplot(
+cormat,
+  method = "color",
+  type = "upper",
+  tl.col = "black",
+  addCoef.col = "black",
+  diag = TRUE,
+  family = "A",
+  number.font = 6,
+  tl.cex =0.75,
+  number.cex = 1)
+```
+
+### Hipótesis 4.
+*H4: Apoderados con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.*
+```{r}
+corrplot.mixed(cor(dplyr::select(data_proc, igualdad.pad, esp_publico.pad, esp_privado.pad, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+                   method="spearman",
+                   use = "na.or.complete"))
+
+windowsFonts(A = windowsFont("Times New Roman"))
+cormat <- cor(dplyr::select(data_proc, igualdad.pad, esp_publico.pad, esp_privado.pad, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+                   method="spearman",
+                   use = "na.or.complete")
+
+corrplot(
+cormat,
+  method = "color",
+  type = "upper",
+  tl.col = "black",
+  addCoef.col = "black",
+  diag = TRUE,
+  family = "A",
+  number.font = 6,
+  tl.cex =0.75,
+  number.cex = 1)
+```
+
+### Hipótesis 4a. 
+*H4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.*
+```{r}
+# derechos y oportunidades
+pcor(dplyr::select(data_proc, igualdad.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor, igualdad.pad))$estimate
+```
+```{r}
+# Espacio publico
+pcor(dplyr::select(data_proc, esp_publico.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor, esp_publico.pad))$estimate
+```
+```{r}
+# Espacio privado
+pcor(dplyr::select(data_proc, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor, esp_privado.pad))$estimate
+```
+
+### Hipótesis 5.
+*H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.*
+```{r}
+corrplot.mixed(cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
+                   use = "na.or.complete"))
+
+windowsFonts(A = windowsFont("Times New Roman"))
+cormat <- cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
+                   use = "na.or.complete")
+
+corrplot(
+cormat,
+  method = "color",
+  type = "upper",
+  tl.col = "black",
+  addCoef.col = "black",
+  diag = TRUE,
+  family = "A",
+  number.font = 6,
+  tl.cex =0.75,
+  number.cex = 1)
+```
+
 ```{r warning=FALSE, message=FALSE}
 # Calculo promedios por grupo
 mean_ig <- mean(data_proc$igualdad.est)
