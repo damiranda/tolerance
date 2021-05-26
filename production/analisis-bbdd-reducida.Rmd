@@ -137,16 +137,21 @@ corr.test(data_proc$esp_privado.est, as.numeric(data_proc$Sexo))$p
 ### Hipótesis 2.
 *H2: Estudiantes que provienen de familias con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.*
 ```{r}
-data_proc$Educacion <-as.numeric(data_proc$Educacion)
-data_proc$Libros_apod_rec <-as.numeric(data_proc$Libros_apod_rec)
-data_proc$quintiles_ingresos_pc_factor <- as.numeric(data_proc$quintiles_ingresos_pc_factor)
+data_cor = data_proc
+data_cor$Educacion <-as.numeric(data_proc$Educacion)
+data_cor$Libros_apod_rec <-as.numeric(data_proc$Libros_apod_rec)
+data_cor$quintiles_ingresos_pc_factor <- as.numeric(data_proc$quintiles_ingresos_pc_factor)
+data_cor$quintiles_ingresos_pc_factor <- ifelse(data_cor$quintiles_ingresos_pc_factor==6,
+                                                NA,
+                                                data_cor$quintiles_ingresos_pc_factor)
 
-corrplot.mixed(cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+
+corrplot.mixed(cor(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
                    method="spearman",
                    use = "na.or.complete"))
 
 windowsFonts(A = windowsFont("Times New Roman"))
-cormat <- cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+cormat <- cor(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
                    method="spearman",
                    use = "na.or.complete")
 
@@ -162,7 +167,7 @@ cormat,
   tl.cex =0.75,
   number.cex = 1)
 
-corr.test(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+corr.test(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
                    method="spearman",
                    use = "complete")$p
 ```
@@ -170,11 +175,11 @@ corr.test(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.es
 ### Hipótesis 3.
 *H3: Estudiantes con apoderados que poseen actitudes más positivas hacia la igualdad de género presentarán actitudes más positivas hacia la igualdad de género.*
 ```{r}
-corrplot.mixed(cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
+corrplot.mixed(cor(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
                    use = "na.or.complete"))
 
 windowsFonts(A = windowsFont("Times New Roman"))
-cormat <- cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
+cormat <- cor(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
                    use = "na.or.complete")
 
 corrplot(
@@ -189,19 +194,19 @@ cormat,
   tl.cex =0.75,
   number.cex = 1)
 
-corr.test(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
+corr.test(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, igualdad.pad, esp_publico.pad, esp_privado.pad),
                    use = "complete")$p
 ```
 
 ### Hipótesis 4.
 *H4: Apoderados con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.*
 ```{r}
-corrplot.mixed(cor(dplyr::select(data_proc, igualdad.pad, esp_publico.pad, esp_privado.pad, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+corrplot.mixed(cor(dplyr::select(data_cor, igualdad.pad, esp_publico.pad, esp_privado.pad, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
                    method="spearman",
                    use = "na.or.complete"))
 
 windowsFonts(A = windowsFont("Times New Roman"))
-cormat <- cor(dplyr::select(data_proc, igualdad.pad, esp_publico.pad, esp_privado.pad, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+cormat <- cor(dplyr::select(data_cor, igualdad.pad, esp_publico.pad, esp_privado.pad, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
                    method="spearman",
                    use = "na.or.complete")
 
@@ -217,7 +222,7 @@ cormat,
   tl.cex =0.75,
   number.cex = 1)
 
-corr.test(dplyr::select(data_proc, igualdad.pad, esp_publico.pad, esp_privado.pad, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
+corr.test(dplyr::select(data_cor, igualdad.pad, esp_publico.pad, esp_privado.pad, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor),
                    method="spearman",
                    use = "complete")$p
 ```
@@ -226,25 +231,53 @@ corr.test(dplyr::select(data_proc, igualdad.pad, esp_publico.pad, esp_privado.pa
 *H4a: La relación entre los recursos de la familia y las actitudes de los estudiantes hacia la igualdad de género estará mediada por las actitudes de sus apoderados hacia la igualdad de género.*
 ```{r}
 # derechos y oportunidades
-pcor(dplyr::select(data_proc, igualdad.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor, igualdad.pad))
+## Educacion
+data_cor %>% dplyr::select(igualdad.est, Educacion, igualdad.pad) %>%
+  pcor(method="spearman")
+## Libros
+data_cor %>% filter(!is.na(quintiles_ingresos_pc_factor)) %>%
+  dplyr::select(igualdad.est, Libros_apod_rec, igualdad.pad) %>%
+  pcor(method="spearman")
+## Ingresos
+data_cor %>% filter(!is.na(quintiles_ingresos_pc_factor)) %>%
+  dplyr::select(igualdad.est, quintiles_ingresos_pc_factor, igualdad.pad) %>%
+  pcor(method="spearman")
 ```
 ```{r}
 # Espacio publico
-pcor(dplyr::select(data_proc, esp_publico.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor, esp_publico.pad))
+## Educacion
+data_cor %>% dplyr::select(esp_publico.est, Educacion,  esp_publico.pad) %>%
+  pcor(method="spearman")
+## Libros
+data_cor %>% dplyr::select(esp_publico.est, Libros_apod_rec, esp_publico.pad) %>%
+  pcor(method="spearman")
+## Ingresos
+data_cor %>% filter(!is.na(quintiles_ingresos_pc_factor)) %>%
+  dplyr::select(esp_publico.est, quintiles_ingresos_pc_factor, esp_publico.pad) %>%
+  pcor(method="spearman")
 ```
 ```{r}
 # Espacio privado
-pcor(dplyr::select(data_proc, esp_privado.est, Educacion, Libros_apod_rec, quintiles_ingresos_pc_factor, esp_privado.pad))
+##Educacion
+data_cor %>% dplyr::select(esp_privado.est, Educacion, esp_privado.pad) %>%
+  pcor(method="spearman")
+## Libros
+data_cor %>% dplyr::select(esp_privado.est, Libros_apod_rec, esp_privado.pad) %>%
+  pcor(method="spearman")
+## Ingresos
+data_cor %>% filter(!is.na(quintiles_ingresos_pc_factor)) %>%
+  dplyr::select(esp_privado.est, quintiles_ingresos_pc_factor, esp_privado.pad) %>%
+  pcor(method="spearman")
 ```
 
 ### Hipótesis 5.
 *H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.*
 ```{r}
-corrplot.mixed(cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
+corrplot.mixed(cor(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
                    use = "na.or.complete"))
 
 windowsFonts(A = windowsFont("Times New Roman"))
-cormat <- cor(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
+cormat <- cor(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
                    use = "na.or.complete")
 
 corrplot(
@@ -259,7 +292,7 @@ cormat,
   tl.cex =0.75,
   number.cex = 1)
 
-corr.test(dplyr::select(data_proc, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
+corr.test(dplyr::select(data_cor, igualdad.est, esp_publico.est, esp_privado.est, ap_discusion, mean_discusion, num_fem),
                    use = "complete")$p
 ```
 
