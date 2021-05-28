@@ -1,47 +1,60 @@
 ---
-title: "El rol de la familia y la escuela en la socialización política de las actitudes hacia la igualdad de género"
+title: El rol de la familia y la escuela en la socialización política de las actitudes
+  hacia la igualdad de género
 author:
-  - Daniel Miranda^[Pontificia Universidad Católica de Chile,[damiran1@uc.cl](damiran1@uc.cl)]
-  - Julio Iturra^[Centro de Estudio de Conflicto y Cohesión Social]
-  - Anaís Herrera^[Universidad de Chile]
-  - Kevin Carrasco$^{***}$
-output: 
-  html_document: 
-    toc: yes
-    code_folding: hide
-    toc_float: 
-      collapsed: true
-      smooth_scroll: false
-      number_sections: true
+- Daniel Miranda^[Pontificia Universidad Católica de Chile,[damiran1@uc.cl](damiran1@uc.cl)]
+- Julio Iturra^[Centro de Estudio de Conflicto y Cohesión Social]
+- Anaís Herrera^[Universidad de Chile]
+- Kevin Carrasco$^{***}$
+output:
+  pdf_document:
+    toc: no
   bookdown::pdf_document2:
     template: null
     keep_tex: no
     number_sections: no
-    toc: false
-editor_options: 
+    toc: no
+  html_document:
+    toc: yes
+    code_folding: hide
+    toc_float:
+      collapsed: yes
+      smooth_scroll: no
+      number_sections: yes
+editor_options:
   chunk_output_type: console
 header-includes:
-  - \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
-  - \usepackage{times}           # Times New Roman
-  - \usepackage{caption}
-  - \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
-  - \usepackage{graphicx}
-  - \usepackage{float}
-  - \usepackage{booktabs}
-  - \usepackage{longtable}
-  - \usepackage{array}
-  - \usepackage{multirow}
-  - \usepackage{wrapfig}
-  - \usepackage{colortbl}
-  - \usepackage{pdflscape}
-  - \usepackage{tabu}
-  - \usepackage{threeparttable} 
+- \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+- \usepackage{times}
+- \usepackage{caption}
+- \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
+- \usepackage{graphicx}
+- \usepackage{float}
+- \usepackage{booktabs}
+- \usepackage{longtable}
+- \usepackage{array}
+- \usepackage{multirow}
+- \usepackage{wrapfig}
+- \usepackage{colortbl}
+- \usepackage{pdflscape}
+- \usepackage{tabu}
+- \usepackage{threeparttable}
 geometry: margin=0.78in
-bibliography: 
-  - "input/bib/Tolerancia.bib"
-csl: "input/bib/apa6.csl"
+bibliography: input/bib/Tolerancia.bib
+csl: input/bib/apa6.csl
 linkcolor: blue
-abstract: "La socialización política de actitudes hacia la igualdad de género es un elemento clave para la construcción de sociedades más democráticas y tolerantes, entendiendo la igualdad de derechos entre hombres y mujeres como un principio básico de toda democracia. Utilizando datos del Panel de Ciudadanía Escolar 2019 (Ola 1) se analizan las actitudes de 627 estudiantes de 2° medio y sus apoderados, pertenecientes a 60 escuelas de tres regiones de Chile. Se provee evidencia acerca del rol que juegan los recursos socioeconómicos de la familia sobre las actitudes hacia la igualdad de género de estudiantes y apoderados. Asimismo, se provee evidencia acerca del grado de consistencia de la transmisión intergeneracional de actitudes entre estudiantes y apoderados. Finalmente, se muestra la influencia sobre las actitudes de los jóvenes de dos características de la escuela, el porcentaje de niñas y la percepción de apertura a la discusión en el aula." 
+abstract: La socialización política de actitudes hacia la igualdad de género es un
+  elemento clave para la construcción de sociedades más democráticas y tolerantes,
+  entendiendo la igualdad de derechos entre hombres y mujeres como un principio básico
+  de toda democracia. Utilizando datos del Panel de Ciudadanía Escolar 2019 (Ola 1)
+  se analizan las actitudes de 627 estudiantes de 2° medio y sus apoderados, pertenecientes
+  a 60 escuelas de tres regiones de Chile. Se provee evidencia acerca del rol que
+  juegan los recursos socioeconómicos de la familia sobre las actitudes hacia la igualdad
+  de género de estudiantes y apoderados. Asimismo, se provee evidencia acerca del
+  grado de consistencia de la transmisión intergeneracional de actitudes entre estudiantes
+  y apoderados. Finalmente, se muestra la influencia sobre las actitudes de los jóvenes
+  de dos características de la escuela, el porcentaje de niñas y la percepción de
+  apertura a la discusión en el aula.
 ---
 
 ```{r setup, echo=FALSE}
@@ -891,7 +904,29 @@ Una de las principales limitantes de este estudio es la baja cantidad de respues
 En este sentido, se hace necesario generar más estudios que sigan en esta línea y analicen otros factores de la socialización familiar que podrían estar influyendo en la formación de actitudes de los estudiantes y, al mismo tiempo, explorar otras características de la escuela que podrían mitigar efectivamente esta relación, ya que la correlación intra-clase presente en este estudio es alta, indicando que gran parte de la variación de las dimensiones hacia la igualdad de género se produce entre las escuelas. Así, la escuela posee un rol potencial en la formación de actitudes de los estudiantes, pero que no se ha logrado demostrar.
 
 \newpage
-# Anexo 1: Actitudes del apoderado.
+
+# Anexo 1: Gráficos bivariados de las relaciones directas.
+
+```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según el sexo del estudiante.", fig.align = 'center', out.width = '80%',out.height='80%'}
+knitr::include_graphics(path = "output/general_h1.png")
+```
+
+```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según los recursos socioeconómicos de la familia.", fig.align = 'center', out.width = '80%',out.height='80%'}
+knitr::include_graphics(path = "output/general_h2.png")
+```
+
+```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según las actitudes de su apoderado.", fig.align = 'center', out.width = '80%',out.height='80%'}
+knitr::include_graphics(path = "output/general_h3.png")
+```
+
+```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según las características de la escuela.", fig.align = 'center', out.width = '80%',out.height='80%'}
+knitr::include_graphics(path = "output/general_h5.png")
+```
+
+\newpage
+
+# Anexo 2: Actitudes del apoderado.
+
 ```{r, echo=FALSE}
 pacman::p_load(summarytools,haven,sjPlot,dplyr,lme4,haven,texreg,knitr,kableExtra,bda,lmerTest)
 load("input/data-proc/data.rda")
