@@ -2,10 +2,10 @@
 title: El rol de la familia y la escuela en la socialización política de las actitudes
   hacia la igualdad de género
 author:
-- Daniel Miranda^[Pontificia Universidad Católica de Chile,[damiran1@uc.cl](damiran1@uc.cl)]
+- Daniel Miranda^[Pontificia Universidad Católica de Chile, [damiran1@uc.cl](damiran1@uc.cl)]
 - Julio Iturra^[Centro de Estudio de Conflicto y Cohesión Social]
-- Anaís Herrera^[Universidad de Chile]
-- Kevin Carrasco$^{***}$
+- Anaís Herrera^[Instituto de Estudios Avanzados en Educación]
+- Kevin Carrasco^[Universidad de Chile]
 output:
   pdf_document:
     toc: no
@@ -87,6 +87,8 @@ Las principales características individuales de los estudiantes que han sido in
 
 >__*H1*__: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.
 
+\newpage
+
 Un segundo conjunto de características que influyen en las actitudes de los estudiantes hacia la igualdad de género tiene que ver con la comprensión de la familia como un agente de socialización, la que se ha realizado a partir de dos teorías. En primer lugar, al tratar de explicar las diferencias en las actitudes de los estudiantes, varios autores han señalado la importancia de los recursos socioeconómicos de la familia. Los recursos socioeconómicos indican que, por ejemplo, al poseer un mayor nivel educacional, “más probable es que creamos en los valores democráticos y apoyemos las prácticas de igual tipo” [@lipset_hombre_1997, p. 50]. Esto es definido por @bobo_Education_1989 como “sofisticación cognitiva”, dando cuenta de la educación como un proceso por medio del cual el conocimiento y las habilidades cognitivas son adquiridas y, por lo tanto, incrementan la tolerancia hacia diferentes grupos u opiniones. En esta línea, @miranda_Political_2018 al estudiar la participación de los jóvenes en las actividades políticas, señalan que el modelo de recursos está fuertemente asociado con una posición social del individuo, que es su nivel educacional, el ingreso y/o el estatus ocupacional, así como por recursos como el tiempo, las habilidades sociales y el dinero. Así, un mayor nivel educacional estaría relacionado con una mayor tolerancia al tener más tiempo dentro del sistema educativo para internalizar las normas y valores sociales [@weber_educational_2020]. Por lo tanto, los recursos socioeconómicos afectan de dos formas en el proceso de socialización de actitudes.
 
 Por un lado, algunos autores han demostrado que los recursos socioeconómicos de la familia influyen de manera positiva en las actitudes hacia la igualdad de derechos de inmigrantes [@miranda_Political_2018; @villalobos_School_2018; @isac_Native_2012] y sobre los cambios en las actitudes antiinmigrantes de los estudiantes [@miklikowska_Development_2017], en las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades entre hombres y mujeres [@miranda_Political_2018; @dottisani_Best_2017] y en las creencias generales de los jóvenes con respecto a los comportamientos apropiados de hombres y mujeres en la familia [@cunningham_Influence_2001], aunque @schulz_Students_2018a señalan que no existe una relación significativa entre estos antecedentes y las actitudes hacia la igualdad de género y hacia la igualdad de derechos de todos los grupos étnicos y raciales. Por otro lado, también se ha demostrado que, en población adulta, mayores recursos socioeconómicos afectan de manera positiva las actitudes hacia un reparto equitativo de roles de género en el espacio público [@kyoore_Educational_2019] y en el espacio privado [@ojeda_Actitudes_2018; @yu_Decomposing_2013]. 
@@ -112,6 +114,8 @@ En miras de lograr una mayor parsimonia en este estudio, se ha decidido centrar 
 >__*H5*__: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.
 
 >__*H6*__: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) mitigan la influencia de los recursos familiares y actitudes de los apoderados sobre las actitudes de los estudiantes hacia la igualdad de género.
+
+\newpage
 
 Finalmente, debido a la especificidad que representa el género dentro de este estudio, se plantea una última hipótesis que pretende abordar los diferentes efectos que esta característica puede representar sobre las distintas hipótesis antes planteadas:
 
@@ -150,7 +154,7 @@ kable(tab,
     full_width = T,
     latex_options = c("hold_position"),
     position = "center",
-    font_size = 10,
+    font_size = 8,
     bootstrap_options=c("striped", "bordered")) %>%
   column_spec(column = 1, width = "3 cm", ) %>%
   column_spec(column = 2,width = "4 cm") %>%
@@ -236,15 +240,15 @@ descr <-
     Educacion,
     Libros_apod_rec,
     quintiles_ingresos_pc_factor,
+    c_civic,
     ap_discusion,
     mean_discusion,
     num_fem,
     #RBD,
-    c_civic,
     dependencia,
     REGION) %>% ungroup()
 
-df<- dfSummary(select(descr,igualdad.est:quintiles_ingresos_pc_factor),
+df<- dfSummary(select(descr,igualdad.est:c_civic),
                plain.ascii = FALSE,
                style = "grid",
                tmp.img.dir = "/tmp",
@@ -294,10 +298,6 @@ kable(data.frame(image='![](output/desc02.png){width="550"}'), # generar tabla
 ```
 
 ## Análisis bivariado
-
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según los recursos socioeconómicos de la familia.", fig.align = 'center', out.width = '80%',out.height='80%'}
-knitr::include_graphics(path = "output/general.png")
-```
 
 Se estimaron distintas correlaciones como primera aproximación al testeo de las hipótesis planteadas. El método de estimación y el tipo de correlación estimada se corresponden con el nivel de medición de las variables incorporadas. Se estimaron correlaciones biseriales, parcializadas, correlaciones estimadas con el método de Spearman y con el método de Pearson. Adicionalmente, en el Anexo 1 se adjuntan gráficos correspondientes a las hipótesis directas, con el objetivo de facilitar la visualización de los resultados bivariados. 
 
@@ -356,20 +356,20 @@ coef_names <- c(
           "No sabe / No responde"
           )
 omit_coef <- "(dependencia)|(REGION)|(c_civic)"
-footnote<- "\\item %stars. \\item Todos los modelos son controlados por la región de residencia (p>0.05), la dependencia administrativa de la escuela (p>0.05) y el nivel de conocimiento cívico del estudiante (p<0.05)"
-scale_box <- 0.65
+footnote<- "\\item %stars. \\item Todos los modelos son controlados por la región de residencia (p>0.05), la dependencia administrativa de la escuela (p>0.05) y el nivel de conocimiento cívico del estudiante ($p$<0.05)"
+scale_box <- 0.825
 ```
 
 ### Actitudes del estudiante hacia la igualdad de derechos y oportunidades entre hombres y mujeres
 En la Tabla 4 se presentan los principales resultados obtenidos a partir del análisis multinivel realizado para la dimensión de actitudes de los estudiantes hacia la igualdad de derechos y oportunidades entre hombres y mujeres. Para esta dimensión la correlación intraclase obtenida representa que la variación entre escuelas corresponde a un 23% de la varianza de las actitudes de los estudiantes.
 
-Primero, en función de la primera hipótesis planteada, en el modelo 1 se puede observar que ser niña se asocia con actitudes más positivas hacia la igualdad de derechos y oportunidades entre hombres y mujeres en comparación con los niños ($\beta$=0.11, SE=0.03, p<0.001). Este efecto se mantiene estable al controlar por el resto de las variables en el modelo 9 ($\beta$=0.08, SE=0.03, p<0.05).
+Primero, en función de la primera hipótesis planteada, en el modelo 1 se puede observar que ser niña se asocia con actitudes más positivas hacia la igualdad de derechos y oportunidades entre hombres y mujeres en comparación con los niños ($\beta$=0.11, SE=0.03, $p$<0.001). Este efecto se mantiene estable al controlar por el resto de las variables en el modelo 9 ($\beta$=0.08, SE=0.03, $p$<0.05).
 
-Segundo, con respecto a la hipótesis planteada que aborda la relación entre los recursos socioeconómicos de la familia con las actitudes de los apoderados y con las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades entre hombres y mujeres. Los análisis de las actitudes de los apoderados expuestos en el Anexo 1 evidencian que aquellos con más recursos socioeconómicos, tanto para el nivel educacional ($\beta_{ed.superior}$=0.16, SE=0.06, p<0.01) como para una mayor cantidad de libros en el hogar ($\beta_{másde100libros}$=0.19, SE=0.05, p<0.001), poseen actitudes más positivas hacia esta dimensión que aquellos con menos recursos socioeconómicos. En torno a los estudiantes se evidencia, en el modelo 2 de la Tabla 4, que el nivel educacional del apoderado no posee efectos significativos sobre sus actitudes hacia esta dimensión. Luego, en relación con la cantidad de libros en el hogar, en el modelo 3 solo la categoría “entre 11 y 25 libros” posee un efecto positivo sobre la dimensión analizada ($\beta$=0.09, SE=0.04, p<0.05), efecto que se mantiene al controlar por el resto de las variables en el modelo 9. Finalmente, los ingresos per cápita del hogar, como se observa en el modelo 4, no poseen un efecto significativo sobre esta dimensión.
+Segundo, con respecto a la hipótesis planteada que aborda la relación entre los recursos socioeconómicos de la familia con las actitudes de los apoderados y con las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades entre hombres y mujeres. Los análisis de las actitudes de los apoderados expuestos en el Anexo 1 evidencian que aquellos con más recursos socioeconómicos, tanto para el nivel educacional ($\beta_{ed.superior}$=0.16, SE=0.06, $p$<0.01) como para una mayor cantidad de libros en el hogar ($\beta_{másde100libros}$=0.19, SE=0.05, $p$<0.001), poseen actitudes más positivas hacia esta dimensión que aquellos con menos recursos socioeconómicos. En torno a los estudiantes se evidencia, en el modelo 2 de la Tabla 4, que el nivel educacional del apoderado no posee efectos significativos sobre sus actitudes hacia esta dimensión. Luego, en relación con la cantidad de libros en el hogar, en el modelo 3 solo la categoría “entre 11 y 25 libros” posee un efecto positivo sobre la dimensión analizada ($\beta$=0.09, SE=0.04, $p$<0.05), efecto que se mantiene al controlar por el resto de las variables en el modelo 9. Finalmente, los ingresos per cápita del hogar, como se observa en el modelo 4, no poseen un efecto significativo sobre esta dimensión.
 
-Tercero, en cuanto a la hipótesis que plantea una relación entre las actitudes de los estudiantes y las actitudes de sus apoderados, los resultados muestran que existe una transmisión intergeneracional de las actitudes, que se observa en la consistencia actitudinal de ambas generaciones. En otras palabras, en el modelo 5 se puede observar que las actitudes de los apoderados hacia la dimensión de igualdad de derechos afectan positivamente las actitudes de los estudiantes hacia esta dimensión ($\beta$=0.12, SE=0.04, p<0.01). Este efecto sigue siendo significativo al controlar por el resto de las variables en el modelo 9 ($\beta$=0.09, SE=0.04, p<0.05).
+Tercero, en cuanto a la hipótesis que plantea una relación entre las actitudes de los estudiantes y las actitudes de sus apoderados, los resultados muestran que existe una transmisión intergeneracional de las actitudes, que se observa en la consistencia actitudinal de ambas generaciones. En otras palabras, en el modelo 5 se puede observar que las actitudes de los apoderados hacia la dimensión de igualdad de derechos afectan positivamente las actitudes de los estudiantes hacia esta dimensión ($\beta$=0.12, SE=0.04, $p$<0.01). Este efecto sigue siendo significativo al controlar por el resto de las variables en el modelo 9 ($\beta$=0.09, SE=0.04, $p$<0.05).
 
-Siguiendo con la quinta hipótesis, por un lado, tanto la percepción individual de apertura a la discusión en el aula ($\beta$=0.13, SE=0.02, p<0.001), como la percepción general del curso (el promedio por aula) ($\beta$=0.39, SE=0.08, p<0.001) afectan positivamente las actitudes de los estudiantes hacia la dimensión de igualdad de derechos. Ambos efectos mantienen su significancia al controlar por el resto de las variables en el modelo 9. Por otro lado, la proporción de niñas en el aula no posee un efecto significativo sobre esta dimensión.
+Siguiendo con la quinta hipótesis, por un lado, tanto la percepción individual de apertura a la discusión en el aula ($\beta$=0.13, SE=0.02, $p$<0.001), como la percepción general del curso (el promedio por aula) ($\beta$=0.39, SE=0.08, $p$<0.001) afectan positivamente las actitudes de los estudiantes hacia la dimensión de igualdad de derechos. Ambos efectos mantienen su significancia al controlar por el resto de las variables en el modelo 9. Por otro lado, la proporción de niñas en el aula no posee un efecto significativo sobre esta dimensión.
 
 Finalmente, en relación con las hipótesis 6 y 7, los efectos de las interacciones entre las variables propuestas no resultaron estadísticamente significativas para la dimensión de igualdad de derechos. Más precisamente, las características de la escuela como la proporción de niñas y, principalmente, el promedio de apertura a la discusión en el aula, si bien logran afectar positivamente las actitudes de los estudiantes hacia la igualdad de género de forma directa, no logran mitigar el efecto de la transmisión intergeneracional de las actitudes tolerantes de los padres hacia los hijos. Asimismo, no hay ninguna interacción significativa entre el género del estudiante y las variables analizadas en los modelos.
 
@@ -408,16 +408,15 @@ knitreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,
 ### Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública
 En la Tabla 5 se presentan los resultados obtenidos de las actitudes de los estudiantes hacia la dimensión de distribución igualitaria de roles en la esfera pública. Para esta dimensión la correlación intraclase obtenida representa que la variación entre escuelas corresponde a un 26% de la varianza de las actitudes de los estudiantes. 
 
-En primer lugar, en función de la hipótesis inicial y analizando el primer modelo, se puede observar que las niñas, en comparación con los niños, poseen actitudes más positivas hacia la distribución igualitaria de roles en la esfera pública ($\beta$=0.17, SE=0.04, p<0.001). En el modelo 8 se puede ver que este efecto se mantiene estable al controlar por el resto de las variables ($\beta$=0.15, SE=0.04, p<0.001).
+En primer lugar, en función de la hipótesis inicial y analizando el primer modelo, se puede observar que las niñas, en comparación con los niños, poseen actitudes más positivas hacia la distribución igualitaria de roles en la esfera pública ($\beta$=0.17, SE=0.04, $p$<0.001). En el modelo 8 se puede ver que este efecto se mantiene estable al controlar por el resto de las variables ($\beta$=0.15, SE=0.04, $p$<0.001).
 
-En segundo lugar, este estudio encuentra evidencia que respalda parcialmente la hipótesis respecto a la relación entre los recursos socioeconómicos de la familia con las actitudes de los apoderados y de los estudiantes hacia la igualdad de género. En el Anexo 1 se puede ver que, en relación con las actitudes de los apoderados, que aquellos con mayores recursos socioeconómicos, tanto para el nivel educacional ($\beta_{ed.superior}$=0.24, SE=0.07, p<0.001) como para una mayor cantidad de libros en el hogar ($\beta_{másde100libros}$=0.23, SE=0.06, p<0.001), poseen actitudes más positivas hacia una distribución igualitaria de roles en la esfera pública que aquellos con menos recursos socioeconómicos. En cuanto a las actitudes de los estudiantes, en el modelo 2 se puede observar que el nivel educacional de los apoderados no posee efectos significativos sobre esta dimensión. Luego, en el modelo 3 se muestra que estudiantes que poseen entre 26 y 100 libros en el hogar poseen actitudes más positivas hacia esta dimensión de la igualdad de género que aquellos que poseen menos de 10 libros ($\beta$=0.1, SE=0.05, p<0.05). Sin embargo, esta relación deja de ser significativa al controlar por el resto de las variables en el modelo 8. Finalmente, en el modelo 4 se puede apreciar que los estudiantes que pertenecen a los quintiles 2 ($\beta$=0.12, SE=0.06, p<0.05) y 3 ($\beta$=0.013, SE=0.06, p<0.05) poseen actitudes más positivas sobre esta dimensión que aquellos pertenecientes al quintil 1, pero al controlar por el resto de las variables en el modelo 8, además de los quintiles 2 y 3, el quintil 4 también posee un efecto significativo ($\beta$=0.12, SE=0.06, p<0.05).
+En segundo lugar, este estudio encuentra evidencia que respalda parcialmente la hipótesis respecto a la relación entre los recursos socioeconómicos de la familia con las actitudes de los apoderados y de los estudiantes hacia la igualdad de género. En el Anexo 1 se puede ver que, en relación con las actitudes de los apoderados, que aquellos con mayores recursos socioeconómicos, tanto para el nivel educacional ($\beta_{ed.superior}$=0.24, SE=0.07, $p$<0.001) como para una mayor cantidad de libros en el hogar ($\beta_{másde100libros}$=0.23, SE=0.06, $p$<0.001), poseen actitudes más positivas hacia una distribución igualitaria de roles en la esfera pública que aquellos con menos recursos socioeconómicos. En cuanto a las actitudes de los estudiantes, en el modelo 2 se puede observar que el nivel educacional de los apoderados no posee efectos significativos sobre esta dimensión. Luego, en el modelo 3 se muestra que estudiantes que poseen entre 26 y 100 libros en el hogar poseen actitudes más positivas hacia esta dimensión de la igualdad de género que aquellos que poseen menos de 10 libros ($\beta$=0.1, SE=0.05, $p$<0.05). Sin embargo, esta relación deja de ser significativa al controlar por el resto de las variables en el modelo 8. Finalmente, en el modelo 4 se puede apreciar que los estudiantes que pertenecen a los quintiles 2 ($\beta$=0.12, SE=0.06, $p$<0.05) y 3 ($\beta$=0.013, SE=0.06, $p$<0.05) poseen actitudes más positivas sobre esta dimensión que aquellos pertenecientes al quintil 1, pero al controlar por el resto de las variables en el modelo 8, además de los quintiles 2 y 3, el quintil 4 también posee un efecto significativo ($\beta$=0.12, SE=0.06, $p$<0.05).
 
-En tercer lugar, en cuanto a la hipótesis que plantea una relación entre las actitudes de los estudiantes y las actitudes de sus apoderados, se puede observar una consistencia actitudinal de ambas generaciones en las actitudes hacia una distribución igualitaria de roles en la esfera pública. Específicamente, es posible observar que en el modelo 5 las actitudes de los apoderados hacia esta dimensión afectan positivamente las actitudes de los estudiantes ($\beta$=0.2, SE=0.04, p<0.001), y que este efecto mantiene su significancia en el modelo 8 al controlar por el resto de las variables ($\beta$=0.16, SE=0.04, p<0.001).
+En tercer lugar, en cuanto a la hipótesis que plantea una relación entre las actitudes de los estudiantes y las actitudes de sus apoderados, se puede observar una consistencia actitudinal de ambas generaciones en las actitudes hacia una distribución igualitaria de roles en la esfera pública. Específicamente, es posible observar que en el modelo 5 las actitudes de los apoderados hacia esta dimensión afectan positivamente las actitudes de los estudiantes ($\beta$=0.2, SE=0.04, $p$<0.001), y que este efecto mantiene su significancia en el modelo 8 al controlar por el resto de las variables ($\beta$=0.16, SE=0.04, $p$<0.001).
 
-En relación con la quinta hipótesis, en el modelo 6 se puede observar que tanto la percepción individual de apertura a la discusión en el aula ($\beta$=0.1, SE=0.03, p<0.01), como la percepción general del curso (el promedio por aula) ($\beta$=0.4, SE=0.1, p<0.001) afectan positivamente las actitudes de los estudiantes hacia esta dimensión y que ambos efectos se mantienen consistentes al controlar por el resto de las variables en el modelo 8. Como se muestra en el modelo 7, la proporción de niñas en el aula no posee un efecto significativo sobre esta dimensión.
+En relación con la quinta hipótesis, en el modelo 6 se puede observar que tanto la percepción individual de apertura a la discusión en el aula ($\beta$=0.1, SE=0.03, $p$<0.01), como la percepción general del curso (el promedio por aula) ($\beta$=0.4, SE=0.1, $p$<0.001) afectan positivamente las actitudes de los estudiantes hacia esta dimensión y que ambos efectos se mantienen consistentes al controlar por el resto de las variables en el modelo 8. Como se muestra en el modelo 7, la proporción de niñas en el aula no posee un efecto significativo sobre esta dimensión.
 
 Finalmente, en relación con las hipótesis 6 y 7, los efectos de las interacciones entre las variables propuestas no resultaron estadísticamente significativas para la dimensión de distribución igualitaria de roles en la esfera pública. Más precisamente, las características de la escuela como la proporción de niñas y, principalmente, el promedio de apertura a la discusión en el aula, si bien logran afectar positivamente las actitudes de los estudiantes hacia la igualdad de género de forma directa, no logran mitigar el efecto de la transmisión intergeneracional de las actitudes tolerantes de los padres hacia los hijos. Asimismo, no hay ninguna interacción significativa entre el género del estudiante y las variables analizadas en los modelos.
-
 
 ```{r, echo=FALSE}
 reg_esp.pub1 <- lmer(esp_publico.est ~ 1 + Sexo + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
@@ -456,13 +455,13 @@ knitreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,
 ### Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada
 En la Tabla 6 están presentes los resultados obtenidos de las actitudes de los estudiantes hacia la dimensión de distribución igualitaria de roles en la esfera privada. Para esta dimensión la correlación intraclase obtenida representa que la variación entre escuelas corresponde a un 25% de la varianza de las actitudes de los estudiantes. 
 
-Primero, en relación con la primera hipótesis planteada, en el modelo 1 es posible observar que ser niña se asocia con actitudes más positivas hacia esta dimensión, en comparación con los niños ($\beta$=0.19, SE=0.04, p<0.001). Este efecto se mantiene estable al controlar por el resto de las variables en el modelo 8 ($\beta$=0.17, SE=0.04, p<0.001).
+Primero, en relación con la primera hipótesis planteada, en el modelo 1 es posible observar que ser niña se asocia con actitudes más positivas hacia esta dimensión, en comparación con los niños ($\beta$=0.19, SE=0.04, $p$<0.001). Este efecto se mantiene estable al controlar por el resto de las variables en el modelo 8 ($\beta$=0.17, SE=0.04, $p$<0.001).
 
-Segundo, en cuanto a la hipótesis planteada que aborda la relación entre los recursos socioeconómicos de la familia con las actitudes de los apoderados y las actitudes de los estudiantes hacia la igualdad de género. Por un lado, los resultados sobre las actitudes de los apoderados (expuestos en el Anexo 2) demuestran que aquellos con más recursos socioeconómicos, tanto para el nivel educacional ($\beta_{ed.superior}$=0.24, SE=0.07, p<0.001) como para una mayor cantidad de libros en el hogar ($\beta_{másde100libros}$=0.22, SE=0.06, p<0.001), poseen actitudes más positivas hacia una distribución igualitaria de roles en la esfera privada que aquellos que poseen menos recursos socioeconómicos. Por otro lado, en relación con las actitudes de los estudiantes, el modelo 2 muestra que el nivel educacional de los apoderados no posee un efecto significativo sobre esta dimensión. Luego, en el modelo 3 se observa que estudiantes con entre 26 y 100 libros en sus hogares poseen actitudes más positivas hacia esta dimensión de la igualdad de género que quienes poseen entre 0 y 10 libros ($\beta$=0.12, SE=0.06, p<0.05), pero este efecto deja de ser significativo en el modelo 8 al controlar por el resto de las variables. Finalmente, el modelo 4 muestra que quienes pertenecen a quintiles más altos poseen actitudes más positivas hacia esta dimensión de la igualdad de género que quienes pertenecen al quintil 1 ($\beta_{Q5}$=0.16, SE=0.08, p<0.05). Al controlar por el resto de las variables en el modelo 8, este efecto mantiene su significancia en los quintiles 2, 3 y 4 ($\beta_{Q4}$=0.16, SE=0.07, p<0.05).
+Segundo, en cuanto a la hipótesis planteada que aborda la relación entre los recursos socioeconómicos de la familia con las actitudes de los apoderados y las actitudes de los estudiantes hacia la igualdad de género. Por un lado, los resultados sobre las actitudes de los apoderados (expuestos en el Anexo 2) demuestran que aquellos con más recursos socioeconómicos, tanto para el nivel educacional ($\beta_{ed.superior}$=0.24, SE=0.07, $p$<0.001) como para una mayor cantidad de libros en el hogar ($\beta_{másde100libros}$=0.22, SE=0.06, $p$<0.001), poseen actitudes más positivas hacia una distribución igualitaria de roles en la esfera privada que aquellos que poseen menos recursos socioeconómicos. Por otro lado, en relación con las actitudes de los estudiantes, el modelo 2 muestra que el nivel educacional de los apoderados no posee un efecto significativo sobre esta dimensión. Luego, en el modelo 3 se observa que estudiantes con entre 26 y 100 libros en sus hogares poseen actitudes más positivas hacia esta dimensión de la igualdad de género que quienes poseen entre 0 y 10 libros ($\beta$=0.12, SE=0.06, $p$<0.05), pero este efecto deja de ser significativo en el modelo 8 al controlar por el resto de las variables. Finalmente, el modelo 4 muestra que quienes pertenecen a quintiles más altos poseen actitudes más positivas hacia esta dimensión de la igualdad de género que quienes pertenecen al quintil 1 ($\beta_{Q5}$=0.16, SE=0.08, $p$<0.05). Al controlar por el resto de las variables en el modelo 8, este efecto mantiene su significancia en los quintiles 2, 3 y 4 ($\beta_{Q4}$=0.16, SE=0.07, $p$<0.05).
 
-Tercero, en función de la hipótesis que plantea una relación entre las actitudes de los estudiantes y las actitudes de sus apoderados, se puede observar una consistencia actitudinal de ambas generaciones en las actitudes hacia una distribución igualitaria de roles en la esfera privada. Más específicamente, el modelo 5 muestra que las actitudes de los apoderados hacia esta dimensión afectan positivamente las actitudes de los estudiantes ($\beta$=0.29, SE=0.05, p<0.001), y que este efecto mantiene su significancia en el modelo 8 al controlar por el resto de las variables ($\beta$=0.24, SE=0.05, p<0.001).
+Tercero, en función de la hipótesis que plantea una relación entre las actitudes de los estudiantes y las actitudes de sus apoderados, se puede observar una consistencia actitudinal de ambas generaciones en las actitudes hacia una distribución igualitaria de roles en la esfera privada. Más específicamente, el modelo 5 muestra que las actitudes de los apoderados hacia esta dimensión afectan positivamente las actitudes de los estudiantes ($\beta$=0.29, SE=0.05, $p$<0.001), y que este efecto mantiene su significancia en el modelo 8 al controlar por el resto de las variables ($\beta$=0.24, SE=0.05, $p$<0.001).
 
-En relación con la quinta hipótesis, el modelo  muestra que tanto la percepción individual de apertura a la discusión en el aula ($\beta$=0.09, SE=0.04, p<0.05) como la percepción general del curso (el promedio por aula) ($\beta$=0.46, SE=0.11, p<0.001) afectan positivamente las actitudes de los estudiantes hacia esta dimensión de la igualdad de género, pero que al controlar por el resto de las variables en el modelo 8 la percepción individual pierde su significancia. Así, en el modelo 7 se puede observar que la proporción de niñas en el aula no posee un efecto significativo sobre esta dimensión.
+En relación con la quinta hipótesis, el modelo  muestra que tanto la percepción individual de apertura a la discusión en el aula ($\beta$=0.09, SE=0.04, $p$<0.05) como la percepción general del curso (el promedio por aula) ($\beta$=0.46, SE=0.11, $p$<0.001) afectan positivamente las actitudes de los estudiantes hacia esta dimensión de la igualdad de género, pero que al controlar por el resto de las variables en el modelo 8 la percepción individual pierde su significancia. Así, en el modelo 7 se puede observar que la proporción de niñas en el aula no posee un efecto significativo sobre esta dimensión.
 
 Finalmente, en relación con las hipótesis 6 y 7, los efectos de las interacciones entre las variables propuestas no resultaron estadísticamente significativas para la dimensión de distribución igualitaria de roles en la esfera privada. Más precisamente, las características de la escuela como la proporción de niñas y, principalmente, el promedio de apertura a la discusión en el aula, si bien logran afectar positivamente las actitudes de los estudiantes hacia la igualdad de género de forma directa, no logran mitigar el efecto de la transmisión intergeneracional de las actitudes tolerantes de los padres hacia los hijos. Asimismo, no hay ninguna interacción significativa entre el género del estudiante y las variables analizadas en los modelos.
 
@@ -505,8 +504,7 @@ En la Tabla 7 se muestra un análisis de mediación realizado para evaluar la hi
 
 Preliminarmente, este análisis de mediación indica que las actitudes de los apoderados hacia la igualdad de género funcionan como un mediador de la relación entre los recursos socioeconómicos de la familia y las actitudes de los estudiantes hacia la igualdad de género. En los distintos modelos referidos a las tres dimensiones el patrón es el mismo. Padres con mayores recursos socioeconómicos (nivel educacional y cantidad de libros en el hogar) presentan actitudes más favorables hacia cada dimensión y, al mismo tiempo, esas actitudes igualitarias de los apoderados se asocian con actitudes más igualitarias por parte de los estudiantes. 
 
-Específicamente, el nivel educacional de los padres se vincula de manera indirecta con el desarrollo de las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades ($\beta_{ed.media}$=0.011, p<0.001), hacia una distribución igualitaria de roles en el espacio público ($\beta_{ed.superior}$=0.038, p<0.001) y hacia una distribución igualitaria de roles en el espacio privado ($\beta_{ed.superior}$=0.053, p<0.05) a través de las actitudes que los apoderados presentan. Asimismo, la cantidad de libros en el hogar se vincula de manera indirecta con el desarrollo de las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades ($\beta_{másde100libros}$=0.018, p<0.05), hacia una distribución igualitaria de roles en el espacio público ($\beta_{másde100libros}$=0.041, p<0.001) y hacia una distribución igualitaria de roles en el espacio privado ($\beta_{másde100libros}$=0.056, p<0.001) a través de las actitudes de los apoderados. Finalmente, el efecto indirecto de los ingresos per cápita no es significativo en ninguna de las tres dimensiones y sólo son significativos los efectos directos de algunos quintiles sobre las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades ($\beta_{quintil3}$=0.102, p<0.05), hacia una distribución igualitaria de roles en el espacio público ($\beta_{quintil4}$=0.121, p<0.05) y hacia una distribución igualitaria de roles en el espacio privado ($\beta_{quintil3}$=0.188, p<0.001).
-
+Específicamente, el nivel educacional de los padres se vincula de manera indirecta con el desarrollo de las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades ($\beta_{ed.media}$=0.011, $p$<0.001), hacia una distribución igualitaria de roles en el espacio público ($\beta_{ed.superior}$=0.038, $p$<0.001) y hacia una distribución igualitaria de roles en el espacio privado ($\beta_{ed.superior}$=0.053, $p$<0.05) a través de las actitudes que los apoderados presentan. Asimismo, la cantidad de libros en el hogar se vincula de manera indirecta con el desarrollo de las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades ($\beta_{másde100libros}$=0.018, $p$<0.05), hacia una distribución igualitaria de roles en el espacio público ($\beta_{másde100libros}$=0.041, $p$<0.001) y hacia una distribución igualitaria de roles en el espacio privado ($\beta_{másde100libros}$=0.056, $p$<0.001) a través de las actitudes de los apoderados. Finalmente, el efecto indirecto de los ingresos per cápita no es significativo en ninguna de las tres dimensiones y sólo son significativos los efectos directos de algunos quintiles sobre las actitudes de los estudiantes hacia la igualdad de derechos y oportunidades ($\beta_{quintil3}$=0.102, $p$<0.05), hacia una distribución igualitaria de roles en el espacio público ($\beta_{quintil4}$=0.121, $p$<0.05) y hacia una distribución igualitaria de roles en el espacio privado ($\beta_{quintil3}$=0.188, $p$<0.001).
 
 ```{r models-mediation, include=FALSE,cache=TRUE}
 pacman::p_load(stargazer, ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
@@ -890,6 +888,7 @@ kbl(collapse_rows_dt2,
            footnote_as_chunk = T,general_title = "Nota: ")
 ```
 
+p
 # Discusión
 Este trabajo permite avanzar en la comprensión del rol preponderante que posee la transmisión intergeneracional de las actitudes hacia la igualdad de género entre padres e hijos dentro del proceso de socialización familiar. Como se ha demostrado en esta investigación, las actitudes de los apoderados poseen un efecto significativo sobre las actitudes de los estudiantes para las tres dimensiones analizadas. Por lo tanto, existe una consistencia actitudinal, que se transmite dentro de la familia, para las tres dimensiones de la igualdad de género analizadas.
 
@@ -907,19 +906,24 @@ En este sentido, se hace necesario generar más estudios que sigan en esta líne
 
 # Anexo 1: Gráficos bivariados de las relaciones directas.
 
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según el sexo del estudiante.", fig.align = 'center', out.width = '80%',out.height='80%'}
+**H1: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.**
+```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según el sexo del estudiante.", fig.align = 'center', out.width = '97%',out.height='97%'}
 knitr::include_graphics(path = "output/general_h1.png")
 ```
 
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según los recursos socioeconómicos de la familia.", fig.align = 'center', out.width = '80%',out.height='80%'}
+**H2: Estudiantes que provienen de familias con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.**
+```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según los recursos socioeconómicos de la familia.", fig.align = 'center', out.width = '97%',out.height='97%'}
 knitr::include_graphics(path = "output/general_h2.png")
 ```
+\newpage
 
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según las actitudes de su apoderado.", fig.align = 'center', out.width = '80%',out.height='80%'}
+**H3: Estudiantes con apoderados que poseen actitudes más positivas hacia la igualdad de género presentarán actitudes más positivas hacia la igualdad de género.**
+```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según las actitudes de su apoderado.", fig.align = 'center', out.width = '97%',out.height='97%'}
 knitr::include_graphics(path = "output/general_h3.png")
 ```
 
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según las características de la escuela.", fig.align = 'center', out.width = '80%',out.height='80%'}
+**H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.**
+```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según las características de la escuela.", fig.align = 'center', out.width = '97%',out.height='97%'}
 knitr::include_graphics(path = "output/general_h5.png")
 ```
 
