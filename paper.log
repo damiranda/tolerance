@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.17)  30 MAY 2021 22:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.17)  31 MAY 2021 09:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -799,21 +799,21 @@ Package pdftex.def Info: output/desc01.png  used on input line 883.
 <output/desc02.png, id=129, 1132.23pt x 651.18282pt>
 File: output/desc02.png Graphic file (type png)
 <use output/desc02.png>
-Package pdftex.def Info: output/desc02.png  used on input line 892.
+Package pdftex.def Info: output/desc02.png  used on input line 891.
 (pdftex.def)             Requested size: 414.04659pt x 238.13185pt.
 [10 <./output/desc01.png>] [11 <./output/desc02.png>] [12]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1034.
+LaTeX Warning: Command \' invalid in math mode on input line 1033.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [13]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1169.
+LaTeX Warning: Command \' invalid in math mode on input line 1168.
 
 [14]
-Overfull \hbox (3.0436pt too wide) in paragraph at lines 1280--1282
+Overfull \hbox (3.0436pt too wide) in paragraph at lines 1279--1281
  [] 
  []
 
@@ -822,10 +822,10 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [15]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1314.
+LaTeX Warning: Command \' invalid in math mode on input line 1313.
 
 [16]
-Overfull \hbox (3.0849pt too wide) in paragraph at lines 1424--1426
+Overfull \hbox (3.0849pt too wide) in paragraph at lines 1423--1425
  [] 
  []
 
@@ -834,38 +834,38 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [17] [18]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1474.
+LaTeX Warning: Command \' invalid in math mode on input line 1473.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1476.
+LaTeX Warning: Command \' invalid in math mode on input line 1475.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1478.
+LaTeX Warning: Command \' invalid in math mode on input line 1477.
 
 [19] [20]
 <output/general_h1.png, id=202, 853.46353pt x 284.33728pt>
 File: output/general_h1.png Graphic file (type png)
 <use output/general_h1.png>
-Package pdftex.def Info: output/general_h1.png  used on input line 1608.
+Package pdftex.def Info: output/general_h1.png  used on input line 1607.
 (pdftex.def)             Requested size: 486.51834pt x 162.08694pt.
 <output/general_h2.png, id=203, 939.51pt x 578.16pt>
 File: output/general_h2.png Graphic file (type png)
 <use output/general_h2.png>
-Package pdftex.def Info: output/general_h2.png  used on input line 1621.
+Package pdftex.def Info: output/general_h2.png  used on input line 1620.
 (pdftex.def)             Requested size: 486.498pt x 299.38338pt.
 [21 <./output/general_h1.png> <./output/general_h2.png>]
 <output/general_h3.png, id=213, 853.46353pt x 284.33728pt>
 File: output/general_h3.png Graphic file (type png)
 <use output/general_h3.png>
-Package pdftex.def Info: output/general_h3.png  used on input line 1635.
+Package pdftex.def Info: output/general_h3.png  used on input line 1634.
 (pdftex.def)             Requested size: 486.51834pt x 162.08694pt.
 <output/general_h5.png, id=214, 939.51pt x 578.16pt>
 File: output/general_h5.png Graphic file (type png)
 <use output/general_h5.png>
-Package pdftex.def Info: output/general_h5.png  used on input line 1648.
+Package pdftex.def Info: output/general_h5.png  used on input line 1647.
 (pdftex.def)             Requested size: 486.498pt x 299.38338pt.
 [22 <./output/general_h3.png> <./output/general_h5.png>] [23]
-Underfull \hbox (badness 1817) in paragraph at lines 1720--1725
+Underfull \hbox (badness 1817) in paragraph at lines 1719--1724
 \T1/ptm/m/n/10 In-ter-ac-tion Ef-fects Using Mul-ti-le-vel Mo-de-ling. \T1/ptm/
 m/it/10 Jour-nal of Ma-na-ge-ment\T1/ptm/m/n/10 , \T1/ptm/m/it/10 39\T1/ptm/m/n
 /10 (6), 1490--1528. [][]$https : / / doi . org / 10 . 1177 /
@@ -916,7 +916,7 @@ eX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Users/Anais/AppData/Roaming/
 TinyTeX/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Users/Anais/AppData/Ro
 aming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Users/Anais/AppDa
 ta/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (25 pages, 786990 bytes).
+Output written on paper.pdf (25 pages, 786961 bytes).
 PDF statistics:
  390 PDF objects out of 1000 (max. 8388607)
  336 compressed objects within 4 object streams
