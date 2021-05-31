@@ -888,7 +888,8 @@ kbl(collapse_rows_dt2,
            footnote_as_chunk = T,general_title = "Nota: ")
 ```
 
-p
+\newpage
+
 # Discusión
 Este trabajo permite avanzar en la comprensión del rol preponderante que posee la transmisión intergeneracional de las actitudes hacia la igualdad de género entre padres e hijos dentro del proceso de socialización familiar. Como se ha demostrado en esta investigación, las actitudes de los apoderados poseen un efecto significativo sobre las actitudes de los estudiantes para las tres dimensiones analizadas. Por lo tanto, existe una consistencia actitudinal, que se transmite dentro de la familia, para las tres dimensiones de la igualdad de género analizadas.
 

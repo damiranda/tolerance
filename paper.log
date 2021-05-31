@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.17)  31 MAY 2021 09:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.17)  31 MAY 2021 09:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -791,12 +791,12 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 824.
 [8] [9]
-<output/desc01.png, id=127, 1121.69063pt x 1602.73781pt>
+<output/desc01.png, id=131, 1121.69063pt x 1602.73781pt>
 File: output/desc01.png Graphic file (type png)
 <use output/desc01.png>
 Package pdftex.def Info: output/desc01.png  used on input line 883.
 (pdftex.def)             Requested size: 376.38913pt x 537.80702pt.
-<output/desc02.png, id=129, 1132.23pt x 651.18282pt>
+<output/desc02.png, id=133, 1132.23pt x 651.18282pt>
 File: output/desc02.png Graphic file (type png)
 <use output/desc02.png>
 Package pdftex.def Info: output/desc02.png  used on input line 891.
@@ -843,29 +843,29 @@ LaTeX Warning: Command \' invalid in math mode on input line 1475.
 LaTeX Warning: Command \' invalid in math mode on input line 1477.
 
 [19] [20]
-<output/general_h1.png, id=202, 853.46353pt x 284.33728pt>
+<output/general_h1.png, id=207, 853.46353pt x 284.33728pt>
 File: output/general_h1.png Graphic file (type png)
 <use output/general_h1.png>
-Package pdftex.def Info: output/general_h1.png  used on input line 1607.
+Package pdftex.def Info: output/general_h1.png  used on input line 1612.
 (pdftex.def)             Requested size: 486.51834pt x 162.08694pt.
-<output/general_h2.png, id=203, 939.51pt x 578.16pt>
+<output/general_h2.png, id=208, 939.51pt x 578.16pt>
 File: output/general_h2.png Graphic file (type png)
 <use output/general_h2.png>
-Package pdftex.def Info: output/general_h2.png  used on input line 1620.
+Package pdftex.def Info: output/general_h2.png  used on input line 1625.
 (pdftex.def)             Requested size: 486.498pt x 299.38338pt.
 [21 <./output/general_h1.png> <./output/general_h2.png>]
-<output/general_h3.png, id=213, 853.46353pt x 284.33728pt>
+<output/general_h3.png, id=218, 853.46353pt x 284.33728pt>
 File: output/general_h3.png Graphic file (type png)
 <use output/general_h3.png>
-Package pdftex.def Info: output/general_h3.png  used on input line 1634.
+Package pdftex.def Info: output/general_h3.png  used on input line 1639.
 (pdftex.def)             Requested size: 486.51834pt x 162.08694pt.
-<output/general_h5.png, id=214, 939.51pt x 578.16pt>
+<output/general_h5.png, id=219, 939.51pt x 578.16pt>
 File: output/general_h5.png Graphic file (type png)
 <use output/general_h5.png>
-Package pdftex.def Info: output/general_h5.png  used on input line 1647.
+Package pdftex.def Info: output/general_h5.png  used on input line 1652.
 (pdftex.def)             Requested size: 486.498pt x 299.38338pt.
 [22 <./output/general_h3.png> <./output/general_h5.png>] [23]
-Underfull \hbox (badness 1817) in paragraph at lines 1719--1724
+Underfull \hbox (badness 1817) in paragraph at lines 1724--1729
 \T1/ptm/m/n/10 In-ter-ac-tion Ef-fects Using Mul-ti-le-vel Mo-de-ling. \T1/ptm/
 m/it/10 Jour-nal of Ma-na-ge-ment\T1/ptm/m/n/10 , \T1/ptm/m/it/10 39\T1/ptm/m/n
 /10 (6), 1490--1528. [][]$https : / / doi . org / 10 . 1177 /
@@ -890,13 +890,13 @@ LaTeX Info: Redefining \% on input line 25.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 4A38DE194C1F5888662EC4A3B3110CF2;3893.
+(rerunfilecheck)             Checksum: F1A4AB2D9874D13C9BF1C222293051FF;3987.
  ) 
 Here is how much of TeX's memory you used:
- 14623 strings out of 480788
- 221509 string characters out of 5902489
+ 14627 strings out of 480788
+ 221559 string characters out of 5902489
  603209 words of memory out of 5000000
- 31579 multiletter control sequences out of 15000+600000
+ 31581 multiletter control sequences out of 15000+600000
  473069 words of font info for 91 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  60i,16n,63p,608b,494s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -916,10 +916,10 @@ eX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Users/Anais/AppData/Roaming/
 TinyTeX/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Users/Anais/AppData/Ro
 aming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Users/Anais/AppDa
 ta/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (25 pages, 786961 bytes).
+Output written on paper.pdf (25 pages, 786806 bytes).
 PDF statistics:
- 390 PDF objects out of 1000 (max. 8388607)
- 336 compressed objects within 4 object streams
- 124 named destinations out of 1000 (max. 500000)
- 167 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 395 PDF objects out of 1000 (max. 8388607)
+ 341 compressed objects within 4 object streams
+ 126 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 
