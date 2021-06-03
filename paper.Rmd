@@ -1,6 +1,8 @@
 ---
 title: El rol de la familia y la escuela en la socialización política de las actitudes
   hacia la igualdad de género
+css: "input/css/custom.css" # custom CSS para html
+link-citations: yes         # citas linkeadas
 author:
 - Daniel Miranda^[Pontificia Universidad Católica de Chile, [damiran1@uc.cl](damiran1@uc.cl)]
 - Julio Iturra^[Centro de Estudio de Conflicto y Cohesión Social]
@@ -79,6 +81,7 @@ La presente investigación pretende aportar a las líneas de estudio referentes 
 Los principales objetivos de esta investigación son: a) evaluar en qué medida los recursos de la familia se relacionan con las actitudes hacia la igualdad de género de los jóvenes y de los apoderados; b) evaluar en qué medida las actitudes de los apoderados hacia la igualdad de género se relacionan con las actitudes de sus hijos hacia la igualdad de género; c) evaluar en qué medida características de la escuela a la que asiste el estudiante (más precisamente, la proporción de niñas y la apertura a la discusión en el aula) se relacionan con sus actitudes hacia la igualdad de género; y finalmente, d) evaluar el rol de estas características de la escuela dentro del proceso de socialización como posibles mitigadores de la trasmisión intergeneracional. 
 
 \newpage
+
 # Antecedentes teórico-empíricos
 El estudio de las actitudes hacia la igualdad de género ha sido abordado desde distintas perspectivas teóricas, por lo que la evidencia empírica sobre esta temática ha operacionalizado este constructo enfocándose en distintos aspectos. Algunos estudios han comprendido las actitudes hacia la igualdad de género como las actitudes hacia la igualdad de derechos y oportunidades entre hombres y mujeres [ej. @miranda_Political_2018; @dottisani_Best_2017; @sampermans_Teachers_2018a], otras investigaciones han abordado la problemática poniendo el énfasis en las actitudes sexistas y en los estereotipos de género [ej. @azorinabellan_Actitudes_2017; @gutierrez_Heroes_2020; @solbes-canales_Socialization_2020], mientras que otros estudios se han enfocado en la distribución de roles de género en las esferas pública y privada [ej. @kaufman_Enduring_2017; @sapiro_Gender_2001; @yu_Decomposing_2013]. Como se enunció anteriormente, en esta investigación se ha intentado aunar los distintos enfoques, incorporando en la medición de las actitudes hacia la igualdad de género tanto elementos relativos a la igualdad de derechos y oportunidades entre hombres y mujeres, como indicadores orientados a comprender las actitudes de los jóvenes en relación con la distribución de roles en las esferas pública y privada. Para ello, se han distinguido tres dimensiones: (1) igualdad de derechos y oportunidades entre hombres y mujeres; (2) distribución igualitaria de roles en la esfera pública; y (3) distribución igualitaria de roles en la esfera privada. Las dos últimas dimensiones incorporan elementos que en otras investigaciones se han abordado como actitudes sexistas y/o estereotipos de género, pero diferenciándolos entre las esferas pública y privada. Cabe destacar que en el marco de este estudio las actitudes hacia la igualdad de género se entenderán como parte de las actitudes tolerantes, siguiendo la definición de tolerancia planteada en la introducción.
 
