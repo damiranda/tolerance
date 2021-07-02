@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.6.6)  2 JUL 2021 00:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.6.6)  2 JUL 2021 11:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -791,22 +791,22 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [6] [7]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 848.
+(Font)              <10> on input line 856.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 848.
+(Font)              <7> on input line 856.
 [8] [9]
 <output/desc01.png, id=142, 1121.69063pt x 1602.73781pt>
 File: output/desc01.png Graphic file (type png)
 <use output/desc01.png>
-Package pdftex.def Info: output/desc01.png  used on input line 894.
+Package pdftex.def Info: output/desc01.png  used on input line 902.
 (pdftex.def)             Requested size: 376.38913pt x 537.80702pt.
 <output/desc02.png, id=144, 1132.23pt x 651.18282pt>
 File: output/desc02.png Graphic file (type png)
 <use output/desc02.png>
-Package pdftex.def Info: output/desc02.png  used on input line 902.
+Package pdftex.def Info: output/desc02.png  used on input line 910.
 (pdftex.def)             Requested size: 376.40128pt x 216.48079pt.
 [10 <./output/desc01.png>]
-Overfull \hbox (1.69006pt too wide) in paragraph at lines 949--966
+Overfull \hbox (1.69006pt too wide) in paragraph at lines 957--974
  [][] 
  []
 
@@ -818,12 +818,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [12] [13]
-Overfull \hbox (3.0436pt too wide) in paragraph at lines 1191--1193
+Overfull \hbox (3.0436pt too wide) in paragraph at lines 1199--1201
  [] 
  []
 
 [14]
-Overfull \hbox (3.0849pt too wide) in paragraph at lines 1323--1325
+Overfull \hbox (3.0849pt too wide) in paragraph at lines 1331--1333
  [] 
  []
 
@@ -831,33 +831,29 @@ Overfull \hbox (3.0849pt too wide) in paragraph at lines 1323--1325
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [15] [16] [17] [18]
-Underfull \hbox (badness 10000) in paragraph at lines 1480--1482
-
- []
-
 <output/general_h1.png, id=210, 853.46353pt x 284.33728pt>
 File: output/general_h1.png Graphic file (type png)
 <use output/general_h1.png>
-Package pdftex.def Info: output/general_h1.png  used on input line 1488.
+Package pdftex.def Info: output/general_h1.png  used on input line 1494.
 (pdftex.def)             Requested size: 486.51834pt x 162.08694pt.
 <output/general_h2.png, id=211, 939.51pt x 578.16pt>
 File: output/general_h2.png Graphic file (type png)
 <use output/general_h2.png>
-Package pdftex.def Info: output/general_h2.png  used on input line 1501.
+Package pdftex.def Info: output/general_h2.png  used on input line 1507.
 (pdftex.def)             Requested size: 486.498pt x 299.38338pt.
 [19 <./output/general_h1.png> <./output/general_h2.png>]
 <output/general_h3.png, id=222, 853.46353pt x 284.33728pt>
 File: output/general_h3.png Graphic file (type png)
 <use output/general_h3.png>
-Package pdftex.def Info: output/general_h3.png  used on input line 1515.
+Package pdftex.def Info: output/general_h3.png  used on input line 1521.
 (pdftex.def)             Requested size: 486.51834pt x 162.08694pt.
 <output/general_h5.png, id=223, 939.51pt x 578.16pt>
 File: output/general_h5.png Graphic file (type png)
 <use output/general_h5.png>
-Package pdftex.def Info: output/general_h5.png  used on input line 1528.
+Package pdftex.def Info: output/general_h5.png  used on input line 1534.
 (pdftex.def)             Requested size: 486.498pt x 299.38338pt.
 [20 <./output/general_h3.png> <./output/general_h5.png>] [21]
-Underfull \hbox (badness 1817) in paragraph at lines 1600--1605
+Underfull \hbox (badness 1817) in paragraph at lines 1606--1611
 \T1/ptm/m/n/10 In-ter-ac-tion Ef-fects Using Mul-ti-le-vel Mo-de-ling. \T1/ptm/
 m/it/10 Jour-nal of Ma-na-ge-ment\T1/ptm/m/n/10 , \T1/ptm/m/it/10 39\T1/ptm/m/n
 /10 (6), 1490--1528. [][]$https : / / doi . org / 10 . 1177 /
@@ -885,10 +881,10 @@ Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: C58EC129AACA7B9F65866A09E6137BBD;5329.
  ) 
 Here is how much of TeX's memory you used:
- 14752 strings out of 480478
- 224604 string characters out of 5896971
+ 14748 strings out of 480478
+ 224516 string characters out of 5896971
  633973 words of memory out of 5000000
- 32010 multiletter control sequences out of 15000+600000
+ 32009 multiletter control sequences out of 15000+600000
  473149 words of font info for 91 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  60i,16n,66p,608b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -908,10 +904,10 @@ eX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Users/Anais/AppData/Roaming/
 TinyTeX/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Users/Anais/AppData/Ro
 aming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Users/Anais/AppDa
 ta/Roaming/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (24 pages, 791984 bytes).
+Output written on paper.pdf (24 pages, 791606 bytes).
 PDF statistics:
- 418 PDF objects out of 1000 (max. 8388607)
- 354 compressed objects within 4 object streams
- 132 named destinations out of 1000 (max. 500000)
+ 415 PDF objects out of 1000 (max. 8388607)
+ 351 compressed objects within 4 object streams
+ 129 named destinations out of 1000 (max. 500000)
  191 words of extra memory for PDF output out of 10000 (max. 10000000)
 
