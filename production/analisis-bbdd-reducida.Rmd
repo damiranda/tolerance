@@ -1073,6 +1073,7 @@ reghelper::ICC(reg0_priv)
 
 ## Modelos de regresión 
 ```{r}
+
 reg_igualdad <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 reg_esp.pub <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 reg_esp.priv <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
@@ -1089,6 +1090,42 @@ reg_igualdad54 <- lmer(igualdad.est ~ 1 + factor(REGION) + (1 | RBD), data=data_
 reg_esp.pub54 <- lmer(esp_publico.est ~ 1 + factor(REGION) + (1 | RBD), data=data_proc)
 reg_esp.priv54 <- lmer(esp_privado.est ~ 1 + factor(REGION) + (1 | RBD), data=data_proc)
 ##screenreg(list(reg_igualdad54,reg_esp.pub54,reg_esp.priv54))
+```
+
+```{r}
+########################
+# gráfico para congresos
+########################
+
+modelo_igualdad <- sjPlot::plot_model(reg_igualdad, type=c("std"), axis.labels = c("Conocimiento cívico","Región Metropolitana","Región del Maule (Ref. Antofagasta)", "Part. Pagado", "Part. Subvencionado (Ref. Municipal)","Proporción de mujeres en el aula","Apertura a la discusión (promedio aula)", "Apertura a la discusión (individual)", "Actitudes apoderado","No sabe/No responde [Quintil]", "Quintil de ingresos 5", "Quintil de ingresos 4", "Quintil de ingresos 3", "Quintil de ingresos 2 (Ref. Quintil 1)", "Más de 100 libros", "26-100 libros", "11-25 libros (Ref. 0-10 libros)", "Universidad o Posgrado","Educación Téc.Superior","Educación Media (Ref.8vo o menos)", "Sexo femenino (Ref. masculino)")) + ggtitle("Igualdad de derechos y oportunidades") + theme_grey() 
+
+#modelo_igualdad <- sjPlot::plot_model(reg_igualdad, type=c("std")) + ggtitle("Igualdad de derechos y oportunidades") + theme_grey() 
+modelo_igualdad
+ggsave(modelo_igualdad, filename = "../output/modelo_igualdad.png",device = "png",width = 18,height = 12,dpi = "retina",units = "cm")
+```
+```{r}
+########################
+# gráfico para congresos
+########################
+
+modelo_esp_publico <- sjPlot::plot_model(reg_esp.pub, type=c("std"), axis.labels = c(" "," "," ", " ", " "," "," ", " ", " "," ", " ", " ", " ", " ", " ", " ", " ", " "," "," ", " ")) + ggtitle("Distribución igualitaria en el espacio público") + theme_grey() 
+
+modelo_esp_publico
+ggsave(modelo_esp_publico, filename = "../output/modelo_esp_publico.png",device = "png",width = 18,height = 12,dpi = "retina",units = "cm")
+```
+```{r}
+########################
+# gráfico para congresos
+########################
+
+modelo_esp_privado <- sjPlot::plot_model(reg_esp.priv, type=c("std"), axis.labels = c(" "," "," ", " ", " "," "," ", " ", " "," ", " ", " ", " ", " ", " ", " ", " ", " "," "," ", " ")) + ggtitle("Distribución igualitaria en el espacio privado") + theme_grey() 
+
+modelo_esp_privado
+ggsave(modelo_esp_privado, filename = "../output/modelo_esp_privado.png",device = "png",width = 18,height = 12,dpi = "retina",units = "cm")
+```
+```{r}
+general <- cowplot::plot_grid(modelo_igualdad,modelo_esp_publico,modelo_esp_privado, ncol=3, rel_widths = c(1.35, 1, 1))
+ggsave(general, file = "../output/graf_modelos_conjuntos.png",device = "png",width = 35,height = 18,dpi = "retina",units = "cm") 
 ```
 
 ### Hipótesis 1.
