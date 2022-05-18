@@ -1,9 +1,9 @@
 ﻿v;ig;pub;priv
-Género (femenino);0.166***;0.2***;0.197***
-Nivel educacional apoderado;0.12***;0.16***;0.16***
-Cantidad de libros en el hogar;0.17***;0.19***;0.2***
-Ingresos per cápita;0.13***;0.17***;0.18***
-Actitudes del apoderado hacia cada dimensión;0.15***;0.27***;0.28***
-Apertura a la discusión en el aula (individual);0.17***;0.1***;0.08***
-Apertura a la discusión en el aula (general);0.3***;0.34***;0.33***
-Proporción de niñas en el aula;0.13***;0.16***;0.17***
+Gender (female);0.166***;0.2***;0.197***
+Educational level of parents;0.12***;0.16***;0.16***
+Number of books in home;0.17***;0.19***;0.2***
+Per capita income;0.13***;0.17***;0.18***
+Parental attitudes towards each dimension;0.15***;0.27***;0.28***
+Students' perception of openness in classroom discussions;0.17***;0.1***;0.08***
+Course average perception of openness in classroom discussions;0.3***;0.34***;0.33***
+Proportion of girls in the classroom;0.13***;0.16***;0.17***

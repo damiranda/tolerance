@@ -24,7 +24,6 @@ output:
 editor_options:
   chunk_output_type: console
 header-includes:
-- \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
 - \usepackage{times}
 - \usepackage{caption}
 - \captionsetup[figure, table]{labelfont={bf},labelformat={default},labelsep=period}
@@ -176,8 +175,8 @@ kable(tab,
       format = table_format,
       booktabs = T, 
       linesep = "",
-      col.names =  c("Constructo","Dimensión","Indicador"),
-      caption = "Actitudes hacia la igualdad de género.") %>%
+      col.names =  c("Construct","Dimension","Indicator"),
+      caption = "Attitudes towards gender equality.") %>%
   kable_styling(
     full_width = T,
     latex_options = c("hold_position"),
@@ -229,29 +228,27 @@ Finalmente, en relación con las variables de control del estudio, el nivel de c
 ```{r include=FALSE, results='asis'}
 pacman::p_load(summarytools,haven,sjPlot,dplyr,htmlwidgets, webshot, sjlabelled)
 st_css()
-st_options(lang = "es",
+st_options(lang = "en",
            footnote = NA,
            bootstrap.css = F,
            custom.css = "input/css/dfsummary.css")
 load(file = "input/data-proc/data_proc.rda")
 
-data_proc$igualdad.est <- set_label(x = data_proc$igualdad.est,label = "Actitudes del estudiante hacia la igualdad de género")
-data_proc$esp_publico.est <- set_label(x = data_proc$esp_publico.est,label = "Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública")
-data_proc$esp_privado.est <- set_label(x = data_proc$esp_privado.est,label = "Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada")
-data_proc$igualdad.pad <- set_label(x = data_proc$igualdad.pad,label = "Actitudes del apoderado hacia la igualdad de género")
-data_proc$esp_publico.pad <- set_label(x = data_proc$esp_publico.pad,label = "Actitudes del apoderado hacia la distribución igualitaria de roles en la esfera pública")
-data_proc$esp_privado.pad <- set_label(x = data_proc$esp_privado.pad,label = "Actitudes del apoderado hacia la distribución igualitaria de roles en la esfera privada")
-data_proc$Sexo <- set_label(x = data_proc$Sexo,label = "Sexo del estudiante")
-data_proc$Educacion <- set_label(x = data_proc$Educacion,label = "Nivel educacional apoderado/a") # Etiquetar variable
-data_proc$Libros_apod_rec <- set_label(x = data_proc$Libros_apod_rec,label = "Cantidad de libros en el hogar")
-data_proc$quintiles_ingresos_pc_factor <- set_label(x = data_proc$quintiles_ingresos_pc_factor, label = "Ingresos per cápita del hogar en quintiles")
-data_proc$ap_discusion <- set_label(x = data_proc$ap_discusion,label = "Percepción individual sobre la apertura a la discusión en el aula")
-data_proc$mean_discusion <- set_label(x = data_proc$mean_discusion,label = "Percepción promedio del curso sobre la apertura a la discusión en el aula")
-data_proc$num_fem <- set_label(x = data_proc$num_fem,label = "Proporción de niñas en el aula")
-data_proc$dependencia <- set_label(x=data_proc$dependencia, label = "Dependencia administrativa de la escuela")
-data_proc$REGION <- set_label(x=data_proc$REGION, label = "Región")
-#data_proc$RBD <- set_label(x=data_proc$RBD, label = "RBD")
-data_proc$c_civic <- set_label(x = data_proc$c_civic, label = "Conocimiento cívico conceptual")
+data_proc$igualdad.est <- set_label(x = data_proc$igualdad.est,label = "Students attitudes towards equal rights and opportunities between men and women")
+data_proc$esp_publico.est <- set_label(x = data_proc$esp_publico.est,label = "Students attitudes towards equal distribution of roles in the public sphere")
+data_proc$esp_privado.est <- set_label(x = data_proc$esp_privado.est,label = "Students attitudes towards equal distribution of roles in the private sphere")
+data_proc$igualdad.pad <- set_label(x = data_proc$igualdad.pad,label = "Parents attitudes towards equal rights and opportunities between men and women")
+data_proc$esp_publico.pad <- set_label(x = data_proc$esp_publico.pad,label = "Parents attitudes towards equal distribution of roles in the public sphere")
+data_proc$esp_privado.pad <- set_label(x = data_proc$esp_privado.pad,label = "Parents attitudes towards equal distribution of roles in the private sphere")
+data_proc$Sexo <- set_label(x = data_proc$Sexo,label = "Students sex")
+data_proc$Educacion <- set_label(x = data_proc$Educacion,label = "Highest parental educational level") # Etiquetar variable
+data_proc$Libros_apod_rec <- set_label(x = data_proc$Libros_apod_rec,label = "Number of books in home")
+data_proc$quintiles_ingresos_pc_factor <- set_label(x = data_proc$quintiles_ingresos_pc_factor, label = "Per capita household income in quintiles")
+data_proc$ap_discusion <- set_label(x = data_proc$ap_discusion,label = "Students' perception of openness in classroom discussions")
+data_proc$mean_discusion <- set_label(x = data_proc$mean_discusion,label = "Course average perception of openness in classroom discussions")
+data_proc$num_fem <- set_label(x = data_proc$num_fem,label = "Proportion of girls in the classroom")
+data_proc$c_civic <- set_label(x = data_proc$c_civic, label = "Civic knowledge")
+
 
 descr <-
   data_proc %>% 
@@ -273,6 +270,65 @@ descr <-
     #RBD,
     dependencia,
     REGION) %>% ungroup()
+
+descr$Sexo <- factor(descr$Sexo,
+                     levels = c("Niño", "Niña"),
+                     labels = c("Boy", "Girl"))
+
+descr$Educacion <- factor(descr$Educacion, 
+                              levels = c("8vo básico o menos", 
+                                         "Educación Media", 
+                                         "Educación Téc.Superior", 
+                                         "Universidad o Posgrado"),
+                              labels = c("ISCED level 1 or less",
+                                         "ISCED level 2 o 3", 
+                                         "ISCED level 4",
+                                         "ISCED level 5 or more"))
+
+descr$Libros_apod_rec <- factor(descr$Libros_apod_rec, 
+                                    levels = c("Entre 0 y 10 libros",
+                                               "Entre 11 y 25 libros",
+                                               "Entre 26 y 100 libros",
+                                               "Más de 100 libros"), 
+                                    labels = c("Between 0 and 10 books",
+                                               "Between 11 and 25 books", 
+                                               "Between 26  and 100 books",
+                                               "More than 100 books"))
+
+descr$quintiles_ingresos_pc_factor <- factor(descr$quintiles_ingresos_pc_factor, 
+                                                 levels = c("Quintil 1",
+                                                            "Quintil 2",
+                                                            "Quintil 3",
+                                                            "Quintil 4",
+                                                            "Quintil 5",
+                                                            "Ns/Nr"),
+                                                 labels = c("Quintile 1",
+                                                            "Quintile 2",
+                                                            "Quintile 3",
+                                                            "Quintile 4",
+                                                            "Quintile 5",
+                                                            "Missing"))
+descr$dependencia <- factor(descr$dependencia,
+                            levels = c("Municipal",
+                                       "Part. Subvencionado",
+                                       "Part. Pagado"),
+                            labels = c("Public",
+                                       "Subsidized private",
+                                       "Private"))
+descr$REGION <- factor(descr$REGION,
+                       levels = c("Región de Antofagasta",
+                                  "Región del Maule",
+                                  "Región Metropolitana"),
+                       labels = c("Region of Antofagasta",
+                                  "Region of Maule",
+                                  "Metropolitan Region"))
+
+descr$Sexo <- set_label(x = descr$Sexo,label = "Student sex")
+descr$Educacion <- set_label(x = descr$Educacion,label = "Highest parental educational level") # Etiquetar variable
+descr$Libros_apod_rec <- set_label(x = descr$Libros_apod_rec,label = "Number of books in home")
+descr$quintiles_ingresos_pc_factor <- set_label(x = descr$quintiles_ingresos_pc_factor, label = "Per capita household income in quintiles")
+descr$dependencia <- set_label(x=descr$dependencia, label = "Administrative dependency of school")
+descr$REGION <- set_label(x=descr$REGION, label = "Region")
 
 df<- dfSummary(select(descr,igualdad.est:c_civic),
                plain.ascii = FALSE,
@@ -309,7 +365,7 @@ file.remove(c("desc01.html","desc02.html"))
 
 ```{r desc01, echo=FALSE, results='asis'}
 kable(data.frame(image='![](output/desc01.png){width="500"}'),    # generar tabla
-             caption="Descripción de las variables sobre el estudiante",
+             caption="Description of the variables about the student",
              col.names = "",
              row.names = F,
              format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
@@ -317,7 +373,7 @@ kable(data.frame(image='![](output/desc01.png){width="500"}'),    # generar tabl
 
 ```{r desc01-esc, echo=FALSE, results='asis'}
 kable(data.frame(image='![](output/desc02.png){width="500"}'), # generar tabla
-             caption="Descripción de las variables sobre la escuela",
+             caption="Description of the variables about the school",
              col.names = "",
              row.names = F,
              format = "pipe") %>%  kable_styling(latex_options = c("HOLD_position"),full_width = T)
@@ -348,8 +404,8 @@ kable(tab,
       format = table_format,
       booktabs = T, 
       linesep = "",
-      col.names =  c("Variables independientes","Igualdad de derechos y oportunidades","Distribución igualitaria de roles en el espacio público", "Distribución igualitaria de roles en el espacio privado"),
-      caption = "Correlaciones principales.",
+      col.names =  c("Independent variables","Equal rights and opportunities","Equal distribution of roles in public sphere", "Equal distribution of roles in private sphere"),
+      caption = "Main correlations.",
       align=c('l','c','c','c')) %>%
   kable_styling(
     full_width = T,
@@ -361,8 +417,8 @@ kable(tab,
   column_spec(column = 2,width = "3.5 cm") %>%
   column_spec(column = 3,width = "3.5 cm") %>%
   column_spec(column = 4,width = "3.5 cm") %>%
-  footnote("***p < 0.001; **p < 0.01; *p < 0.05", footnote_as_chunk=T, general_title="Nota:") %>%
-  add_header_above(c(" ", "Variables dependientes: Actitudes del estudiante hacia la igualdad de género" = 3)) #%>%
+  footnote("***p < 0.001; **p < 0.01; *p < 0.05", footnote_as_chunk=T, general_title="Note:") %>%
+  add_header_above(c(" ", "Dependent variables: Student attitudes towards gender equality" = 3)) #%>%
   #collapse_rows(columns = 1:2,valign = "middle")
 ```
 
@@ -393,22 +449,22 @@ data_proc <- data %>% dplyr::select(
 ) %>% as.data.frame() %>%  na.omit()
 
 coef_names <- c(
-          "Intercepto",
-          "Niña (Ref. Niño)",
-          "Educación Media (Ref. 8vo básico o menos)",
-          "Educación Técnica Superior (IP o CFT)",
-          "Educación universitaria o Posgrado",
-          "Entre 11 y 25 libros (Ref. Entre 0 y 10 libros)",
-          "Entre 26 y 100 libros",
-          "Más de 100 libros",
-          "Quintil 2 (Ref. Quintil 1)",
-          "Quintil 3",
-          "Quintil 4",
-          "Quintil 5",
-          "No sabe / No responde"
+          "Intercept",
+          "Girl (Ref. Boy)",
+          "ISCED level 2 o 3 (Ref. ISCED level 1 or less)",
+          "ISCED level 4",
+          "ISCED level 5 or more",
+          "Between 11 and 25 books (Ref. between 0 and 10 books)",
+          "Between 26 and 100 books",
+          "More than 100 books",
+          "Quintile 2 (Ref. Quintile 1)",
+          "Quintile 3",
+          "Quintile 4",
+          "Quintile 5",
+          "Do not know / Not answer"
           )
 omit_coef <- "(dependencia)|(REGION)|(c_civic)"
-footnote<- "\\item %stars. \\item Todos los modelos son controlados por la región de residencia (p>0.05), la dependencia administrativa de la escuela (p>0.05) y el nivel de conocimiento cívico del estudiante ($p$<0.05)"
+footnote<- "\\item %stars. \\item All models are controlled for region of residence (p>0.05), administrative dependency of the school (p>0.05) and level of civic knowledge of the student ($p$<0.05)"
 scale_box <- 0.825
 ```
 
@@ -431,19 +487,19 @@ reg_igualdad6 <- lmer(igualdad.est ~ 1 + ap_discusion + mean_discusion + factor(
 reg_igualdad7 <- lmer(igualdad.est ~ 1 + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 reg_igualdad8 <- lmer(igualdad.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + igualdad.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 
-caption <- "Modelo de regresión multinivel para Igualdad de derechos y oportunidades"
+caption <- "Multilevel Regression Model for Equal Rights and Opportunities."
 knitreg(list(reg_igualdad1,reg_igualdad2,reg_igualdad3,reg_igualdad4,
              reg_igualdad5,reg_igualdad6,reg_igualdad7,reg_igualdad8),
-        custom.model.names = c("Modelo 1",  "Modelo 2",  "Modelo 3",  "Modelo 4",  
-                               "Modelo 5",  "Modelo 6",  "Modelo 7",  "Modelo 8"),
+        custom.model.names = c("Model 1",  "Model 2",  "Model 3",  "Model 4",  
+                               "Model 5",  "Model 6",  "Model 7",  "Model 8"),
         custom.note = footnote,
         threeparttable = TRUE,
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
-          "Actitudes igualdad de derechos (apod.)",
-          "Apertura a la discusión (individual)",
-          "Apertura a la discusión (promedio)",
-          "Proporción de niñas en el aula"
+          "Attitudes equal rights (parents)",
+          "Openness in classroom discussions (individual)",
+          "Openness in classroom discussions (group)",
+          "Proportion of girls in the classroom"
         ),
        scalebox = scale_box,
        caption.above = T,
@@ -473,19 +529,19 @@ reg_esp.pub7 <- lmer(esp_publico.est ~ 1 + num_fem + factor(dependencia) + facto
 reg_esp.pub8 <- lmer(esp_publico.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_publico.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 ```
 ```{r, echo=FALSE,results='asis'}
-caption <- "Modelo de regresión multinivel para Distribución igualitaria de roles en la esfera pública"
+caption <- "Multilevel Regression Model for Equal distribution of roles in public sphere."
 knitreg(list(reg_esp.pub1,reg_esp.pub2,reg_esp.pub3,reg_esp.pub4,reg_esp.pub5,
              reg_esp.pub6,reg_esp.pub7,reg_esp.pub8), 
-        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4",
-                               "Modelo 5","Modelo 6","Modelo 7","Modelo 8"), 
+        custom.model.names = c("Model 1","Model 2","Model 3","Model 4",
+                               "Model 5","Model 6","Model 7","Model 8"), 
         custom.note = footnote,
         threeparttable = TRUE,        
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
-          "Actitudes distribución en esfera pública (apod.)",
-          "Apertura a la discusión (individual)",
-          "Apertura a la discusión (promedio)",
-          "Proporción de niñas en el aula"
+          "Attitudes distribution public sphere (parents)",
+          "Openness in classroom discussions (individual)",
+          "Openness in classroom discussions (group)",
+          "Proportion of girls in the classroom"
         ),
         scalebox = scale_box,
         caption.above = T,
@@ -520,18 +576,18 @@ reg_esp.priv7 <- lmer(esp_privado.est ~ 1 + num_fem + factor(dependencia) + fact
 reg_esp.priv8 <- lmer(esp_privado.est ~ 1 + Sexo + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + esp_privado.pad + ap_discusion + mean_discusion + num_fem + factor(dependencia) + factor(REGION) + c_civic + (1 | RBD), data=data_proc)
 ```
 ```{r, echo=FALSE,results='asis'}
-caption <- "Modelo de regresión multinivel Distribución igualitaria de roles en la esfera privada"
+caption <- "Multilevel Regression Model of Equal Distribution of Roles in private sphere."
 knitreg(list(reg_esp.priv1,reg_esp.priv2,reg_esp.priv3,reg_esp.priv4,reg_esp.priv5,
              reg_esp.priv6,reg_esp.priv7,reg_esp.priv8), 
-        custom.model.names = c("Modelo 1","Modelo 2","Modelo 3","Modelo 4",
-                               "Modelo 5","Modelo 6","Modelo 7","Modelo 8"),
+        custom.model.names = c("Model 1","Model 2","Model 3","Model 4",
+                               "Model 5","Model 6","Model 7","Model 8"),
         custom.note = footnote,
         omit.coef = omit_coef, 
         custom.coef.names = c(coef_names,
-          "Actitudes distribución en esfera privada (apod.)",
-          "Apertura a la discusión (individual)",
-          "Apertura a la discusión (promedio)",
-          "Proporción de niñas en el aula"
+          "Attitudes distribution private sphere (parents)",
+          "Openness in classroom discussions (individual)",
+          "Openness in classroom discussions (group)",
+          "Proportion of girls in the classroom"
         ),
         scalebox = scale_box,
         threeparttable = TRUE,
@@ -894,10 +950,44 @@ pct_ind.DV3 =
     paste0(round(med_out_priving4[["n.avg"]]*100,2),"%"),
     paste0(round(med_out_priving5[["n.avg"]]*100,2),"%"))
 
+data$Educacion <- factor(data$Educacion, 
+                              levels = c("8vo básico o menos", 
+                                         "Educación Media", 
+                                         "Educación Téc.Superior", 
+                                         "Universidad o Posgrado"),
+                              labels = c("ISCED level 1 or less",
+                                         "ISCED level 2 o 3", 
+                                         "ISCED level 4",
+                                         "ISCED level 5 or more"))
+
+data$Libros_apod_rec <- factor(data$Libros_apod_rec, 
+                                    levels = c("Entre 0 y 10 libros",
+                                               "Entre 11 y 25 libros",
+                                               "Entre 26 y 100 libros",
+                                               "Más de 100 libros"), 
+                                    labels = c("Between 0 and 10 books",
+                                               "Between 11 and 25 books", 
+                                               "Between 26  and 100 books",
+                                               "More than 100 books"))
+
+data$quintiles_ingresos_pc_factor <- factor(data$quintiles_ingresos_pc_factor, 
+                                                 levels = c("Quintil 1",
+                                                            "Quintil 2",
+                                                            "Quintil 3",
+                                                            "Quintil 4",
+                                                            "Quintil 5",
+                                                            "Ns/Nr"),
+                                                 labels = c("Quintile 1",
+                                                            "Quintile 2",
+                                                            "Quintile 3",
+                                                            "Quintile 4",
+                                                            "Quintile 5",
+                                                            "Missing"))
+
 collapse_rows_dt2 <-
-  data.frame(vars = c(rep("Educación de los padres", 3),
-                    rep("Cantidad de libros", 3),
-                    rep("Quintiles de ingreso", 5)),
+  data.frame(vars = c(rep("Parents education", 3),
+                    rep("Number of books", 3),
+                    rep("Income quintiles", 5)),
            catego = c(sjlabelled::get_labels(data$Educacion)[-1],
                       sjlabelled::get_labels(data$Libros_apod_rec)[-1],
                       sjlabelled::get_labels(data$quintiles_ingresos_pc_factor)[-1]),
@@ -908,20 +998,20 @@ collapse_rows_dt2 <-
 
 ```{r table-mediation, echo=FALSE}
 kbl(collapse_rows_dt2, 
-    caption = "Análisis de mediación de nivel socioeconómico para las actitudes igualitarias",
+    caption = "Socioeconomic status mediation analysis for egalitarian attitudes",
     align = "llcccccccccccccccc", booktabs = T,
     col.names =  c("Variable",
-                   "Categorías", 
-                   "Efectos Directos", "Efectos Indirectos", "Efectos Totales",
-                   "% de Efectos Indirectos", 
-                   "Efectos Directos", "Efectos Indirectos", "Efectos Totales", 
-                   "% de Efectos Indirectos", 
-                   "Efectos Directos", "Efectos Indirectos", "Efectos Totales",
-                   "% de Efectos Indirectos")) %>%
+                   "Categories", 
+                   "Direct effects", "Indirect Effects", "Total Effects",
+                   "% Indirect Effects", 
+                   "Direct effects", "Indirect Effects", "Total Effects", 
+                   "% Indirect Effects", 
+                   "Direct effects", "Indirect Effects", "Total Effects",
+                   "% Indirect Effects")) %>%
   add_header_above(c(" " = 2,
-                     "Igualdad de derechos y oportunidades"=4, 
-                     "Distribución igualitaria de roles en la esfera pública"=4, 
-                     "Distribución igualitaria de roles en la esfera privada"=4), 
+                     "Equal rights and opportunities"=4, 
+                     "Equal distribution of roles in public sphere"=4, 
+                     "Equal distribution of roles in private sphere"=4), 
                    bold = T)%>%  
   kable_styling(latex_options = c("scale_down","HOLD_position"),
                 full_width = F) %>%
@@ -929,7 +1019,7 @@ kbl(collapse_rows_dt2,
   column_spec(column = 3:14,width = "1.5cm") %>%
   collapse_rows(columns = 1:2, valign = "middle") %>% 
   footnote(general = "***p <$ 0.001, **p < 0.01, *p < 0.05",
-           footnote_as_chunk = T,general_title = "Nota: ")
+           footnote_as_chunk = T,general_title = "Note: ")
 ```
 
 # Discusión
@@ -951,23 +1041,23 @@ En este sentido, se hace necesario generar más estudios que sigan en esta líne
 En todos los gráficos la línea representa el promedio general de la escala actitudinal.
 \newline
 **H1: Las niñas presentarán actitudes más positivas hacia la igualdad de género que los niños.**
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según el sexo del estudiante.", fig.align = 'center', out.width = '97%',out.height='97%'}
+```{r echo=FALSE, fig.cap="Students' attitudes towards gender equality according to the student's sex", fig.align = 'center', out.width = '97%',out.height='97%'}
 knitr::include_graphics(path = "output/general_h1.png")
 ```
 
 **H2: Estudiantes que provienen de familias con mayores recursos socioeconómicos presentarán actitudes más positivas hacia la igualdad de género.**
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según los recursos socioeconómicos de la familia.", fig.align = 'center', out.width = '97%',out.height='97%'}
+```{r echo=FALSE, fig.cap="Students' attitudes towards gender equality according to the socioeconomic resources of the family.", fig.align = 'center', out.width = '97%',out.height='97%'}
 knitr::include_graphics(path = "output/general_h2.png")
 ```
 \newpage
 
 **H3: Estudiantes con apoderados que poseen actitudes más positivas hacia la igualdad de género presentarán actitudes más positivas hacia la igualdad de género.**
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según las actitudes de su apoderado.", fig.align = 'center', out.width = '97%',out.height='97%'}
+```{r echo=FALSE, fig.cap="Students' attitudes towards gender equality according to their parent's attitudes.", fig.align = 'center', out.width = '97%',out.height='97%'}
 knitr::include_graphics(path = "output/general_h3.png")
 ```
 
 **H5: Las características de la escuela (proporción de niñas; apertura a la discusión en el aula) se asocian positivamente con las actitudes de los estudiantes hacia la igualdad de género.**
-```{r echo=FALSE, fig.cap="Actitudes de los estudiantes hacia la igualdad de género según las características de la escuela.", fig.align = 'center', out.width = '97%',out.height='97%'}
+```{r echo=FALSE, fig.cap="Student attitudes towards gender equality according to school characteristics.", fig.align = 'center', out.width = '97%',out.height='97%'}
 knitr::include_graphics(path = "output/general_h5.png")
 ```
 
@@ -998,28 +1088,28 @@ h4_esp_priv.apod <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros
 ```
 
 ```{r, echo=FALSE, results='asis'}
-caption <- "Modelo de regresión multinivel para Actitudes de los apoderados"
+caption <- "Multilevel Regression Model for Parents attitudes"
 knitreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), 
         custom.model.names = c(
-          "Igualdad de derechos y oportunidades",
-          "Distribución igualitaria en la esfera pública",
-          "Distribución igualitaria en la esfera privada"
+          "Equal Rights and Opportunities",
+          "Equal Distribution in public sphere",
+          "Equal Distribution in private sphere"
         ), 
         custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  
         custom.coef.names = c(
-          "Intercepto",
-          "Educación Media (Ref. 8vo básico o menos)",
-          "Educación Técnica Superior (IP o CFT)",
-          "Educación universitaria o Posgrado",
-          "Entre 11 y 25 libros (Ref. Entre 0 y 10 libros)",
-          "Entre 26 y 100 libros",
-          "Más de 100 libros",
-          "Quintil 2 (Ref. Quintil 1)",
-          "Quintil 3",
-          "Quintil 4",
-          "Quintil 5",
-          "No sabe / No responde",
-          "Reg. del Maule (Ref. Reg. de Antofagasta)",
+          "Intercept",
+          "ISCED level 2 o 3 (Ref. ISCED level 1 or less)",
+          "ISCED level 4",
+          "ISCED level 5 or more",
+          "Between 11 and 25 books (Ref. Between 0 and 10 books)",
+          "Between 26 and 100 books",
+          "More than 100 books",
+          "Quintile 2 (Ref. Quintile 1)",
+          "Quintile 3",
+          "Quintile 4",
+          "Quintile 5",
+          "Missing",
+          "Reg. of Maule (Ref. Reg. of Antofagasta)",
           "Reg. Metropolitana"
         ),
        scalebox = scale_box,
