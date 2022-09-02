@@ -461,7 +461,7 @@ coef_names <- c(
           "Quintile 3",
           "Quintile 4",
           "Quintile 5",
-          "Do not know / Not answer"
+          "Do not know / No answer"
           )
 omit_coef <- "(dependencia)|(REGION)|(c_civic)"
 footnote<- "\\item %stars. \\item All models are controlled for region of residence (p>0.05), administrative dependency of the school (p>0.05) and level of civic knowledge of the student ($p$<0.05)"
@@ -1088,7 +1088,7 @@ h4_esp_priv.apod <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros
 ```
 
 ```{r, echo=FALSE, results='asis'}
-caption <- "Multilevel Regression Model for Parents attitudes"
+caption <- "Multilevel Regression Model for Parent Attitudes"
 knitreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), 
         custom.model.names = c(
           "Equal Rights and Opportunities",
