@@ -1,4 +1,6 @@
-
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
 body{
   text-align: justify;
@@ -8,17 +10,12 @@ body{
 
 /**td { font-size: 14px;
 	  align: center;
-
 } **/
 
 
 
 h1, h2, h3{
   font-family: "Times New Roman", Times, serif;
-  padding-top: 55px;
-  margin-top: 55px;
-  line-height: 2em;
-  display:
 }
 
 h4{
@@ -64,6 +61,7 @@ pre {
 }
 
 table, td, th {
+  class: "table table-striped";
   border: none;
   padding-left: 1em;
   padding-right: 1em;

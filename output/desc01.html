@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+
+  <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABZVBMVEUAAAAdPlkcPlkbPlodPVkbO1kbPFcdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPlkdPln///+ifs4iAAAAdXRSTlMAAAAAAAAABCpZgZWZmpuhsrgdi7vv939KTE1PUlqiwSCpfR6HsBBFgwtnAhK0gBEaXgcy4Ldda/zRJuUNr6gMd/qmDsoiw6cVb6QUGbUXAxMcCgWgv0PVPsIl1vBOSUiRrRYIlv79+fv15JCPfHRzeIiCZjST6WECAAAAAWJLR0R2MWPJQQAAAAlwSFlzAABcRQAAXEUBuS1iLAAAAAd0SU1FB+QGAQEGMAe8nOwAAADrSURBVBjTJY75P0JREMXn2NWrLK1XIZH2aLEXl56ykwqPspN9ff+/e6/5ac75nPmeISL09vVbrJqm2eyOgUEChoadLrfH62Mj/sDoGGE8OBGaNKfCIBGejlDUGosjkTRTceEgPUOzWgZANudikBmi/Bw6BGh+YXFJLGKWmTpeKZjFVRVxr8koEODrG8rIlRIQWt8sV9Apja3tHQHd3Svs/yPoQJYcFvNH6CJU9WPpIVyr64rUODlV2nZmqCdgnDPqRtp+4WFNn7d16b+6viHc3t0/PHLO2/zp2WGIxsrL69v7x2fq6/vnN4OeP6dLIlhQnl/oAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIwLTA2LTAxVDAxOjA2OjQ4KzAyOjAw8gzdpAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0wNi0wMVQwMTowNjo0OCswMjowMINRZRgAAABXelRYdFJhdyBwcm9maWxlIHR5cGUgaXB0YwAAeJzj8gwIcVYoKMpPy8xJ5VIAAyMLLmMLEyMTS5MUAxMgRIA0w2QDI7NUIMvY1MjEzMQcxAfLgEigSi4A6hcRdPJCNZUAAAAASUVORK5CYII=" rel="icon" type="image/x-icon" />
+  <title>Data Frame Summary</title>
+  <style type="text/css">img {
+  background-color: transparent;
+  border: 0;
+}
+
+.st-table td,
+.st-table th {
+  padding: 8px;
+}
+
+.st-table > thead > tr {
+   background-color: #eeeeee;
+}
+
+.st-cross-table td {
+  text-align: center;
+}
+
+.st-descr-table td {
+  text-align: right;
+}
+
+table.st-table th {
+  text-align: center;
+}
+
+table.st-table > thead > tr {
+   background-color: #eeeeee;
+}
+
+table.st-table td span {
+  display: block;
+}
+
+table.st-table > tfoot > tr > td {
+  border:none;
+}
+
+.st-container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 15px;
+}
+
+.st-multiline {
+  white-space: pre;
+}
+
+.st-table {
+    width: auto;
+    table-layout: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+.st-table > thead > tr > th,
+.st-table > tbody > tr > th,
+.st-table > tfoot > tr > th,
+.st-table > thead > tr > td,
+.st-table > tbody > tr > td,
+.st-table > tfoot > tr > td {
+  vertical-align: middle;
+}
+
+.st-table-bordered {
+  border: 1px solid #bbbbbb;
+}
+
+.st-table-bordered > thead > tr > th,
+.st-table-bordered > tbody > tr > th,
+.st-table-bordered > thead > tr > td,
+.st-table-bordered > tbody > tr > td {
+  border: 1px solid #cccccc;
+}
+
+.st-table-bordered > thead > tr > th,
+.st-table-bordered > thead > tr > td,
+.st-table thead > tr > th {
+  border-bottom: none;
+}
+
+.st-freq-table > thead > tr > th,
+.st-freq-table > tbody > tr > th,
+.st-freq-table > tfoot > tr > th,
+.st-freq-table > thead > tr > td,
+.st-freq-table > tbody > tr > td,
+.st-freq-table > tfoot > tr > td,
+.st-freq-table-nomiss > thead > tr > th,
+.st-freq-table-nomiss > tbody > tr > th,
+.st-freq-table-nomiss > tfoot > tr > th,
+.st-freq-table-nomiss > thead > tr > td,
+.st-freq-table-nomiss > tbody > tr > td,
+.st-freq-table-nomiss > tfoot > tr > td,
+.st-cross-table > thead > tr > th,
+.st-cross-table > tbody > tr > th,
+.st-cross-table > tfoot > tr > th,
+.st-cross-table > thead > tr > td,
+.st-cross-table > tbody > tr > td,
+.st-cross-table > tfoot > tr > td {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.st-table-bordered > thead > tr > th,
+.st-table-bordered > tbody > tr > th,
+.st-table-bordered > thead > tr > td,
+.st-table-bordered > tbody > tr > td {
+  border: 1px solid #cccccc;
+}
+
+.st-table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.st-table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+.st-descr-table > thead > tr > th,
+.st-descr-table > tbody > tr > th,
+.st-descr-table > thead > tr > td,
+.st-descr-table > tbody > tr > td {
+  padding-left: 24px;
+  padding-right: 24px;
+  word-wrap: break-word;
+}
+
+.st-freq-table,
+.st-freq-table-nomiss,
+.st-cross-table {
+  border: medium none;
+}
+
+.st-freq-table > thead > tr:nth-child(1) > th:nth-child(1),
+.st-cross-table > thead > tr:nth-child(1) > th:nth-child(1),
+.st-cross-table > thead > tr:nth-child(1) > th:nth-child(3) {
+  border: none;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.st-protect-top-border {
+  border-top: 1px solid #cccccc !important;
+}
+
+.st-ws-char {
+  display: inline;
+  color: #999999;
+  letter-spacing: 0.2em;
+}
+
+/* Optional classes */
+.st-small {
+  font-size: 13px;
+}
+
+.st-small td,
+.st-small th {
+  padding: 8px;
+}
+
+.st-small > thead > tr > th,
+.st-small > tbody > tr > th,
+.st-small > thead > tr > td,
+.st-small > tbody > tr > td {
+  padding-left: 12px;
+  padding-right: 12px;
+}</style>
+  <style type="text/css">/* Whole document: */
+body{
+  font-family: Times New Roman;
+  font-size: 25pt;
+}
+/* Headers */
+h1,h2,h3,h4,h5,h6{
+  font-size: 24pt;
+}</style>
+</head>
+<body>
+<div class="container st-container"><table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline ">
+  <colgroup>
+    <col style="width:1000px"/>
+    <col style="width:10px"/>
+    <col style="width:10px"/>
+    <col style="width:10px"/>
+  </colgroup>
+  <thead>
+    <tr>
+      <th align="center" class="st-protect-top-border"><strong>Label</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Stats / Values</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Freqs (% of Valid)</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Graph</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">Attitudes towards equal rights and
+opportunities between men and women
+(Students)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0.1 (0.4)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.2 &le; 0.3 &le; 0.3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 0.4 (5)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">276 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg8ZT8ukqAAAAGtJREFUWMPt17ENgDAMRFGvQDYgbBDvvxs2aSIKhF0gIf+r7xW+ziK1sgXTLUl6qA4oFAqFQqFQKBQKhZai/kUmqTH9DW3zzhD1bXajk4Wo950nqfe/o+s2Ubr0A7TdtnlDLzPZeKQ9EamVE9zWPzwj729OAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTEwLTE0VDE0OjE1OjI1KzAwOjAwfjCkTgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0xMC0xNFQxNDoxNToyNSswMDowMA9tHPIAAAAASUVORK5CYII="></td>
+    </tr>
+    <tr>
+      <td align="left">Attitudes towards equal distribution of
+roles in the public sphere (Students)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0.1 (0.5)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-1.8 &le; 0.2 &le; 0.5</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 0.7 (7.2)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">276 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg8bocXFhAAAAHJJREFUWMPt1tEJgDAMRdGsYEeoG5j9d1NLC0EsJMEvex/08/CgIRCRtbLFUuqVJFXVAwqFQqFQKBQKhUZou8CT9GZQ1+8m6GB+2tpsY4Ba4qfl2Ragbwz6FZ0NxkH3CfsTHZsSpJ1ofx5qmjRAayKyVk6rRWhuhfZj9AAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0xMC0xNFQxNDoxNToyNyswMDowMOmvtWcAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMTAtMTRUMTQ6MTU6MjcrMDA6MDCY8g3bAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="left">Attitudes towards equal distribution of
+roles in the private sphere (Students)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0.1 (0.6)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2.1 &le; 0.3 &le; 0.6</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 0.9 (7.9)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">276 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg8gEM4soAAAAH5JREFUWMPt18ENgCAMhWFW0A2EDWD/3WxDE/UErZ7kf4mRw/tSknoxpbWyOZMlQVpaq1AoFAqFQqFQKBT6EdW/kyNGpdve0d2GR6gNhw6prniG6jayUT3Kq/RnTKVXjWrfS/sNQ/TW/y21bUSodT309h2MaX7mWqabTiWtlRNWP1SrpeuTtAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0xMC0xNFQxNDoxNTozMiswMDowMHc9ml4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMTAtMTRUMTQ6MTU6MzIrMDA6MDAGYCLiAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="left">Attitudes towards equal rights and
+opportunities between men and women
+(Parents)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (0.3)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-1.9 &le; 0.2 &le; 0.2</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 0.3 (40.6)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">271 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg8kF6PouQAAAHBJREFUWMPt18EJwCAMhWFXqCPYDZr9dysJKh4q1UChkP+Bt/edgoSkFCvHXorGR08RuaBQKBQaiOrOcFJlUCgUCoX+l+a25dapHVNKpbJ1ak3o11QH5KT1QZ/SP4uDtvYezeMoX6m1e8b2lBZHUqzcTNdok3wV/ioAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMTAtMTRUMTQ6MTU6MzYrMDA6MDCDcr5NAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTEwLTE0VDE0OjE1OjM2KzAwOjAw8i8G8QAAAABJRU5ErkJggg=="></td>
+    </tr>
+    <tr>
+      <td align="left">Attitudes towards equal distribution of
+roles in the public sphere (Parents)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (0.4)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-1.8 &le; 0.1 &le; 0.4</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 0.7 (42.4)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">271 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg8njqq5AwAAAIBJREFUWMPt1mEKgCAMBeBdoY5gN2j3v1suZoQQuEc/rL0HA/98DESdIrmyjGctNbYAqKrupKTvUTuMILUiJSWdmp7zBqSNkZJ+iF5fLIC2eQpS74xQ75yG3t+lIO2LlJR0Ltpf7wDdHtjfqG0RSCvTIC0egDrRAO26jdICRHLlAGwipVIxA++IAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTEwLTE0VDE0OjE1OjM5KzAwOjAwdTrOpAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0xMC0xNFQxNDoxNTozOSswMDowMARndhgAAAAASUVORK5CYII="></td>
+    </tr>
+    <tr>
+      <td align="left">Attitudes towards equal distribution of
+roles in the private sphere (Parents)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 0 (0.4)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">-2 &le; 0.1 &le; 0.4</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 0.6 (35.6)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">271 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg8sGXhgiwAAAH1JREFUWMPt19ENgCAMBNCuIBtYNqD77yZIE4MmGk5NjNx93/sphQSRsTJ1RnNAGs0S6WnKdEGamZGSkpKS3qChvsEQrYz0WVpOZAZp7pL+k2pdC4RG5yAtfVJS0u/SsLvfPdTaPukxPl2Eevdtui6Ap5duheQ/8kuqQGSsLCE6knMAVMK2AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTEwLTE0VDE0OjE1OjQ0KzAwOjAwHiimfQAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0xMC0xNFQxNDoxNTo0NCswMDowMG91HsEAAAAASUVORK5CYII="></td>
+    </tr>
+    <tr>
+      <td align="left">Sex (Student)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. Boy</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Girl</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">324</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">51.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">305</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">48.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAEYAAAAqBAMAAAD8NjCWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg8xen4MUgAAADNJREFUOMtjYBh8QAkfgKpRNsYNjEbVDFs1xKQNQXyABDV4bFIUJOzmUTXDWA0xaWMwAQBcErA9JQwGkwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0xMC0xNFQxNDoxNTo0OSswMDowMH//x70AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMTAtMTRUMTQ6MTU6NDkrMDA6MDAOon8BAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="left">Highest educational level (Parents)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. ISCED level 1 or less</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. ISCED level 2 o 3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. ISCED level 4</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. ISCED level 5 or more</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">69</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">11.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">284</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">45.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">163</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">25.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">113</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">18.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAD8AAABOBAMAAABlD9OIAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg825BqZ8QAAAFZJREFUSMdjYBgcQAkMFAUxgABUgbIxCIwqGB4KCEa3IC5AtAIlXEABxZFYwKiCIaiAYHRTPUXhSvYwYDSqYEgrIBjd1ExRitgVIBw5qmDoKyAY3QMNAN2Y55lDNbelAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTEwLTE0VDE0OjE1OjU0KzAwOjAw0oKm4wAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0xMC0xNFQxNDoxNTo1NCswMDowMKPfHl8AAAAASUVORK5CYII="></td>
+    </tr>
+    <tr>
+      <td align="left">Number of books in home</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. Between 0 and 10 books</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Between 11 and 25 books</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. Between 26  and 100 books</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. More than 100 books</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">119</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">18.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">180</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">28.6%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">227</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">36.1%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">103</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">16.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAADUAAABOBAMAAAByLUNBAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODg85dKWEYAAAAFRJREFUSMdjYKA/UEIAQRgQgMopG8OA0ajcAMrhiyNBLIAYOSU0oIjVLRAwKjcwcvjiiFrxDgIKONwCAqNy9JfDF0cUx7siphzcLaNyAyqHL47oCQDYzNBb7m4RBAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0xMC0xNFQxNDoxNTo1NyswMDowMONqvH4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMTAtMTRUMTQ6MTU6NTcrMDA6MDCSNwTCAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="left">Household Income Quintiles</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. Quintile 1</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. Quintile 2</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. Quintile 3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. Quintile 4</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. Quintile 5</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. Missing</td></tr></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">97</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">15.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">109</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">17.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">105</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">16.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">108</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">17.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">100</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">15.9%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">110</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">17.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAACAAAABwBAMAAACN2m8wAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODhACCPRj2gAAAENJREFUOMtjYKAOUIIBQaiAsjEEGA1HAQzfCsIBLgG4FiU0Q42NRoIAhvdJCDFFdENHhACG90fT2GgaG01jA5ykKAUAGoeww/mqyC0AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMTAtMTRUMTQ6MTY6MDIrMDA6MDAShSa+AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTEwLTE0VDE0OjE2OjAyKzAwOjAwY9ieAgAAAABJRU5ErkJggg=="></td>
+    </tr>
+    <tr>
+      <td align="left">Civic knowledge (Student)</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 5 (2.1)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min &le; med &le; max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0 &le; 5 &le; 8</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 3 (0.4)</td></tr></table></td>
+      <td align="left" style="vertical-align:middle">9 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAHQAAABUBAMAAAChGA4iAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5goODhAGD5mnwwAAAHtJREFUWMPt1UsKwCAMBFCvUG9QvUG9/91KmyxSpGgGCpXMLAQlb2Hwk1KsbIMUyWNtktZ25ViOyo53hN5jIyX10mzvmZPaE086oNJniEo16SpU/y6E6oQUptp8hNo60tg09+/1NO3rPqX2xDtpfasjJSUlJf07LUBSrJzvzFNaScdtywAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0xMC0xNFQxNDoxNjowNiswMDowMObKAq0AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMTAtMTRUMTQ6MTY6MDYrMDA6MDCXl7oRAAAAAElFTkSuQmCC"></td>
+    </tr>
+  </tbody>
+</table></div>
+</body>
+</html>
