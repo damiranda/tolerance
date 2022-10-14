@@ -1,0 +1,1412 @@
+---
+title: "The role of the family and the school in the political socialization of attitudes towards gender equality"
+css: "input/css/custom.css" # custom CSS para html
+author:
+- name: Daniel Miranda ^[Corresponding author - damiran1@uc.cl]
+  affiliation: Pontificia Universidad Catolica de Chile, MIDE UC
+  number: 1
+- name: Julio Iturra
+  affiliation: Bremen International Graduate School of Social Sciences
+  number: 2
+- name: Anaís Herrera
+  affiliation: Instituto de Estudios Avanzados en Educación
+  number: 3
+- name: Kevin Carrasco
+  affiliation: Centro de Estudio de Conflicto y Cohesión Social
+  number: 4
+# Nota: Autores que comparten filiacion, poner el mismo number y declarar filiación una sola vez. 
+abstract: The political socialization of attitudes towards gender equality — understanding equality of rights for men and women as a fundamental principle of any democracy — is a crucial element for constructing more democratic and tolerant societies. Using data from the 2019 School Citizenship Panel (Fondecyt, N°1181239), the attitudes of 629 tenth grade students from 60 schools in three regions of Chile and their parents or legal guardians were analyzed. Evidence shows that the socialization of attitudes towards gender equality in its different dimensions depends mainly on the beliefs that parents/guardians manifest. Although socioeconomic conditions have some influence, they do so indirectly through the beliefs and attitudes of parents. Additionally, the school socializes tolerance by promoting greater openness to discussion but does not modify the effects of the family socialization processes described.
+output:
+  bookdown::pdf_document2:
+    template: null
+    toc: false
+    keep_tex: false
+    number_sections: false 
+    pandoc_args:
+      - --template=input/mytemplate.tex #custom template para usar autores con afiliacion
+  bookdown::html_document2:
+    number_sections: false
+  bookdown::word_document2:
+    reference_docx: input/template.docx
+    number_sections: false    
+always_allow_html: true    
+link-citations: yes
+linkcolor: blue                         # enlaces y citas en color azul 
+editor_options:
+  chunk_output_type: console
+header-includes:
+  - \usepackage {hyperref}
+  - \hypersetup {colorlinks = true, linkcolor = blue, urlcolor = blue}  
+  - \usepackage{times}           # Times New Roman
+  - \usepackage{caption}
+  - \captionsetup[figure]{labelfont={bf},labelformat={default},labelsep=period,name={Figure}}
+  - \captionsetup[table]{labelfont={bf},labelformat={default},labelsep=period,name={Table}}
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+bibliography: ["input/bib/Tolerancia.bib","input/bib/tolerance.bib"]
+csl: input/bib/apa6.csl
+geometry: "margin=1in" # márgenes de página
+fontsize: 12pt
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(
+	error = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+```{css, echo=FALSE}
+# /* expandir el espacio del documento*/
+body .main-container {
+      max-width: 1600px !important;
+      width: 1600px !important;
+    }
+#/* expandir width de la TOC*/
+div.tocify {
+    width: 22% !important;
+    max-width: 331px !important;
+    max-height: 102% !important;
+}
+```
+
+# Introduction 
+
+There is an extensive effort in the world to promote the active recognition of fundamental rights and freedoms between men and women from an early age [@unesco_Declaracion_1995] as a basic principle of democracy. Despite this, wide inequalities between men and women persist.  These gaps are particularly relevant in Latin American and Caribbean societies that still face great challenges in terms of social, political and economic inequalities that mainly affect traditionally disadvantaged groups, such as women [@barcena_matriz_2016]. Ample evidence shows that inequalities are sustained in various spaces of public and private life. Women are overrepresented in the lowest income quintiles, face a marked wage gap (which, paradoxically, is accentuated depending on the years of study), are affected by an unequal distribution of the use of time and unpaid work in households (responsible for domestic and care work), are the majority of people in the Latin American region without their own income [@cepal_Panorama_2017], have lower participation in formal long-term paid activities, are less likely to have an old-age pension and, those women who access a pension, receive a lower amount than that received by men [@barcena_matriz_2016]. Additionally, it is relevant to distinguish between the disparities in attitudes towards gender equality in the public and private spheres.   For example, different degrees of progress have been made in bridging the respective gaps as can be seen from the initiatives aimed at regulating equal pay for equal functions (job activities) while in other aspects in the private sphere there has been less progress, such as with gender-based violence or the distribution of domestic activities and care tasks. 
+
+In this context, understanding how beliefs or attitudes towards gender equality are socialized is a topic that has not received sufficient attention, particularly in contexts such as Chile. Thus, this paper seeks to understand the factors that influence the development of young people’s attitudes towards gender equality, investigating the role played by two socialization agents — the family and the school.
+
+First, in tolerance research, gender is an inescapable dimension. Various studies on the socialization processes of attitudes of young students have investigated individual characteristics and found  gender to be an aspect systematically linked to more positive attitudes towards equal rights. Women  and those with greater civic knowledge tend to demonstrate  more positive attitudes towards gender equality [e.g. @sampermans_Teachers_2018a; @schulz_Students_2018a] and towards equal rights in general [e.g. @torney-purta_How_2008a; @miranda_Political_2018].  
+
+Second, the literature on the intergenerational transmission of tolerant attitudes has approached the phenomenon in two ways. While some studies have analyzed the importance of family characteristics from students’ reports, other studies analyze it from the responses of the parents/guardians. The first group of research studies has generated evidence on the intergenerational transmission of political inequality, highlighting the effect of the family’s socio-economic resources on students’ attitudes of tolerance [@miranda_Political_2018; @isac_Native_2012a]. The second group of studies has addressed the intergenerational transmission of attitudes, noting that parents' tolerant and/or intolerant attitudes are associated with those of their children. Most of the articles related to this association refer to intolerant attitudes towards immigrants [@meeusen_ParentChild_2015; @miklikowska_parent_2016], homosexuals, Muslims and sexist prejudices [@meeusen_ParentChild_2015], anti-immigrant attitudes [@miklikowska_Development_2017; @miklikowska_Driven_2019], attitudes towards immigrants in general terms [@miklikowska_parent_2016], and to a lesser extent, have found this association in attitudes towards gender equality in the public [@spierings_Gender_2015] and private sphere [@cunningham_Influence_2001]. 
+
+Third, multiple studies have addressed the influence of school contextual characteristics  on  the socialization of students’ attitudes [e.g. @isac_Native_2012a; @schulz_Students_2018a; @maurissen_Classroom_2020]. Evidence shows that openness to classroom discussion [@schulz_Students_2018a; @trevino_Influence_2017b], the school climate [@maurissen_Classroom_2020; @sampermans_Teachers_2018a], confidence in the value of student participation in school [@torney-purta_How_2008a; @degroof_Influence_2008a], the characteristics of classmates, in terms of the proportion of immigrant students [@isac_Native_2012a; @miklikowska_Driven_2019], and in relation to peer attitudes and prejudices [@miklikowska_Development_2017; @miklikowska_Driven_2019] all contribute to attitude development. Additionally, evidence has demonstrated the moderating effect of classroom composition on the relationship between parents’ prejudices towards immigrants and their children’s prejudices, showing that this effect is less pronounced among students in classrooms with a higher proportion of immigrant students [@miklikowska_Driven_2019]. However, this role has not been analyzed concerning attitudes towards gender equality.
+This research seeks to contribute to the literature regarding the influence of the family and the school context in the socialization of tolerant and prejudicial attitudes, focusing on the relationship between attitudes towards gender equality of parents and their children.
+
+This study will provide new evidence in two directions analyzed in previous research. First, it seeks to integrate two approaches from previous studies, incorporating measures related to equal rights and opportunities between men and women and considering indicators related to the distribution of gender roles within the public and private spheres. In this regard, information about the intergenerational transmission of attitudes towards gender equality can be analyzed, addressing different dimensions of the construct. Secondly, this study aims to provide evidence on the mitigating role of schools in the intergenerational transmission of attitudes towards gender equality, which has not been addressed in previous studies. In particular, we analyze the moderating role of school characteristics over both the relationship between the socio-economic resources of the family and students’ attitudes and the relationship between the attitudes of parents/guardians and the attitudes of their children.
+
+The main objectives of this research are to assess (a) the extent to which the family’s (economic, cultural) resources are related to attitudes towards gender equality of young people and their parents/guardians; (b) the extent to which the attitudes of parents/guardians towards gender equality are related to their children’s attitudes towards gender equality; (c) the extent to which the characteristics of the school attended by the student (more precisely, the proportion of girls in the classroom and the openness to classroom discussion) are related to their attitudes towards gender equality; and finally, (d) the role of these characteristics of the school within the socialization process as possible mitigators of the intergenerational transmission of attitudes. 
+
+# Theoretical and Empirical Background
+
+## Attitudes towards gender equality among young people
+
+Gender equality is embodied both in the private and public space "to the extent that it requires social recognition and certain conditions for its realization in all areas of women’s lives" [@cepal_Panorama_2017, p. 12]. In the private sphere, attitudes towards gender roles refer to gender equality within the home. In contrast, in the public sphere, they are related to attitudes toward gender equality in politics, education, work and business [@dottisani_Best_2017]. 
+
+The approach to the study of attitudes toward gender equality comes from different theoretical perspectives, so the empirical evidence on this issue has operationalized this construct, focusing on different aspects. Some studies have included attitudes towards gender equality such as attitudes towards equal rights and opportunities for men and women [e.g. @miranda_Political_2018; @dottisani_Best_2017; @sampermans_Teachers_2018a]. Other research has addressed the problem by placing emphasis on sexist attitudes and gender stereotypes [e.g. @azorinabellan_Actitudes_2017; @gutierrez_Heroes_2020; @solbes-canales_Socialization_2020], while other studies have focused on the distribution of gender roles in the public and private spheres [e.g. @kaufman_Enduring_2017; @sapiro_Gender_2001; @yu_Decomposing_2013]. First, as noted this research aims to combine the different approaches used in previous studies on attitudes towards gender equality, incorporating in the measurement of these attitudes both elements relating to equal rights and opportunities for men and women, as well as indicators aimed at understanding the attitudes of young people towards the distribution of gender roles in the public and private spheres. To this end, three dimensions have been distinguished: (1) equal rights and opportunities for men and women; (2) equal distribution of roles in the public sphere; and (3) equal distribution of roles in the private sphere.  The latter two dimensions incorporate elements that other research has addressed as sexist attitudes and/or gender stereotypes in either the public or the private spheres.  Here, we sample attitudes about both spheres to analyze how they may differ.
+
+Several authors have investigated the factors that influence attitudes towards gender equality in the adult population. They have generated evidence on the individual factors that influence these attitudes, such as gender, age, educational level and occupational status [e.g. @kyoore_Educational_2019; @charles_Gender_2020a], as well as on the different characteristics of countries and contexts that influence attitudes towards gender equality in general, such as the degree of democratization of the country, its GDP per capita, the percentage of women’s participation in the country’s workforce [@zagrebina_Attitudes_2020] or their percentage of participation in government [@yu_Decomposing_2013]. Other research studies have placed emphasis on analyzing attitudes towards gender equality among young people, mainly students, in relation to their individual characteristics and the processes of political socialization that influence their attitudes towards different social groups traditionally disadvantaged in general [@miranda_Political_2018] and towards gender equality in particular [@sampermans_Teachers_2018a; @azorinabellan_Actitudes_2017; @dottisani_Best_2017]. The present study is part of this second set of research studies.
+The main individual characteristic of students that has been investigated in the previous literature and that is associated with their attitudes of tolerance is gender. Several studies show that being female is associated with having more positive attitudes towards equal rights for immigrants [@torney-purta_How_2008a; @isac_Native_2012a; @miranda_Political_2018], more positive attitudes towards ethnic minorities [@degroof_Influence_2008a], towards equal rights for all ethnic and racial groups [@schulz_Students_2018a; @miranda_Political_2018], towards equal rights for homosexual people [@schulz_Percepciones_2018a] and, specifically, towards equal rights and opportunities for men and women [@miranda_Political_2018; @dottisani_Best_2017], towards an equitable distribution of gender roles in the public sphere [@sapiro_Gender_2001; @kyoore_Educational_2019; @spierings_Gender_2015] and in private sphere as well [@yu_Decomposing_2013]. In consideration of the previous evidence, the following hypothesis is raised:
+
+>__*H1*__: Girls will have more positive attitudes towards gender equality than boys.
+
+## The role of the family and the school in the political socialization of attitudes towards gender equality.
+
+The concept of the family as an agent of political socialization has been analyzed from two theoretical models. The first, known as the Resource Model, is concerned with explaining the differences in students’ attitudes based on the differences in the family’s socio-economic resources. Socioeconomic resources indicate that, for example, by possessing a higher level of education, “we are more likely to believe in democratic values and support practices of the same kind” [@lipset_hombre_1997, p. 50]. This is defined by @bobo_Education_1989 as “cognitive sophistication,” accounting for education as a process by which cognitive knowledge and skills are acquired and tolerance towards different groups or opinions thus increases. In this line, @miranda_Political_2018 when studying the participation of young people in political activities points out that the resource model is strongly associated with the social status of the individual, which refers to the individual’s educational level, income and/or occupation, as well as resources such as time and social and financial capital [@waithaka_family_2014]. Thus, a higher educational level would be related to greater tolerance by way of having more time within the educational system to internalize social norms and values [@weber_educational_2020]. Some authors have shown that the socio-economic resources of the family have a direct influence on attitudes towards equal rights of immigrants [@miranda_Political_2018; @villalobos_School_2018a; @isac_Native_2012a] and on changes in anti-immigrant attitudes of students [@miklikowska_Development_2017], on student attitudes towards equal rights and opportunities for men and women [@miranda_Political_2018; @dottisani_Best_2017] and on the general beliefs of young people regarding appropriate behaviors of men and women in the family [@cunningham_Influence_2001]. It has also been shown that, in the adult population, greater socio-economic resources positively affect attitudes towards an equitable distribution of gender roles in public space [@kyoore_Educational_2019] and in private space [@ojeda_Actitudes_2018; @yu_Decomposing_2013]. Following this evidence, hypothesis 2 is suggested.
+
+>__*H2*__: Students from families with greater socio-economic resources will present more positive attitudes towards gender equality.
+
+The second model, known as the Model of attitudinal congruence or intergenerational transmission of attitudes, addresses the family as an agent of political socialization and suggests consistency of attitudes between parents and children towards traditionally disadvantaged groups. As @bandura_Sociallearning_1969 points out, following the theory of social learning, parental attitudes and behaviors and, specifically, sexual roles are an excellent example of active parental training on the appropriate interests and modes of young children’s behavior. From this intergenerational perspective, evidence indicates that a positive association between parental resources and political tolerance could be passed on to subsequent generations [@brady_Political_2015a]. For example, @miklikowska_parent_2016, in a longitudinal study, notes that parents’ attitudes influence children’s attitudes as they convey their beliefs about prejudice and tolerance towards immigrants.  Furthermore, changes in these parents’ attitudes succeed in predicting changes in teenagers’ prejudices and tolerance towards immigrants. For its part, @spierings_Gender_2015, in a comparative study of young people in Turkey and young Turkish residents in Europe, points out that parental attitudes are one of the strongest explanatory variables of young people’s attitudes towards gender equality in the public space and that there are significant differences in belonging to families with parents who support less gender equality in the public space among young Turkish people in Turkey and those residing in other parts of Europe. At the same time, @cunningham_Influence_2001 points out that mothers’ attitudes towards equality in the distribution of gender roles in the family positively influence the general beliefs of children with respect to roles of men and women within the family.  In line with the above, on the one hand @meeusen_ParentChild_2015 argue that the intergenerational similarity of prejudice towards immigrants, Muslims, homosexuals and women is rooted in the ideological attitudes of parents, and that the transfer of prejudicial attitudes and tolerance towards these groups is accentuated according to the frequency of the discussion on political issues and social problems with their children. On the other hand, @miklikowska_Driven_2019 emphasize that parents affect the formation of anti-immigrant attitudes of adolescents through active long-term socialization and through the management of their children's social environment laying the foundation of prejudice. 
+
+Although the family’s socio-economic resources have been noted to influence both the attitudes of parents and the attitudes of children, because of the preponderant role played by parents in the socialization of their children, it is expected that their attitudes will play the defining role in the relationship between the socio-economic resources of the family and the attitudes of students. Therefore, based on these previous studies, the following hypotheses on the relevance of family socialization process emerge:
+
+>__*H3*__: Students with parents who have more positive attitudes towards gender equality will present more positive attitudes towards gender equality.
+
+>__*H4*__: Students from families with greater socio-economic resources will present more positive attitudes towards gender equality.
+
+>__*H4a*__: The relationship between family resources and students’ attitudes towards gender equality will be mediated by the attitudes of their parents/guardians towards gender equality.
+
+## The role of the family and the school in the political socialization of attitudes towards gender equality.
+
+Traditionally, education has been assigned the objective of "arousing and developing in the child certain physical, intellectual 
+and moral states, which are demanded both by society taken as a whole and by the particular environment to which the child is destined to belong" [@durkheim_Educacion_1999, p.4]. The socializing function of the school "consists of the development within each individual of those skills and attitudes that constitute the essential requirements for future development in life" [@parsons_clase_1976, p. 65]. In this sense, recent research continues to analyze the role of the school as a formative agent for citizens [@debnam_equity_2014]. 
+
+In terms of the socializing role of the school, several authors have observed that having an environment open to discussion within the classroom promotes students’ attitudes towards the equal rights of immigrants [@isac_Native_2012a; @degroof_Influence_2008a; @torney-purta_How_2008a] and towards the equal rights of immigrants, ethnic groups and women [@schulz_Students_2018a]. However, @maurissen_Classroom_2020 finds that openness to discussion in the classroom loses relevance to promote attitudes towards the equal rights of immigrants when aspects such as responsiveness to students’ demands or the context of respect are not taken into account. In addition, previous research indicates that students’ trust in the deliberative processes in which they participate and confidence that these discussions can influence the organization and functioning of the school are also associated with positive attitudes towards ethnic minorities [@degroof_Influence_2008a] and towards equal rights for immigrants [@torney-purta_How_2008a]. 
+The literature also points out that anti-immigrant attitudes of peers have an effect on the anti-immigrant attitudes of students [@miklikowska_Development_2017] and that changes in these anti-immigrant attitudes of peers over time affect the attitudes of students [@miklikowska_Driven_2019]. Likewise, the composition of the classroom also plays a role in the development of student attitudes of tolerance. More precisely, it has been found that the presence of students of different ethnic and/or racial origins, following what is proposed by the contact theory, generates greater support towards tolerance and equal rights for immigrants [@villalobos_School_2018a; @gorodzeisky_Terms_2009]. Additionally, classrooms with a higher proportion of immigrant students moderate the effect of parental prejudice [@miklikowska_Driven_2019] and moderate the association between not being an immigrant and being in favor of equal rights for immigrants [@isac_Native_2012a]. However, there is not enough evidence on the effect that the proportion of girls in the classroom could have on students’ attitudes towards gender equality; this feature was included in the study by @sampermans_Teachers_2018a, but the association was not found to be significant when controlling for the gender of students and the relationships between students and teachers. Considering that previous research that analyzed the effect of classroom composition refers to the same group in which attitudes towards equal rights are being investigated (e.g. the relationship between the proportion of immigrants and attitudes towards equal rights for immigrants), this study follows the same approach regarding the possible effect of the proportion of girls on attitudes towards gender equality.
+
+Intending to achieve a more succinct analysis, we focus on the effect of school characteristics using just two variables: openness to the discussion in the classroom and the proportion of girls in the classroom. Both characteristics are expected to continue the general trend observed in the previous literature; therefore, two hypotheses are proposed that analyze the direct effects of the characteristics of the school and its mitigating effect on the family socialization process, respectively:
+
+>__*H5*__: School characteristics (proportion of girls; openness to classroom discussion) are positively associated with students’ attitudes towards gender equality.
+
+>__*H6*__: The characteristics of the school (proportion of girls and openness to discussion in the classroom) mitigate the influence of family resources and attitudes of parents/guardians on students’ attitudes towards gender equality.
+
+Finally, due to the relevance that gender represents for the study of tolerance, the last hypothesis is proposed that aims to address the different effects that this characteristic can represent on the different hypotheses previously raised:
+
+>__*H7*__: The effects proposed in hypotheses 2, 3, 5 and 6 will be conditioned by the gender of the student.
+
+# Data, variables y methods
+
+## Data
+
+To address these objectives, quantitative research was carried out on the basis of data from the School Citizenship Panel (Panel de Ciudadanía or PACES for the Spanish acronym), corresponding to a representative sample of tenth-grade students (tenth grade) who attend schools in three regions of Chile: Antofagasta Region, Metropolitan Region, and Maule Region. The sample is representative of the different types of educational institutions existing in the country, both in relation to the different types of administrative system (paid private school, subsidized private school, and municipal or public school), as well as in relation to the type of education provided (Humanist/Scientific and Technical-Professional). A total of 64 schools were selected (14 establishments in the Antofagasta Region, 35 in the Metropolitan Region and 15 in the Maule Region). In each educational establishment selected, a complete course was surveyed, its parents/guardians and its teachers of history, social sciences and/or civic education. Specifically, data was collected from 1635 students, 744 parents/guardians and 103 teachers. The data were obtained between August and December 2019. The final sample used in the analyses was based on 629 people from 60 schools, corresponding to only those with complete answers from students and parents/guardians.
+
+## Variables
+
+The main focus of the study is on attitudes towards gender equality, measured on a scale that captures three attitudinal dimensions. The same set of questions was presented to students and parents/guardians. The dependent variables correspond to the students’ responses, while the responses of the parents/guardians are part of the independent variables at the individual level. Confirmatory Factor Analyses (CFA) were estimated to evaluate the degree of adjustment of the scale measurement model in the sample of students and parents/guardians, achieving an adequate adjustment to the three previously mentioned dimensions: (1) equal rights and opportunities for men and women; (2) equal distribution of roles in the public sphere; and (3) equal distribution of roles in the private sphere. Consequently, three variables were generated to measure students’ attitudes and three variables to measure parent/guardian attitudes towards gender equality, based on factor scores computed from the CFA.
+
+In general terms, the scale of attitudes towards gender equality follows the measurement proposal of the International Study of Civic Education and Citizen Training (ICCS) of 2009, although some new indicators of the International Social Surveys Program (ISSP) have been incorporated. More specifically, respondents were presented with nine sentences preceded by the question, “There are different views on the role of women and men in society. How much do you agree or disagree with the following statements?” The alternatives range from “Strongly disagree” (1) to “Strongly agree” (4). In order to facilitate the analysis of the results, those indicators that represented attitudes contrary to gender equality were inverted so that the three dimensions alluded to attitudes favorable to gender equality. Below is the battery of questions:
+
+
+```{r variables, echo=FALSE, message=FALSE, warning=FALSE}
+# remotes::install_github('haozhu233/kableExtra@a6af5c0')
+pacman::p_load(knitr, kableExtra, dplyr)
+table_format = if(is_html_output()) {
+  "html"
+} else if(is_latex_output()) {
+  "latex"
+}
+tab <- read.csv(file = "input/tables/table.csv",
+                header = 1,sep = ";",encoding = "UTF-8")
+
+kable(tab,
+      format = table_format,
+      booktabs = T, 
+      linesep = "",
+      col.names =  c("Construct","Dimension","Indicator"),
+      caption = "Attitudes towards gender equality.") %>%
+  kable_styling(
+    full_width = T,
+    latex_options = c("hold_position"),
+    position = "center",
+    font_size = 10,
+    bootstrap_options=c("striped", "bordered")) %>%
+  column_spec(column = 1, width = "3 cm", ) %>%
+  column_spec(column = 2,width = "4 cm") %>%
+  column_spec(column = 3,width = "7 cm") %>%
+  collapse_rows(columns = 1:2,valign = "middle")
+```
+
+\newpage
+
+It should be noted that the study has two broad types of independent variables: individual-level variables and school-level variables.
+Three types of individual-level independent variables were incorporated.
+
+- The first corresponds to the sex of the student.
+- The second corresponds to the attitudes of the parents/guardians towards gender equality, which were measured from three variables based on the indicators presented in Table \@ref(tab:variables) (each variable corresponds to a dimension of the construct and was only used as a predictor of the student’s attitudes towards the same dimension).
+- The third corresponds to the socio-economic resources of the family, which were measured through three variables: (a) the educational level of the parent or guardian; (b) the number of books in the home; and (c) quintiles of monthly income per capita. For two of these three questions (number of books in the home and educational level of parents), there are two sources of information: the answers of the students and the answers of the parents/guardians. The income question was only submitted to parents/guardians. For this reason, the responses of the parents/guardians to the questions corresponding to these three variables were used. The educational level was measured from the question "What is the last course or level of studies that you completed?" before which four alternatives were presented: (1) 8th grade or less; (2) High School; (3) Higher Technical Education (post-high-school trade or technical school); and (4) University or Postgraduate studies. For the number of books in the home, the parents/guardians were asked, “Approximately how many books are in your home?” and the responses were divided into four alternatives: (1) Between 0 and 10 books; (2) Between 11 and 25 books; (3) Between 26 and 100 books; and (4) More than 100 books. The variable quintiles of per capita income were constructed using the answers to two questions, one referring to the monthly income of household members (net income) and another referring to the number of people residing at home. The category "Do not know / Do not respond" was added to reduce lost cases due to a missing income variable (_n_ = 109). In addition, three control variables were added: the level of civic knowledge, the region of residence, and the type of school (public, subsidized, private).
+
+At the school level, two independent variables were incorporated.
+
+- The first variable corresponds to the proportion of girls within the classroom, calculated using the question about the sex of the student.
+- The second variable refers to the general perception of openness to the discussion in the classroom (an average was calculated per classroom) from students’ responses to a battery of questions based on the measurement proposal used in the ICCS study. Students were presented with six statements preceded by the question “When discussing political and social issues during classes, how often do the following situations occur?” with four alternatives: (1) Never, (2) Almost never, (3) Sometimes, and (4) Always. The sentences are as follows: (a) Teachers encourage students to express their opinions; (b) Students raise current political facts to be discussed in class; (c) Students express their opinions in class, even if they are different from others; (d) Teachers encourage students to discuss topics with people who think differently; (e) Teachers present topics from different points of view when explaining them in class; (f) Teachers encourage reflection and criticism. It should be noted that, as with attitudes towards equal rights, the variable was generated using factor scores. Additionally, following the recommendations of @campbell_Voice_2008, the individual perception of openness to the discussion in the classroom was added as a control variable.
+
+
+## Methods
+
+This research's hypotheses and analysis plan were pre-registered on the Open Science Framework platform of the Open Science Center (OSF): the document can be accessed at the following link (https://osf.io/jg6ub). Statistical analysis of the data obtained was carried out using the free software R version 4.0.0.
+
+Because the sample has a hierarchical structure (students nested in schools), the primary analyses were carried out by estimating multilevel regressions, evaluating the random slopes, interactions between variables, and mediation effects, following the steps recommended for this type of model [@aguinis_BestPractice_2013]. Previously, the latent variables for each dimension of attitudes towards gender equality were computed by adjusting a confirmatory factor analysis using the R library "lavaan" [@rosseel_lavaan_2012]. All variables presented an adequate adjustment according to the criteria of @brown_Confirmatory_2015; therefore, new variables were subsequently created from factor scores. Finally, we conducted multilevel regression models for the main hypotheses using the R library “lme4” [@bates_Fitting_2015].
+
+There are five types of hypotheses to test:
+
+1. Hypothesis of direct effects at the individual level (1, 2, 3 and 4). These were tested by estimating a series of models that incorporate the respective independent variables at the individual level, and their statistical significance was evaluated.
+
+2. Hypothesis of direct effects at the aggregate level (5). These were tested by estimating a series of models that incorporate the respective independent variables at the school level, and their statistical significance was evaluated.
+
+3. Mediation hypothesis (4a). For this hypothesis, the effect of family resources on attitudes towards gender equality was decomposed, differentiating between the direct effect and the indirect effect. This was done to corroborate that the mediation relationship effectively corresponds to an intra-group relationship. 
+
+4. Moderation hypothesis (6 and 7). 
+    * Moderation at level 1: multiple regression models incorporating the variables and the respective interaction terms were estimated. It is possible to evaluate the moderating effect of gender on the associations evaluated in the previous models, as proposed in hypothesis 7.
+    * Cross-level interaction: multilevel regression models with cross interaction between levels were estimated, following the steps recommended by @aguinis_BestPractice_2013. We include the double interaction term for hypothesis 6 and triple interaction terms for hypothesis 7. 
+
+# Results
+## Descriptive analysis
+
+Concerning the three dimensions of attitudes towards gender equality of students and parents/guardians, the descriptive analysis presented in Table \@ref(tab:desc01) shows that, in general terms, the factor scores obtained have an average of 0.1 (_SD_=0.5 approximately) for students and 0 (_SD_=0.4 approximately) for parents/guardians. Students’ attitudes towards the three dimensions of gender equality generally have values between -2 and 0.5, and most student responses are concentrated in the maximum value or in values close to the maximum. Regarding the attitudes of parents/guardians, the factor scores obtained have values between -2 and 0.4, with at least 50% of students having a value close to the maximum in their responses (_ME_=0.1).
+
+The three independent variables related to the socio-economic resources of the family are distributed as follows in terms of educational level attained, number of books in the home, and family income. In relation to the educational level of the parents/guardians, 11% have an education of 8th grade or less; 45.2% have a complete high school education; 25.9% have a higher technical education; and 18% have a university or postgraduate education. Regarding the number of books in the home reported by the parents/guardians, 18.9% of the households have between 0 and 10 books; 28.6% of the households have between 11 and 25 books; 36.1% of the households have between 26 and 100 books; and 16.4% of the households have more than 100 books. Finally, as expected, the household income quintile does not present a greater difference in the proportion that each of them represents in the sample of parents of the study. 
+
+Table \@ref(tab:desc01-esc) shows that the characteristics of the school are distributed as follows: the individual perception on openness to discussion in the classroom, calculated from factorial scores, has values between -2 and 1.6, with a  median of 0.1 (_M_=0, _SD_=0.6); the average perception of the course on openness in the classroom, calculated from the individual perceptions of students sharing in a classroom, has values between -0.7 and 0.4, with a median of 0.1 (_M_=0, _SD_=0.3); while the proportion of girls in the classroom has values between 0 and 1, where 0 represents a completely homogeneous course of boys and 1 represents a homogeneous course of girls.
+
+Finally, in relation to the control variables of the study, the level of conceptual civic knowledge of the students varies between 0 and 8, with a median of 5 (_M_=5, _SD_=2.1). In terms of school type, 31 % of students sampled attend municipal schools, 56.3 % attend subsidized private schools and 12.7% attend private schools. Likewise, 16.7% of the students live in the Antofagasta Region; 30.5% live in the Maule Region; and 52.8% live in the Metropolitan Region.
+
+
+```{r descrpitive, include=FALSE, results='asis'}
+pacman::p_load(summarytools,haven,sjPlot,dplyr,htmlwidgets, webshot, sjlabelled,
+               dplyr)
+st_css()
+st_options(lang = "en",
+           footnote = NA,
+           bootstrap.css = F,
+           custom.css = "input/css/dfsummary.css")
+load(file = "input/data-proc/data_proc.rda")
+
+data_proc$igualdad.est <- 
+  set_label(x = data_proc$igualdad.est,
+            label = "Attitudes towards equal rights and opportunities between men and women (Students)")
+data_proc$esp_publico.est <- 
+  set_label(x = data_proc$esp_publico.est,
+            label = "Attitudes towards equal distribution of roles in the public sphere (Students)")
+data_proc$esp_privado.est <- 
+  set_label(x = data_proc$esp_privado.est,
+            label = "Attitudes towards equal distribution of roles in the private sphere (Students)")
+data_proc$igualdad.pad <- 
+  set_label(x = data_proc$igualdad.pad,
+            label = "Attitudes towards equal rights and opportunities between men and women (Parents)")
+data_proc$esp_publico.pad <-
+  set_label(x = data_proc$esp_publico.pad,
+            label = "Attitudes towards equal distribution of roles in the public sphere (Parents)")
+data_proc$esp_privado.pad <- 
+  set_label(x = data_proc$esp_privado.pad,
+            label = "Attitudes towards equal distribution of roles in the private sphere (Parents)")
+data_proc$ap_discusion <- 
+  set_label(x = data_proc$ap_discusion,
+            label = "Perception of openness in classroom discussions (Students)")
+data_proc$mean_discusion <-
+  set_label(x = data_proc$mean_discusion,
+            label = "Perception of openness in classroom discussions (School average)")
+data_proc$num_fem <- 
+  set_label(x = data_proc$num_fem,
+            label = "Proportion of girls in the classroom")
+data_proc$c_civic <- 
+  set_label(x = data_proc$c_civic, 
+            label = "Civic knowledge (Student)")
+
+data_proc$Sexo <- factor(data_proc$Sexo,
+                     levels = c("Niño", "Niña"),
+                     labels = c("Boy", "Girl"))
+data_proc$Sexo <- set_label(x = data_proc$Sexo,label = "Sex (Student)")
+
+data_proc$Educacion <- factor(data_proc$Educacion, 
+                              levels = c("8vo básico o menos", 
+                                         "Educación Media", 
+                                         "Educación Téc.Superior", 
+                                         "Universidad o Posgrado"),
+                              labels = c("ISCED level 1 or less",
+                                         "ISCED level 2 o 3", 
+                                         "ISCED level 4",
+                                         "ISCED level 5 or more"))
+
+data_proc$Educacion <- 
+  set_label(x = data_proc$Educacion,
+            label = "Highest educational level (Parents)") # Etiquetar variable
+
+data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, 
+                                    levels = c("Entre 0 y 10 libros",
+                                               "Entre 11 y 25 libros",
+                                               "Entre 26 y 100 libros",
+                                               "Más de 100 libros"), 
+                                    labels = c("Between 0 and 10 books",
+                                               "Between 11 and 25 books", 
+                                               "Between 26  and 100 books",
+                                               "More than 100 books"))
+data_proc$Libros_apod_rec <- 
+  set_label(x = data_proc$Libros_apod_rec,
+            label = "Number of books in home")
+
+data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc_factor, 
+                                                 levels = c("Quintil 1",
+                                                            "Quintil 2",
+                                                            "Quintil 3",
+                                                            "Quintil 4",
+                                                            "Quintil 5",
+                                                            "Ns/Nr"),
+                                                 labels = c("Quintile 1",
+                                                            "Quintile 2",
+                                                            "Quintile 3",
+                                                            "Quintile 4",
+                                                            "Quintile 5",
+                                                            "Missing"))
+data_proc$quintiles_ingresos_pc_factor <- 
+  set_label(x = data_proc$quintiles_ingresos_pc_factor, 
+            label = "Household Income Quintiles")
+
+
+data_proc$dependencia <- factor(data_proc$dependencia,
+                            levels = c("Municipal",
+                                       "Part. Subvencionado",
+                                       "Part. Pagado"),
+                            labels = c("Public",
+                                       "Subsidized private",
+                                       "Private"))
+data_proc$dependencia <- set_label(x=data_proc$dependencia, label = "Type of school")
+
+data_proc$REGION <- factor(data_proc$REGION,
+                       levels = c("Región de Antofagasta",
+                                  "Región del Maule",
+                                  "Región Metropolitana"),
+                       labels = c("Region of Antofagasta",
+                                  "Region of Maule",
+                                  "Metropolitan Region"))
+data_proc$REGION <- set_label(x=data_proc$REGION, label = "Region")
+
+descr <-
+  data_proc %>% 
+  dplyr::select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Sexo,
+    Educacion,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    c_civic,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    #RBD,
+    dependencia,
+    REGION) %>% ungroup()
+
+df<- dfSummary(dplyr::select(descr,igualdad.est:c_civic),
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = 0.75,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = F,    # missing
+               graph.col = T, # plot
+               valid.col = F, # n valido
+               col.widths = c(1000,10,10,10),
+               max.distinct.values = 7)
+df$Variable <- NULL # delete variable column
+view(df,file = "output/desc01.html")
+webshot(url ="output/desc01.html" ,file ="output/desc01.png")
+
+# Dataset for schools-----------------------------------------------------------
+descr_rbd <- 
+  data_proc %>%  
+  dplyr::select(RBD,mean_discusion,num_fem,dependencia,REGION)  
+df_n2 <-
+descr_rbd %>%
+  group_by(RBD) %>%
+  summarise(
+    mean_discusion=mean(as.numeric(mean_discusion), na.rm=T),
+    num_fem=mean(as.numeric(num_fem), na.rm=T),    
+    dependencia_factor_est=mean(as.numeric(dependencia), na.rm=T),
+    region=mean(as.numeric(REGION), na.rm=T),
+    ) %>% 
+  dplyr::select(-RBD)
+
+df_n2 <- sjlabelled::set_label(df_n2,sjlabelled::get_label(descr_rbd)[2:5])
+
+df_n2$region <- 
+  factor(df_n2$region,levels = 1:3,
+         labels = c("Region of Antofagasta","Region of Maule","Metropolitan Region"))
+sjlabelled::set_label(df_n2$region) <- "Region"
+
+df_n2$dependencia_factor_est <- 
+  factor(df_n2$dependencia_factor_est,levels = 1:3,
+         labels = c("Public",
+                    "Private subsidized",
+                    "Private"))
+sjlabelled::set_label(df_n2$dependencia_factor_est) <- "Type of school"
+
+df02<- dfSummary(df_n2,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = 0.75,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = F,    # missing
+               graph.col = T, # plot
+               valid.col = F, # n valido
+               col.widths = c(1000,10,10,10))
+df02$Variable <- NULL # delete variable column
+view(df02,file = "output/desc02.html")
+webshot(url ="output/desc02.html" ,file ="output/desc02.png",vheight = 10)
+# file.remove(c("desc01.html","desc02.html"))
+```
+
+```{r desc01, echo=FALSE, results='asis'}
+kable(data.frame(image='![](output/desc01.png){width="500"}'),    # generar tabla
+             caption="Description of the variables about the student",
+             col.names = "",
+             row.names = F,
+             format = "pipe") %>% 
+  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+```
+
+```{r desc01-esc, echo=FALSE, results='asis'}
+kable(data.frame(image='![](output/desc02.png){width="500"}'), # generar tabla
+             caption="Description of the variables about the school",
+             col.names = "",
+             row.names = F,
+             format = "pipe") %>% 
+  kable_styling(latex_options = c("HOLD_position"),full_width = T)
+```
+
+## Bivariate analysis
+
+Different correlations were estimated as a first approach to the testing of the hypotheses proposed. The estimation method and the type of correlation correspond to the measurement level of the incorporated variables; therefore, we estimate polyserial and Pearson correlations. The main correlational results are presented in Table \@ref(tab:cor)  (See Figures \@ref(fig:gen1) to \@ref(fig:gen4) in Appendix for a visual detail of the association).  
+
+In general terms, these results present evidence in favor of each of the hypotheses raised for the three dimensions under analysis.  First, results show that being female has a positive correlation with students’ attitudes towards gender equality. In relation to the second hypothesis, it is evident that the socio-economic resources of the family (the educational level of the parents/guardians, the number of books in the home and the income quintiles per capita) have a positive association with the attitudes of students towards gender equality. Third, it is evident that the attitudes of the parents/guardians towards each of the dimensions of the attitudes towards gender equality correlate positively with the attitudes of their children towards the same dimensions, demonstrating a high level of attitudinal congruence. As for the fourth hypothesis, it is evident that the socio-economic resources of the family (the educational level of the parents/guardians, the number of books in the home and the income quintiles per capita) have a positive association with the attitudes of parents/guardians towards gender equality. Regarding hypothesis 4a, the results of the partial correlations indicate that the intensity of the correlation between the family’s socio-economic resources and the students’ attitudes decreases when controlling for the attitudes of the parents/guardians (direct correlations remain significant).
+
+Finally, in relation to the fifth hypothesis, the perception about openness to discussion in the classroom (both individual and general) and the proportion of girls in the course are positively associated with students’ attitudes towards gender equality.
+
+```{r cor, echo=FALSE, message=FALSE, warning=FALSE}
+pacman::p_load(summarytools,haven,sjPlot,dplyr,htmlwidgets,
+               webshot, sjlabelled, knitr,kableExtra)
+load(file = "input/data-proc/data_proc.rda")
+table_format = if(is_html_output()) {
+  "html"
+} else if(is_latex_output()) {
+  "latex"
+}
+corr_df <-
+  data_proc %>% 
+  dplyr::select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Sexo,
+    Educacion,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    c_civic,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    dependencia,
+    REGION
+    ) %>% ungroup() %>%
+  filter(quintiles_ingresos_pc_factor !="Ns/Nr") %>%
+  select(igualdad.est,esp_publico.est,esp_privado.est,
+         igualdad.pad,esp_publico.pad,esp_privado.pad,
+         Sexo,Educacion,Libros_apod_rec,quintiles_ingresos_pc_factor,
+         c_civic, ap_discusion,mean_discusion,num_fem)
+corr_df$quintiles_ingresos_pc_factor <- 
+as.numeric(corr_df$quintiles_ingresos_pc_factor)
+
+cor_1 <- polycor::hetcor(corr_df,thresholds = T)
+cor_mat <- cor_1$correlations %>% data.frame() %>% round(2)
+cor_mat[upper.tri(cor_mat)] <- NA
+cor_mat[cor_mat==1.0] <- NaN
+for (i in names(cor_mat)) {
+cor_mat[[i]] <- sprintf("%.2f", cor_mat[[i]])  
+}
+
+cor_mat_p <-  gtools::stars.pval(cor_1$tests) %>% data.frame()
+names(cor_mat_p) <- names(cor_mat) 
+cor_mat_p[upper.tri(cor_mat_p)] <- NA
+diag(cor_mat_p)<-NA
+
+cor_2 <- cor_mat
+for (i in names(cor_mat_p)) {
+  cor_2[[i]] <- paste0(cor_mat[[i]],cor_mat_p[[i]])
+}
+cor_2[cor_2 == c("NaNNA")] <- NA
+cor_2[cor_2 == c("NANA")] <- NA
+diag(cor_2) <- "—"
+cor_2[is.na(cor_2)] <- ""
+
+rownames(cor_2) <- 
+  c("A. Rights and opportunities between men and women (Students)",
+    "B. Roles in the public sphere (Students)",
+    "C. Roles in the private sphere (Students)",
+    "D. Rights and opportunities between men and women (Parents)",
+    "E. Roles in the public sphere (Parents)",
+    "F. Roles in the private sphere (Parents)",
+    "G. Sex (Girl)",
+    "H. Education (Parents)",
+    "I. Books at home",
+    "J. Household Income Decile",
+    "K. Civic knowledge (Student)",
+    "L. Openness in classroom discussions (Students)",
+    "M. Openness in classroom discussions (School average)",
+    "N. Proportion of girls in the classroom")
+
+colnames(cor_2) <- c("(A)","(B)","(C)","(D)","(E)","(F)",
+                     "(G)","(H)","(I)","(J)","(K)","(L)","(M)","(N)")
+
+n_sample <- dim(corr_df)[[1]]
+footnote <- 
+paste0("***p < 0.001; **p < 0.01; *p < 0.05. For this analysis,
+       the category 'don't know/no response' from Household Income Decile was excluded. ",
+       "(N=",n_sample,")")
+
+ kable(cor_2,
+      format = table_format,
+      booktabs = T, 
+      linesep = "",
+      caption = "Correlations for student, parent and school variables.") %>% 
+  kable_styling(
+    full_width = F,
+    latex_options = c("hold_position","scale_down"),
+    position = "center",
+    font_size = 10,
+    bootstrap_options=c("striped", "bordered")) %>%
+   footnote(footnote,
+           footnote_as_chunk=T, 
+           general_title="Note:") %>% 
+   column_spec(column = 1,width = "10cm") %>%
+   column_spec(column = 2:15,width = "1.3cm")
+```
+
+## Multi-level models
+### Student attitudes towards equal rights and opportunities for men and women
+
+Table \@ref(tab:derechos) presents the main results obtained from the multilevel analysis carried out for the dimension of student attitudes towards equal rights and opportunities for men and women. For this dimension, the intraclass correlation obtained shows that  the variation between schools corresponds to 23% of the variation of students’ attitudes.
+First, in model 1  being female is associated with more positive attitudes towards equal rights and opportunities for men and women  ($\beta$=0.11, SE=0.03, $p$<0.001). This effect remains significant when considering the rest of the variables in model 8 ($\beta$=0.08, SE=0.03, $p$<0.05).
+
+Second, with respect to the hypotheses that address the role of the family in the political socialization of student attitudes, these effects are presented in models two, three, four and five. On the one hand, in relation to socioeconomic variables, only one category — the number of books in the home — is significant ($\beta$=0.09, SE=0.04, $p$<0.05), an effect that is maintained when controlling for the rest of the variables in model 8. On the other hand, the results show that there is an intergenerational transmission of attitudes, which is observed in the attitudinal consistency or congruence of both generations. In model 5 it can be observed that the attitudes of the parents/guardians towards the dimension of equal rights positively affect the attitudes of the students towards this dimension ($\beta$=0.12, SE=0.04, $p$<0.01), an effect that remains significant when considering the rest of the variables in model 8. 
+
+Third, with respect to the hypotheses that address the role of the school in the political socialization of student attitudes, these effects are presented in models six and seven. The results show that both the individual perception of openness to discussion in the classroom ($\beta$=0.13, SE=0.02, $p$<0.001), and the general perception of the course (the average per classroom) ($\beta$=0.39, SE=0.08, $p$<0.001) positively affect students’ attitudes towards the dimension of equal rights. Both effects maintain their significance when considering the rest of the variables in model 8.
+
+
+```{r derechos, echo=FALSE, results='asis'}
+pacman::p_load(summarytools,haven,sjPlot,dplyr,htmlwidgets, webshot, sjlabelled,
+               lme4, texreg)
+load(file = "input/data-proc/data_proc.rda")
+# Hypothesis___________________________________________________________________
+m1 <- "Sexo+dependencia+REGION+c_civic"
+m2 <- "Educacion+dependencia+REGION+c_civic"
+m3 <- "Libros_apod_rec+dependencia+REGION+c_civic"
+m4 <- "quintiles_ingresos_pc_factor+dependencia+REGION+c_civic"
+m5 <- "igualdad.pad+dependencia+REGION+c_civic"
+m6 <- "ap_discusion+mean_discusion+dependencia+REGION+c_civic"
+m7 <- "num_fem+dependencia+REGION+c_civic"
+m8 <- 
+  paste0("Sexo+Educacion+Libros_apod_rec+quintiles_ingresos_pc_factor+igualdad.pad+",
+         "ap_discusion+mean_discusion+num_fem+dependencia+REGION+c_civic")
+hipotesis <- c(m1,m2,m3,m4,m5,m6,m7,m8)
+# Set the independent variables (IVs)
+ivs<- "igualdad.est"
+
+# Create the object for each model
+models <- list()
+for (i in ivs) {
+models[[i]] <- paste0(i,"~",hipotesis,"+(1|RBD)")  
+}
+
+# Estimate the multilevel models
+fits <- list()
+for (i in ivs) {
+  for (z in models[[i]][1:length(hipotesis)]) {
+    fits[[z]] <- lme4::lmer(formula = z, data = data_proc)
+  }
+}
+fit1 <- fits
+# change model names within list
+names(fit1) <- paste0(rep(ivs,each=length(hipotesis)),1:length(hipotesis))
+
+coef_names <- c(
+          # "Intercept",
+          "Girl (Ref. Boy)",
+          "ISCED level 2 o 3",
+          "ISCED level 4",
+          "ISCED level 5 or more",
+          "Between 11 and 25 books (Ref. between 0 and 10 books)",
+          "Between 26 and 100 books",
+          "More than 100 books",
+          "Quintile 2 (Ref. Quintile 1)",
+          "Quintile 3",
+          "Quintile 4",
+          "Quintile 5"#,
+          # "Do not know / No answer"
+          )
+
+group_coef <- list("Educational level (Ref. ISCED level 1 or less)" = c(2:4),
+                      "Books at home (Ref. between 0 and 10 books)" = c(5:7),
+                      "Household Income (Ref. Quintile 1)" = c(8:11),
+                      "School" =14:15)
+
+gof_names <- c(NA,NA,NA,"L1: N (Students)","L2: N (School)",
+               "Var: School (Intercept)",NA)
+
+omit_coef <- "(dependencia)|(REGION)|(c_civic)|(Ns/Nr)|(Intercept)"
+footnote<- "\\item %stars. \\item All models are controlled for region of residence, Type of school and level of civic knowledge of the student"
+scale_box <- 0.6
+caption <- "Multilevel Regression Model for Equal Rights and Opportunities."
+knitreg(fits,
+        custom.model.names = c("Model 1",  "Model 2",  "Model 3",  "Model 4",  
+                               "Model 5",  "Model 6",  "Model 7",  "Model 8"),
+        custom.note = footnote,
+        threeparttable = TRUE,
+        omit.coef = omit_coef,
+        groups = group_coef,        
+        custom.coef.names =
+          c(coef_names,
+          "Attitudes equal rights (Parents)",
+          "Openness in classroom discussions (Student)",
+          "Openness in classroom discussions (School)",
+          "Proportion of girls in the classroom"
+        ),
+       scalebox = scale_box,
+       caption.above = T,custom.gof.names = gof_names,
+       caption=paste("(\\#tab:derechos)",caption),
+       float.pos="h!"
+       )
+```
+\newpage
+
+### Student attitudes towards equal distribution of roles in the public sphere
+
+Table \@ref(tab:publico) presents the results obtained from students’ attitudes towards the dimension of equal distribution of roles in the public sphere. For this dimension, the intraclass correlation obtained shows that the variation between schools corresponds to 26% of the variation of students’ attitudes.
+
+First, it can be observed that girls possess more positive attitudes towards equal distribution of roles in the public sphere in comparison with boys ($\beta$=0.17, SE=0.04, $p$<0.001). In model 8 it can be seen that this effect remains stable when considering the rest of the variables  ($\beta$=0.15, SE=0.04, $p$<0.001).
+
+Second, in relation to the hypotheses that address the role of the family in the political socialization of students’ attitudes, only one category — the number of books in the home —($\beta$=0.1, SE=0.05, $p$<0.05) and some categories of the per capita income quintiles ($\beta$=0.013, SE=0.06, $p$<0.05) have a significant effect on this dimension. However, when controlling for the rest of the variables in model 8, only these categories of the per capita income quintiles remain significant. Regarding the relationship between the attitudes of students and the attitudes of their parents/guardians, in model five an attitudinal consistency of both generations can be observed in the attitudes towards an equal distribution of roles in the public sphere ($\beta$=0.2, SE=0.04, $p$<0.001), and this effect maintains its significance in model 8 when considering the rest of the variables  ($\beta$=0.16, SE=0.04, $p$<0.001). 
+
+Third, with respect to the hypotheses that address the role of the school in the political socialization of students’ attitudes, in model 6 it can be observed that both the individual perception of openness to discussion in the classroom ($\beta$=0.1, SE=0.03, $p$<0.01) and the general perception of the course (the average per classroom) ($\beta$=0.4, SE=0.1, $p$<0.001) positively affect students’ attitudes towards this dimension and that both effects remain consistent when considering the rest of the variables  in model 8.
+
+
+```{r publico, echo=FALSE, results='asis'}
+pacman::p_load(summarytools,haven,sjPlot,dplyr,htmlwidgets, webshot, sjlabelled,
+               lme4, texreg)
+load(file = "input/data-proc/data_proc.rda")
+# Hypothesis___________________________________________________________________
+m1 <- "Sexo+dependencia+REGION+c_civic"
+m2 <- "Educacion+dependencia+REGION+c_civic"
+m3 <- "Libros_apod_rec+dependencia+REGION+c_civic"
+m4 <- "quintiles_ingresos_pc_factor+dependencia+REGION+c_civic"
+m5 <- "esp_publico.pad+dependencia+REGION+c_civic"
+m6 <- "ap_discusion+mean_discusion+dependencia+REGION+c_civic"
+m7 <- "num_fem+dependencia+REGION+c_civic"
+m8 <- 
+  paste0("Sexo+Educacion+Libros_apod_rec+quintiles_ingresos_pc_factor+esp_publico.pad+",
+         "ap_discusion+mean_discusion+num_fem+dependencia+REGION+c_civic")
+hipotesis <- c(m1,m2,m3,m4,m5,m6,m7,m8)
+# Set the independent variables (IVs)
+ivs<- "esp_publico.est"
+
+# Create the object for each model
+models <- list()
+for (i in ivs) {
+models[[i]] <- paste0(i,"~",hipotesis,"+(1|RBD)")  
+}
+
+# Estimate the multilevel models
+fits <- list()
+for (i in ivs) {
+  for (z in models[[i]][1:length(hipotesis)]) {
+    fits[[z]] <- lme4::lmer(formula = z, data = data_proc)
+  }
+}
+fit1 <- fits
+# change model names within list
+names(fit1) <- paste0(rep(ivs,each=length(hipotesis)),1:length(hipotesis))
+
+coef_names <- c(
+          # "Intercept",
+          "Girl (Ref. Boy)",
+          "ISCED level 2 o 3",
+          "ISCED level 4",
+          "ISCED level 5 or more",
+          "Between 11 and 25 books (Ref. between 0 and 10 books)",
+          "Between 26 and 100 books",
+          "More than 100 books",
+          "Quintile 2 (Ref. Quintile 1)",
+          "Quintile 3",
+          "Quintile 4",
+          "Quintile 5"#,
+          # "Do not know / No answer"
+          )
+
+group_coef <- list("Educational level (Ref. ISCED level 1 or less)" = c(2:4),
+                      "Books at home (Ref. between 0 and 10 books)" = c(5:7),
+                      "Household Income (Ref. Quintile 1)" = c(8:11),
+                      "School" =14:15)
+
+gof_names <- c(NA,NA,NA,"L1: N (Students)","L2: N (School)",
+               "Var: School (Intercept)",NA)
+
+omit_coef <- "(dependencia)|(REGION)|(c_civic)|(Ns/Nr)|(Intercept)"
+footnote<- "\\item %stars. \\item All models are controlled for region of residence, Type of school and level of civic knowledge of the student"
+scale_box <- 0.6
+caption <- "Multilevel Regression Model for Equal distribution of roles in public sphere."
+knitreg(fits, 
+        custom.model.names = c("Model 1","Model 2","Model 3","Model 4",
+                               "Model 5","Model 6","Model 7","Model 8"), 
+        custom.note = footnote,
+        threeparttable = TRUE,        
+        omit.coef = omit_coef, 
+        groups =group_coef,
+        custom.coef.names = c(coef_names,
+          "Attitudes distribution public sphere (Parents)",
+          "Openness in classroom discussions (Student)",
+          "Openness in classroom discussions (School)",
+          "Proportion of girls in the classroom"
+        ),
+        scalebox = scale_box,
+        caption.above = T,custom.gof.names=gof_names,
+       caption=paste("(\\#tab:publico)",caption),
+        float.pos="h!"
+        )
+```
+
+\newpage
+
+### Student attitudes towards equal distribution of roles in the private sphere
+
+Table \@ref(tab:privado) presents the results obtained from students’ attitudes towards the dimension of equal distribution of roles in the private sphere. For this dimension, the intraclass correlation obtained shows that the variation between schools corresponds to 25% of the variation of students’ attitudes.
+
+First, in model 1 it is possible to observe that being female is associated with more positive attitudes towards this dimension in comparison with being male ($\beta$=0.19, SE=0.04, $p$<0.001). In model 8 it can be seen that this effect remains stable when considering the rest of the variables  ($\beta$=0.17, SE=0.04, $p$<0.001).
+
+Second, in relation to the hypotheses that address the role of the family in the political socialization of students’ attitudes, only one category — the number of books in the home —($\beta$=0.12, SE=0.06, $p$<0.05) and all categories of the per capita income quintiles ($\beta$=0.16, SE=0.08, $p$<0.05)  have a significant effect on this dimension. However, when considering the rest of the variables in model 8, only the effects of the per capita income quintiles 2, 3, and 4 remain significant. As for the relationship between the attitudes of students and the attitudes of their parents/guardians, in model five an attitudinal consistency of both generations can be observed in the attitudes towards an equal distribution of roles in the private sphere ($\beta$=0.29, SE=0.05, $p$<0.001), and this effect maintains its significance in model 8 when considering the rest of the variables  ($\beta$=0.24, SE=0.05, $p$<0.001). 
+
+Third, with respect to the hypotheses that address the role of the school in the political socialization of students’ attitudes, model 6 shows that both the individual perception of openness to discussion in the classroom ($\beta$=0.09, SE=0.04, $p$<0.05), and the general perception of the course (the average per classroom) ($\beta$=0.46, SE=0.11, $p$<0.001) positively affect student attitudes towards this dimension of gender equality, but that when considering the rest of the variables  in model 8, individual perception loses its significance.
+
+
+```{r privado, echo=FALSE, results='asis'}
+pacman::p_load(summarytools,haven,sjPlot,dplyr,htmlwidgets, webshot, sjlabelled,
+               lme4, texreg)
+load(file = "input/data-proc/data_proc.rda")
+# Hypothesis___________________________________________________________________
+m1 <- "Sexo+dependencia+REGION+c_civic"
+m2 <- "Educacion+dependencia+REGION+c_civic"
+m3 <- "Libros_apod_rec+dependencia+REGION+c_civic"
+m4 <- "quintiles_ingresos_pc_factor+dependencia+REGION+c_civic"
+m5 <- "esp_privado.pad+dependencia+REGION+c_civic"
+m6 <- "ap_discusion+mean_discusion+dependencia+REGION+c_civic"
+m7 <- "num_fem+dependencia+REGION+c_civic"
+m8 <- 
+  paste0("Sexo+Educacion+Libros_apod_rec+quintiles_ingresos_pc_factor+esp_privado.pad+",
+         "ap_discusion+mean_discusion+num_fem+dependencia+REGION+c_civic")
+hipotesis <- c(m1,m2,m3,m4,m5,m6,m7,m8)
+# Set the independent variables (IVs)
+ivs<- "esp_privado.est"
+
+# Create the object for each model
+models <- list()
+for (i in ivs) {
+models[[i]] <- paste0(i,"~",hipotesis,"+(1|RBD)")  
+}
+
+# Estimate the multilevel models
+fits <- list()
+for (i in ivs) {
+  for (z in models[[i]][1:length(hipotesis)]) {
+    fits[[z]] <- lme4::lmer(formula = z, data = data_proc)
+  }
+}
+fit1 <- fits
+# change model names within list
+names(fit1) <- paste0(rep(ivs,each=length(hipotesis)),1:length(hipotesis))
+
+coef_names <- c(
+          # "Intercept",
+          "Girl (Ref. Boy)",
+          "ISCED level 2 o 3",
+          "ISCED level 4",
+          "ISCED level 5 or more",
+          "Between 11 and 25 books (Ref. between 0 and 10 books)",
+          "Between 26 and 100 books",
+          "More than 100 books",
+          "Quintile 2 (Ref. Quintile 1)",
+          "Quintile 3",
+          "Quintile 4",
+          "Quintile 5"#,
+          # "Do not know / No answer"
+          )
+
+group_coef <- list("Educational level (Ref. ISCED level 1 or less)" = c(2:4),
+                      "Books at home (Ref. between 0 and 10 books)" = c(5:7),
+                      "Household Income (Ref. Quintile 1)" = c(8:11),
+                      "School" =14:15)
+gof_names <- c(NA,NA,NA,"L1: N (Students)","L2: N (School)",
+               "Var: School (Intercept)",NA)
+
+omit_coef <- "(dependencia)|(REGION)|(c_civic)|(Ns/Nr)|(Intercept)"
+footnote<- "\\item %stars. \\item All models are controlled for region of residence, 
+Type of school and level of civic knowledge of the student"
+scale_box <- 0.6
+
+caption <- "Multilevel Regression Model of Equal Distribution of Roles in private sphere."
+knitreg(fits, 
+        custom.model.names = c("Model 1","Model 2","Model 3","Model 4",
+                               "Model 5","Model 6","Model 7","Model 8"),
+        custom.note = footnote,
+        omit.coef = omit_coef, 
+        groups = group_coef,
+        custom.coef.names = c(coef_names,
+          "Attitudes distribution private sphere (Parents)",
+          "Openness in classroom discussions (Student)",
+          "Openness in classroom discussions (School)",
+          "Proportion of girls in the classroom"
+        ),
+        scalebox = scale_box,
+        threeparttable = TRUE,
+        caption.above = T,custom.gof.names=gof_names,
+       caption=paste("(\\#tab:privado)",caption),
+        float.pos="h!"
+        )
+```
+
+### Interaction between levels
+
+In relation to hypothesis 6 (mitigation of resource effects and family attitudes by school), cross-level effects were estimated. These effects allow for the assessment of whether the contextual characteristics (proportion of girls and average openness to discussion) modify (moderate) the effects of the family observed in the previous hypotheses. It can be seen that the effects of the interactions between the proposed variables were not statistically significant for any of the three dimensions of gender equality. More precisely, the characteristics of the school, although they manage to positively affect students’ attitudes towards gender equality directly, do not manage to mitigate (moderate) the effect of the intergenerational transmission of parents’ attitudes on their children. Likewise, in relation to hypothesis 7 (conditioning of effects laid out in hypotheses 2, 3, 5 and 6 by gender of the  student) there is no significant interaction between the gender of the student and the variables analyzed in the models, which indicates that the socialization processes observed are not conditioned by the gender of the student.
+
+It should be noted that before testing the interaction hypotheses, the slopes were randomized to evaluate how the effects of individual-level independent variables vary between schools. In the dimension of equal rights and opportunities for men and women, only two variables presented an effect that varied between schools: sex and attitudes of the parents/guardians towards equal rights. However, in the dimensions of equal distribution of roles in the public and private spheres, only the variables of attitudes of the parent/guardian towards these dimensions presented an effect that varied between schools. Indeed, as already mentioned, the characteristics of the school considered here do not moderate such random effects.
+
+\newpage
+
+### Analysis of mediation effects
+
+Table \@ref(tab:tab-mediation) shows a mediation analysis performed to evaluate hypothesis 4a. The overall objective of this analysis is to assess whether the effect of socioeconomic resource variables on students’ attitudes is mediated by the attitudes of their parents/guardians. In other words, we analyzed whether there is a three-stage causal mechanism in which greater resources in the family foster more favorable beliefs to gender equality of the parents/guardians, who in turn transmit these values to their children.  Table 8 shows the total effects of resource variables on students’ attitudes, the direct effects corresponding to the total effects controlled by the other variables of this research, and the indirect effects, i.e., the effect of resource variables on students’ attitudes that pass through the beliefs of the parents/guardians. In addition, to show the magnitude of the mediation, the percentage of indirect effects on the total effects is shown, which indicates the percentage of the relationship that is explained by the mediation indicated.
+
+This mediation analysis indicates that parent/guardian attitudes towards gender equality function as a mediator of the relationship between the family’s socio-economic resources and students’ attitudes towards gender equality. In the different models referring to the three dimensions, the pattern is the same. Parents with greater socio-economic resources (educational level and number of books in the home) present more favorable attitudes towards each dimension and, at the same time, these egalitarian attitudes of the parents/guardians are associated with more egalitarian attitudes on the part of the students. 
+
+
+```{r mediation, include=FALSE,cache=TRUE}
+pacman::p_load(ggplot2, sjmisc, car, sjlabelled, haven, cowplot,
+               sjPlot, summarytools, kableExtra, corrplot, coefplot, ltm,
+               polycor,psych, lme4, ppcor, texreg, skimr, gtools, bda, 
+               lmerTest, Matrix, extrafont, sessioninfo, dplyr,mediation,
+               fastDummies) 
+
+load("input/data-proc/data.rda")
+data_proc=data %>% 
+  dplyr::select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    Sexo,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    RBD,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Educacion,
+    Libros_apod,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    dependencia,
+    REGION,
+    c_civic
+  ) %>% as.data.frame() 
+data_proc <- na.omit(data_proc)
+
+data_proc$Educacion <- factor(data_proc$Educacion, 
+                              levels = c("8vo básico o menos", 
+                                         "Educación Media", 
+                                         "Educación Téc.Superior", 
+                                         "Universidad o Posgrado"),
+                              labels = c("ed_basica", "ed_media", 
+                                         "ed_tecni", "ed_supe"))
+
+data_proc$Libros_apod_rec <- factor(data_proc$Libros_apod_rec, 
+                                    levels = c("Entre 0 y 10 libros",
+                                               "Entre 11 y 25 libros",
+                                               "Entre 26 y 100 libros",
+                                               "Más de 100 libros"), 
+                                    labels = c("libros1", "libros2", 
+                                               "libros3", "libros4"))
+
+data_proc$quintiles_ingresos_pc_factor <- factor(data_proc$quintiles_ingresos_pc_factor, 
+                                                 levels = c("Quintil 1",
+                                                            "Quintil 2",
+                                                            "Quintil 3",
+                                                            "Quintil 4",
+                                                            "Quintil 5",
+                                                            "Ns/Nr"),
+                                                 labels = c("quintil1",
+                                                            "quintil2",
+                                                            "quintil3",
+                                                            "quintil4",
+                                                            "quintil5",
+                                                            "quintilna"))
+
+data_proc <- fastDummies::dummy_cols(data_proc, 
+                                     select_columns = "Educacion")
+data_proc <- fastDummies::dummy_cols(data_proc, 
+                                     select_columns = "Libros_apod_rec")
+data_proc <- fastDummies::dummy_cols(data_proc, 
+                                     select_columns = "quintiles_ingresos_pc_factor")
+# Igualdad de derechos---------------------------------------------------------
+
+reg_med_ig1 <- lme4::lmer(igualdad.pad ~ Educacion_ed_media + Educacion_ed_tecni +
+                            Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + 
+                            Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + 
+                            quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + 
+                            quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + 
+                            REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_ig1 <- lme4::lmer(igualdad.est ~ igualdad.pad + Educacion_ed_media + 
+                            Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + 
+                            Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + 
+                            quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + 
+                            quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + 
+                            quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion +
+                            num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+# Educacion
+set.seed(123)
+med_out_iged1 <- mediate(reg_med_ig1, reg_out_ig1,
+                         treat = "Educacion_ed_media", 
+                         mediator = "igualdad.pad", sims = 100)
+med_out_iged2 <- mediate(reg_med_ig1, reg_out_ig1,
+                         treat = "Educacion_ed_tecni", 
+                         mediator = "igualdad.pad", sims = 100)
+med_out_iged3 <- mediate(reg_med_ig1, reg_out_ig1, 
+                         treat = "Educacion_ed_supe", 
+                         mediator = "igualdad.pad", sims = 100)
+# Libros
+med_out_iglib1 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "Libros_apod_rec_libros2", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iglib2 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "Libros_apod_rec_libros3", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iglib3 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "Libros_apod_rec_libros4",
+                          mediator = "igualdad.pad", sims = 100)
+# summary(med_out_iglib1)
+# summary(med_out_iglib2)
+# summary(med_out_iglib3)
+# Ingresos
+med_out_iging1 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintil2", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iging2 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintil3", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iging3 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintil4", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iging4 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintil5", 
+                          mediator = "igualdad.pad", sims = 100)
+med_out_iging5 <- mediate(reg_med_ig1, reg_out_ig1, 
+                          treat = "quintiles_ingresos_pc_factor_quintilna", 
+                          mediator = "igualdad.pad", sims = 100)
+
+# Espacio público------------------------------------------------------------
+reg_med_pub1 <- lme4::lmer(esp_publico.pad ~ Educacion_ed_media + Educacion_ed_tecni +
+                             Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + 
+                             Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 +
+                             quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + 
+                             quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + 
+                             REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_pub1 <- lme4::lmer(esp_publico.est ~ esp_publico.pad + Educacion_ed_media + 
+                             Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + 
+                             Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + 
+                             quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + 
+                             quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 +
+                             quintiles_ingresos_pc_factor_quintilna + Sexo + 
+                             ap_discusion + mean_discusion + num_fem + c_civic + 
+                             REGION + dependencia + (1 | RBD), data=data_proc)
+
+# Educacion
+med_out_pubed1 <- mediate(reg_med_pub1, reg_out_pub1, 
+                          treat = "Educacion_ed_media", 
+                          mediator = "esp_publico.pad", sims = 100)
+med_out_pubed2 <- mediate(reg_med_pub1, reg_out_pub1, 
+                          treat = "Educacion_ed_tecni", 
+                          mediator = "esp_publico.pad", sims = 100)
+med_out_pubed3 <- mediate(reg_med_pub1, reg_out_pub1, 
+                          treat = "Educacion_ed_supe", 
+                          mediator = "esp_publico.pad", sims = 100)
+
+# Libros
+med_out_publib1 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "Libros_apod_rec_libros2", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_publib2 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "Libros_apod_rec_libros3",
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_publib3 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "Libros_apod_rec_libros4",
+                           mediator = "esp_publico.pad", sims = 100)
+
+# Ingresos
+med_out_pubing1 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintil2", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_pubing2 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintil3", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_pubing3 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintil4", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_pubing4 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintil5", 
+                           mediator = "esp_publico.pad", sims = 100)
+med_out_pubing5 <- mediate(reg_med_pub1, reg_out_pub1, 
+                           treat = "quintiles_ingresos_pc_factor_quintilna", 
+                           mediator = "esp_publico.pad", sims = 100)
+
+# Espacio privado------------------------------------------------------------
+reg_med_priv1 <- lme4::lmer(esp_privado.pad ~ Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + REGION + dependencia + (1 | RBD), data = data_proc)
+
+reg_out_priv1 <- lme4::lmer(esp_privado.est ~ esp_privado.pad + Educacion_ed_media + Educacion_ed_tecni + Educacion_ed_supe + Libros_apod_rec_libros2 + Libros_apod_rec_libros3 + Libros_apod_rec_libros4 + quintiles_ingresos_pc_factor_quintil2 + quintiles_ingresos_pc_factor_quintil3 + quintiles_ingresos_pc_factor_quintil4 + quintiles_ingresos_pc_factor_quintil5 + quintiles_ingresos_pc_factor_quintilna + Sexo + ap_discusion + mean_discusion + num_fem + c_civic + REGION + dependencia + (1 | RBD), data=data_proc)
+
+# Educacion
+med_out_prived1 <- mediate(reg_med_priv1, reg_out_priv1, 
+                           treat = "Educacion_ed_media", 
+                           mediator = "esp_privado.pad", sims = 100)
+med_out_prived2 <- mediate(reg_med_priv1, reg_out_priv1, 
+                           treat = "Educacion_ed_tecni", 
+                           mediator = "esp_privado.pad", sims = 100)
+med_out_prived3 <- mediate(reg_med_priv1, reg_out_priv1, 
+                           treat = "Educacion_ed_supe", 
+                           mediator = "esp_privado.pad", sims = 100)
+
+# Libros
+med_out_privlib1 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "Libros_apod_rec_libros2", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_privlib2 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "Libros_apod_rec_libros3",
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_privlib3 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "Libros_apod_rec_libros4", 
+                            mediator = "esp_privado.pad", sims = 100)
+# Ingresos
+med_out_priving1 <- mediate(reg_med_priv1, reg_out_priv1,
+                            treat = "quintiles_ingresos_pc_factor_quintil2", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_priving2 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "quintiles_ingresos_pc_factor_quintil3", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_priving3 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "quintiles_ingresos_pc_factor_quintil4", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_priving4 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "quintiles_ingresos_pc_factor_quintil5", 
+                            mediator = "esp_privado.pad", sims = 100)
+med_out_priving5 <- mediate(reg_med_priv1, reg_out_priv1, 
+                            treat = "quintiles_ingresos_pc_factor_quintilna", 
+                            mediator = "esp_privado.pad", sims = 100)
+
+directos.DV1 = 
+  c(paste0(round(med_out_iged1[["z0"]],3), stars.pval(med_out_iged1[["z0.p"]])),
+    paste0(round(med_out_iged2[["z0"]],3), stars.pval(med_out_iged2[["z0.p"]])),
+    paste0(round(med_out_iged3[["z0"]],3), stars.pval(med_out_iged3[["z0.p"]])),
+    paste0(round(med_out_iglib1[["z0"]],3),stars.pval(med_out_iglib1[["z0.p"]])),
+    paste0(round(med_out_iglib2[["z0"]],3),stars.pval(med_out_iglib2[["z0.p"]])),
+    paste0(round(med_out_iglib3[["z0"]],3),stars.pval(med_out_iglib3[["z0.p"]])),
+    paste0(round(med_out_iging1[["z0"]],3),stars.pval(med_out_iging1[["z0.p"]])),
+    paste0(round(med_out_iging2[["z0"]],3),stars.pval(med_out_iging2[["z0.p"]])),
+    paste0(round(med_out_iging3[["z0"]],3),stars.pval(med_out_iging3[["z0.p"]])),
+    paste0(round(med_out_iging4[["z0"]],3),stars.pval(med_out_iging4[["z0.p"]])),
+    paste0(round(med_out_iging5[["z0"]],3),stars.pval(med_out_iging5[["z0.p"]])))
+indirecto.DV1 = 
+  c(paste0(round(med_out_iged1[["d0"]],3), stars.pval(med_out_iged1[["d0.p"]])),
+    paste0(round(med_out_iged2[["d0"]],3), stars.pval(med_out_iged2[["d0.p"]])),
+    paste0(round(med_out_iged3[["d0"]],3), stars.pval(med_out_iged3[["d0.p"]])),
+    paste0(round(med_out_iglib1[["d0"]],3),stars.pval(med_out_iglib1[["d0.p"]])),
+    paste0(round(med_out_iglib2[["d0"]],3),stars.pval(med_out_iglib2[["d0.p"]])),
+    paste0(round(med_out_iglib3[["d0"]],3),stars.pval(med_out_iglib3[["d0.p"]])),
+    paste0(round(med_out_iging1[["d0"]],3),stars.pval(med_out_iging1[["d0.p"]])),
+    paste0(round(med_out_iging2[["d0"]],3),stars.pval(med_out_iging2[["d0.p"]])),
+    paste0(round(med_out_iging3[["d0"]],3),stars.pval(med_out_iging3[["d0.p"]])),
+    paste0(round(med_out_iging4[["d0"]],3),stars.pval(med_out_iging4[["d0.p"]])),
+    paste0(round(med_out_iging5[["d0"]],3),stars.pval(med_out_iging5[["d0.p"]])))
+totales.DV1 =
+  c(paste0(round(med_out_iged1[["tau.coef"]],3), stars.pval(med_out_iged1[["tau.p"]])),
+    paste0(round(med_out_iged2[["tau.coef"]],3), stars.pval(med_out_iged2[["tau.p"]])),
+    paste0(round(med_out_iged3[["tau.coef"]],3), stars.pval(med_out_iged3[["tau.p"]])),
+    paste0(round(med_out_iglib1[["tau.coef"]],3),stars.pval(med_out_iglib1[["tau.p"]])),
+    paste0(round(med_out_iglib2[["tau.coef"]],3),stars.pval(med_out_iglib2[["tau.p"]])),
+    paste0(round(med_out_iglib3[["tau.coef"]],3),stars.pval(med_out_iglib3[["tau.p"]])),
+    paste0(round(med_out_iging1[["tau.coef"]],3),stars.pval(med_out_iging1[["tau.p"]])),
+    paste0(round(med_out_iging2[["tau.coef"]],3),stars.pval(med_out_iging2[["tau.p"]])),
+    paste0(round(med_out_iging3[["tau.coef"]],3),stars.pval(med_out_iging3[["tau.p"]])),
+    paste0(round(med_out_iging4[["tau.coef"]],3),stars.pval(med_out_iging4[["tau.p"]])),
+    paste0(round(med_out_iging5[["tau.coef"]],3),stars.pval(med_out_iging5[["tau.p"]])))
+pct_ind.DV1 =
+  c(paste0(round(med_out_iged1[["n.avg"]]*100,2),"%"), 
+    paste0(round(med_out_iged2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iged3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iglib1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iglib2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iglib3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging4[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_iging5[["n.avg"]]*100,2),"%"))
+directos.DV2 = 
+  c(paste0(round(med_out_pubed1[["z0"]],3),stars.pval(med_out_pubed1[["z0.p"]])),
+    paste0(round(med_out_pubed2[["z0"]],3),stars.pval(med_out_pubed2[["z0.p"]])),
+    paste0(round(med_out_pubed3[["z0"]],3),stars.pval(med_out_pubed3[["z0.p"]])),
+    paste0(round(med_out_publib1[["z0"]],3),stars.pval(med_out_publib1[["z0.p"]])),
+    paste0(round(med_out_publib2[["z0"]],3),stars.pval(med_out_publib2[["z0.p"]])),
+    paste0(round(med_out_publib3[["z0"]],3),stars.pval(med_out_publib3[["z0.p"]])),
+    paste0(round(med_out_pubing1[["z0"]],3),stars.pval(med_out_pubing1[["z0.p"]])),
+    paste0(round(med_out_pubing2[["z0"]],3),stars.pval(med_out_pubing2[["z0.p"]])),
+    paste0(round(med_out_pubing3[["z0"]],3),stars.pval(med_out_pubing3[["z0.p"]])),
+    paste0(round(med_out_pubing4[["z0"]],3),stars.pval(med_out_pubing4[["z0.p"]])),
+    paste0(round(med_out_pubing5[["z0"]],3),stars.pval(med_out_pubing5[["z0.p"]])))
+indirecto.DV2 = 
+  c(paste0(round(med_out_pubed1[["d0"]],3),stars.pval(med_out_pubed1[["d0.p"]])),
+    paste0(round(med_out_pubed2[["d0"]],3),stars.pval(med_out_pubed2[["d0.p"]])),
+    paste0(round(med_out_pubed3[["d0"]],3),stars.pval(med_out_pubed3[["d0.p"]])),
+    paste0(round(med_out_publib1[["d0"]],3),stars.pval(med_out_publib1[["d0.p"]])),
+    paste0(round(med_out_publib2[["d0"]],3),stars.pval(med_out_publib2[["d0.p"]])),
+    paste0(round(med_out_publib3[["d0"]],3),stars.pval(med_out_publib3[["d0.p"]])),
+    paste0(round(med_out_pubing1[["d0"]],3),stars.pval(med_out_pubing1[["d0.p"]])),
+    paste0(round(med_out_pubing2[["d0"]],3),stars.pval(med_out_pubing2[["d0.p"]])),
+    paste0(round(med_out_pubing3[["d0"]],3),stars.pval(med_out_pubing3[["d0.p"]])),
+    paste0(round(med_out_pubing4[["d0"]],3),stars.pval(med_out_pubing4[["d0.p"]])),
+    paste0(round(med_out_pubing5[["d0"]],3),stars.pval(med_out_pubing5[["d0.p"]])))
+totales.DV2 = 
+  c(paste0(round(med_out_pubed1[["tau.coef"]],3),stars.pval(med_out_pubed1[["tau.p"]])),
+    paste0(round(med_out_pubed2[["tau.coef"]],3),stars.pval(med_out_pubed2[["tau.p"]])),
+    paste0(round(med_out_pubed3[["tau.coef"]],3),stars.pval(med_out_pubed3[["tau.p"]])),
+    paste0(round(med_out_publib1[["tau.coef"]],3),stars.pval(med_out_publib1[["tau.p"]])),
+    paste0(round(med_out_publib2[["tau.coef"]],3),stars.pval(med_out_publib2[["tau.p"]])),
+    paste0(round(med_out_publib3[["tau.coef"]],3),stars.pval(med_out_publib3[["tau.p"]])),
+    paste0(round(med_out_pubing1[["tau.coef"]],3),stars.pval(med_out_pubing1[["tau.p"]])),
+    paste0(round(med_out_pubing2[["tau.coef"]],3),stars.pval(med_out_pubing2[["tau.p"]])),
+    paste0(round(med_out_pubing3[["tau.coef"]],3),stars.pval(med_out_pubing3[["tau.p"]])),
+    paste0(round(med_out_pubing4[["tau.coef"]],3),stars.pval(med_out_pubing4[["tau.p"]])),
+    paste0(round(med_out_pubing5[["tau.coef"]],3),stars.pval(med_out_pubing5[["tau.p"]])))
+pct_ind.DV2 = 
+  c(paste0(round(med_out_pubed1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubed2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubed3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_publib1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_publib2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_publib3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing4[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_pubing5[["n.avg"]]*100,2),"%"))
+
+directos.DV3 = 
+  c(paste0(round(med_out_prived1[["z0"]],3),stars.pval(med_out_prived1[["z0.p"]])),
+    paste0(round(med_out_prived2[["z0"]],3),stars.pval(med_out_prived2[["z0.p"]])),
+    paste0(round(med_out_prived3[["z0"]],3),stars.pval(med_out_prived3[["z0.p"]])),
+    paste0(round(med_out_privlib1[["z0"]],3),stars.pval(med_out_privlib1[["z0.p"]])),
+    paste0(round(med_out_privlib2[["z0"]],3),stars.pval(med_out_privlib2[["z0.p"]])),
+    paste0(round(med_out_privlib3[["z0"]],3),stars.pval(med_out_privlib3[["z0.p"]])),
+    paste0(round(med_out_priving1[["z0"]],3),stars.pval(med_out_priving1[["z0.p"]])),
+    paste0(round(med_out_priving2[["z0"]],3),stars.pval(med_out_priving2[["z0.p"]])),
+    paste0(round(med_out_priving3[["z0"]],3),stars.pval(med_out_priving3[["z0.p"]])),
+    paste0(round(med_out_priving4[["z0"]],3),stars.pval(med_out_priving4[["z0.p"]])),
+    paste0(round(med_out_priving5[["z0"]],3),stars.pval(med_out_priving5[["z0.p"]])))
+indirecto.DV3 = 
+  c(paste0(round(med_out_prived1[["d0"]],3),stars.pval(med_out_prived1[["d0.p"]])),
+    paste0(round(med_out_prived2[["d0"]],3),stars.pval(med_out_prived2[["d0.p"]])),
+    paste0(round(med_out_prived3[["d0"]],3),stars.pval(med_out_prived3[["d0.p"]])),
+    paste0(round(med_out_privlib1[["d0"]],3),stars.pval(med_out_privlib1[["d0.p"]])),
+    paste0(round(med_out_privlib2[["d0"]],3),stars.pval(med_out_privlib2[["d0.p"]])),
+    paste0(round(med_out_privlib3[["d0"]],3),stars.pval(med_out_privlib3[["d0.p"]])),
+    paste0(round(med_out_priving1[["d0"]],3),stars.pval(med_out_priving1[["d0.p"]])),
+    paste0(round(med_out_priving2[["d0"]],3),stars.pval(med_out_priving2[["d0.p"]])),
+    paste0(round(med_out_priving3[["d0"]],3),stars.pval(med_out_priving3[["d0.p"]])),
+    paste0(round(med_out_priving4[["d0"]],3),stars.pval(med_out_priving4[["d0.p"]])),
+    paste0(round(med_out_priving5[["d0"]],3),stars.pval(med_out_priving5[["d0.p"]])))
+totales.DV3 = 
+  c(paste0(round(med_out_prived1[["tau.coef"]],3),stars.pval(med_out_prived1[["tau.p"]])),
+    paste0(round(med_out_prived2[["tau.coef"]],3),stars.pval(med_out_prived2[["tau.p"]])),
+    paste0(round(med_out_prived3[["tau.coef"]],3),stars.pval(med_out_prived3[["tau.p"]])),
+    paste0(round(med_out_privlib1[["tau.coef"]],3),stars.pval(med_out_privlib1[["tau.p"]])),
+    paste0(round(med_out_privlib2[["tau.coef"]],3),stars.pval(med_out_privlib2[["tau.p"]])),
+    paste0(round(med_out_privlib3[["tau.coef"]],3),stars.pval(med_out_privlib3[["tau.p"]])),
+    paste0(round(med_out_priving1[["tau.coef"]],3),stars.pval(med_out_priving1[["tau.p"]])),
+    paste0(round(med_out_priving2[["tau.coef"]],3),stars.pval(med_out_priving2[["tau.p"]])),
+    paste0(round(med_out_priving3[["tau.coef"]],3),stars.pval(med_out_priving3[["tau.p"]])),
+    paste0(round(med_out_priving4[["tau.coef"]],3),stars.pval(med_out_priving4[["tau.p"]])),
+    paste0(round(med_out_priving5[["tau.coef"]],3),stars.pval(med_out_priving5[["tau.p"]])))
+pct_ind.DV3 = 
+  c(paste0(round(med_out_prived1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_prived2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_prived3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_privlib1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_privlib2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_privlib3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving1[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving2[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving3[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving4[["n.avg"]]*100,2),"%"),
+    paste0(round(med_out_priving5[["n.avg"]]*100,2),"%"))
+
+data$Educacion <- factor(data$Educacion, 
+                              levels = c("8vo básico o menos", 
+                                         "Educación Media", 
+                                         "Educación Téc.Superior", 
+                                         "Universidad o Posgrado"),
+                              labels = c("ISCED level 1 or less",
+                                         "ISCED level 2 o 3", 
+                                         "ISCED level 4",
+                                         "ISCED level 5 or more"))
+
+data$Libros_apod_rec <- factor(data$Libros_apod_rec, 
+                                    levels = c("Entre 0 y 10 libros",
+                                               "Entre 11 y 25 libros",
+                                               "Entre 26 y 100 libros",
+                                               "Más de 100 libros"), 
+                                    labels = c("Between 0 and 10 books",
+                                               "Between 11 and 25 books", 
+                                               "Between 26  and 100 books",
+                                               "More than 100 books"))
+
+data$quintiles_ingresos_pc_factor <- factor(data$quintiles_ingresos_pc_factor, 
+                                                 levels = c("Quintil 1",
+                                                            "Quintil 2",
+                                                            "Quintil 3",
+                                                            "Quintil 4",
+                                                            "Quintil 5",
+                                                            "Ns/Nr"),
+                                                 labels = c("Quintile 1",
+                                                            "Quintile 2",
+                                                            "Quintile 3",
+                                                            "Quintile 4",
+                                                            "Quintile 5",
+                                                            "Missing"))
+
+collapse_rows_dt2 <-
+  data.frame(vars = c(rep("Parents education", 3),
+                    rep("Number of books", 3),
+                    rep("Income quintiles", 5)),
+           catego = c(sjlabelled::get_labels(data$Educacion)[-1],
+                      sjlabelled::get_labels(data$Libros_apod_rec)[-1],
+                      sjlabelled::get_labels(data$quintiles_ingresos_pc_factor)[-1]),
+           directos.DV1,indirecto.DV1,totales.DV1,pct_ind.DV1, #derechos y oport
+           directos.DV2,indirecto.DV2,totales.DV2,pct_ind.DV2, #espacio publico
+           directos.DV3,indirecto.DV3,totales.DV3,pct_ind.DV3) #espacio privado
+```
+
+```{r tab-mediation, echo=FALSE}
+kbl(collapse_rows_dt2, 
+    caption = "Socioeconomic status mediation analysis for egalitarian attitudes",
+    align = "llcccccccccccccccc", booktabs = T,
+    col.names =  c("Variable",
+                   "Categories", 
+                   "Direct effects", "Indirect Effects", "Total Effects",
+                   "% Indirect Effects", 
+                   "Direct effects", "Indirect Effects", "Total Effects", 
+                   "% Indirect Effects", 
+                   "Direct effects", "Indirect Effects", "Total Effects",
+                   "% Indirect Effects")) %>%
+  add_header_above(c(" " = 2,
+                     "Equal rights and opportunities"=4, 
+                     "Equal distribution of roles in public sphere"=4, 
+                     "Equal distribution of roles in private sphere"=4), 
+                   bold = T)%>%  
+  kable_styling(latex_options = c("scale_down","HOLD_position"),
+                full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  column_spec(column = 3:14,width = "1.5cm") %>%
+  collapse_rows(columns = 1:2, valign = "middle") %>% 
+  footnote(general = "***p <$ 0.001, **p < 0.01, *p < 0.05",
+           footnote_as_chunk = T,general_title = "Note: ")
+```
+
+# Discussion
+
+This article aimed to evaluate attitudes towards gender equality among adolescents, focusing on three dimensions: in general, in the private sphere, and in the public sphere. As has been shown, attitudes towards the three dimensions surveyed depend mainly on the gender of the student, the attitudes of parents/guardians, and openness to discussion that apparently models tolerance within the classroom setting.  However, responses in general to questions about gender equality demonstrate the preponderant role of intergenerational transmission of attitudes between parents and children within the process of family socialization. 
+
+With respect to gender, the evidence presented shows that this is a relevant factor for understanding attitudinal differences, but gender plays a limited role in conditioning socialization processes at the family and school levels. Consistent with the literature, there are significant gender differences in demand for equality in general, as well as in the public and private spheres. Women show greater willingness towards gender equality in the three dimensions addressed in this article. However, contrary to what was anticipated (hypothesis 7), no gender differences were observed in any of the relationships evaluated in this article. This result indicates that socialization processes that modify attitudes towards equality tend to operate independently of gender, that is, when a factor modifies attitudes it does so for men and women alike. 
+
+With regards to family socialization processes, two socialization pathways were evaluated: the effect of socio-economic resources and attitudinal congruence. It is clear that attitudinal congruence is the most relevant for socialization. On the one hand, the beliefs of parents/guardians about gender equality correlate with what young people believe about the distribution of roles, both in general and in the public and private spheres. On the other hand, although in the bi-variate analysis it is possible to visualize an association between the socio-economic resources of the family and the attitudes of students towards gender equality, in the three dimensions this influence almost disappears in its entirety when considering the rest of the variables in the multilevel regression models. The effect was maintained only for some of the categories of the per capita income quintiles on the dimensions of the equal distribution of roles in the public and private sphere. In contrast, mediation analyses show that socio-economic resources affect young people's attitudes indirectly. Therefore, it is still the intergenerational transmission of attitudes that decisively influences students’ attitudes. 
+
+At the level of socialization in school, three notable results are presented. First, there is a high proportion of variance — between 23% and 26% — attributable to school characteristics. Usually, the study of attitudes in school contexts finds smaller proportions of variance than that observed here. Second, evidence from this study is in line with previous studies, highlighting the role that openness to discussion plays in the classroom (both individual and group perception), demonstrating the importance of the school as an agent of socialization. In contrast, the composition of the classroom in terms of gender is not related to attitudinal differences. Third, the evaluation of the school's role as a mitigator (or accelerator) of family socialization processes shows that these school-specific contextual aspects (the proportion of girls in the classroom and the average openness to discussion in the classroom) do not condition the family socialization processes studied. This suggests that the family socializes the attitudes of children independently of the characteristics of the school, at least to these specific aspects. However, other characteristics of the school not identified here could play a role in this regard to moderate family processes of socialization. Therefore, additional studies exploring other features of the school in terms of its direct role or mitigation effect are necessary. As discussed, the proportion of variance attributable to school is high, indicating that much of the variation in dimensions towards gender equality occurs between schools. Thus, the school has a potential role in the formation of attitudes of students that is not captured in this article.
+
+One of the main limitations of this study is the low number of responses collected from parents/guardians,  (744 cases of parents/guardians compared to 1634 cases from students) to obtain a final sample of 629 complete observations for regression models. This conditions the variance of the dependent variable and, in addition, generates few responses within the highest categories of the family's socioeconomic resources, which could be influencing the analyses generated by not having a sufficient sample of these variables.
+
+In summary, the socialization of attitudes towards gender equality in its different dimensions depends largely on the type of beliefs that parents/guardians manifest. Furthermore, although the family’s socio-economic conditions have some influence, they do so indirectly, through the beliefs and attitudes of parents. Additionally, the school socializes tolerance by promoting greater openness to discussion but does not modify the effects of the family socialization processes described. In this sense, the formation of egalitarian attitudes depends more on the conditions of origin, than on what happens in a more transversal space such as school. The modeling processes that occur in the home would be those that most affect the disposition of young people towards equality in this area, which in turn is conditioned by inequalities of origin at the level of the parents/guardians. In this sense, the role that the school can play is more limited. As such, any school-level training program on these topics must consider the beliefs of the parents/guardians. Therefore, generating mechanisms within the school that effectively mitigate the intergenerational transmission of attitudes most likely involves including parents/guardians in the process. 
+
+# References
+
+<div id="refs"></div>
+
+\pagebreak
+
+# Appendix {-} 
+
+## Bivariate associations  
+
+In all graphs, the line represents the overall average of the attitudinal scale.
+
+<!-- **H1: Girls will have more positive attitudes towards gender equality than boys.** -->
+
+```{r gen1,echo=FALSE, fig.cap="Students' attitudes towards gender equality according to the student's sex", fig.align = 'center', out.width = '80%'}
+knitr::include_graphics(path = "output/general_h1.png")
+```
+
+
+<!-- **H2: Students from families with greater socio-economic resources will present more positive attitudes towards gender equality.** -->
+
+```{r gen2,echo=FALSE, fig.cap="Students' attitudes towards gender equality according to the socioeconomic resources of the family.", fig.align = 'center', out.width = '80%'}
+knitr::include_graphics(path = "output/general_h2.png")
+```
+
+\pagebreak 
+<!-- **H3: Students with parents who have more positive attitudes towards gender equality will present more positive attitudes towards gender equality.** -->
+
+```{r gen3,echo=FALSE, fig.cap="Students' attitudes towards gender equality according to their parent's attitudes.", fig.align = 'center', out.width = '80%'}
+knitr::include_graphics(path = "output/general_h3.png")
+```
+
+<!-- **H5: School characteristics (proportion of girls; openness to classroom discussion) are positively associated with students’ attitudes towards gender equality.** -->
+
+```{r gen4,echo=FALSE, fig.cap="Student attitudes towards gender equality according to school characteristics.", fig.align = 'center', out.width = '80%'}
+knitr::include_graphics(path = "output/general_h5.png")
+```
+
+\pagebreak 
+
+## Attitudes of parents/guardians
+
+```{r parents, echo=FALSE, results='asis'}
+pacman::p_load(summarytools,haven,sjPlot,dplyr,lme4,haven,texreg,knitr,kableExtra,bda,lmerTest)
+load("input/data-proc/data.rda")
+data_proc <- data %>% dplyr::select(
+  RBD,
+  igualdad.pad,
+  esp_publico.pad,
+  esp_privado.pad,
+  Educacion,
+  Libros_apod_rec,
+  quintiles_ingresos_pc_factor,
+  REGION,
+) %>% as.data.frame() %>%  na.omit()
+scale_box <- 0.65
+
+h4_igualdad.apod <- lmer(igualdad.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data_proc)
+h4_esp_pub.apod <- lmer(esp_publico.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data_proc)
+h4_esp_priv.apod <- lmer(esp_privado.pad ~ 1 + factor(Educacion) + factor(Libros_apod_rec) + factor(quintiles_ingresos_pc_factor) + factor(REGION) + (1 | RBD), data=data_proc)
+
+gof_names <- c(NA,NA,NA,"L1: N (Students)","L2: N (School)",
+               "Var: School (Intercept)",NA)
+
+caption <- "Multilevel Regression Model for Parents’ attitudes"
+knitreg(list(h4_igualdad.apod,h4_esp_pub.apod,h4_esp_priv.apod), 
+        custom.model.names = c(
+          "Equal Rights",
+          "Public sphere",
+          "Private sphere"
+        ), 
+        custom.note = "$***p <$ 0.001, $**p <$ 0.01, $*p <$ 0.05",  
+        custom.coef.names = c(
+          "Intercept",
+          "ISCED level 2 o 3 (Ref. ISCED level 1 or less)",
+          "ISCED level 4",
+          "ISCED level 5 or more",
+          "Between 11 and 25 books (Ref. Between 0 and 10 books)",
+          "Between 26 and 100 books",
+          "More than 100 books",
+          "Quintile 2 (Ref. Quintile 1)",
+          "Quintile 3",
+          "Quintile 4",
+          "Quintile 5",
+          "Missing",
+          "Reg. of Maule (Ref. Reg. of Antofagasta)",
+          "Reg. Metropolitana"
+        ),
+       scalebox = scale_box,
+       caption.above = T,
+       custom.gof.names= gof_names,
+       caption=caption,
+       float.pos="h!"
+       )
+```
+

@@ -1,10 +1,26 @@
 ---
-title: "preparacion"
-author: "Anais Herrera Leighton"
-date: "18-01-2021"
-output: html_document
+title: "Preparacion de datos"
+output: 
+  html_document: 
+    toc: yes
+    code_folding: hide
+    toc_float: 
+      collapsed: true
+      smooth_scroll: false
+      number_sections: true
+    css: "../input/css/custom.css"
+editor_options: 
+  chunk_output_type: console
 ---
 
+```{r setup}
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE,
+                      error = TRUE)
+options(scipen=999)
+```
+
+# Librerías
 ```{r}
 pacman::p_load(lavaan, # pacman para instalar / cargar 
                psych, # para funcion lowerMat
@@ -20,15 +36,77 @@ pacman::p_load(lavaan, # pacman para instalar / cargar
                car,
                sjlabelled,
                sjmisc,
+               misty,
+               SciViews,
+               summarytools,
                dplyr)
 ```
-
+# Cargar datos
 ```{r}
 apod_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_apoderadosv2.dta?raw=true"))
-apod_data = apod_data0 %>% dplyr::select("Igualdad1"=P5A, "Igualdad2"=P5B, "Igualdad3"=P5C, "Igualdad4"=P5D, "Igualdad5"=P5E, "Igualdad6"=P5F, "Igualdad7"=P5G, "Igualdad8"=P5H, "Igualdad9"=P5I, "Educacion"=P45, "Libros_apod"=P47, "Ingresos"=P55, FOLIO, FOLIO_EST, pond_apoderado_reg_dep_tens, "Sexo_apod"=P39, "Relacion_con_est"=P2, "Preg_apoderado"=P1) %>% as.data.frame()
+apod_data = apod_data0 %>% 
+  dplyr::select(
+    "Igualdad1" = P5A,
+    "Igualdad2" = P5B,
+    "Igualdad3" = P5C,
+    "Igualdad4" = P5D,
+    "Igualdad5" = P5E,
+    "Igualdad6" = P5F,
+    "Igualdad7" = P5G,
+    "Igualdad8" = P5H,
+    "Igualdad9" = P5I,
+    "personas_hogar" = P41,
+    "Educacion" = P45,
+    "Libros_apod" = P47,
+    "ingresos_tramos" = P55,
+    FOLIO,
+    FOLIO_EST,
+    pond_apoderado_reg_dep_tens,
+    "Sexo_apod" = P39,
+    "Relacion_con_est" = P2,
+    "Preg_apoderado" = P1
+  ) %>%
+  as.data.frame()
 
 est_data0 <- haven::read_dta(file = url("https://github.com/formacionciudadana/data-paces/blob/main/docs/paces/data/base_estudiantesv2.dta?raw=true"))
-est_data = est_data0 %>% dplyr::select("Igualdad1"=P18A, "Igualdad2"=P18B, "Igualdad3"=P18C, "Igualdad4"=P18D, "Igualdad5"=P18E, "Igualdad6"=P18F, "Igualdad7"=P18G, "Igualdad8"=P18H, "Igualdad9"=P18I, "Ap_discusion1"=P49A, "Ap_discusion2"=P49B, "Ap_discusion3"=P49C, "Ap_discusion4"=P49D, "Ap_discusion5"=P49E, "Ap_discusion6"=P49F, "Ap_discusion7"=P49G, "Sexo"=P58, "Ed_madre"=P66, "Ed_padre"=P67, "Libros_est"=P68, RBD, FOLIO, pond_estudiante_reg_dep_tens) %>% as.data.frame()
+est_data = est_data0 %>% 
+  dplyr::select(
+    "Igualdad1" = P18A,
+    "Igualdad2" = P18B,
+    "Igualdad3" = P18C,
+    "Igualdad4" = P18D,
+    "Igualdad5" = P18E,
+    "Igualdad6" = P18F,
+    "Igualdad7" = P18G,
+    "Igualdad8" = P18H,
+    "Igualdad9" = P18I,
+    "Ap_discusion1" = P49A,
+    "Ap_discusion2" = P49B,
+    "Ap_discusion3" = P49C,
+    "Ap_discusion4" = P49D,
+    "Ap_discusion5" = P49E,
+    "Ap_discusion6" = P49F,
+    "Ap_discusion7" = P49G,
+    "Sexo" = P58,
+    "Ed_madre" = P66,
+    "Ed_padre" = P67,
+    "Libros_est" = P68,
+    RBD,
+    FOLIO,
+    pond_estudiante_reg_dep_tens,
+    "dependencia" = Dependencia,
+    REGION,
+    P1,
+    P2,
+    P3,
+    P4,
+    P5,
+    P6,
+    P7,
+    P8,
+    P9
+  ) %>%
+  as.data.frame()
 ```
 # Preparación base de datos de los apoderados 
 ## Variables de caracterización
@@ -42,83 +120,107 @@ apod_data$Preg_apoderado <- set_na(apod_data$Preg_apoderado, na = 9, drop.levels
 ```
 
 ## Actitudes hacia la igualdad de género (AFC)
-### Indicar valores perdidos, dar vuelta algunos indicadores para que la interpretación sea más simple y crear una base de datos con menos variables
+* Indicar valores perdidos, dar vuelta algunos indicadores para que la interpretación sea más simple y crear una base de datos con menos variables para estimar los AFC
 ```{r}
-apod_data$Igualdad1 <- set_na(apod_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_data$Igualdad2 <- set_na(apod_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_data$Igualdad3 <- set_na(apod_data$Igualdad3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_data$Igualdad4 <- set_na(apod_data$Igualdad4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_data$Igualdad5 <- set_na(apod_data$Igualdad5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_data$Igualdad6 <- set_na(apod_data$Igualdad6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_data$Igualdad7 <- set_na(apod_data$Igualdad7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_data$Igualdad8 <- set_na(apod_data$Igualdad8, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_data$Igualdad9 <- set_na(apod_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-apod_cfa = apod_data %>% dplyr::select(Igualdad1,Igualdad2,Igualdad3,Igualdad4,Igualdad5,Igualdad6,Igualdad7,Igualdad8,Igualdad9,FOLIO,FOLIO_EST) %>% as.data.frame()
+apod_data$Igualdad1_rec <- set_na(apod_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad2_rec <- set_na(apod_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad2_rec <-sjmisc::rec(apod_data$Igualdad2_rec,rec="rev")
+apod_data$Igualdad3_rec <- set_na(apod_data$Igualdad3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad3_rec <-sjmisc::rec(apod_data$Igualdad3_rec,rec="rev")
+apod_data$Igualdad4_rec <- set_na(apod_data$Igualdad4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad4_rec <-sjmisc::rec(apod_data$Igualdad4_rec,rec="rev")
+apod_data$Igualdad5_rec <- set_na(apod_data$Igualdad5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad6_rec <- set_na(apod_data$Igualdad6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad6_rec <-sjmisc::rec(apod_data$Igualdad6_rec,rec="rev")
+apod_data$Igualdad7_rec <- set_na(apod_data$Igualdad7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad8_rec <- set_na(apod_data$Igualdad8, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad8_rec <-sjmisc::rec(apod_data$Igualdad8_rec,rec="rev")
+apod_data$Igualdad9_rec <- set_na(apod_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+apod_data$Igualdad9_rec <-sjmisc::rec(apod_data$Igualdad9_rec,rec="rev")
+apod_cfa = apod_data %>% 
+  dplyr::select(Igualdad1_rec,Igualdad2_rec,Igualdad3_rec,Igualdad4_rec,Igualdad5_rec,Igualdad6_rec,Igualdad7_rec,Igualdad8_rec,Igualdad9_rec,FOLIO,FOLIO_EST) %>% 
+  as.data.frame()
 ```
-#### Análisis de supuestos
+### Análisis de supuestos
+#### Correlaciones
 ```{r}
-## Correlaciones
 corMat  <- cor(apod_cfa, use="na.or.complete", method="spearman")  # estimar matriz pearson
 options(digits=3) # decimales
 print(corMat)
 stargazer(corMat, title="correlaciones", type = "text") #Latex table
-
-## Factorizabilidad
-KMO(corMat)
-
-## Esfericidad
-cortest.bartlett(corMat, n = 744)
-
-## Normalidad (univariada)
-shapiro.test(apod_cfa$Igualdad1)
-shapiro.test(apod_cfa$Igualdad2)
-shapiro.test(apod_cfa$Igualdad3)
-shapiro.test(apod_cfa$Igualdad4)
-shapiro.test(apod_cfa$Igualdad5)
-shapiro.test(apod_cfa$Igualdad6)
-shapiro.test(apod_cfa$Igualdad7)
-shapiro.test(apod_cfa$Igualdad8)
-shapiro.test(apod_cfa$Igualdad9)
 ```
-#### Estimación del modelo
+#### Factorizabilidad
 ```{r}
-apod_cfa$Igualdad1 <- as.numeric(apod_cfa$Igualdad1)
-apod_cfa$Igualdad2 <- as.numeric(apod_cfa$Igualdad2)
-apod_cfa$Igualdad3 <- as.numeric(apod_cfa$Igualdad3)
-apod_cfa$Igualdad4 <- as.numeric(apod_cfa$Igualdad4)
-apod_cfa$Igualdad5 <- as.numeric(apod_cfa$Igualdad5)
-apod_cfa$Igualdad6 <- as.numeric(apod_cfa$Igualdad6)
-apod_cfa$Igualdad7 <- as.numeric(apod_cfa$Igualdad7)
-apod_cfa$Igualdad8 <- as.numeric(apod_cfa$Igualdad8)
-apod_cfa$Igualdad9 <- as.numeric(apod_cfa$Igualdad9)
-
+KMO(corMat)
+```
+#### Esfericidad
+```{r}
+cortest.bartlett(corMat, n = 744)
+```
+#### Normalidad (univariada)
+```{r}
+shapiro.test(apod_cfa$Igualdad1_rec)
+shapiro.test(apod_cfa$Igualdad2_rec)
+shapiro.test(apod_cfa$Igualdad3_rec)
+shapiro.test(apod_cfa$Igualdad4_rec)
+shapiro.test(apod_cfa$Igualdad5_rec)
+shapiro.test(apod_cfa$Igualdad6_rec)
+shapiro.test(apod_cfa$Igualdad7_rec)
+shapiro.test(apod_cfa$Igualdad8_rec)
+shapiro.test(apod_cfa$Igualdad9_rec)
+```
+### Estimación de los modelos
+```{r}
+apod_cfa$Igualdad1_num <- as.numeric(apod_cfa$Igualdad1_rec)
+apod_cfa$Igualdad2_num <- as.numeric(apod_cfa$Igualdad2_rec)
+apod_cfa$Igualdad3_num <- as.numeric(apod_cfa$Igualdad3_rec)
+apod_cfa$Igualdad4_num <- as.numeric(apod_cfa$Igualdad4_rec)
+apod_cfa$Igualdad5_num <- as.numeric(apod_cfa$Igualdad5_rec)
+apod_cfa$Igualdad6_num <- as.numeric(apod_cfa$Igualdad6_rec)
+apod_cfa$Igualdad7_num <- as.numeric(apod_cfa$Igualdad7_rec)
+apod_cfa$Igualdad8_num <- as.numeric(apod_cfa$Igualdad8_rec)
+apod_cfa$Igualdad9_num <- as.numeric(apod_cfa$Igualdad9_rec)
+```
+#### Modelo con tres dimensiones
+```{r}
 cfa_1a <- '
-igualdad =~ Igualdad1 + Igualdad5 + Igualdad7
-esp_publico =~ Igualdad3 + Igualdad4 + Igualdad6
-esp_privado =~ Igualdad2 + Igualdad8 + Igualdad9
+igualdad =~ Igualdad1_num + Igualdad5_num + Igualdad7_num
+esp_publico =~ Igualdad3_num + Igualdad4_num + Igualdad6_num
+esp_privado =~ Igualdad2_num + Igualdad8_num + Igualdad9_num
 '
 fit_1a <- cfa(cfa_1a,data=apod_cfa,missing="ML",estimator="MLR")
 show(fit_1a) # Resumen ajuste general
 fitMeasures(fit_1a, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_1a, fit.measures=T, standardized=T)
-
+```
+#### Modelo con una dimensión
+```{r}
 cfa_1b <- '
-general =~ Igualdad1 + Igualdad5 + Igualdad7 + Igualdad3 + Igualdad4 + Igualdad6 + Igualdad2 + Igualdad8 + Igualdad9
+general =~ Igualdad1_num + Igualdad5_num + Igualdad7_num + Igualdad3_num + Igualdad4_num + Igualdad6_num + Igualdad2_num + Igualdad8_num + Igualdad9_num
 '
 fit_1b <- cfa(cfa_1b,data=apod_cfa,missing="ML",estimator="MLR")
 show(fit_1b) # Resumen ajuste general
 fitMeasures(fit_1b, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_1b, fit.measures=T, standardized=T)
-
+```
+#### Modelo con dos dimensiones
+```{r}
 cfa_1c <- '
-igualdad =~ Igualdad1 + Igualdad5 + Igualdad7
-sup.masculina =~ Igualdad2 + Igualdad3 + Igualdad4 + Igualdad6 + Igualdad8 + Igualdad9
+igualdad =~ Igualdad1_num + Igualdad5_num + Igualdad7_num
+sup.masculina =~ Igualdad2_num + Igualdad3_num + Igualdad4_num + Igualdad6_num + Igualdad8_num + Igualdad9_num
 '
 fit_1c <- cfa(cfa_1c,data=apod_cfa,missing="ML",estimator="MLR")
 show(fit_1c) # Resumen ajuste general
 fitMeasures(fit_1c, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_1c, fit.measures=T, standardized=T)
-
+```
+#### Comparación entre modelos
+##### Entre modelo con 3 dimensiones y modelo con una dimensión
+```{r}
+anova(fit_1a, fit_1b)
+```
+##### Entre modelo con 3 dimensiones y modelo con dos dimensiones
+```{r}
 anova(fit_1a, fit_1c)
 ```
 #### Estimación puntuaciones factoriales
@@ -133,6 +235,11 @@ apod_cfa2_sco = cbind(apod_cfa, scores_apod)
 # Check
 stargazer(apod_cfa2_sco[, 12:14], type = "text")
 
+# Etiquetado
+apod_cfa2_sco$igualdad <- set_label(x = apod_cfa2_sco$igualdad,label = "Actitudes del apoderado hacia la igualdad de género")
+apod_cfa2_sco$esp_publico <- set_label(x = apod_cfa2_sco$esp_publico,label = "Actitudes del apoderado hacia la distribución igualitaria de roles en la esfera pública")
+apod_cfa2_sco$esp_privado <- set_label(x = apod_cfa2_sco$esp_privado,label = "Actitudes del apoderado hacia la distribución igualitaria de roles en la esfera privada")
+
 # Save  factor scores
 apod_cfa_sco = apod_cfa2_sco %>% dplyr::select(igualdad, esp_publico, esp_privado,FOLIO,FOLIO_EST) %>% as.data.frame()
 ```
@@ -140,20 +247,102 @@ apod_cfa_sco = apod_cfa2_sco %>% dplyr::select(igualdad, esp_publico, esp_privad
 ## Recursos de la familia
 ### Nivel educacional de los padres
 ```{r}
-apod_data$Educacion <- set_label(x = apod_data$Educacion,label = "Nivel educacional apoderado/a") # Etiquetar variable
 apod_data$Educacion <- set_na(apod_data$Educacion, na = 9, drop.levels = TRUE, as.tag = FALSE) # Indicar valores perdidos y eliminar etiquetas de dichas categorías 
 ```
-#### Cantidad de libros en el hogar
+### Cantidad de libros en el hogar
 ```{r}
-apod_data$Libros_apod <- set_label(x = apod_data$Libros_apod,label = "Cantidad de libros en el hogar")
+#table(apod_data$Libros_apod)
+#apod_data$Libros_apod <- set_label(x = apod_data$Libros_apod,label = "Cantidad de libros en el hogar")
+apod_data$Libros_apod_rec <- ifelse((apod_data$Libros_apod==1), 1,
+                                ifelse((apod_data$Libros_apod==2), 2,
+                                       ifelse((apod_data$Libros_apod==3), 3,
+                                              ifelse((apod_data$Libros_apod==4), 4,
+                                                     ifelse((apod_data$Libros_apod==5), 4,
+                                                            ifelse((apod_data$Libros_apod==6), 4, NA))))))
 apod_data$Libros_apod <- set_na(apod_data$Libros_apod, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
+#apod_data$Libros_apod_rec <- set_labels(x = apod_data$Libros_apod_rec, labels = c("Entre 0 y 10 libros" = 1, "Entre 11 y 25 libros" = 2, "Entre 26 y 100 libros" = 3, "Más de 100 libros" = 4))
+#table(apod_data$Libros_apod_rec)
 ```
-#### Ingresos del hogar
+### Ingresos del hogar en tramos
 ```{r}
-apod_data$Ingresos <- set_label(x = apod_data$Ingresos,label = "Ingresos del hogar")
-apod_data$Ingresos <- set_na(apod_data$Ingresos, na = c(12,13), drop.levels = TRUE, as.tag = FALSE)
+# Ingresos tramos
+apod_data$ingresos_tramos[apod_data$ingresos_tramos == 12 | apod_data$ingresos_tramos == 13] <- 99
+# Etiquetar
+apod_data$ingresos_tramos <- set_labels(x = apod_data$ingresos_tramos, labels = c("Menos de $101.000 mensuales líquidos" = 1,
+                                                                            "De $101.001 a $134.000 mensuales líquidos" = 2,
+                                                                            "De $134.001 a $179.000 mensuales líquidos" = 3,
+                                                                            "De $179.001 a $224.000 mensuales líquidos" = 4,
+                                                                            "De $224.001 a $291.000 mensuales líquidos" = 5,
+                                                                            "De $291.001 a $358.000 mensuales líquidos" = 6,
+                                                                            "De $358.001 a $448.000 mensuales líquidos" = 7,
+                                                                            "De $448.001 a $1.000.000 mensuales líquidos" = 8,
+                                                                            "De $1.000.001 a $2.000.000 mensuales líquidos" = 9,
+                                                                            "De $2.000.001 a $3.000.000 mensuales líquidos" = 10,
+                                                                            "Más de $3.000.000 mensuales líquidos" = 11,
+                                                                            "Ns/Nr" = 99))
+# Drop levels
+apod_data$ingresos_tramos <- set_na(apod_data$ingresos_tramos, na = c(12,13), drop.levels = TRUE, as.tag = FALSE)
+apod_data$ingresos_tramos <- set_label(x = apod_data$ingresos_tramos,label = "Ingresos del hogar en tramos")
 ```
-## Guardar base de datos procesada
+#### Ajustes variable "Ingresos del hogar"
+Se construyen cuatro variables nuevas. La primera es el ingreso a partir de las marcas de clase de los tramos de ingreso. La segunda es el ingreso per capita. La tercera se construye una variable en tramos tipo factor y la cuarta serán los quintiles de ingreso per capita en su version numerica y factor.
+```{r}
+# Construcción ingresos numerico
+apod_data$ingresos[apod_data$ingresos_tramos == 1] <- 50500 
+apod_data$ingresos[apod_data$ingresos_tramos == 2] <- 117500
+apod_data$ingresos[apod_data$ingresos_tramos == 3] <- 156500
+apod_data$ingresos[apod_data$ingresos_tramos == 4] <- 201500
+apod_data$ingresos[apod_data$ingresos_tramos == 5] <- 257500
+apod_data$ingresos[apod_data$ingresos_tramos == 6] <- 324500
+apod_data$ingresos[apod_data$ingresos_tramos == 7] <- 403000
+apod_data$ingresos[apod_data$ingresos_tramos == 8] <- 724000
+apod_data$ingresos[apod_data$ingresos_tramos == 9] <- 1500000
+apod_data$ingresos[apod_data$ingresos_tramos == 10] <- 2500000
+apod_data$ingresos[apod_data$ingresos_tramos == 11] <- 3500000
+apod_data$ingresos[apod_data$ingresos_tramos == 99] <- 0
+
+# Cantidad de personas en el hogar
+apod_data$personas_hogar[apod_data$personas_hogar == 999] <- 0
+# Construcción ingreso per capita
+apod_data$ingresos_pc <- apod_data$ingresos/apod_data$personas_hogar
+apod_data$ingresos_pc <- trunc(apod_data$ingresos_pc)
+# Los resultados incongruentes de la división los pasamos a NA
+apod_data$ingresos_pc[apod_data$ingresos_pc == 0 | apod_data$ingresos_pc == Inf] <- NA
+# Construcción ingreso tramos como factor
+apod_data$ingresos_tramos_factor <- factor(apod_data$ingresos_tramos, levels = c(1,2,3,4,5,6,7,8,9,10,11,99), labels = c("Menos de $101.000 mensuales líquidos",
+                                                                                              "De $101.001 a $134.000 mensuales líquidos",
+                                                                                              "De $134.001 a $179.000 mensuales líquidos",
+                                                                                              "De $179.001 a $224.000 mensuales líquidos",
+                                                                                              "De $224.001 a $291.000 mensuales líquidos",
+                                                                                              "De $291.001 a $358.000 mensuales líquidos",
+                                                                                              "De $358.001 a $448.000 mensuales líquidos",
+                                                                                              "De $448.001 a $1.000.000 mensuales líquidos",
+                                                                                              "De $1.000.001 a $2.000.000 mensuales líquidos",
+                                                                                              "De $2.000.001 a $3.000.000 mensuales líquidos",
+                                                                                              "Más de $3.000.000 mensuales líquidos",
+                                                                                              "Ns/Nr"))
+# Construccion ingresos per capita quintiles
+apod_data <- apod_data %>% mutate(quintiles_ingresos_pc = ntile(ingresos_pc,5))
+## Recuperar NA
+apod_data$quintiles_ingresos_pc[is.na(apod_data$quintiles_ingresos_pc)] <- 99
+# Construcción ingresos per capita quintiles factor
+apod_data$quintiles_ingresos_pc_factor <- factor(apod_data$quintiles_ingresos_pc, levels = c(1,2,3,4,5,99), labels = c("Quintil 1", "Quintil 2", "Quintil 3", "Quintil 4", "Quintil 5", "Ns/Nr"))
+## Eliminar 99 de la variable numerica
+apod_data$quintiles_ingresos_pc[apod_data$quintiles_ingresos_pc == 99] <- NA
+ # ---- Descripción variables nuevas ----
+# ingresos
+##summary(apod_data$ingresos)
+#---- Etiquetado variables nuevas ----
+#ingreso
+apod_data$ingresos <- set_label(x = apod_data$ingresos, label = "Ingresos del hogar")
+# ingreso per capita
+apod_data$ingresos_pc <- set_label(x = apod_data$ingresos_pc, label = "Ingreso per capita")
+# ingreso factor
+apod_data$ingresos_tramos_factor <- set_label(x = apod_data$ingresos_tramos_factor, label = "Ingresos del hogar en tramos factor")
+# Ingresos per cápita por quintiles
+apod_data$quintiles_ingresos_pc_factor <- set_label(x = apod_data$quintiles_ingresos_pc_factor, label = "Ingresos per cápita del hogar en quintiles")
+```
+# Guardar base de datos procesada
 ```{r}
 apod_cfa_sco <- left_join(x = apod_data,y = apod_cfa_sco,by ="FOLIO")
 apod_cfa_sco = apod_cfa_sco %>% dplyr::select(-FOLIO_EST.y,"FOLIO_EST"=FOLIO_EST.x) %>% as.data.frame()
@@ -161,87 +350,106 @@ save(apod_cfa_sco, file = "../input/data-proc/apod_data_sco.rda")
 ```
 
 # Preparación base de datos de los estudiantes
-## Variable dependiente
-### Indicar valores perdidos y crear una base de datos con menos variables
+## Actitudes hacia la igualdad de género (AFC)
+* Indicar valores perdidos, dar vuelta algunos indicadores para que la interpretación sea más simple y crear una base de datos con menos variables para estimar los AFC
 ```{r}
-est_data$Igualdad1 <- set_na(est_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_data$Igualdad2 <- set_na(est_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_data$Igualdad3 <- set_na(est_data$Igualdad3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_data$Igualdad4 <- set_na(est_data$Igualdad4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_data$Igualdad5 <- set_na(est_data$Igualdad5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_data$Igualdad6 <- set_na(est_data$Igualdad6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_data$Igualdad7 <- set_na(est_data$Igualdad7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_data$Igualdad8 <- set_na(est_data$Igualdad8, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_data$Igualdad9 <- set_na(est_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-est_cfa = est_data %>% dplyr::select(Igualdad1,Igualdad2,Igualdad3,Igualdad4,Igualdad5,Igualdad6,Igualdad7,Igualdad8,Igualdad9,FOLIO) %>% as.data.frame()
+est_data$Igualdad1_rec <- set_na(est_data$Igualdad1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad2_rec <- set_na(est_data$Igualdad2, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad2_rec <-sjmisc::rec(est_data$Igualdad2_rec,rec="rev")
+est_data$Igualdad3_rec <- set_na(est_data$Igualdad3, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad3_rec <-sjmisc::rec(est_data$Igualdad3_rec,rec="rev")
+est_data$Igualdad4_rec <- set_na(est_data$Igualdad4, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad4_rec <-sjmisc::rec(est_data$Igualdad4_rec,rec="rev")
+est_data$Igualdad5_rec <- set_na(est_data$Igualdad5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad6_rec <- set_na(est_data$Igualdad6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad6_rec <-sjmisc::rec(est_data$Igualdad6,rec="rev")
+est_data$Igualdad7_rec <- set_na(est_data$Igualdad7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad8_rec <- set_na(est_data$Igualdad8, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad8_rec <-sjmisc::rec(est_data$Igualdad8_rec,rec="rev")
+est_data$Igualdad9_rec <- set_na(est_data$Igualdad9, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Igualdad9_rec <-sjmisc::rec(est_data$Igualdad9_rec,rec="rev")
+est_cfa = est_data %>% dplyr::select(Igualdad1_rec,Igualdad2_rec,Igualdad3_rec,Igualdad4_rec,Igualdad5_rec,Igualdad6_rec,Igualdad7_rec,Igualdad8_rec,Igualdad9_rec,FOLIO) %>% as.data.frame()
 ```
-### AFC
-#### Análisis de supuestos
+### Análisis de supuestos
+#### Correlaciones
 ```{r}
-## Correlaciones
 corMat  <- cor(est_cfa, use="na.or.complete", method="spearman")
 options(digits=3) # decimales
 print(corMat)
 stargazer(corMat, title="correlaciones", type = "text") #Latex table
-
-## Factorizabilidad
-KMO(corMat)
-
-## Esfericidad
-cortest.bartlett(corMat, n = 1635)
-
-## Normalidad (univariada)
-shapiro.test(est_cfa$Igualdad1)
-shapiro.test(est_cfa$Igualdad2)
-shapiro.test(est_cfa$Igualdad3)
-shapiro.test(est_cfa$Igualdad4)
-shapiro.test(est_cfa$Igualdad5)
-shapiro.test(est_cfa$Igualdad6)
-shapiro.test(est_cfa$Igualdad7)
-shapiro.test(est_cfa$Igualdad8)
-shapiro.test(est_cfa$Igualdad9)
 ```
-#### Estimación del modelo
+#### Factorizabilidad
 ```{r}
-est_cfa$Igualdad1 <- as.numeric(est_cfa$Igualdad1)
-est_cfa$Igualdad2 <- as.numeric(est_cfa$Igualdad2)
-est_cfa$Igualdad3 <- as.numeric(est_cfa$Igualdad3)
-est_cfa$Igualdad4 <- as.numeric(est_cfa$Igualdad4)
-est_cfa$Igualdad5 <- as.numeric(est_cfa$Igualdad5)
-est_cfa$Igualdad6 <- as.numeric(est_cfa$Igualdad6)
-est_cfa$Igualdad7 <- as.numeric(est_cfa$Igualdad7)
-est_cfa$Igualdad8 <- as.numeric(est_cfa$Igualdad8)
-est_cfa$Igualdad9 <- as.numeric(est_cfa$Igualdad9)
-
+KMO(corMat)
+```
+#### Esfericidad
+```{r}
+cortest.bartlett(corMat, n = 1635)
+```
+#### Normalidad (univariada)
+```{r}
+shapiro.test(est_cfa$Igualdad1_rec)
+shapiro.test(est_cfa$Igualdad2_rec)
+shapiro.test(est_cfa$Igualdad3_rec)
+shapiro.test(est_cfa$Igualdad4_rec)
+shapiro.test(est_cfa$Igualdad5_rec)
+shapiro.test(est_cfa$Igualdad6_rec)
+shapiro.test(est_cfa$Igualdad7_rec)
+shapiro.test(est_cfa$Igualdad8_rec)
+shapiro.test(est_cfa$Igualdad9_rec)
+```
+### Estimación del modelo
+```{r}
+est_cfa$Igualdad1_num <- as.numeric(est_cfa$Igualdad1_rec)
+est_cfa$Igualdad2_num <- as.numeric(est_cfa$Igualdad2_rec)
+est_cfa$Igualdad3_num <- as.numeric(est_cfa$Igualdad3_rec)
+est_cfa$Igualdad4_num <- as.numeric(est_cfa$Igualdad4_rec)
+est_cfa$Igualdad5_num <- as.numeric(est_cfa$Igualdad5_rec)
+est_cfa$Igualdad6_num <- as.numeric(est_cfa$Igualdad6_rec)
+est_cfa$Igualdad7_num <- as.numeric(est_cfa$Igualdad7_rec)
+est_cfa$Igualdad8_num <- as.numeric(est_cfa$Igualdad8_rec)
+est_cfa$Igualdad9_num <- as.numeric(est_cfa$Igualdad9_rec)
+```
+#### Modelo con tres dimensiones
+```{r}
 cfa_2a <- '
-igualdad =~ Igualdad1 + Igualdad5 + Igualdad7
-esp_publico =~ Igualdad3 + Igualdad4 + Igualdad6
-esp_privado =~ Igualdad2 + Igualdad8 + Igualdad9
+igualdad =~ Igualdad1_num + Igualdad5_num + Igualdad7_num
+esp_publico =~ Igualdad3_num + Igualdad4_num + Igualdad6_num
+esp_privado =~ Igualdad2_num + Igualdad8_num + Igualdad9_num
 '
 fit_2a <- cfa(cfa_2a,data=est_cfa,missing="ML",estimator="MLR")
 show(fit_2a) # Resumen ajuste general
 fitMeasures(fit_2a, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_2a, fit.measures=T, standardized=T)
-
-
+```
+#### Modelo con una dimensión
+```{r}
 cfa_2b <- '
-general =~ Igualdad1 + Igualdad5 + Igualdad7 + Igualdad3 + Igualdad4 + Igualdad6 + Igualdad2 + Igualdad8 + Igualdad9
+general =~ Igualdad1_num + Igualdad5_num + Igualdad7_num + Igualdad3_num + Igualdad4_num + Igualdad6_num + Igualdad2_num + Igualdad8_num + Igualdad9_num
 '
 fit_2b <- cfa(cfa_2b,data=est_cfa,missing="ML",estimator="MLR")
 show(fit_2b) # Resumen ajuste general
 fitMeasures(fit_2b, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_2b, fit.measures=T, standardized=T)
-
-
+```
+#### Modelo con dos dimensiones
+```{r}
 cfa_2c <- '
-igualdad =~ Igualdad1 + Igualdad5 + Igualdad7
-sup.masculina =~ Igualdad2 + Igualdad3 + Igualdad4 + Igualdad6 + Igualdad8 + Igualdad9
+igualdad =~ Igualdad1_num + Igualdad5_num + Igualdad7_num
+sup.masculina =~ Igualdad2_num + Igualdad3_num + Igualdad4_num + Igualdad6_num + Igualdad8_num + Igualdad9_num
 '
 fit_2c <- cfa(cfa_2c,data=est_cfa,missing="ML",estimator="MLR")
 show(fit_2c) # Resumen ajuste general
 fitMeasures(fit_2c, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_2c, fit.measures=T, standardized=T)
-
+```
+#### Comparación entre modelos
+##### Entre modelo con 3 dimensiones y modelo con una dimensión
+```{r}
+anova(fit_2a, fit_2b)
+```
+##### Entre modelo con 3 dimensiones y modelo con dos dimensiones
+```{r}
 anova(fit_2a, fit_2c)
 ```
 #### Estimación puntuaciones factoriales
@@ -257,6 +465,11 @@ est_cfa2_sco = cbind(est_cfa, scores_est)
 # Check
 stargazer(est_cfa2_sco[, 11:13], type = "text")
 
+# Etiquetado
+est_cfa2_sco$igualdad <- set_label(x = est_cfa2_sco$igualdad,label = "Actitudes del estudiante hacia la igualdad de género")
+est_cfa2_sco$esp_publico <- set_label(x = est_cfa2_sco$esp_publico,label = "Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera pública")
+est_cfa2_sco$esp_privado <- set_label(x = est_cfa2_sco$esp_privado,label = "Actitudes del estudiante hacia la distribución igualitaria de roles en la esfera privada")
+
 # Save  factor scores
 est_cfa_sco = est_cfa2_sco %>% dplyr::select(igualdad, esp_publico, esp_privado,FOLIO) %>% as.data.frame()
 ```
@@ -264,7 +477,8 @@ est_cfa_sco = est_cfa2_sco %>% dplyr::select(igualdad, esp_publico, esp_privado,
 ## Variables independientes
 ### Sexo
 ```{r}
-est_data$Sexo <- set_label(x = est_data$Sexo,label = "Sexo del estudiante")
+#est_data$Sexo <- set_label(x = est_data$Sexo,label = "Sexo del estudiante")
+#est_data$Sexo <- set_labels(x = est_data$Sexo, labels = c("Niño" = 1, "Niña" = 2))
 est_data$Sexo <- set_na(est_data$Sexo, na = c(3,4,9), drop.levels = TRUE, as.tag = FALSE)
 ```
 
@@ -292,13 +506,20 @@ est_data$Ed_padre <- ifelse((est_data$Ed_padre==1), 1,
 est_data$Ed_padres <- ifelse(est_data$Ed_madre>est_data$Ed_padre,est_data$Ed_madre,est_data$Ed_padre)
 est_data$Ed_padres <- set_label(x = est_data$Ed_padres,label = "Nivel educacional más alto de los padres")
 ```
+
 #### Cantidad de libros en el hogar
 ```{r}
 est_data$Libros_est <- set_label(x = est_data$Libros_est,label = "Cantidad de libros en el hogar")
 est_data$Libros_est <- set_na(est_data$Libros_est, na = c(8,9), drop.levels = TRUE, as.tag = FALSE)
+est_data$Libros_est_rec <- ifelse((est_data$Libros_est==1), 1,
+                                ifelse((est_data$Libros_est==2), 2,
+                                       ifelse((est_data$Libros_est==3), 3,
+                                              ifelse((est_data$Libros_est==4), 4,
+                                                     ifelse((est_data$Libros_est==5), 4,
+                                                            ifelse((est_data$Libros_est==6), 4, NA))))))
 ```
 
-### Apertura a la discusión en el aula
+### Apertura a la discusión en el aula (AFC)
 ```{r}
 # Datos perdidos
 est_data$Ap_discusion1 <- set_na(est_data$Ap_discusion1, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
@@ -308,7 +529,35 @@ est_data$Ap_discusion4 <- set_na(est_data$Ap_discusion4, na = c(5,9), drop.level
 est_data$Ap_discusion5 <- set_na(est_data$Ap_discusion5, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 est_data$Ap_discusion6 <- set_na(est_data$Ap_discusion6, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
 est_data$Ap_discusion7 <- set_na(est_data$Ap_discusion7, na = c(5,9), drop.levels = TRUE, as.tag = FALSE)
-
+```
+#### Análisis de supuestos
+##### Correlaciones
+```{r}
+corMat  <- cor(est_cfa_disc, use="na.or.complete", method="spearman")
+options(digits=3) # decimales
+print(corMat)
+stargazer(corMat, title="correlaciones", type = "text") #Latex table
+```
+##### Factorizabilidad
+```{r}
+KMO(corMat)
+```
+##### Esfericidad
+```{r}
+cortest.bartlett(corMat, n = 1635)
+```
+##### Normalidad (univariada)
+```{r}
+shapiro.test(est_cfa_disc$Ap_discusion1)
+shapiro.test(est_cfa_disc$Ap_discusion2)
+shapiro.test(est_cfa_disc$Ap_discusion3)
+shapiro.test(est_cfa_disc$Ap_discusion4)
+shapiro.test(est_cfa_disc$Ap_discusion5)
+shapiro.test(est_cfa_disc$Ap_discusion6)
+shapiro.test(est_cfa_disc$Ap_discusion7)
+```
+#### Estimación del modelo
+```{r}
 est_data$Ap_discusion1 <- as.numeric(est_data$Ap_discusion1)
 est_data$Ap_discusion2 <- as.numeric(est_data$Ap_discusion2)
 est_data$Ap_discusion3 <- as.numeric(est_data$Ap_discusion3)
@@ -316,33 +565,7 @@ est_data$Ap_discusion4 <- as.numeric(est_data$Ap_discusion4)
 est_data$Ap_discusion5 <- as.numeric(est_data$Ap_discusion5)
 est_data$Ap_discusion6 <- as.numeric(est_data$Ap_discusion6)
 est_data$Ap_discusion7 <- as.numeric(est_data$Ap_discusion7)
-
-# Promedios por grupo
-est_data <- est_data %>%
-  group_by(RBD) %>%
-  mutate(m_discusion1 = mean(Ap_discusion1,na.rm = T))
-est_data <- est_data %>%
-  group_by(RBD) %>%
-  mutate(m_discusion2 = mean(Ap_discusion2,na.rm = T))
-est_data <- est_data %>%
-  group_by(RBD) %>%
-  mutate(m_discusion3 = mean(Ap_discusion3,na.rm = T))
-est_data <- est_data %>%
-  group_by(RBD) %>%
-  mutate(m_discusion4 = mean(Ap_discusion4,na.rm = T))
-est_data <- est_data %>%
-  group_by(RBD) %>%
-  mutate(m_discusion5 = mean(Ap_discusion5,na.rm = T))
-est_data <- est_data %>%
-  group_by(RBD) %>%
-  mutate(m_discusion6 = mean(Ap_discusion6,na.rm = T))
-est_data <- est_data %>%
-  group_by(RBD) %>%
-  mutate(m_discusion7 = mean(Ap_discusion7,na.rm = T))
-
-est_cfa_disc = est_data %>% dplyr::select(Ap_discusion2, Ap_discusion3, Ap_discusion4, Ap_discusion5, Ap_discusion6, Ap_discusion7, RBD, FOLIO) %>% as.data.frame()
-
-# AFC
+est_cfa_disc = est_data %>% dplyr::select(Ap_discusion2, Ap_discusion3, Ap_discusion4, Ap_discusion5, Ap_discusion6, Ap_discusion7, FOLIO) %>% as.data.frame()
 cfa_3 <- '
 ap_discusion =~ Ap_discusion2 + Ap_discusion3 + Ap_discusion4 + Ap_discusion5 + Ap_discusion6 + Ap_discusion7
 '
@@ -352,6 +575,7 @@ fitMeasures(fit_3, c("chisq", "df", "pvalue", "cfi", "tli", "rmsea"))
 summary(fit_3, fit.measures=T, standardized=T)
 modificationindices(fit_3)
 ```
+
 #### Estimación puntuaciones factoriales
 ```{r}
 # predict scores for all models
@@ -363,25 +587,27 @@ scores_est_disc = as.data.frame(p1c)
 est_cfa2_disc_sco = cbind(est_cfa_disc, scores_est_disc)
 
 # Check
-stargazer(est_cfa2_disc_sco[, 9], type = "text")
+stargazer(est_cfa2_disc_sco, type = "text")
 
-# Promedio por aula
-est_cfa2_disc_sco = est_cfa2_disc_sco %>% group_by(RBD) %>% mutate(mean_discusion=mean(ap_discusion, na.rm = T))
+# Etiquetado
+est_cfa2_disc_sco$ap_discusion <- set_label(x = est_cfa2_disc_sco$ap_discusion,label = "Percepción individual sobre la apertura a la discusión en el aula")
 
 # Save  factor scores
-est_cfa_disc_sco = est_cfa2_disc_sco %>% dplyr::select(mean_discusion,ap_discusion,FOLIO) %>% as.data.frame()
+est_cfa_disc_sco = est_cfa2_disc_sco %>% dplyr::select(ap_discusion,FOLIO) %>% as.data.frame()
 ```
 
 ### Proporción de niñas en el aula
 ```{r}
 est_data = est_data %>% group_by(RBD) %>% mutate(num_fem=mean(Sexo==2, na.rm = T))
+# Etiquetado
+est_data$num_fem <- set_label(x = est_data$num_fem,label = "Proporción de niñas en el aula")
 ```
 
-## Guardar base de datos procesada
+### Guardar base de datos procesada
 ```{r}
 est_cfa_sco2 <- left_join(x = est_data,y = est_cfa_sco,by ="FOLIO",suffix=c(" ",".y"))
 est_data_sco <- left_join(x = est_cfa_sco2,y = est_cfa_disc_sco,by ="FOLIO",suffix=c(" ",".y"))
-est_data_sco = est_data_sco %>% dplyr::select(-RBD.y) %>% as.data.frame()
+#est_data_sco = est_data_sco %>% dplyr::select(-RBD.y) %>% as.data.frame()
 save(est_data_sco, file = "../input/data-proc/est_data_sco.rda")
 ```
 
@@ -391,4 +617,189 @@ data <- left_join(x = est_data_sco, y = apod_cfa_sco, by=c("FOLIO"="FOLIO_EST"),
 data = data %>% dplyr::select(-FOLIO.pad) %>% as.data.frame()
 save(data, file = "../input/data-proc/data.rda")
 ```
+## Creación promedio apertura a la discusión 
+```{r}
+data = data %>% group_by(RBD) %>% mutate(mean_discusion=mean(ap_discusion, na.rm = T))
+# Centrado
+## Nivel 1: al promedio del grupo
+data$ap_discusion = center(data$ap_discusion, type = c("CWC"), group = data$RBD)
+## Nivel 2: al gran promedio
+data$mean_discusion = center(data$mean_discusion, type = c("CGM"))
+# Etiquetado
+data$mean_discusion <- set_label(x = data$mean_discusion,label = "Percepción promedio del curso sobre la apertura a la discusión en el aula")
+```
 
+## Modificación nivel educacional de los padres
+### Priorizando información reportada por apoderados
+```{r}
+# Nivel educacional reportado por apoderados
+##summary(data$Educacion)
+```
+```{r}
+# Nivel educacional más alto reportado por estudiantes
+##summary(data$Ed_padres)
+```
+```{r}
+# Guardar respuestas del nivel educacional de los padres. Si no respondió, se incluye la respuesta más alta reportada por los estudiantes.
+data$Ed_apod <- ifelse(is.na(data$Educacion), data$Ed_padres, data$Educacion)
+data$Ed_apod <- set_label(x = data$Ed_apod,label = "Nivel educacional de los apoderados")
+```
+```{r}
+##summary(data$Ed_apod)
+```
+### Diferenciando por género del apoderado
+```{r}
+## Filtrar base de datos por sexo del apoderado (padre)
+data_pad = data %>%  filter(Sexo_apod==1) %>% as.data.frame()
+## Guardar las respuestas nivel educativo de los padres que respondieron la encuesta; si no la respondió, se incluye lo reportado por alumno
+data_pad$Educ_padre <- ifelse((is.na(data_pad$Educacion)), data_pad$Ed_padre, data_pad$Educacion)
+data_pad = data_pad %>% dplyr::select(FOLIO, Educ_padre) %>% as.data.frame()
+data <- left_join(x = data, y = data_pad, by=c("FOLIO"))
+```
+```{r}
+#Padre
+data$Educ_padre <- ifelse(is.na(data$Educ_padre), data$Ed_padre, data$Educ_padre)
+data$Educ_padre <- set_label(x = data$Educ_padre,label = "Nivel educacional del padre")
+
+##summary(data$Educ_padre)
+```
+```{r}
+## Filtrar base de datos por sexo del apoderado (madre)
+data_mad = data %>%  filter(Sexo_apod==2) %>% as.data.frame()
+## Guardar las respuestas nivel educativo de las madres que respondieron la encuesta; si no la respondió, se incluye lo reportado por alumno
+data_mad$Educ_madre <- ifelse((is.na(data_mad$Educacion)), data_mad$Ed_madre, data_mad$Educacion)
+data_mad = data_mad %>% dplyr::select(FOLIO, Educ_madre) %>% as.data.frame()
+data <- left_join(x = data, y = data_mad, by=c("FOLIO"))
+```
+
+```{r}
+#Madre
+data$Educ_madre <- ifelse(is.na(data$Educ_madre), data$Ed_madre, data$Educ_madre)
+data$Educ_madre <- set_label(x = data$Educ_madre,label = "Nivel educacional de la madre")
+
+##summary(data$Educ_madre)
+```
+
+```{r}
+# Pasar variables educación a categorías
+data$Ed.madre.cat = as.factor(data$Educ_madre)
+data$Ed.padre.cat = as.factor(data$Educ_padre)
+# Ponerle nombre a las categorías
+data$Ed.madre.cat <- set_labels(data$Ed.madre.cat, labels=c("8vo básico o menos" = 1, 
+                                                            "Educación media" = 2,
+                                                            "Educación técnica superior" = 3, 
+                                                            "Educación Universitaria o más" = 4))
+
+data$Ed.padre.cat <- set_labels(data$Ed.padre.cat, labels=c("8vo básico o menos" = 1, 
+                                                            "Educación media" = 2, 
+                                                            "Educación técnica superior" = 3, 
+                                                            "Educación Universitaria o más" = 4))
+```
+
+## Modificación cantidad de libros en el hogar
+```{r}
+# Respuestas apoderados
+##summary(data$Libros_apod)
+```
+```{r}
+# Respuestas estudiantes
+##summary(data$Libros_est)
+```
+
+```{r}
+# Cantidad de libros en el hogar priorizando respuestas de apoderados, si no hay respuesta se utiliza lo reportado por estudiantes
+data$Libros <- ifelse(is.na(data$Libros_apod_rec), data$Libros_est_rec, data$Libros_apod_rec)
+data$Libros <- set_label(x = data$Libros,label = "Cantidad de libros en el hogar")
+```
+```{r}
+# Cantidad de libros en el hogar ambas respuestas
+##summary(data$Libros)
+```
+
+## Variables de control
+### Dependencia administrativa
+```{r}
+#data$dependencia <- set_labels(x = data$dependencia, 
+ #                              labels = c("Municipal" = 1, "Part. Subvencionado" = 2, "Part. Pagado" = 3))
+data$dependencia <- factor(data$dependencia, levels = c(1,2,3), labels = c("Municipal", "Part. Subvencionado", "Part. Pagado"))
+data$dependencia <- set_label(x=data$dependencia, label = "Dependencia administrativa de la escuela")
+```
+
+### Región
+```{r}
+#data$REGION <- set_labels(x = data$REGION, 
+ #                         labels = c("Región de Antofagasta" = 2, "Región del Maule" = 7, "Región Metropolitana" = 13))
+data$REGION <- factor(data$REGION, levels = c(2,7,13), labels = c("Región de Antofagasta", "Región del Maule", "Región Metropolitana"))
+data$REGION <- set_label(x=data$REGION, label = "Región")
+```
+
+### Escala de conocimiento civico
+```{r}
+data$c1 <- ifelse(data$P1==4,1,0) ## 0 = respuesta incorrecta y 1 = respuesta correcta
+data$c2 <- ifelse(data$P2==4,1,0)
+data$c3 <- ifelse(data$P3==4,1,0)
+data$c4 <- ifelse(data$P4==2,1,0)
+data$c5 <- ifelse(data$P5==3,1,0)
+data$c6 <- ifelse(data$P6==4,1,0)
+data$c7 <- ifelse(data$P7==3,1,0)
+data$c8 <- ifelse(data$P8==2,1,0)
+data$c9 <- ifelse(data$P9==1,1,0)
+data$c_civic= as.numeric(data$c1 + data$c2 + data$c3 + data$c4 + data$c5 + data$c6 + data$c7 + data$c8) 
+data$c_civic <- set_label(x=data$c_civic, label = "Conocimiento cívico conceptual")
+```
+# Etiquetado variables categóricas
+```{r}
+data$Sexo <- factor(data$Sexo , levels = c(1,2), labels = c("Niño", "Niña"))
+data$Sexo <- set_label(x = data$Sexo,label = "Sexo del estudiante")
+data$Educacion <- factor(data$Educacion, levels = c(1,2,3,4), labels = c("8vo básico o menos", "Educación Media", "Educación Téc.Superior", "Universidad o Posgrado"))
+data$Educacion <- set_label(x = data$Educacion,label = "Nivel educacional apoderado/a") # Etiquetar variable
+data$Libros_apod <- factor(data$Libros_apod, levels = c(1,2,3,4,5,6), labels = c("Entre 0 y 10 libros", "Entre 11 y 25 libros", "Entre 26 y 100 libros", "Entre 101 y 200 libros", "Entre 201 y 500 libros", "Más de 500 libros"))
+data$Libros_apod <- set_label(x = data$Libros_apod,label = "Cantidad de libros en el hogar")
+data$Libros_apod_rec <- factor(data$Libros_apod_rec, levels = c(1,2,3,4), labels = c("Entre 0 y 10 libros", "Entre 11 y 25 libros", "Entre 26 y 100 libros", "Más de 100 libros"))
+data$Libros_apod_rec <- set_label(x = data$Libros_apod_rec,label = "Cantidad de libros en el hogar")
+```
+
+# Resumen de los datos
+```{r, results='asis'}
+descr <-
+  data %>% select(
+    igualdad.est,
+    esp_publico.est,
+    esp_privado.est,
+    Sexo,
+    ap_discusion,
+    mean_discusion,
+    num_fem,
+    RBD,
+    igualdad.pad,
+    esp_publico.pad,
+    esp_privado.pad,
+    Educacion,
+    Libros_apod,
+    Libros_apod_rec,
+    quintiles_ingresos_pc_factor,
+    dependencia,
+    REGION,
+    c_civic
+  ) %>% ungroup()
+st_css()
+print(dfSummary(descr,
+               plain.ascii = FALSE,
+               style = "grid",
+               tmp.img.dir = "/tmp",
+               graph.magnif = 0.75,
+               headings = F,  # encabezado
+               varnumbers = F, # num variable
+               labels.col = T, # etiquetas
+               na.col = T,    # missing
+               graph.col = T, # plot
+               valid.col = T, # n valido
+               # col.widths = c(5,5,10,10,10,10)
+               ),
+     method = "render")
+```
+
+# Guardar base de datos
+```{r}
+save(data, file = "../input/data-proc/data.rda")
+```
